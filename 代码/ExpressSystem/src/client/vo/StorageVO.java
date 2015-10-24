@@ -2,6 +2,12 @@ package client.vo;
 
 import java.util.ArrayList;
 
+/**
+ * ²Ö¿âµÄVO¶ÔÏó
+ * @author rabook
+ *
+ */
+
 public class StorageVO {
 
 	private ArrayList<ListItem> GoodList;
@@ -18,7 +24,7 @@ public class StorageVO {
 
 class ListItem{
 	
-	public ListItem(Good good,int a,int b,int c,int d){
+	public ListItem(GoodVO good,int a,int b,int c,int d){
 		this.good=good;
 		this.location=new int[4];
 		this.location[0]=a;
@@ -27,11 +33,11 @@ class ListItem{
 		this.location[3]=d;
 		
 	}
-	private Good good;
+	private GoodVO good;
 	
 	private int[] location;
 	
-	Good getGood(){
+	GoodVO getGood(){
 		return this.good;
 	}
 	
