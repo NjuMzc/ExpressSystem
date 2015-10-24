@@ -4,6 +4,6 @@ import client.vo.*;
 
 public interface billMaker {
 
-	public Bill makeBill(Information information);
+	public Bill makeBill(Message message);
 	
 }

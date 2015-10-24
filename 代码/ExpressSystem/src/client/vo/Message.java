@@ -2,7 +2,7 @@ package client.vo;
 
 import java.util.ArrayList;
 
-public  class Information {
+public  class Message {
 	
      private ArrayList<String> informs=new ArrayList<String>();
 	

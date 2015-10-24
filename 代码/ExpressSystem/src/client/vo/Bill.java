@@ -2,13 +2,13 @@ package client.vo;
 
 public class Bill {
 	
-	private Information billInfor;
+	private Message billInfor;
 	
 	private enum State{Draft,Ready,Finish};
 	
 	private State billState;
 	
-	public Bill(Information billInfor){
+	public Bill(Message billInfor){
 		this.billInfor=billInfor;
 		this.billState=State.Draft;
 	}
@@ -21,7 +21,7 @@ public class Bill {
 		this.billState=newState;
 	}
 	
-	public Information getInformation(){
+	public Message getInformation(){
 		return this.billInfor;
 	}
 

@@ -3,9 +3,8 @@ package client.businesslogicservice.transportblservice;
 import client.vo.Bill;
 import client.vo.Message;
 
-public interface collector {
+public interface arriver {
 	
-	public Bill collect(Message message);
-	
+	public Bill arrive(Message message);
 
 }
