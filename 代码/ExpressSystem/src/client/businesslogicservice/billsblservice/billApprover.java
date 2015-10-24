@@ -1,7 +1,9 @@
 package client.businesslogicservice.billsblservice;
 
+import client.vo.Bill;
+
 public interface billApprover {
 	
-	public void approveBill(boolean judge);
+	public boolean approveBill(Bill bill,boolean judge);
 
 }

@@ -1,6 +1,6 @@
 package client.businesslogicservice.storageblservice;
 
-public interface storageIterator {
+public interface storageIterator{
 	
 
 }

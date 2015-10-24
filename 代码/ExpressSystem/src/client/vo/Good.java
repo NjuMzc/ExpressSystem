@@ -1,12 +1,14 @@
 package client.vo;
 
+import java.util.ArrayList;
+
 public class Good {
 	
 	private String id;
 	
 	private String depature;
 	
-	private String definition;
+	private String destination;
 	
 	private enum arriveState{OK,MISS,BAD};
 	
@@ -17,14 +19,24 @@ public class Good {
     
     private arriveState arriveState;
     
+    private ArrayList<String> trace;
     
     
-    public Good(String id,String depature,String definition){
+    
+    public Good(String id,String depature,String destination){
     	this.id=id;
-    	this.definition=definition;
+    	this.destination=destination;
     	this.depature=depature;
     	this.arriveState=arriveState.OK;
     	this.tranState=transState.Delivering;
+    }
+    
+    public void addTrace(String inform){
+    	trace.add(inform);
+    }
+    
+    public ArrayList getTrace(){
+    	return this.trace;
     }
     
     public void setTransState(transState tranState){
