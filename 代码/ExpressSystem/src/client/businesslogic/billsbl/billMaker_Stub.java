@@ -8,6 +8,7 @@ public class billMaker_Stub implements billMaker {
 
 	public BillVO makeBill(Message message) {
 		// TODO Auto-generated method stub
+		
 		System.out.println("Bill is made.");
 		return null;
 	}

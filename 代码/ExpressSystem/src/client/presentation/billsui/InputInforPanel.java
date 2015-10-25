@@ -9,7 +9,9 @@ import java.util.List;
 import javax.swing.*;
 
 import client.businesslogic.billsbl.billMaker_Stub;
+import client.businesslogic.transportbl.receiveBillMaker;
 import client.businesslogicservice.billsblservice.*;
+import client.businesslogicservice.transportblservice.transportBillsMaker;
 import client.vo.Message;
 
 public class InputInforPanel extends JPanel implements ActionListener,Watched {
@@ -28,7 +30,7 @@ public class InputInforPanel extends JPanel implements ActionListener,Watched {
 	String time = null;
 	private List<Watcher> list;
 	
-	billMaker billmaker;
+	transportBillsMaker billmaker;
 	Message receiveMessage;
 
 	public InputInforPanel() {
@@ -38,10 +40,10 @@ public class InputInforPanel extends JPanel implements ActionListener,Watched {
 		
 		list=new ArrayList<Watcher>();
 		
-		this.billmaker=new billMaker_Stub();
+		this.billmaker=new receiveBillMaker();
 		this.receiveMessage=new Message();
 
-		this.setBackground(Color.blue);
+		this.setBackground(new Color(131,175,155));
 		this.setLayout(null);
 		this.setBounds(frameWidth / 3, 0, frameWidth * 2 / 3, frameHeight);
 
@@ -134,6 +136,8 @@ public class InputInforPanel extends JPanel implements ActionListener,Watched {
 			receiveMessage.addInform(name);
 			receiveMessage.addInform(num);
 			receiveMessage.addInform(time);
+			
+			billmaker.makeTransBill(receiveMessage);
 		}
 
 		if (e.getSource() == cancel) {
@@ -147,7 +151,7 @@ public class InputInforPanel extends JPanel implements ActionListener,Watched {
 		}
 		
 
-		billmaker.makeBill(receiveMessage);
+		
 	}
 
 	public void addWatcher(Watcher watcher) {

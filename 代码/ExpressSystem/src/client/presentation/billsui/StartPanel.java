@@ -22,13 +22,13 @@ public class StartPanel extends JPanel {
 
 		init();
 
-		this.setBackground(Color.blue);
+		this.setBackground(new Color(254,67,101));
 		this.add(jl);
 
 	}
 
 	private void init() {
-		jl.setBounds(100, 100, 100, 100);
+		jl.setBounds(320, 320, 300, 300);
 		jl.setText("start");
 	}
 }

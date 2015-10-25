@@ -32,7 +32,7 @@ public class CourierPanel extends JPanel implements Watched, ActionListener {
 
 		init();
 
-		// this.setBackground(Color.green);
+		 this.setBackground(new Color(248,147,69));
 		for (int i = 0; i < 3; i++) {
 			this.add(jb[i]);
 		}
