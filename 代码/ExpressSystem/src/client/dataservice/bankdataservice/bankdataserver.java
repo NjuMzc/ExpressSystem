@@ -1,20 +1,18 @@
 package client.dataservice.bankdataservice;
 
+import java.rmi.RemoteException;
+
 import client.po.BankPO;
 
 public interface bankdataserver {
-      public BankPO find(String id);
-      
-      public void insert(BankPO po);
-      
-      public void delete(BankPO po);
-      
-      public void update(BankPO po);
-      
-      public void init();
-      
-      public void finish();
-      
-      
-      
+	public BankPO find(String id) throws RemoteException;
+
+	public void insert(BankPO po) throws RemoteException;
+
+	public void delete(BankPO po) throws RemoteException;
+
+	public void update(BankPO po) throws RemoteException;
+
+	
+
 }

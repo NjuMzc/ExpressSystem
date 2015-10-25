@@ -1,15 +1,14 @@
 package client.dataservice.paymentdataservice;
 
+import java.rmi.RemoteException;
+
 import client.po.PaymentPO;
 import client.vo.Message;
 
 public interface paymentdataserver {
-	public Message find(String id);
+	public Message find(String id) throws RemoteException;
 	
-	public void insert(PaymentPO po);
+	public void insert(PaymentPO po) throws RemoteException;
 	
-	public void init();
 	
-	public void finish();
-
 }
