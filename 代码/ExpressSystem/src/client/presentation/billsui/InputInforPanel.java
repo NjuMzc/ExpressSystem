@@ -3,6 +3,8 @@ package client.presentation.billsui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -10,7 +12,7 @@ import client.businesslogic.billsbl.billMaker_Stub;
 import client.businesslogicservice.billsblservice.*;
 import client.vo.Message;
 
-public class InputInforPanel extends JPanel implements ActionListener {
+public class InputInforPanel extends JPanel implements ActionListener,Watched {
 	int frameWidth;
 	int frameHeight;
 	JButton confirm;
@@ -24,6 +26,7 @@ public class InputInforPanel extends JPanel implements ActionListener {
 	String num = null;
 	String name = null;
 	String time = null;
+	private List<Watcher> list;
 	
 	billMaker billmaker;
 	Message receiveMessage;
@@ -32,6 +35,8 @@ public class InputInforPanel extends JPanel implements ActionListener {
 		Data d = new Data();
 		this.frameWidth = d.getFrameWidth();
 		this.frameHeight = d.getFrameHeight();
+		
+		list=new ArrayList<Watcher>();
 		
 		this.billmaker=new billMaker_Stub();
 		this.receiveMessage=new Message();
@@ -125,8 +130,7 @@ public class InputInforPanel extends JPanel implements ActionListener {
 			jtfName.setText("");
 			jtfNum.setText("");
 			
-			System.out.print(num);
-			System.out.println(num==null);
+			 
 			receiveMessage.addInform(name);
 			receiveMessage.addInform(num);
 			receiveMessage.addInform(time);
@@ -138,10 +142,29 @@ public class InputInforPanel extends JPanel implements ActionListener {
 			time = null;
 			jtfName.setText("");
 			jtfNum.setText("");
+			 
+			this.notifyWatchers(State.INPUTINFORTOSTART);
 		}
 		
 
 		billmaker.makeBill(receiveMessage);
+	}
+
+	public void addWatcher(Watcher watcher) {
+		// TODO Auto-generated method stub
+		list.add(watcher);
+	}
+
+	public void removeWatcehr(Watcher watcher) {
+		// TODO Auto-generated method stub
+		list.remove(watcher);
+	}
+
+	public void notifyWatchers(State state) {
+		// TODO Auto-generated method stub
+		for(Watcher watcher:list){
+			watcher.update(state);
+		}
 	}
 	
 

@@ -2,8 +2,8 @@ package client.presentation.billsui;
 
 import javax.swing.*;
 
-public class MainFrame extends JFrame {
-
+public class MainFrame extends JFrame implements Watcher {
+ 
 	int frameWidth;
 	int frameHeight;
 	StartPanel startpanel;
@@ -32,10 +32,25 @@ public class MainFrame extends JFrame {
 		this.setLayout(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// this.add(startpanel);
+		this.add(startpanel);
 		this.add(courierpanel);
-		this.add(inputinforpanel);
+		//this.add(inputinforpanel);
+
+		inputinforpanel.addWatcher(this);
+		courierpanel.addWatcher(this);
+	}
+
+	public void update(State state) {
  
+		if (state == State.INPUTINFORTOSTART) {
+			this.remove(inputinforpanel);
+			this.add(startpanel);
+		} else if (state == State.STARTTOINPUTINFOR) {
+			this.remove(startpanel);
+			this.add(inputinforpanel);
+		}
+
+		this.repaint();
 	}
 
 }

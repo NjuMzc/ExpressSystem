@@ -22,7 +22,7 @@ public class StartPanel extends JPanel {
 
 		init();
 
-		//this.setBackground(Color.blue);
+		this.setBackground(Color.blue);
 		this.add(jl);
 
 	}
