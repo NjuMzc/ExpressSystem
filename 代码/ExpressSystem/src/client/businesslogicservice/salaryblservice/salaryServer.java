@@ -10,8 +10,8 @@ import client.vo.SalaryVO;
  */
 public interface salaryServer {
 
-	public SalaryVO setSalaty(Message message);
+	public SalaryVO setSalary(Message message);
 	
-	public SalaryVO getSalaty(Message message);
+	public SalaryVO getSalary(Message message);
 	
 }

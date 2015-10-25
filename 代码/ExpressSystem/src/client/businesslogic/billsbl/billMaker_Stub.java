@@ -4,11 +4,11 @@ import client.businesslogicservice.billsblservice.billMaker;
 import client.vo.BillVO;
 import client.vo.Message;
 
-public class billsFactory implements billMaker {
+public class billMaker_Stub implements billMaker {
 
-	public BillVO makeBill(Message information) {
+	public BillVO makeBill(Message message) {
 		// TODO Auto-generated method stub
-		BillVO aBill=new BillVO(information);
+		System.out.println("Bill is made.");
 		return null;
 	}
 
