@@ -5,6 +5,6 @@ public interface billlsdataserver {
 	
 	public void add(BillPO bill);
 	
-	public BillPO get
+	 
 
 }
