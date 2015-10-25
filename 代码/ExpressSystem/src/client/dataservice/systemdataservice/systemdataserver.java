@@ -2,7 +2,7 @@ package client.dataservice.systemdataservice;
 
 import client.po.SystemPO;
 
-public interface systemdataserver {
+public interface systemDataServer {
 
 	public SystemPO find(String id);
 	

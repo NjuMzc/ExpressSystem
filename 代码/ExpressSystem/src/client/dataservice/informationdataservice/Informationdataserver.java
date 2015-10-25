@@ -9,7 +9,7 @@ import client.po.InformationPO;
  * @author nick
  *
  */
-public interface Informationdataserver {
+public interface informationDataServer {
 	
 	public void insert(InformationPO po) throws RemoteException;
 	

@@ -10,7 +10,7 @@ import client.po.*;
  * @author nick
  *
  */
-public interface billlsdataserver {
+public interface billlsDataServer {
 	
 	public BillPO find(String id) throws RemoteException;
 

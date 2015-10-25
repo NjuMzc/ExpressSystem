@@ -10,7 +10,7 @@ import client.vo.Message;
  * @author nick
  *
  */
-public interface accountSetdataserver {
+public interface accountSetDataServer {
 	public void insert(Message msg) throws RemoteException;
 	
 	public PaymentPO find(String id) throws RemoteException;

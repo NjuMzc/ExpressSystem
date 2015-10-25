@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 import client.po.BankPO;
 
-public interface bankdataserver {
+public interface bankDataServer {
 	public BankPO find(String id) throws RemoteException;
 
 	public void insert(BankPO po) throws RemoteException;

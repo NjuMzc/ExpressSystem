@@ -9,7 +9,7 @@ import client.vo.Message;
  * @author Nick
  *
  */
-public interface storageServer {
+public interface storageDataServer {
 	
 	public void insert(StoragePO po);
 	
