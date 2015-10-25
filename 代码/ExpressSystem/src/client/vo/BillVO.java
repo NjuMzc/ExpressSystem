@@ -10,7 +10,7 @@ public class BillVO {
 	
 	private Message billInfor;
 	
-	private enum State{Draft,Ready,Finish};
+	private static enum State{Draft,Ready,Finish};
 	
 	private State billState;
 	

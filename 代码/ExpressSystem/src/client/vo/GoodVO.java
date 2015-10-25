@@ -14,9 +14,9 @@ public class GoodVO {
 	
 	private String destination;
 	
-	private enum arriveState{OK,MISS,BAD};
+	private static enum  arriveState{OK,MISS,BAD};
 	
-	private enum transState{Received,ArriveSendHall,ArriveSendStorage,
+	private static enum transState{Received,ArriveSendHall,ArriveSendStorage,
 		              Delivering,ArriveReceiveHall,ArriveReceiveStorage};
 		              
     private transState tranState;
