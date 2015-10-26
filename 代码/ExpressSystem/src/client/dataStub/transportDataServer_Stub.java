@@ -20,7 +20,7 @@ public class transportDataServer_Stub implements transportDataServer{
 
 	public GoodPO find(String id) throws RemoteException {
 		// TODO Auto-generated method stub
-		System.out.println("Bill is found in data!");
+		System.out.println("GOOD is found in data!");
 		return null;
 	}
 
