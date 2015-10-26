@@ -1,10 +1,10 @@
 package client.dataStub;
 
-import client.dataservice.constantdataservice.constantdataserver;
+import client.dataservice.constantdataservice.constantDataServer;
 import client.po.ConstantPO;
 import client.vo.Message;
 
-public class constantDataServer_Stub implements constantdataserver {
+public class constantDataServer_Stub implements constantDataServer {
 
 	public ConstantPO find(Message message) {
 		// TODO Auto-generated method stub
