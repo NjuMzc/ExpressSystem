@@ -44,7 +44,7 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 		list = new ArrayList<Watcher>();
 
 		this.billmaker = new receiveBillMaker();
-		this.receiveMessage = new Message();
+		
 
 		this.setBackground(new Color(131, 175, 155));
 		this.setLayout(null);
@@ -135,6 +135,7 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 		// TODO Auto-generated method stub
 
 		if (e.getSource() == confirm) {
+			this.receiveMessage = new Message();
 			num = jtfNum.getText();
 			name = jtfName.getText();
 			time = (String) jcbYear.getSelectedItem() + (String) jcbMonth.getSelectedItem()
