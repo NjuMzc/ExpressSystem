@@ -21,4 +21,14 @@ public class systemDataServer_Stub implements systemDataServer{
 		System.out.println("A SystemPO is deleted in data!");
 	}
 
+	public void delete(SystemPO po) {
+		// TODO Auto-generated method stub
+		System.out.println("A SystemPO is updated in data!");
+	}
+
+	public void update(SystemPO po) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
