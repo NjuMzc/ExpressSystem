@@ -6,16 +6,16 @@ import client.vo.Message;
 
 public class constantDataServer_Stub implements constantDataServer {
 
-	public ConstantPO find(Message message) {
+	public ConstantPO find(String id) {
 		// TODO Auto-generated method stub
 		System.out.println("A constantPO is found in data!");
 		return null;
 	}
 
-	public ConstantPO delete(ConstantPO po) {
+	public void delete(ConstantPO po) {
 		// TODO Auto-generated method stub
 		System.out.println("A constantPO is deleted in data!");
-		return null;
+		
 	}
 
 	public void insert(ConstantPO po) {
@@ -23,4 +23,7 @@ public class constantDataServer_Stub implements constantDataServer {
 		System.out.println("A constantPO is added in data!");
 	}
 
+	public void update(ConstantPO po){
+		System.out.println("A constantPO is updated in data!");
+	}
 }
