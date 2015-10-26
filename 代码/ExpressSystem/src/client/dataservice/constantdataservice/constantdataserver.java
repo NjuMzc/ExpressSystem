@@ -4,9 +4,11 @@ import client.po.ConstantPO;
 import client.vo.Message;
 
 public interface constantDataServer {
-    public ConstantPO find(Message message);
+    public ConstantPO find(String id);
 
-    public ConstantPO delete(ConstantPO po);
+    public void delete(ConstantPO po);
     
     public void insert(ConstantPO po);
+    
+    public void update(ConstantPO po);
 }

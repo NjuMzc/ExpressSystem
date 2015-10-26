@@ -2,10 +2,10 @@ package client.dataStub;
 
 import java.rmi.RemoteException;
 
-import client.dataservice.billsdataservice.billlsDataServer;
+import client.dataservice.billsdataservice.billsDataServer;
 import client.po.BillPO;
 
-public class billsDataServer_Stub implements billlsDataServer {
+public class billsDataServer_Stub implements billsDataServer {
 
 	public BillPO find(String id) throws RemoteException {
 		// TODO Auto-generated method stub
