@@ -31,4 +31,14 @@ public class storageServer_Stub implements storageServer {
 		return null;
 	}
 
+	public BillVO makeImportBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BillVO makeExportBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
