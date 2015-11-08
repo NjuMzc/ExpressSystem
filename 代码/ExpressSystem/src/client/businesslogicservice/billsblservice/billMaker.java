@@ -3,8 +3,9 @@ package client.businesslogicservice.billsblservice;
 import client.vo.*;
 
 /**
- * ¸Ã½Ó¿ÚÌá¹©ËùÓĞµ¥¾İ´´½¨µÄ·şÎñ
- * @author Ma
+ * åˆ¶ä½œè®¢å•çš„æ¥å£
+ * è¿”å›BillVOæ˜¯ä¸€ä¸ªæ³›å‹çš„å¯¹è±¡
+ * @author rabook
  *
  */
 

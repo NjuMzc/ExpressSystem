@@ -11,8 +11,6 @@ import java.util.List;
 
 import javax.swing.*;
 
-import client.businesslogic.billsbl.billMaker_Stub;
-import client.businesslogic.transportbl.receiveBillMaker;
 import client.businesslogicservice.billsblservice.*;
 import client.businesslogicservice.transportblservice.transportBillsMaker;
 import client.vo.Message;
@@ -43,7 +41,6 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 
 		list = new ArrayList<Watcher>();
 
-		this.billmaker = new receiveBillMaker();
 		
 
 		this.setBackground(new Color(131, 175, 155));
@@ -81,28 +78,28 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 	}
 
 	private void init() {
-		// °´Å¥
+		// ï¿½ï¿½Å¥
 		confirm.setBounds(frameWidth / 4, frameHeight / 10 + frameWidth / 2, frameWidth / 12, frameWidth / 20);
-		confirm.setText("È·ÈÏ");
+		confirm.setText("È·ï¿½ï¿½");
 		confirm.addActionListener(this);
 		cancel.setBounds(frameWidth * 2 / 5, frameHeight / 10 + frameWidth / 2, frameWidth / 12, frameWidth / 20);
-		cancel.setText("È¡Ïû");
+		cancel.setText("È¡ï¿½ï¿½");
 		cancel.addActionListener(this);
 
-		// ±êÇ©
+		// ï¿½ï¿½Ç©
 		for (int i = 0; i < 3; i++) {
 			jl[i] = new JLabel();
 			jl[i].setBounds(frameWidth / 6, frameHeight / 10 + frameWidth / 5 * i, frameWidth / 9, frameWidth / 15);
 		}
-		jl[0].setText("ÊÕ¼þµ¥ºÅ");
-		jl[1].setText("ÊÕ¼þÈËÐÕÃû");
-		jl[2].setText("ÊÕ¼þÈÕÆÚ");
+		jl[0].setText("ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½");
+		jl[1].setText("ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+		jl[2].setText("ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½");
 
-		// ÊäÈëÀ¸
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		jtfNum.setBounds(frameWidth / 6 + 100, frameHeight / 8, frameWidth / 5, frameWidth / 30);
 		jtfName.setBounds(frameWidth / 6 + 100, frameHeight / 8 + frameWidth / 5, frameWidth / 5, frameWidth / 30);
 
-		// ×éºÏÀ¸
+		// ï¿½ï¿½ï¿½ï¿½ï¿½
 		jcbYear.setBounds(frameWidth / 6 + 100, frameHeight / 8 + frameWidth / 5 * 2, 60, frameWidth / 30);
 		jcbYear.addActionListener(this);
 		jcbMonth.setBounds(frameWidth / 6 + 160, frameHeight / 8 + frameWidth / 5 * 2, 60, frameWidth / 30);
@@ -127,7 +124,7 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 			writer.close();
 
 		} catch (Exception e) {
-			System.out.println("ÕÒ²»µ½");
+			System.out.println("ï¿½Ò²ï¿½ï¿½ï¿½");
 		}
 	}
 
