@@ -1,13 +1,12 @@
-package client.presentation.billsui;
+package client.presentation.billsui.right.courier;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.*;
+import java.io.*;
+import java.util.*;
+
+import client.presentation.billsui.Data;
+import client.presentation.billsui.watcher.*;
 
 import javax.swing.*;
 
@@ -34,18 +33,16 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 	transportBillsMaker billmaker;
 	Message receiveMessage;
 
-	public InputInforPanel() {
-		Data d = new Data();
-		this.frameWidth = d.getFrameWidth();
-		this.frameHeight = d.getFrameHeight();
+	public InputInforPanel(int frameWidth, int frameHeight) {
+		 
+		this.frameWidth = frameWidth;
+		this.frameHeight =frameHeight; 
 
 		list = new ArrayList<Watcher>();
 
-		
-
 		this.setBackground(new Color(131, 175, 155));
 		this.setLayout(null);
-		this.setBounds(frameWidth / 3, 0, frameWidth * 2 / 3, frameHeight);
+		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		for (int i = 0; i < 3; i++) {
 			jl = new JLabel[3];
@@ -54,12 +51,16 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 		cancel = new JButton();
 		jtfNum = new JTextField(15);
 		jtfName = new JTextField(10);
-		String[] yearList = new String[] { "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022" };
+		String[] yearList = new String[] { "2015", "2016", "2017", "2018",
+				"2019", "2020", "2021", "2022" };
 		jcbYear = new JComboBox(yearList);
-		String[] monthList = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+		String[] monthList = new String[] { "1", "2", "3", "4", "5", "6", "7",
+				"8", "9", "10", "11", "12" };
 		jcbMonth = new JComboBox(monthList);
-		String[] dayList = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
-				"15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
+		String[] dayList = new String[] { "1", "2", "3", "4", "5", "6", "7",
+				"8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18",
+				"19", "20", "21", "22", "23", "24", "25", "26", "27", "28",
+				"29", "30", "31" };
 		jcbDay = new JComboBox(dayList);
 
 		init();
@@ -78,40 +79,64 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 	}
 
 	private void init() {
-		// ��ť
-		confirm.setBounds(frameWidth / 4, frameHeight / 10 + frameWidth / 2, frameWidth / 12, frameWidth / 20);
-		confirm.setText("ȷ��");
+
+		confirm.setBounds(frameWidth / 4, frameHeight / 10 + frameWidth / 2,
+				frameWidth / 12, frameWidth / 20);
+		confirm.setText("确认");
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth * 2 / 5, frameHeight / 10 + frameWidth / 2, frameWidth / 12, frameWidth / 20);
-		cancel.setText("ȡ��");
+		cancel.setBounds(frameWidth * 2 / 5, frameHeight / 10 + frameWidth / 2,
+				frameWidth / 12, frameWidth / 20);
+		cancel.setText("取消");
+
+		confirm.setBounds(frameWidth / 4, frameHeight / 10 + frameWidth / 2,
+				frameWidth / 12, frameWidth / 20);
+		confirm.setText("确认");
+		confirm.addActionListener(this);
+		cancel.setBounds(frameWidth * 2 / 5, frameHeight / 10 + frameWidth / 2,
+				frameWidth / 12, frameWidth / 20);
+		cancel.setText("取消");
+
 		cancel.addActionListener(this);
 
-		// ��ǩ
 		for (int i = 0; i < 3; i++) {
 			jl[i] = new JLabel();
-			jl[i].setBounds(frameWidth / 6, frameHeight / 10 + frameWidth / 5 * i, frameWidth / 9, frameWidth / 15);
+			jl[i].setBounds(frameWidth / 6, frameHeight / 10 + frameWidth / 5
+					* i, frameWidth / 9, frameWidth / 15);
 		}
-		jl[0].setText("�ռ�����");
-		jl[1].setText("�ռ�������");
-		jl[2].setText("�ռ�����");
+		jl[0].setText("快递单号");
+		jl[1].setText("收件人姓名");
+		jl[2].setText("收件日期");
 
-		// ������
-		jtfNum.setBounds(frameWidth / 6 + 100, frameHeight / 8, frameWidth / 5, frameWidth / 30);
-		jtfName.setBounds(frameWidth / 6 + 100, frameHeight / 8 + frameWidth / 5, frameWidth / 5, frameWidth / 30);
+		jtfNum.setBounds(frameWidth / 6 + 100, frameHeight / 8, frameWidth / 5,
+				frameWidth / 30);
+		jtfName.setBounds(frameWidth / 6 + 100, frameHeight / 8 + frameWidth
+				/ 5, frameWidth / 5, frameWidth / 30);
+
+		jcbYear.setBounds(frameWidth / 6 + 100, frameHeight / 8 + frameWidth
+				/ 5 * 2, 60, frameWidth / 30);
+
+		jtfNum.setBounds(frameWidth / 6 + 100, frameHeight / 8, frameWidth / 5,
+				frameWidth / 30);
+		jtfName.setBounds(frameWidth / 6 + 100, frameHeight / 8 + frameWidth
+				/ 5, frameWidth / 5, frameWidth / 30);
 
 		// �����
-		jcbYear.setBounds(frameWidth / 6 + 100, frameHeight / 8 + frameWidth / 5 * 2, 60, frameWidth / 30);
+		jcbYear.setBounds(frameWidth / 6 + 100, frameHeight / 8 + frameWidth
+				/ 5 * 2, 60, frameWidth / 30);
+
 		jcbYear.addActionListener(this);
-		jcbMonth.setBounds(frameWidth / 6 + 160, frameHeight / 8 + frameWidth / 5 * 2, 60, frameWidth / 30);
+		jcbMonth.setBounds(frameWidth / 6 + 160, frameHeight / 8 + frameWidth
+				/ 5 * 2, 60, frameWidth / 30);
 		jcbMonth.addActionListener(this);
-		jcbDay.setBounds(frameWidth / 6 + 220, frameHeight / 8 + frameWidth / 5 * 2, 60, frameWidth / 30);
+		jcbDay.setBounds(frameWidth / 6 + 220, frameHeight / 8 + frameWidth / 5
+				* 2, 60, frameWidth / 30);
 		jcbDay.addActionListener(this);
 	}
 
 	public void save(Message msg) {
 		try {
 			System.out.println("xiexie");
-			File msgs= new File("messages/messages.txt");
+			File msgs = new File("messages/messages.txt");
 			FileWriter fwriter = new FileWriter(msgs);
 			BufferedWriter writer = new BufferedWriter(fwriter);
 			int n = msg.length();
@@ -135,7 +160,8 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 			this.receiveMessage = new Message();
 			num = jtfNum.getText();
 			name = jtfName.getText();
-			time = (String) jcbYear.getSelectedItem() + (String) jcbMonth.getSelectedItem()
+			time = (String) jcbYear.getSelectedItem()
+					+ (String) jcbMonth.getSelectedItem()
 					+ (String) jcbDay.getSelectedItem();
 			jtfName.setText("");
 			jtfNum.setText("");
@@ -144,7 +170,7 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 			receiveMessage.addInform(num);
 			receiveMessage.addInform(time);
 
-			billmaker.makeTransBill(receiveMessage);
+			// billmaker.makeTransBill(receiveMessage);
 			save(receiveMessage);
 		}
 
@@ -155,7 +181,7 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 			jtfName.setText("");
 			jtfNum.setText("");
 
-			this.notifyWatchers(State.INPUTINFORTOSTART);
+			this.notifyWatchers(State.COURIERSTART);
 		}
 
 	}

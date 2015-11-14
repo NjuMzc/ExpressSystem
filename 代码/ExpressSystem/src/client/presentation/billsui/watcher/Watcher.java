@@ -1,4 +1,4 @@
-package client.presentation.billsui;
+package client.presentation.billsui.watcher;
 
 public interface Watcher {
 

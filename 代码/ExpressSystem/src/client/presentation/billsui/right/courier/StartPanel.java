@@ -1,8 +1,10 @@
-package client.presentation.billsui;
+package client.presentation.billsui.right.courier;
 
 import java.awt.Color;
 
 import javax.swing.*;
+
+import client.presentation.billsui.Data;
 
 public class StartPanel extends JPanel {
 
@@ -10,13 +12,13 @@ public class StartPanel extends JPanel {
 	int frameHeight;
 	JLabel jl;
 
-	public StartPanel() {
-		Data d = new Data();
-		this.frameWidth = d.getFrameWidth();
-		this.frameHeight = d.getFrameHeight();
+	public StartPanel(int frameWidth, int frameHeight) {
+	 
+		this.frameWidth = frameWidth;
+		this.frameHeight = frameHeight;
 
 		this.setLayout(null);
-		this.setBounds(frameWidth / 3, 0, frameWidth * 2 / 3, frameHeight);
+		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		jl = new JLabel("start");
 
