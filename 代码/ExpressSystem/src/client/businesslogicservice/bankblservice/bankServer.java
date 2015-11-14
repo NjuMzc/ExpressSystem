@@ -4,9 +4,9 @@ import client.vo.BankVO;
 import client.vo.Message;
 
 /**
- * 该接口提供账户管理的相关服务
- * 包括
- * 银行账户的增删改查
+ * 锟矫接匡拷锟结供锟剿伙拷锟斤拷锟斤拷锟斤拷锟截凤拷锟斤拷
+ * 锟斤拷锟斤拷
+ * 锟斤拷锟斤拷锟剿伙拷锟斤拷锟斤拷删锟侥诧拷
  * @author rabook
  *
  */
@@ -20,5 +20,7 @@ public interface bankServer {
 	public void changeBank(String name,Message message);
 	
 	public BankVO inquireBank(String name);
+	
+	public void update(String name,double payment);
 
 }

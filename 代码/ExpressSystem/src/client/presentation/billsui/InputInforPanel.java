@@ -114,7 +114,7 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 			File msgs= new File("messages/messages.txt");
 			FileWriter fwriter = new FileWriter(msgs);
 			BufferedWriter writer = new BufferedWriter(fwriter);
-			int n = msg.getN();
+			int n = msg.length();
 			for (int i = 0; i < n; i++) {
 				writer.write(msg.getInform(i));
 				writer.write(";");

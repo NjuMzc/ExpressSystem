@@ -3,7 +3,7 @@ package client.vo;
 import java.util.ArrayList;
 
 /**
- * ÓÃÓÚÔÚ½çÃæ²ãÓëÂß¼­²ãÖ®¼ä´«µİĞÅÏ¢µÄ¶ÔÏó
+ * ç”¨äºç•Œé¢å±‚ä¼ é€’ç»™é€»è¾‘å±‚ä¿¡æ¯çš„ç±»
  * @author rabook
  *
  */
@@ -11,19 +11,17 @@ import java.util.ArrayList;
 public  class Message {
 	
      private ArrayList<String> informs=new ArrayList<String>();
-     private int n= informs.size();
      
      public void addInform(String inform){
     	 informs.add(inform);
-    	 n=informs.size();
      }
      
      public String getInform(int number){
     	 return informs.get(number);
      }
      
-     public int getN(){
-    	 return n;
+     public int length(){
+    	 return informs.size();
      }
      
 }
