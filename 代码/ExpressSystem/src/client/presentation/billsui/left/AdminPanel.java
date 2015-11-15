@@ -24,13 +24,13 @@ public class AdminPanel extends JPanel {
 		this.setLayout(null);
 		this.setBounds(0, 0, frameWidth / 4, frameHeight);
 
-		manage = new JButton("管理系统");
-		logout = new JButton("登出账号");
-		close = new JButton("关闭系统");
+		manage = new JButton("绯荤粺绠＄悊");
+		logout = new JButton("鐧诲嚭璐﹀彿");
+		close = new JButton("鍏抽棴绯荤粺");
 		picture = new JPanel();
 		picture.setLayout(null);
-		name = new JLabel("姓名");
-		num = new JLabel("员工编号");
+		name = new JLabel("濮撳悕");
+		num = new JLabel("缂栧彿");
 		photo = new JLabel("hhh");
 
 		init();

@@ -36,12 +36,12 @@ public class CourierPanel extends JPanel implements Watched, ActionListener {
 		for (int i = 0; i < 3; i++) {
 			jb[i] = new JButton();
 		}
-		logout = new JButton("登出账号");
-		close = new JButton("关闭系统");
+		logout = new JButton("鐧诲嚭璐﹀彿");
+		close = new JButton("鍏抽棴绯荤粺");
 		picture = new JPanel();
 		picture.setLayout(null);
-		name = new JLabel("姓名");
-		num = new JLabel("员工编号");
+		name = new JLabel("濮撳悕");
+		num = new JLabel("缂栧彿");
 		photo = new JLabel("hhh");
 
 		init();
@@ -66,9 +66,9 @@ public class CourierPanel extends JPanel implements Watched, ActionListener {
 					frameWidth / 4, frameHeight / 15);
 			jb[i].addActionListener(this);
 		}
-		jb[0].setText("制作订单");
-		jb[1].setText("查询订单");
-		jb[2].setText("录入收款单");
+		jb[0].setText("鍒朵綔璁㈠崟");
+		jb[1].setText("鏌ヨ璁㈠崟");
+		jb[2].setText("鏀朵欢");
 
 		logout.setMargin(new Insets(0, 0, 0, 0));
 		logout.setBounds(20, frameHeight - 100, 80, 30);

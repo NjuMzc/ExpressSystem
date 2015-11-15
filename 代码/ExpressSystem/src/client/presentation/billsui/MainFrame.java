@@ -13,11 +13,11 @@ public class MainFrame extends JFrame implements Watcher {
 	int frameWidth;
 	int frameHeight;
 
-	// µÇÂ¼½çÃæ
+	// å°é¢å£°æ˜
 	Cover cover;
 	LogMainFrame logMainFrame;
 
-	// ×ó²àpanelÉùÃ÷
+	// å·¦ä¾§panelå£°æ˜
 	CourierPanel courierPanel;
 	AccountantPanel accountantPanel;
 	ManagerPanel managerPanel;
@@ -26,7 +26,7 @@ public class MainFrame extends JFrame implements Watcher {
 	Zhong_salesmanPanel zhong_salesmanPanel;
 	AdminPanel adminPanel;
 
-	// ÓÒ²àpanelÉùÃ÷
+	// å¿«é€’å‘˜å³ä¾§panelå£°æ˜
 	StartPanel startpanel;
 	InputInforPanel inputinforpanel;
 	CourierMakebill courierMakebill;
@@ -44,11 +44,11 @@ public class MainFrame extends JFrame implements Watcher {
 		this.frameWidth = d.getFrameWidth();
 		this.frameHeight = d.getFrameHeight();
 
-		// ·âÃæÊµÀı»¯
+		// å°é¢å®ä¾‹åŒ–
 		cover = new Cover(frameWidth, frameHeight);
 		cover.addWatcher(this);
 
-		// ×ó²àpanelÊµÀı»¯
+		// å·¦ä¾§panelå®ä¾‹åŒ–
 		courierPanel = new CourierPanel(frameWidth, frameHeight);
 		adminPanel = new AdminPanel(frameWidth, frameHeight);
 		accountantPanel = new AccountantPanel(frameWidth, frameHeight);
@@ -57,14 +57,7 @@ public class MainFrame extends JFrame implements Watcher {
 		ying_salesmanPanel = new Ying_salesmanPanel(frameWidth, frameHeight);
 		zhong_salesmanPanel = new Zhong_salesmanPanel(frameWidth, frameHeight);
 
-		// ÓÒ²àpanelÊµÀı»¯
-		// startpanel = new StartPanel(frameWidth, frameHeight);
-
-		// inputinforpanel = new InputInforPanel(frameWidth, frameHeight);
-		// courierMakebill = new CourierMakebill(frameWidth, frameHeight);
-		// courierSearch = new CourierSearch(frameWidth, frameHeight);
-
-		this.setTitle("¿ìµİÎïÁ÷ÏµÍ³");
+		this.setTitle("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³");
 		this.setVisible(true);
 		this.setResizable(false);
 		this.setBounds(0, 0, frameWidth, frameHeight);
@@ -75,18 +68,14 @@ public class MainFrame extends JFrame implements Watcher {
 		// this.add(startpanel);
 		this.add(cover);
 
-		// ¶Ô×ó²àpanelÉèÖÃ¹Û²ìÕß
+		// å·¦ä¾§panelè®¾ç½®è§‚å¯Ÿè€…
 		courierPanel.addWatcher(this);
 		accountantPanel.addWatcher(this);
 		managerPanel.addWatcher(this);
 		stockmanPanel.addWatcher(this);
 		ying_salesmanPanel.addWatcher(this);
 		zhong_salesmanPanel.addWatcher(this);
-
-		// ¶ÔÓÒ²àµÄpanelÉèÖÃ¹Û²ìÕß
-		// inputinforpanel.addWatcher(this);
-		// courierMakebill.addWatcher(this);
-		// courierSearch.addWatcher(this);
+ 
 
 	}
 

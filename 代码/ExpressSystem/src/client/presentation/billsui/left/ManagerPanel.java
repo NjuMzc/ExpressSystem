@@ -35,12 +35,12 @@ public class ManagerPanel extends JPanel implements Watched, ActionListener{
 		for (int i = 0; i < 6; i++) {
 			jb[i] = new JButton();
 		}
-		logout = new JButton("登出账号");
-		close = new JButton("关闭系统");
+		logout = new JButton("鐧诲嚭绯荤粺");
+		close = new JButton("鍏抽棴绯荤粺");
 		picture = new JPanel();
 		picture.setLayout(null);
-		name = new JLabel("姓名");
-		num = new JLabel("员工编号");
+		name = new JLabel("濮撳悕");
+		num = new JLabel("缂栧彿");
 		photo = new JLabel("hhh");
 		
 		init();
@@ -65,12 +65,12 @@ public class ManagerPanel extends JPanel implements Watched, ActionListener{
 					frameWidth / 4, frameHeight / 15);
 			jb[i].addActionListener(this);
 		}
-		jb[0].setText("制定薪水");
-		jb[1].setText("制定常量");
-		jb[2].setText("查看报表");
-		jb[3].setText("审批单据");
-		jb[4].setText("查询物流信息");
-		jb[5].setText("人员机构管理");
+		jb[0].setText("鏌ヨ鐗╂祦淇℃伅");
+		jb[1].setText("浜哄憳鏈烘瀯绠＄悊");
+		jb[2].setText("鍒跺畾钖按");
+		jb[3].setText("鍒跺畾甯搁噺");
+		jb[4].setText("瀹℃壒鍗曟嵁");
+		jb[5].setText("鏌ョ湅鎶ヨ〃");
 		
 		logout.setMargin(new Insets(0, 0, 0, 0));
 		logout.setBounds(20, frameHeight - 100, 80, 30);

@@ -37,13 +37,13 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		this.setBounds(0, 0, frameWidth, frameHeight);
 		this.setBackground(new Color(248, 147, 69));
 
-		remind = new JLabel("¿ìµİÎïÁ÷ÏµÍ³");
-		system = new JButton("ÏµÍ³µÇÂ¼");
+		remind = new JLabel("å¿«é€’ç‰©æµç³»ç»Ÿ");
+		system = new JButton("ç³»ç»Ÿç™»å½•");
 
-		account = new JLabel("ÕË»§");
-		passport = new JLabel("ÃÜÂë");
-		confirm = new JButton("È·ÈÏ");
-		cancel = new JButton("È¡Ïû");
+		account = new JLabel("è´¦æˆ·");
+		passport = new JLabel("å¯†ç ");
+		confirm = new JButton("ç¡®è®¤");
+		cancel = new JButton("å–æ¶ˆ");
 
 		init();
 

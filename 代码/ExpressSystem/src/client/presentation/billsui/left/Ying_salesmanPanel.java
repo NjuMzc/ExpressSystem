@@ -35,12 +35,12 @@ public class Ying_salesmanPanel extends JPanel implements Watched, ActionListene
 		for (int i = 0; i < 5; i++) {
 			jb[i] = new JButton();
 		}
-		logout = new JButton("µÇ³öÕËºÅ");
-		close = new JButton("¹Ø±ÕÏµÍ³");
+		logout = new JButton("ç™»å‡ºè´¦å·");
+		close = new JButton("å…³é—­ç³»ç»Ÿ");
 		picture = new JPanel();
 		picture.setLayout(null);
-		name = new JLabel("ÐÕÃû");
-		num = new JLabel("Ô±¹¤±àºÅ");
+		name = new JLabel("å§“å");
+		num = new JLabel("ç¼–å·");
 		photo = new JLabel("hhh");
 		
 		init();
@@ -65,11 +65,11 @@ public class Ying_salesmanPanel extends JPanel implements Watched, ActionListene
 					frameWidth / 4, frameHeight / 15);
 			jb[i].addActionListener(this);
 		}
-		jb[0].setText("ÊÕ¼þ");
-		jb[1].setText("ÅÉ¼þ");
-		jb[2].setText("×°ÔË¹ÜÀí");
-		jb[3].setText("ÐÅÏ¢¹ÜÀí");
-		jb[4].setText("½¨Á¢ÊÕ¿îµ¥ ");
+		jb[0].setText("æ”¶ä»¶");
+		jb[1].setText("æ´¾ä»¶");
+		jb[2].setText("ä¿¡æ¯ç®¡ç†");
+		jb[3].setText("è£…è¿ç®¡ç†");
+		jb[4].setText("å»ºç«‹æ”¶æ¬¾å•");
 		
 		logout.setMargin(new Insets(0, 0, 0, 0));
 		logout.setBounds(20, frameHeight - 100, 80, 30);

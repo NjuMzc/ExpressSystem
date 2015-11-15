@@ -12,7 +12,7 @@ public class Data {
 	}
 
 	private void adaptscreen() {
-		// 自适应屏幕大小
+		// 鑾峰彇灞忓箷澶у皬
 		int screenWidth;
 		int screenHeight;
 		Toolkit kit = Toolkit.getDefaultToolkit();

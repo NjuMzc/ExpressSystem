@@ -38,9 +38,9 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 		for (int i = 0; i < 22; i++) {
 			input[i] = new JLabel();
 		}
-		confirm = new JButton("È·ÈÏ");
+		confirm = new JButton("ç¡®è®¤");
 		confirm.addActionListener(this);
-		cancel = new JButton("È¡Ïû");
+		cancel = new JButton("å–æ¶ˆ");
 		cancel.addActionListener(this);
 
 		init();
@@ -60,28 +60,28 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 
 		int x = frameWidth * 3 / 4 - 20;
 		int y = frameHeight - 200;
-		input[0].setText("¼Ä¼þÈËÐÅÏ¢");
-		input[1].setText("ÐÕÃû");
-		input[2].setText("µ¥Î»");
-		input[3].setText("ÊÕ¼þÈËÐÅÏ¢");
-		input[4].setText("ÐÕÃû");
-		input[5].setText("µ¥Î»");
-		input[6].setText("ÍÐÔË»õÎïÐÅÏ¢");
-		input[7].setText("Ô­¼þÊý");
-		input[8].setText("Ìå»ý");
-		input[9].setText("°ü×°·Ñ");
-		input[10].setText("¿ìµÝµ¥ºÅ");
-		input[11].setText("×¡Ö·");
-		input[12].setText("µç»°");
-		input[13].setText("×¡Ö·");
-		input[14].setText("µç»°");
-		input[15].setText("ÖØÁ¿");
-		input[16].setText("ÄÚ¼þÆ·Ãû");
-		input[17].setText("¿ìµÝÀàÐÍ");
-		input[18].setText("ÊÖ»ú");
-		input[19].setText("ÊÖ»ú");
-		input[20].setText("³ß´ç");
-		input[21].setText("¼Æ·Ñ·½Ê½");
+		input[0].setText("å¯„ä»¶äººä¿¡æ¯");
+		input[1].setText("å§“å");
+		input[2].setText("å•ä½");
+		input[3].setText("æ”¶ä»¶äººä¿¡æ¯");
+		input[4].setText("å§“å");
+		input[5].setText("å•ä½");
+		input[6].setText("æ‰˜è¿è´§ç‰©ä¿¡æ¯");
+		input[7].setText("åŽŸä»¶æ•°");
+		input[8].setText("ä½“ç§¯");
+		input[9].setText("åŒ…è£…è´¹");
+		input[10].setText("å¿«é€’å•å·");
+		input[11].setText("ä½å€");
+		input[12].setText("ç”µè¯");
+		input[13].setText("ä½å€");
+		input[14].setText("ç”µè¯");
+		input[15].setText("é‡é‡");
+		input[16].setText("å†…ä»¶å“å");
+		input[17].setText("å¿«é€’ç±»åž‹");
+		input[18].setText("æ‰‹æœº");
+		input[19].setText("æ‰‹æœº");
+		input[20].setText("å°ºå¯¸");
+		input[21].setText("è®¡è´¹æ–¹å¼");
 		for (int i = 0; i < 11; i++) {
 			input[i].setBounds(0, y / 11 * i, 100, y / 11);
 		}

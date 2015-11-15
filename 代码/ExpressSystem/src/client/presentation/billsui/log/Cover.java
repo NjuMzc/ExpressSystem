@@ -35,9 +35,9 @@ public class Cover extends JPanel implements Watched,ActionListener {
 		this.setBounds(0, 0, frameWidth, frameHeight);
 		this.setBackground(new Color(248, 147, 69));
 
-		remind = new JLabel("¿ìµİÎïÁ÷ÏµÍ³");
-		system = new JButton("ÏµÍ³µÇÂ¼");
-		customer = new JButton("¿Í»§µÇÂ¼");
+		remind = new JLabel("å¿«é€’ç‰©æµç³»ç»Ÿ");
+		system = new JButton("ç³»ç»Ÿç™»å½•");
+		customer = new JButton("å®¢æˆ·ç™»å½•");
 
 		init();
 

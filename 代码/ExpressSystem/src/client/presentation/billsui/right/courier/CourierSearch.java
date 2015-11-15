@@ -33,9 +33,9 @@ public class CourierSearch extends JPanel implements Watched, ActionListener {
 		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		remind = new JLabel("ÇëÊäÈë¿ìµİµ¥ºÅ");
-		confirm = new JButton("È·¶¨");
-		cancel = new JButton("È¡Ïû");
+		remind = new JLabel("å¿«é€’ç‰©æµç³»ç»Ÿ");
+		confirm = new JButton("ç¡®è®¤");
+		cancel = new JButton("å–æ¶ˆ");
 
 		init();
 

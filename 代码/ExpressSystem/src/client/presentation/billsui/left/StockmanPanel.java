@@ -35,12 +35,12 @@ public class StockmanPanel extends JPanel implements Watched, ActionListener{
 		for (int i = 0; i < 5; i++) {
 			jb[i] = new JButton();
 		}
-		logout = new JButton("µÇ³öÕËºÅ");
-		close = new JButton("¹Ø±ÕÏµÍ³");
+		logout = new JButton("ç™»å‡ºè´¦å·");
+		close = new JButton("å…³é—­ç³»ç»Ÿ");
 		picture = new JPanel();
 		picture.setLayout(null);
-		name = new JLabel("ÐÕÃû");
-		num = new JLabel("Ô±¹¤±àºÅ");
+		name = new JLabel("å§“å");
+		num = new JLabel("ç¼–å·");
 		photo = new JLabel("hhh");
 		
 		init();
@@ -65,11 +65,11 @@ public class StockmanPanel extends JPanel implements Watched, ActionListener{
 					frameWidth / 4, frameHeight / 15);
 			jb[i].addActionListener(this);
 		}
-		jb[0].setText("¿â´æ²é¿´");
-		jb[1].setText("¿â´æÅÌµã");
-		jb[2].setText("·ÖÇøµ÷Õû");
-		jb[3].setText("Èë¿âµ¥ÌîÐ´");
-		jb[4].setText("³ö¿âµ¥ÌîÐ´");
+		jb[0].setText("å…¥åº“å•å¡«å†™");
+		jb[1].setText("å‡ºåº“å•å¡«å†™");
+		jb[2].setText("åº“å­˜æŸ¥çœ‹");
+		jb[3].setText("åº“å­˜ç›˜ç‚¹");
+		jb[4].setText("åˆ†åŒºè°ƒæ•´");
 		
 		logout.setMargin(new Insets(0, 0, 0, 0));
 		logout.setBounds(20, frameHeight - 100, 80, 30);
