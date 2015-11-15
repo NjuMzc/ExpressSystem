@@ -1,5 +1,6 @@
 package client.businesslogicservice.billsblservice;
 
+import client.po.BillPO;
 import client.vo.BillVO;
 /**
  * 该接口提供利用单据编号查询单据的服务
@@ -9,6 +10,6 @@ import client.vo.BillVO;
 
 public interface billFinder {
 	
-	public BillVO findBill(String id); 
+	public BillPO findBill(String id); 
 
 }

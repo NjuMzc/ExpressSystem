@@ -2,13 +2,12 @@ package client.businesslogicservice.accountSetblservice;
 
 import client.vo.Message;
 /**
- * 该接口提供期初建账服务
- * 功能是设定很多初始信息，类似于数据的初始化
+ *鏈熷垵寤鸿处锛岃繖涓被鏀惧湪鏈�鍚庡畬鎴愶紝姝ゆ椂鐨勬帴鍙ｅ彲鑳戒笉瀹屽叏
  * @author Ma
  *
  */
 
 public interface accountSetter {
-	public void setAccount(Message message);
+	public void set(Message message);
 
 }

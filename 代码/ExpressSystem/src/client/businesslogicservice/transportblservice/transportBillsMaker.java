@@ -1,18 +1,30 @@
 package client.businesslogicservice.transportblservice;
 
+import client.po.BillPO;
 import client.vo.BillVO;
 import client.vo.Message;
 
 /**
- * 该接口用于关于运输流程中所有和新建单据有关的服务
- * 它的实现将会依赖于billbl中的工厂各种工厂
- * 接口的实现将新建单据和进行货物状态的更新
+ * 杩愯緭杩囩▼涓骇鐢熺殑鍗曟嵁鍒朵綔鐨勬帴鍙ｏ紝渚濊禆bill妯″潡
  * @author Ma
  *
  */
 
 public interface transportBillsMaker {
 	
-	public BillVO makeTransBill(Message message);
+	public BillPO makeOrderBill(Message message);
 
+	public BillPO makeDeliveryBill(Message message);
+
+	public BillPO makeHallArrivalBill(Message message);
+
+	public BillPO makeTransArrivalBill(Message message);
+
+	public BillPO makeEntruckBill(Message message);
+
+	public BillPO makeSendingBill(Message message);
+
+	public BillPO makeReceiveBill(Message message);
+
+	
 }

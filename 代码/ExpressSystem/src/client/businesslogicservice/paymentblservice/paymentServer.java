@@ -1,36 +1,38 @@
 package client.businesslogicservice.paymentblservice;
 
+import client.po.BillPO;
 import client.vo.BillVO;
 import client.vo.Message;
 
 /**
- * ¸Ã½Ó¿ÚÌá¹©¹ØÓÚ²ÆÎñ·½ÃæµÄ·þÎñ
- * °üÀ¨
- * ÐÂ½¨ÊÕ¿îµ¥
- * ÐÂ½¨¸¶¿îµ¥£¨³É±¾¹ÜÀí£©
- * ²é¿´³É±¾ÊÕÒæ±íÓë¾­ÓªÇé¿ö±í²¢¿ÉÒÔµ¼³ö
+ * ï¿½Ã½Ó¿ï¿½ï¿½á¹©ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½ï¿½
+ * ï¿½Â½ï¿½ï¿½Õ¿îµ¥
+ * ï¿½Â½ï¿½ï¿½ï¿½ï¿½îµ¥ï¿½ï¿½ï¿½É±ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½é¿´ï¿½É±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¾­Óªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½
  * @author rabook
  *
  */
 public interface paymentServer {
 	
 	/*
-	 * µ¥¾Ý½¨Á¢
+	 * ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½
 	 */
-	public BillVO paymentBillsMake(Message message);
+	public BillPO makePaymentBills(Message message);
 	
+	public BillPO makeChargeBill(Message message);
 	/*
-	 * ¾­ÓªÇé¿ö±í
+	 * ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public Message getPaymentHistory(String start,String end);
 	
 	/*
-	 * ³É±¾ÊÕÒæ±í
+	 * ï¿½É±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public Message getEarning();
 	
 	/*
-	 * µ¼³ö±í¸ñ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void export(Message message);
 
