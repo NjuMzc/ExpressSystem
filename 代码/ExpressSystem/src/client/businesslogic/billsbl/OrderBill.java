@@ -1,5 +1,6 @@
 package client.businesslogic.billsbl;
 
+import client.po.BillPO;
 import client.vo.BillVO;
 import client.vo.Message;
 
@@ -8,7 +9,7 @@ import client.vo.Message;
  * @author rabook
  *
  */
-public class OrderBill extends BillVO{
+public class OrderBill extends BillPO{
     
 	private Client sender;
 	private Client receiver;
@@ -20,8 +21,10 @@ public class OrderBill extends BillVO{
 	private double charge;
 	private String time;
 	
+	
 	public OrderBill(Message billInfor) {
 		// TODO Auto-generated constructor stub
+		super(billInfor);
 	    this.sender.name=billInfor.getInform(0);
 	    this.sender.location=billInfor.getInform(1);
 	    this.sender.unit=billInfor.getInform(2);

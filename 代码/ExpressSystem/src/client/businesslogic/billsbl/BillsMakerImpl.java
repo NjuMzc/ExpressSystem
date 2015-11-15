@@ -1,12 +1,26 @@
 package client.businesslogic.billsbl;
-
+/**
+ * 单据新建接口的实现类
+ * 持有一个BillsFactory
+ * 依赖billsDataServer接口
+ */
 import client.businesslogicservice.billsblservice.billMaker;
+import client.dataservice.billsdataservice.billsDataServer;
 import client.po.BillPO;
 import client.vo.BillVO;
 import client.vo.Message;
 
 public class BillsMakerImpl implements billMaker {
 
+	BillsFactory billsFactory;
+	
+	billsDataServer dataServer;
+	
+	public BillsMakerImpl(billsDataServer dataServer){
+		this.billsFactory=new BillsFactory();
+		this.dataServer=dataServer;
+		
+	}
 
 	public BillPO makeOrderBill(Message message) {
 		// TODO Auto-generated method stub

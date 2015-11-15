@@ -1,9 +1,66 @@
 package client.businesslogic.billsbl;
+
+import client.po.BillPO;
+import client.vo.Message;
+
 /**
- * 单据的制作工厂，BillsMakerImpl的辅助类
+ * 鍗曟嵁宸ュ巶锛岃礋璐ｅ疄鐜版墍鏈夊崟鎹殑new宸ヤ綔
  * @author rabook
  *
  */
 public class BillsFactory {
+	public BillPO makeOrderBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	public BillPO makeDeliveryBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BillPO makeImportBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BillPO makeExportBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BillPO makeHallArrivalBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BillPO makeTransArrivalBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BillPO makePaymentBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BillPO makeChargeBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BillPO makeEntruckBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BillPO makeSendingBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BillPO makeReceiveBill(Message message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

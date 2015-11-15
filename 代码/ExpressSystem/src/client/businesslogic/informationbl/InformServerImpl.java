@@ -10,7 +10,6 @@ public class InformServerImpl implements informationServer {
 
 	public void addWorker(Message message) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void addInstitution(Message message) {

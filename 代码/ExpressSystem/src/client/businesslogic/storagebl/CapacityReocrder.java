@@ -5,5 +5,6 @@ package client.businesslogic.storagebl;
  *
  */
 public class CapacityReocrder {
+	
 
 }
