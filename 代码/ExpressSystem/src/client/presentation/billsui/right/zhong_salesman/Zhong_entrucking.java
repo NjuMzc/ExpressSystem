@@ -12,7 +12,7 @@ import client.presentation.billsui.watcher.State;
 import client.presentation.billsui.watcher.Watched;
 import client.presentation.billsui.watcher.Watcher;
 
-public class Zhong_arrival extends JPanel implements Watched,ActionListener{
+public class Zhong_entrucking extends JPanel implements Watched, ActionListener {
 
 	int frameWidth;
 	int frameHeight;
@@ -21,41 +21,41 @@ public class Zhong_arrival extends JPanel implements Watched,ActionListener{
 	JButton cancel;
 	private List<Watcher> list;
 
-	public Zhong_arrival(int frameWidth, int frameHeight) {
-		this.frameHeight = frameHeight;
+	public Zhong_entrucking(int frameWidth, int frameHeight) {
 		this.frameWidth = frameWidth;
+		this.frameHeight = frameHeight;
 
-		list=new ArrayList<Watcher>();
-		
+		list = new ArrayList<Watcher>();
+
 		this.setLayout(null);
 		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		jl = new JLabel[6];
-		for (int i = 0; i < 5; i++) {
+		jl = new JLabel[7];
+		for (int i = 0; i < 7; i++) {
 			jl[i] = new JLabel();
 		}
-
 		confirm = new JButton("确认");
 		cancel = new JButton("取消");
 
 		init();
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 7; i++) {
 			this.add(jl[i]);
 		}
-		this.add(cancel);
 		this.add(confirm);
+		this.add(cancel);
 	}
 
 	private void init() {
-
-		jl[0].setText("中转中心编号");
-		jl[1].setText("到达日期");
-		jl[2].setText("中转单编号");
-		jl[3].setText("出发地");
-		jl[4].setText("货物到达状态");
-		for (int i = 0; i < 5; i++) {
+		jl[0].setText("汽运编号");
+		jl[1].setText("装车日期");
+		jl[2].setText("到达地");
+		jl[3].setText("车辆代号");
+		jl[4].setText("监运员");
+		jl[5].setText("押运员");
+		jl[6].setText("装车订单号");
+		for (int i = 0; i < 7; i++) {
 			jl[i].setBounds(frameWidth / 9, frameHeight / 15 + frameHeight / 8
 					* i, 100, 65);
 		}
@@ -69,20 +69,18 @@ public class Zhong_arrival extends JPanel implements Watched,ActionListener{
 	}
 
 	public void removeWatcehr(Watcher watcher) {
-		 list.remove(watcher);
+		list.remove(watcher);
 	}
 
 	public void notifyWatchers(State state) {
 		for (Watcher watcher : list) {
 			watcher.update(state);
 		}
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		 if(e.getSource()==cancel){
-			 this.notifyWatchers(State.ZHONG_START);
-		 }
-		
+		if (e.getSource() == cancel) {
+			this.notifyWatchers(State.ZHONG_START);
+		}
 	}
 }

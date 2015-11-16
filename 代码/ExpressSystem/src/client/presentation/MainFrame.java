@@ -4,7 +4,9 @@ import javax.swing.*;
 
 import client.presentation.billsui.right.courier.*;
 import client.presentation.billsui.right.zhong_salesman.Zhong_arrival;
+import client.presentation.billsui.right.zhong_salesman.Zhong_entrucking;
 import client.presentation.billsui.right.zhong_salesman.Zhong_start;
+import client.presentation.billsui.right.zhong_salesman.Zhong_transfer;
 import client.presentation.billsui.watcher.*;
 import client.presentation.billsui.left.*;
 import client.presentation.billsui.log.Cover;
@@ -37,9 +39,11 @@ public class MainFrame extends JFrame implements Watcher {
 	// 中转中心业务员右侧panel声明
 	Zhong_arrival zhong_arrival;
 	Zhong_start zhong_start;
+	Zhong_transfer zhong_transfer;
+	Zhong_entrucking zhong_entrucking;
 
 	// 界面状态
-	State state = State.ZHONG_ARRIVAL;
+	State state = State.ZHONG_START;
 
 	public static void main(String[] args) {
 
@@ -52,8 +56,8 @@ public class MainFrame extends JFrame implements Watcher {
 		this.frameHeight = d.getFrameHeight();
 
 		// 封面实例化
-		cover = new Cover(frameWidth, frameHeight);
-		cover.addWatcher(this);
+		// cover = new Cover(frameWidth, frameHeight);
+		// cover.addWatcher(this);
 
 		// 左侧panel实例化
 		courierPanel = new CourierPanel(frameWidth, frameHeight);
@@ -72,12 +76,12 @@ public class MainFrame extends JFrame implements Watcher {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// 中转中心业务员右侧panel
-		 zhong_arrival = new Zhong_arrival(frameWidth, frameHeight);
-		 zhong_arrival.addWatcher(this);
-		 this.add(zhong_salesmanPanel);
-		 this.add(zhong_arrival);
+		zhong_start = new Zhong_start(frameWidth, frameHeight);
+		// zhong_arrival.addWatcher(this);
+		this.add(zhong_start);
+		this.add(zhong_salesmanPanel);
 
-		//this.add(cover);
+		// this.add(cover);
 
 		// 左侧panel设置观察者
 		courierPanel.addWatcher(this);
@@ -90,15 +94,12 @@ public class MainFrame extends JFrame implements Watcher {
 	}
 
 	public void update(State state) {
-
+ 
 		if (choose() != null) {
-			System.out.println(choose());
 			this.remove(choose());
 		}
 		this.state = state;
-		
-		System.out.println(state.getClass());
-		
+
 		if (state == State.COURIERSTART) {
 			if (startpanel == null) {
 				startpanel = new StartPanel(frameWidth, frameHeight);
@@ -139,11 +140,29 @@ public class MainFrame extends JFrame implements Watcher {
 				cover.addWatcher(this);
 			}
 			this.add(cover);
-		}else if(state==State.ZHONG_START){	 
-			if(zhong_start==null){
-				zhong_start=new Zhong_start(frameWidth, frameHeight);
+		} else if (state == State.ZHONG_START) {
+			if (zhong_start == null) {
+				zhong_start = new Zhong_start(frameWidth, frameHeight);
 			}
 			this.add(zhong_start);
+		} else if (state == State.ZHONG_TRANSFER) {
+			if (zhong_transfer == null) {
+				zhong_transfer = new Zhong_transfer(frameWidth, frameHeight);
+				zhong_transfer.addWatcher(this);
+			}
+			this.add(zhong_transfer);
+		} else if (state == State.ZHONG_ARRIVAL) {
+			if (zhong_arrival == null) {
+				zhong_arrival = new Zhong_arrival(frameWidth, frameHeight);
+				zhong_arrival.addWatcher(this);
+			}
+			this.add(zhong_arrival);
+		}else if(state==State.ZHONG_ENTRUCKING){
+			if(zhong_entrucking==null){
+				zhong_entrucking=new Zhong_entrucking(frameWidth, frameHeight);
+				zhong_entrucking.addWatcher(this);
+			}
+			this.add(zhong_entrucking);
 		}
 
 		this.repaint();
@@ -171,7 +190,16 @@ public class MainFrame extends JFrame implements Watcher {
 			res = this.logMainFrame;
 			break;
 		case ZHONG_ARRIVAL:
-			res=this.zhong_arrival;
+			res = this.zhong_arrival;
+			break;
+		case ZHONG_TRANSFER:
+			res = zhong_transfer;
+			break;
+		case ZHONG_START:
+			res=zhong_start;
+			break;
+		case ZHONG_ENTRUCKING:
+			res=zhong_entrucking;
 			break;
 		}
 		return res;

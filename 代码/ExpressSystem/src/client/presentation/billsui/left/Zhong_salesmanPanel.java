@@ -84,11 +84,11 @@ public class Zhong_salesmanPanel extends JPanel implements Watched,
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == jb[0]) {
-
+			this.notifyWatchers(State.ZHONG_ARRIVAL);
 		} else if (e.getSource() == jb[1]) {
-
+			this.notifyWatchers(State.ZHONG_TRANSFER);
 		} else if (e.getSource() == jb[2]) {
-
+            this.notifyWatchers(State.ZHONG_ENTRUCKING);
 		}
 
 	}
