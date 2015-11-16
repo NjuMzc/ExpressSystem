@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.*;
 
-import client.presentation.billsui.Data;
+import client.presentation.Data;
 import client.presentation.billsui.watcher.*;
 
 public class CourierPanel extends JPanel implements Watched, ActionListener {

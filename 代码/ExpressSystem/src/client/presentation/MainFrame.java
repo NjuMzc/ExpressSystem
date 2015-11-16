@@ -1,8 +1,10 @@
-package client.presentation.billsui;
+package client.presentation;
 
 import javax.swing.*;
 
 import client.presentation.billsui.right.courier.*;
+import client.presentation.billsui.right.zhong_salesman.Zhong_arrival;
+import client.presentation.billsui.right.zhong_salesman.Zhong_start;
 import client.presentation.billsui.watcher.*;
 import client.presentation.billsui.left.*;
 import client.presentation.billsui.log.Cover;
@@ -32,7 +34,12 @@ public class MainFrame extends JFrame implements Watcher {
 	CourierMakebill courierMakebill;
 	CourierSearch courierSearch;
 
-	State state = State.COVER;
+	// 中转中心业务员右侧panel声明
+	Zhong_arrival zhong_arrival;
+	Zhong_start zhong_start;
+
+	// 界面状态
+	State state = State.ZHONG_ARRIVAL;
 
 	public static void main(String[] args) {
 
@@ -57,16 +64,20 @@ public class MainFrame extends JFrame implements Watcher {
 		ying_salesmanPanel = new Ying_salesmanPanel(frameWidth, frameHeight);
 		zhong_salesmanPanel = new Zhong_salesmanPanel(frameWidth, frameHeight);
 
-		this.setTitle("�������ϵͳ");
+		this.setTitle("快递物流系统");
 		this.setVisible(true);
 		this.setResizable(false);
 		this.setBounds(0, 0, frameWidth, frameHeight);
 		this.setLayout(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// this.add(adminPanel);
-		// this.add(startpanel);
-		this.add(cover);
+		// 中转中心业务员右侧panel
+		 zhong_arrival = new Zhong_arrival(frameWidth, frameHeight);
+		 zhong_arrival.addWatcher(this);
+		 this.add(zhong_salesmanPanel);
+		 this.add(zhong_arrival);
+
+		//this.add(cover);
 
 		// 左侧panel设置观察者
 		courierPanel.addWatcher(this);
@@ -75,16 +86,19 @@ public class MainFrame extends JFrame implements Watcher {
 		stockmanPanel.addWatcher(this);
 		ying_salesmanPanel.addWatcher(this);
 		zhong_salesmanPanel.addWatcher(this);
- 
 
 	}
 
 	public void update(State state) {
 
 		if (choose() != null) {
+			System.out.println(choose());
 			this.remove(choose());
 		}
 		this.state = state;
+		
+		System.out.println(state.getClass());
+		
 		if (state == State.COURIERSTART) {
 			if (startpanel == null) {
 				startpanel = new StartPanel(frameWidth, frameHeight);
@@ -125,6 +139,11 @@ public class MainFrame extends JFrame implements Watcher {
 				cover.addWatcher(this);
 			}
 			this.add(cover);
+		}else if(state==State.ZHONG_START){	 
+			if(zhong_start==null){
+				zhong_start=new Zhong_start(frameWidth, frameHeight);
+			}
+			this.add(zhong_start);
 		}
 
 		this.repaint();
@@ -150,6 +169,9 @@ public class MainFrame extends JFrame implements Watcher {
 			break;
 		case LOGMAINFRAME:
 			res = this.logMainFrame;
+			break;
+		case ZHONG_ARRIVAL:
+			res=this.zhong_arrival;
 			break;
 		}
 		return res;

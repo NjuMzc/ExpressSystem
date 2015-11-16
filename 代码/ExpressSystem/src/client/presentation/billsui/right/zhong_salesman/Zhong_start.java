@@ -1,18 +1,17 @@
-package client.presentation.billsui.right.courier;
+package client.presentation.billsui.right.zhong_salesman;
 
 import java.awt.Color;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-import client.presentation.Data;
-
-public class StartPanel extends JPanel {
+public class Zhong_start extends JPanel {
 
 	int frameWidth;
 	int frameHeight;
 	JLabel jl;
 
-	public StartPanel(int frameWidth, int frameHeight) {
+	public Zhong_start(int frameWidth, int frameHeight) {
 	 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;

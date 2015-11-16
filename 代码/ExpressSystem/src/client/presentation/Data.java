@@ -1,4 +1,4 @@
-package client.presentation.billsui;
+package client.presentation;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;

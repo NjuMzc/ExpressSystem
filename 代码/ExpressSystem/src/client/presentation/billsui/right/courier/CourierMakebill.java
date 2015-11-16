@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import client.presentation.billsui.Data;
+import client.presentation.Data;
 import client.presentation.billsui.watcher.*;
 
 public class CourierMakebill extends JPanel implements Watched, ActionListener {

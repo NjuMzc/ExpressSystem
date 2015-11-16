@@ -4,8 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.*;
-import client.presentation.billsui.Data;
+
+import client.presentation.Data;
 import client.presentation.billsui.watcher.*;
 
 public class Zhong_salesmanPanel extends JPanel implements Watched,

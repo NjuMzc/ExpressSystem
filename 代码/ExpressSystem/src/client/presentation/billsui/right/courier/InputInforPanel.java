@@ -5,7 +5,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
-import client.presentation.billsui.Data;
+import client.presentation.Data;
 import client.presentation.billsui.watcher.*;
 
 import javax.swing.*;
