@@ -2,15 +2,19 @@ package client.presentation;
 
 import javax.swing.*;
 
-import client.presentation.billsui.right.courier.*;
-import client.presentation.billsui.right.zhong_salesman.Zhong_arrival;
-import client.presentation.billsui.right.zhong_salesman.Zhong_entrucking;
-import client.presentation.billsui.right.zhong_salesman.Zhong_start;
-import client.presentation.billsui.right.zhong_salesman.Zhong_transfer;
-import client.presentation.billsui.watcher.*;
-import client.presentation.billsui.left.*;
-import client.presentation.billsui.log.Cover;
-import client.presentation.billsui.log.LogMainFrame;
+import client.presentation.left.*;
+import client.presentation.log.Cover;
+import client.presentation.log.LogMainFrame;
+import client.presentation.right.courier.*;
+import client.presentation.right.ying_salesman.Ying_arrive;
+import client.presentation.right.ying_salesman.Ying_collect;
+import client.presentation.right.ying_salesman.Ying_receive;
+import client.presentation.right.ying_salesman.Ying_start;
+import client.presentation.right.zhong_salesman.Zhong_arrival;
+import client.presentation.right.zhong_salesman.Zhong_entrucking;
+import client.presentation.right.zhong_salesman.Zhong_start;
+import client.presentation.right.zhong_salesman.Zhong_transfer;
+import client.presentation.watcher.*;
 
 public class MainFrame extends JFrame implements Watcher {
 
@@ -41,9 +45,15 @@ public class MainFrame extends JFrame implements Watcher {
 	Zhong_start zhong_start;
 	Zhong_transfer zhong_transfer;
 	Zhong_entrucking zhong_entrucking;
+	
+	//营业厅业务员右侧panel声明
+	Ying_start ying_start;
+	Ying_collect ying_collect;
+	Ying_arrive ying_arrive;
+	Ying_receive ying_receive;
 
 	// 界面状态
-	State state = State.ZHONG_START;
+	State state = State.YING_START;
 
 	public static void main(String[] args) {
 
@@ -76,10 +86,10 @@ public class MainFrame extends JFrame implements Watcher {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// 中转中心业务员右侧panel
-		zhong_start = new Zhong_start(frameWidth, frameHeight);
+		ying_start = new Ying_start(frameWidth, frameHeight);
 		// zhong_arrival.addWatcher(this);
-		this.add(zhong_start);
-		this.add(zhong_salesmanPanel);
+		this.add(ying_start);
+		this.add(ying_salesmanPanel);
 
 		// this.add(cover);
 
@@ -163,6 +173,29 @@ public class MainFrame extends JFrame implements Watcher {
 				zhong_entrucking.addWatcher(this);
 			}
 			this.add(zhong_entrucking);
+		}else if(state==State.YING_START){
+			if(ying_start==null){
+				ying_start=new Ying_start(frameWidth, frameHeight);
+			}
+			this.add(ying_start);
+		}else if(state==State.YING_COLLECT){
+			if(ying_collect==null){
+				ying_collect=new Ying_collect(frameWidth, frameHeight);
+				ying_collect.addWatcher(this);
+			}
+			this.add(ying_collect);
+		}else if(state==State.YING_ARRIVE){
+			if(ying_arrive==null){
+				ying_arrive=new Ying_arrive(frameWidth, frameHeight);
+				ying_arrive.addWatcher(this);
+			}
+			this.add(ying_arrive);
+		}else if(state==State.YING_RECEIVE){
+			if(ying_receive==null){
+				ying_receive=new Ying_receive(frameWidth, frameHeight);
+				ying_receive.addWatcher(this);
+			}
+			this.add(ying_receive);
 		}
 
 		this.repaint();
@@ -200,6 +233,18 @@ public class MainFrame extends JFrame implements Watcher {
 			break;
 		case ZHONG_ENTRUCKING:
 			res=zhong_entrucking;
+			break;
+		case YING_START:
+			res=ying_start;
+			break;
+		case YING_COLLECT:
+			res=ying_collect;
+			break;
+		case YING_ARRIVE:
+			res=ying_arrive;
+			break;
+		case YING_RECEIVE:
+			res=ying_receive;
 			break;
 		}
 		return res;
