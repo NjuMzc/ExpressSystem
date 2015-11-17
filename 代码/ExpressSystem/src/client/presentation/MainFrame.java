@@ -3,17 +3,10 @@ package client.presentation;
 import javax.swing.*;
 
 import client.presentation.left.*;
-import client.presentation.log.Cover;
-import client.presentation.log.LogMainFrame;
+import client.presentation.log.*;
 import client.presentation.right.courier.*;
-import client.presentation.right.ying_salesman.Ying_arrive;
-import client.presentation.right.ying_salesman.Ying_collect;
-import client.presentation.right.ying_salesman.Ying_receive;
-import client.presentation.right.ying_salesman.Ying_start;
-import client.presentation.right.zhong_salesman.Zhong_arrival;
-import client.presentation.right.zhong_salesman.Zhong_entrucking;
-import client.presentation.right.zhong_salesman.Zhong_start;
-import client.presentation.right.zhong_salesman.Zhong_transfer;
+import client.presentation.right.ying_salesman.*;
+import client.presentation.right.zhong_salesman.*;
 import client.presentation.watcher.*;
 
 public class MainFrame extends JFrame implements Watcher {
@@ -45,12 +38,15 @@ public class MainFrame extends JFrame implements Watcher {
 	Zhong_start zhong_start;
 	Zhong_transfer zhong_transfer;
 	Zhong_entrucking zhong_entrucking;
-	
-	//营业厅业务员右侧panel声明
+
+	// 营业厅业务员右侧panel声明
 	Ying_start ying_start;
 	Ying_collect ying_collect;
 	Ying_arrive ying_arrive;
 	Ying_receive ying_receive;
+	Ying_payment ying_payment;
+	Ying_loading ying_loading;
+	Ying_manageInfor ying_manageInfor;
 
 	// 界面状态
 	State state = State.YING_START;
@@ -91,8 +87,6 @@ public class MainFrame extends JFrame implements Watcher {
 		this.add(ying_start);
 		this.add(ying_salesmanPanel);
 
-		// this.add(cover);
-
 		// 左侧panel设置观察者
 		courierPanel.addWatcher(this);
 		accountantPanel.addWatcher(this);
@@ -104,7 +98,7 @@ public class MainFrame extends JFrame implements Watcher {
 	}
 
 	public void update(State state) {
- 
+
 		if (choose() != null) {
 			this.remove(choose());
 		}
@@ -167,35 +161,53 @@ public class MainFrame extends JFrame implements Watcher {
 				zhong_arrival.addWatcher(this);
 			}
 			this.add(zhong_arrival);
-		}else if(state==State.ZHONG_ENTRUCKING){
-			if(zhong_entrucking==null){
-				zhong_entrucking=new Zhong_entrucking(frameWidth, frameHeight);
+		} else if (state == State.ZHONG_ENTRUCKING) {
+			if (zhong_entrucking == null) {
+				zhong_entrucking = new Zhong_entrucking(frameWidth, frameHeight);
 				zhong_entrucking.addWatcher(this);
 			}
 			this.add(zhong_entrucking);
-		}else if(state==State.YING_START){
-			if(ying_start==null){
-				ying_start=new Ying_start(frameWidth, frameHeight);
+		} else if (state == State.YING_START) {
+			if (ying_start == null) {
+				ying_start = new Ying_start(frameWidth, frameHeight);
 			}
 			this.add(ying_start);
-		}else if(state==State.YING_COLLECT){
-			if(ying_collect==null){
-				ying_collect=new Ying_collect(frameWidth, frameHeight);
+		} else if (state == State.YING_COLLECT) {
+			if (ying_collect == null) {
+				ying_collect = new Ying_collect(frameWidth, frameHeight);
 				ying_collect.addWatcher(this);
 			}
 			this.add(ying_collect);
-		}else if(state==State.YING_ARRIVE){
-			if(ying_arrive==null){
-				ying_arrive=new Ying_arrive(frameWidth, frameHeight);
+		} else if (state == State.YING_ARRIVE) {
+			if (ying_arrive == null) {
+				ying_arrive = new Ying_arrive(frameWidth, frameHeight);
 				ying_arrive.addWatcher(this);
 			}
 			this.add(ying_arrive);
-		}else if(state==State.YING_RECEIVE){
-			if(ying_receive==null){
-				ying_receive=new Ying_receive(frameWidth, frameHeight);
+		} else if (state == State.YING_RECEIVE) {
+			if (ying_receive == null) {
+				ying_receive = new Ying_receive(frameWidth, frameHeight);
 				ying_receive.addWatcher(this);
 			}
 			this.add(ying_receive);
+		} else if (state == State.YING_PAYMENT) {
+			if (ying_payment == null) {
+				ying_payment = new Ying_payment(frameWidth, frameHeight);
+				ying_payment.addWatcher(this);
+			}
+			this.add(ying_payment);
+		} else if (state == State.YING_LOADING) {
+			if (ying_loading == null) {
+				ying_loading = new Ying_loading(frameWidth, frameHeight);
+				ying_loading.addWatcher(this);
+			}
+			this.add(ying_loading);
+		} else if (state == State.YING_MANAGEINFOR) {
+			if (ying_manageInfor == null) {
+				ying_manageInfor = new Ying_manageInfor(frameWidth, frameHeight);
+				ying_manageInfor.addWatcher(this);
+			}
+			this.add(ying_manageInfor);
 		}
 
 		this.repaint();
@@ -229,22 +241,31 @@ public class MainFrame extends JFrame implements Watcher {
 			res = zhong_transfer;
 			break;
 		case ZHONG_START:
-			res=zhong_start;
+			res = zhong_start;
 			break;
 		case ZHONG_ENTRUCKING:
-			res=zhong_entrucking;
+			res = zhong_entrucking;
 			break;
 		case YING_START:
-			res=ying_start;
+			res = ying_start;
 			break;
 		case YING_COLLECT:
-			res=ying_collect;
+			res = ying_collect;
 			break;
 		case YING_ARRIVE:
-			res=ying_arrive;
+			res = ying_arrive;
 			break;
 		case YING_RECEIVE:
-			res=ying_receive;
+			res = ying_receive;
+			break;
+		case YING_PAYMENT:
+			res = ying_payment;
+			break;
+		case YING_LOADING:
+			res = ying_loading;
+			break;
+		case YING_MANAGEINFOR:
+			res = ying_manageInfor;
 			break;
 		}
 		return res;

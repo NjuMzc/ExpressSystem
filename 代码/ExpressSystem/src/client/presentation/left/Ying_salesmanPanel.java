@@ -120,11 +120,11 @@ public class Ying_salesmanPanel extends JPanel implements Watched,
 				this.isSamll = true;
 			}
 		} else if (e.getSource() == jb[2]) {
-
+			this.notifyWatchers(State.YING_MANAGEINFOR);
 		} else if (e.getSource() == jb[3]) {
-
+			this.notifyWatchers(State.YING_PAYMENT);
 		} else if (e.getSource() == jb[4]) {
-
+			this.notifyWatchers(State.YING_LOADING);
 		}
 
 		if (e.getSource() == arrival) {
