@@ -1,15 +1,17 @@
 package Mock_and_Driver.systembl;
 
-import client.businesslogic.systembl.SystemUser;
+import client.po.SystemUserPO;
 
-public class MockSystemUser extends SystemUser{
+public class MockSystemUser extends SystemUserPO{
+	public MockSystemUser(String id, String key, String identity) {
+		super(id, key, identity);
+		// TODO Auto-generated constructor stub
+	}
+
 	String name;
 	String password;
 	
 	String identity;
 	
-	public MockSystemUser(){
-		System.out.println("An user is created!");
-	}
 
 }

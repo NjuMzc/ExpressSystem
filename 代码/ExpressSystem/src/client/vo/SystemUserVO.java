@@ -1,10 +1,18 @@
 package client.vo;
 
+import client.po.SystemUserPO;
+
 /**
- * 系统用户账户的VO对象
+ * 绯荤粺鐢ㄦ埛鐨刅O瀵硅薄
  * @author rabook
  *
  */
-public class SystemUserVO {
+public class SystemUserVO extends SystemUserPO{
+
+	public SystemUserVO(String id, String key, String identity) {
+		super(id, key, identity);
+		// TODO Auto-generated constructor stub
+	}
+	
 
 }

@@ -1,22 +1,18 @@
 package Mock_and_Driver.systembl;
 
 import client.businesslogic.systembl.SystemBlServerImpl;
-import client.businesslogic.systembl.SystemUser;
 import client.businesslogicservice.systemblservice.systemServer;
+import client.po.SystemUserPO;
 import client.vo.Message;
 import client.vo.SystemUserVO;
 
 public class MockSystemBlServerImpl extends SystemBlServerImpl{
 
-	public boolean login(String id, String key) {
-		// TODO Auto-generated method stub
-		System.out.println("login!");
-		return false;
-	}
+
 
 	public SystemUserVO addUser(Message message) {
 		// TODO Auto-generated method stub
-		SystemUser user=new MockSystemUser();
+		SystemUserPO user=new MockSystemUser(null, null, null);
 		System.out.println("User is added!");
 		return null;
 	}

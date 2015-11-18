@@ -1,19 +1,19 @@
 package client.businesslogicservice.systemblservice;
 
+import client.po.SystemUserPO;
 import client.vo.Message;
 import client.vo.SystemUserVO;
 
 /**
- * 该接口提供关于系统相关的服务
- * 包括
- * 系统登录与系统账号管理
- * 方法为登录、增删改查
+ * 绯荤粺绠＄悊鍛樼浉鍏冲姛鑳界殑鎺ュ彛
+ * 鐧诲綍绠＄悊
+ * 绯荤粺鐢ㄦ埛澧炲垹鏀规煡
  * @author rabook
  *
  */
 public interface systemServer {
 	
-	public boolean login(String id,String key);
+	public SystemUserVO login(String id,String key);
 	
 	public SystemUserVO addUser(Message message);
 	
