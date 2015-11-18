@@ -11,7 +11,8 @@ import client.vo.Message;
 public class BillsFactory {
 	public BillPO makeOrderBill(Message message) {
 		// TODO Auto-generated method stub
-		return null;
+		OrderBill bill=new OrderBill(message);
+		return bill;
 	}
 
 	public BillPO makeDeliveryBill(Message message) {

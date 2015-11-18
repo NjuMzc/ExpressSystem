@@ -1,27 +1,26 @@
 package client.businesslogic.billsbl;
 
 import client.po.BillPO;
-import client.vo.BillVO;
 import client.vo.Message;
 
 /**
- * 订单的类，继承了BillVO类
+ * 订单的类，继承了BillPO类
  * @author rabook
- *
  */
 public class OrderBill extends BillPO{
     
-	private Client sender;
-	private Client receiver;
-	private GoodInfo goodInfor;
-	private Kind kind;
-	private Bagging bagging;
-	private double bagFee;
-	private String id;
-	private double charge;
-	private String time;
+	private Client sender;//寄件人信息
+	private Client receiver;//收件人信息
+	private GoodInfo goodInfor;//货物信息
+	private Kind kind;//货物种类
+	private Bagging bagging;//包装种类
+	private double bagFee;//包装费
+	private double charge;//运费
+	private String time;//预计时间
 	
-	
+	/*
+	 * 构造器
+	 */
 	public OrderBill(Message billInfor) {
 		// TODO Auto-generated constructor stub
 		super(billInfor);
@@ -44,11 +43,11 @@ public class OrderBill extends BillPO{
 	    
 	    //如果输入有错误，这里默认设置为标准快递
 	    String temp=billInfor.getInform(14);
-	    if(temp.equals("经济快递")){
+	    if(temp.equals("ecnomic")){
 	    	this.kind=Kind.ecnomic;
-	    }else if(temp.equals("标准快递")){
+	    }else if(temp.equals("standard")){
 	    	this.kind=Kind.standard;
-	    }else if(temp.equals("特快专递")){
+	    }else if(temp.equals("express")){
 	    	this.kind=Kind.express;
 	    }else{
 	    	System.out.println(temp+" 生成快递类型出错，置为默认标准快递");
@@ -57,13 +56,13 @@ public class OrderBill extends BillPO{
 	    
 	    //同上
 	    temp=billInfor.getInform(15);
-	    if(temp.equals("纸箱")){
+	    if(temp.equals("papaer")){
 	    	this.bagging=Bagging.paper;
-	    }else if(temp.equals("木箱")){
+	    }else if(temp.equals("wood")){
 	    	this.bagging=Bagging.wood;
-	    }else if(temp.equals("快递袋")){
+	    }else if(temp.equals("bag")){
 	    	this.bagging=Bagging.bag;
-	    }else if(temp.equals("其他")){
+	    }else if(temp.equals("other")){
 	    	this.bagging=Bagging.other;
 	    }else{
 	    	System.out.println(temp+" 生成包装费出错，置为默认快递袋");
@@ -78,34 +77,101 @@ public class OrderBill extends BillPO{
 	    this.charge=0;
 	    this.time="0";
 	}
+	//以下是各种get方法
 	
-
-	public GoodInfo getGoodInfor() {
-		return goodInfor;
+	//订单种类
+	public String getKind() {
+		return kind.toString();
 	}
 
-	public Kind getKind() {
-		return kind;
+	//订单包装类型
+	public String getBagging() {
+		return bagging.toString();
 	}
 
-	public Bagging getBagging() {
-		return bagging;
-	}
-
+	//订单包装费
 	public String getBagFee() {
 		return String.valueOf(bagFee);
 	}
 
-	public String getId() {
-		return id;
-	}
-
+	//订单费用
 	public String getCharge() {
 		return String.valueOf(charge);
 	}
 
+	//订单预计到达时间
 	public String getTime() {
 		return time;
+	}
+	
+	//寄件人姓名
+	public String getSenderName(){
+		return sender.name;
+	}
+	
+	//寄件人地址
+	public String getSenderLocation(){
+		return sender.location;
+	}
+	
+	//寄件人单位
+	public String getSenderUnit(){
+		return sender.unit;
+	}
+	
+	//寄件人电话
+	public String getSenderTelephone(){
+		return sender.telephone;
+	}
+	
+	//寄件人手机
+	public String getSenderMobile(){
+		return sender.mobile;
+	}
+	
+	//收件人姓名
+	public String getReceiverName(){
+		return receiver.name;
+	}
+	
+	//收件人地址
+	public String getReceiverLocation(){
+		return receiver.location;
+	}
+	
+	//收件人单位
+	public String getReceiverUnit(){
+		return receiver.unit;
+	}
+	
+	//收件人电话
+	public String getReceiverTelephone(){
+		return receiver.telephone;
+	}
+	
+	//收件人手机
+	public String getReceiverMobile(){
+		return receiver.mobile;
+	}
+	
+	//货物数量
+	public String getGoodNum(){
+		return String.valueOf(goodInfor.num);
+	}
+	
+	//货物重量
+	public String getGoodWeight(){
+		return String.valueOf(goodInfor.weight);
+	}
+	
+	//货物体积
+	public String getGoodVolume(){
+		return String.valueOf(goodInfor.volume);
+	}
+	
+	//货物名
+	public String getGoodName(){
+		return goodInfor.name;
 	}
 }
 

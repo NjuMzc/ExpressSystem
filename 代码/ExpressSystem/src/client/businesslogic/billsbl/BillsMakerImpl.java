@@ -4,6 +4,8 @@ package client.businesslogic.billsbl;
  * 持有一个BillsFactory
  * 依赖billsDataServer接口
  */
+import java.rmi.RemoteException;
+
 import client.businesslogicservice.billsblservice.billMaker;
 import client.dataservice.billsdataservice.billsDataServer;
 import client.po.BillPO;
@@ -22,9 +24,17 @@ public class BillsMakerImpl implements billMaker {
 		
 	}
 
-	public BillPO makeOrderBill(Message message) {
+	public OrderBill makeOrderBill(Message message) {
 		// TODO Auto-generated method stub
-		return null;
+		OrderBill bill=new OrderBill(message);
+		try {
+			dataServer.insert(bill);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return bill;
 	}
 
 	public BillPO makeDeliveryBill(Message message) {

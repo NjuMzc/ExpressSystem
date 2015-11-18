@@ -3,34 +3,45 @@ package client.po;
 import client.vo.Message;
 
 /**
- * ���ݵĸ���PO����
+ * 单据的父类
  * @author nick
  *
  */
 public class BillPO {
-	private Message billInfor;
+
+	//三种状态
+	enum State{Draft,Ready,Finish};
 	
-	private enum State{Draft,Ready,Finish};
+	State billState;
 	
-	private State billState;
+	//单据id
+	protected String id;
 	
-	private final String time;
-	
-	public BillPO(Message billInfor){
-		this.billInfor=billInfor;
+	public BillPO(Message message){
 		this.billState=State.Draft;
-		time="";
 	}
 	
-	public State getState(){
-		return this.billState;
+	public String getState(){
+		return this.billState.toString();
 	}
 	
-	public void setState(State newState){
-		this.billState=newState;
+	/*
+	 * 设置单据的状态
+	 * 输入0为草稿，1为待审批，2为审批通过
+	 */
+	public void setState(int num){
+		if(num==0)
+			this.billState=State.Draft;
+		else if(num==1)
+			this.billState=State.Ready;
+		else if(num==2)
+			this.billState=State.Finish;
+		else
+			System.out.println("单据状态输入错误！");
 	}
 	
-	public Message getInformation(){
-		return this.billInfor;
+	public String getID(){
+		return id;
 	}
+	
 }

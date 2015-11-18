@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 
 import client.businesslogic.billsbl.BillsFactory;
 import client.businesslogic.billsbl.BillsMakerImpl;
+import client.businesslogic.billsbl.OrderBill;
 import client.businesslogicservice.systemblservice.systemServer;
 import client.dataservice.billsdataservice.billsDataServer;
 import client.po.BillPO;
@@ -18,14 +19,14 @@ public class MockBillsMakerImpl extends BillsMakerImpl {
 	public MockBillsMakerImpl(billsDataServer dataServer) {
 		super(dataServer);
 		billsFactory=new BillsFactory();
-		dataServer=dataServer;
+		this.dataServer=dataServer;
 	}
 
-	public BillPO makeOrderBill(Message message) {
+	public OrderBill makeOrderBill(Message message) {
 		// TODO Auto-generated method stub
 		BillPO bill=billsFactory.makeOrderBill(message);
 		System.out.println("Order Bill is made!");
-		return bill;
+		return (OrderBill) bill;
 	}
 
 	public BillPO makeDeliveryBill(Message message) {
