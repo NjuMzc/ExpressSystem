@@ -15,8 +15,8 @@ import client.presentation.watcher.State;
 import client.presentation.watcher.Watched;
 import client.presentation.watcher.Watcher;
 
-public class Cover extends JPanel implements Watched,ActionListener {
- 
+public class Cover extends JPanel implements Watched, ActionListener {
+
 	int frameWidth;
 	int frameHeight;
 	JLabel remind;
@@ -25,10 +25,10 @@ public class Cover extends JPanel implements Watched,ActionListener {
 	private List<Watcher> list;
 
 	public Cover(int frameWidth, int frameHeight) {
-		 
-		this.frameWidth =frameWidth;
+
+		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
-		
+
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
@@ -47,18 +47,18 @@ public class Cover extends JPanel implements Watched,ActionListener {
 	}
 
 	private void init() {
-		Font f=new Font("",Font.BOLD,45);
+		Font f = new Font("", Font.BOLD, 45);
 		remind.setFont(f);
 		remind.setBounds(frameWidth / 3, frameHeight / 4, frameWidth / 3,
 				frameWidth / 18);
-		
+
 		system.setMargin(new Insets(0, 0, 0, 0));
-		system.setFont(new Font( "",Font.BOLD,20));
+		system.setFont(new Font("", Font.BOLD, 20));
 		system.setBounds(frameWidth / 3, frameHeight / 2, frameWidth / 3,
 				frameWidth / 12);
 		system.addActionListener(this);
 		customer.setMargin(new Insets(0, 0, 0, 0));
-		customer.setFont(new Font( "",Font.BOLD,20));
+		customer.setFont(new Font("", Font.BOLD, 20));
 		customer.setBounds(frameWidth / 3, frameHeight * 3 / 4, frameWidth / 3,
 				frameWidth / 12);
 		customer.addActionListener(this);
@@ -66,25 +66,26 @@ public class Cover extends JPanel implements Watched,ActionListener {
 
 	public void addWatcher(Watcher watcher) {
 		list.add(watcher);
-		
+
 	}
 
 	public void removeWatcehr(Watcher watcher) {
 		list.remove(watcher);
-		
+
 	}
 
 	public void notifyWatchers(State state) {
 		for (Watcher watcher : list) {
 			watcher.update(state);
 		}
-		
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		 if(e.getSource()==system){
-			 this.notifyWatchers(State.LOGMAINFRAME);
-		 }
-		
+		if (e.getSource() == system) {
+			this.notifyWatchers(State.LOGMAINFRAME);
+		} else if (e.getSource() == customer) {
+			this.notifyWatchers(State.LOGSEARCH);
+		}
 	}
 }

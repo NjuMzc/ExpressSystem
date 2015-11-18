@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import client.presentation.left.*;
 import client.presentation.log.*;
+import client.presentation.right.accountant.*;
 import client.presentation.right.courier.*;
 import client.presentation.right.ying_salesman.*;
 import client.presentation.right.zhong_salesman.*;
@@ -14,45 +15,14 @@ public class MainFrame extends JFrame implements Watcher {
 	int frameWidth;
 	int frameHeight;
 
-	// 封面声明
-	Cover cover;
-	LogMainFrame logMainFrame;
-
-	// 左侧panel声明
-	CourierPanel courierPanel;
-	AccountantPanel accountantPanel;
-	ManagerPanel managerPanel;
-	StockmanPanel stockmanPanel;
-	Ying_salesmanPanel ying_salesmanPanel;
-	Zhong_salesmanPanel zhong_salesmanPanel;
-	AdminPanel adminPanel;
-
-	// 快递员右侧panel声明
-	StartPanel startpanel;
-	InputInforPanel inputinforpanel;
-	CourierMakebill courierMakebill;
-	CourierSearch courierSearch;
-
-	// 中转中心业务员右侧panel声明
-	Zhong_arrival zhong_arrival;
-	Zhong_start zhong_start;
-	Zhong_transfer zhong_transfer;
-	Zhong_entrucking zhong_entrucking;
-
-	// 营业厅业务员右侧panel声明
-	Ying_start ying_start;
-	Ying_collect ying_collect;
-	Ying_arrive ying_arrive;
-	Ying_receive ying_receive;
-	Ying_payment ying_payment;
-	Ying_loading ying_loading;
-	Ying_manageInfor ying_manageInfor;
+	// 左右侧panel，在登录时仅使用right
+	JPanel right;
+	JPanel left;
 
 	// 界面状态
-	State state = State.YING_START;
+	State state = State.COURIERSTART;
 
 	public static void main(String[] args) {
-
 		MainFrame m = new MainFrame();
 	}
 
@@ -61,18 +31,9 @@ public class MainFrame extends JFrame implements Watcher {
 		this.frameWidth = d.getFrameWidth();
 		this.frameHeight = d.getFrameHeight();
 
-		// 封面实例化
-		// cover = new Cover(frameWidth, frameHeight);
-		// cover.addWatcher(this);
-
-		// 左侧panel实例化
-		courierPanel = new CourierPanel(frameWidth, frameHeight);
-		adminPanel = new AdminPanel(frameWidth, frameHeight);
-		accountantPanel = new AccountantPanel(frameWidth, frameHeight);
-		managerPanel = new ManagerPanel(frameWidth, frameHeight);
-		stockmanPanel = new StockmanPanel(frameWidth, frameHeight);
-		ying_salesmanPanel = new Ying_salesmanPanel(frameWidth, frameHeight);
-		zhong_salesmanPanel = new Zhong_salesmanPanel(frameWidth, frameHeight);
+		left = new AccountantPanel(frameWidth, frameHeight);
+		((AccountantPanel) left).addWatcher(this);
+		right = new AccountantStart(frameWidth, frameHeight);
 
 		this.setTitle("快递物流系统");
 		this.setVisible(true);
@@ -81,193 +42,78 @@ public class MainFrame extends JFrame implements Watcher {
 		this.setLayout(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// 中转中心业务员右侧panel
-		ying_start = new Ying_start(frameWidth, frameHeight);
-		// zhong_arrival.addWatcher(this);
-		this.add(ying_start);
-		this.add(ying_salesmanPanel);
-
-		// 左侧panel设置观察者
-		courierPanel.addWatcher(this);
-		accountantPanel.addWatcher(this);
-		managerPanel.addWatcher(this);
-		stockmanPanel.addWatcher(this);
-		ying_salesmanPanel.addWatcher(this);
-		zhong_salesmanPanel.addWatcher(this);
-
+		this.add(left);
+		this.add(right);
 	}
 
 	public void update(State state) {
 
-		if (choose() != null) {
-			this.remove(choose());
-		}
+		this.remove(right);
 		this.state = state;
 
 		if (state == State.COURIERSTART) {
-			if (startpanel == null) {
-				startpanel = new StartPanel(frameWidth, frameHeight);
-			}
-			this.add(startpanel);
-
+			right = new StartPanel(frameWidth, frameHeight);
 		} else if (state == State.COURIERMAKEBILL) {
-			if (courierMakebill == null) {
-				courierMakebill = new CourierMakebill(frameWidth, frameHeight);
-				courierMakebill.addWatcher(this);
-			}
-			this.add(courierMakebill);
-
+			right = new CourierMakebill(frameWidth, frameHeight);
+			((CourierMakebill) right).addWatcher(this);
 		} else if (state == State.COURIERINPUTINFOR) {
-			if (inputinforpanel == null) {
-				inputinforpanel = new InputInforPanel(frameWidth, frameHeight);
-				inputinforpanel.addWatcher(this);
-			}
-			this.add(inputinforpanel);
-
+			right = new InputInforPanel(frameWidth, frameHeight);
+			((InputInforPanel) right).addWatcher(this);
 		} else if (state == State.COURIERSEARCH) {
-			if (courierSearch == null) {
-				courierSearch = new CourierSearch(frameWidth, frameHeight);
-				courierSearch.addWatcher(this);
-			}
-			this.add(courierSearch);
-
+			right = new CourierSearch(frameWidth, frameHeight);
+			((CourierSearch) right).addWatcher(this);
 		} else if (state == State.LOGMAINFRAME) {
-			if (logMainFrame == null) {
-				logMainFrame = new LogMainFrame(frameWidth, frameHeight);
-				logMainFrame.addWatcher(this);
-			}
-			this.add(logMainFrame);
-
+			right = new LogMainFrame(frameWidth, frameHeight);
+			((LogMainFrame) right).addWatcher(this);
 		} else if (state == State.COVER) {
-			if (cover == null) {
-				cover = new Cover(frameWidth, frameHeight);
-				cover.addWatcher(this);
-			}
-			this.add(cover);
+			right = new Cover(frameWidth, frameHeight);
+			((Cover) right).addWatcher(this);
 		} else if (state == State.ZHONG_START) {
-			if (zhong_start == null) {
-				zhong_start = new Zhong_start(frameWidth, frameHeight);
-			}
-			this.add(zhong_start);
+			right = new Zhong_start(frameWidth, frameHeight);
 		} else if (state == State.ZHONG_TRANSFER) {
-			if (zhong_transfer == null) {
-				zhong_transfer = new Zhong_transfer(frameWidth, frameHeight);
-				zhong_transfer.addWatcher(this);
-			}
-			this.add(zhong_transfer);
+			right = new Zhong_transfer(frameWidth, frameHeight);
+			((Zhong_transfer) right).addWatcher(this);
 		} else if (state == State.ZHONG_ARRIVAL) {
-			if (zhong_arrival == null) {
-				zhong_arrival = new Zhong_arrival(frameWidth, frameHeight);
-				zhong_arrival.addWatcher(this);
-			}
-			this.add(zhong_arrival);
+			right = new Zhong_arrival(frameWidth, frameHeight);
+			((Zhong_arrival) right).addWatcher(this);
 		} else if (state == State.ZHONG_ENTRUCKING) {
-			if (zhong_entrucking == null) {
-				zhong_entrucking = new Zhong_entrucking(frameWidth, frameHeight);
-				zhong_entrucking.addWatcher(this);
-			}
-			this.add(zhong_entrucking);
+			right = new Zhong_entrucking(frameWidth, frameHeight);
+			((Zhong_entrucking) right).addWatcher(this);
 		} else if (state == State.YING_START) {
-			if (ying_start == null) {
-				ying_start = new Ying_start(frameWidth, frameHeight);
-			}
-			this.add(ying_start);
+			right = new Ying_start(frameWidth, frameHeight);
 		} else if (state == State.YING_COLLECT) {
-			if (ying_collect == null) {
-				ying_collect = new Ying_collect(frameWidth, frameHeight);
-				ying_collect.addWatcher(this);
-			}
-			this.add(ying_collect);
+			right = new Ying_collect(frameWidth, frameHeight);
+			((Ying_collect) right).addWatcher(this);
 		} else if (state == State.YING_ARRIVE) {
-			if (ying_arrive == null) {
-				ying_arrive = new Ying_arrive(frameWidth, frameHeight);
-				ying_arrive.addWatcher(this);
-			}
-			this.add(ying_arrive);
+			right = new Ying_arrive(frameWidth, frameHeight);
+			((Ying_arrive) right).addWatcher(this);
 		} else if (state == State.YING_RECEIVE) {
-			if (ying_receive == null) {
-				ying_receive = new Ying_receive(frameWidth, frameHeight);
-				ying_receive.addWatcher(this);
-			}
-			this.add(ying_receive);
+			right = new Ying_receive(frameWidth, frameHeight);
+			((Ying_receive) right).addWatcher(this);
 		} else if (state == State.YING_PAYMENT) {
-			if (ying_payment == null) {
-				ying_payment = new Ying_payment(frameWidth, frameHeight);
-				ying_payment.addWatcher(this);
-			}
-			this.add(ying_payment);
+			right = new Ying_payment(frameWidth, frameHeight);
+			((Ying_payment) right).addWatcher(this);
 		} else if (state == State.YING_LOADING) {
-			if (ying_loading == null) {
-				ying_loading = new Ying_loading(frameWidth, frameHeight);
-				ying_loading.addWatcher(this);
-			}
-			this.add(ying_loading);
+			right = new Ying_loading(frameWidth, frameHeight);
+			((Ying_loading) right).addWatcher(this);
 		} else if (state == State.YING_MANAGEINFOR) {
-			if (ying_manageInfor == null) {
-				ying_manageInfor = new Ying_manageInfor(frameWidth, frameHeight);
-				ying_manageInfor.addWatcher(this);
-			}
-			this.add(ying_manageInfor);
+			right = new Ying_manageInfor(frameWidth, frameHeight);
+			((Ying_manageInfor) right).addWatcher(this);
+		} else if (state == State.LOGSEARCH) {
+			right = new LogSearch(frameWidth, frameHeight);
+			((LogSearch) right).addWatcher(this);
+		} else if (state == State.ACCOUNTANTSTART) {
+			right = new AccountantStart(frameWidth, frameHeight);
+		} else if (state == State.ACCOUNTANTMAKEBILL) {
+			right = new AccountantMakebill(frameWidth, frameHeight);
+			((AccountantMakebill) right).addWatcher(this);
+		} else if (state == State.ACCOUNTANTMAKESHEET) {
+			right = new AccountantMakeSheet(frameWidth, frameHeight);
+			((AccountantMakeSheet) right).addWatcher(this);
 		}
 
+		this.add(right);
 		this.repaint();
 	}
 
-	private JPanel choose() {
-		JPanel res = null;
-		switch (this.state) {
-		case COURIERSTART:
-			res = this.startpanel;
-			break;
-		case COURIERINPUTINFOR:
-			res = this.inputinforpanel;
-			break;
-		case COURIERMAKEBILL:
-			res = this.courierMakebill;
-			break;
-		case COURIERSEARCH:
-			res = this.courierSearch;
-			break;
-		case COVER:
-			res = this.cover;
-			break;
-		case LOGMAINFRAME:
-			res = this.logMainFrame;
-			break;
-		case ZHONG_ARRIVAL:
-			res = this.zhong_arrival;
-			break;
-		case ZHONG_TRANSFER:
-			res = zhong_transfer;
-			break;
-		case ZHONG_START:
-			res = zhong_start;
-			break;
-		case ZHONG_ENTRUCKING:
-			res = zhong_entrucking;
-			break;
-		case YING_START:
-			res = ying_start;
-			break;
-		case YING_COLLECT:
-			res = ying_collect;
-			break;
-		case YING_ARRIVE:
-			res = ying_arrive;
-			break;
-		case YING_RECEIVE:
-			res = ying_receive;
-			break;
-		case YING_PAYMENT:
-			res = ying_payment;
-			break;
-		case YING_LOADING:
-			res = ying_loading;
-			break;
-		case YING_MANAGEINFOR:
-			res = ying_manageInfor;
-			break;
-		}
-		return res;
-	}
 }
