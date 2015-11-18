@@ -22,6 +22,9 @@ public class AccountantPanel extends JPanel implements Watched, ActionListener {
 	JLabel name;
 	JLabel num;
 	JLabel photo;
+	boolean isSamll = true;
+	JButton addjb1;
+	JButton addjb2;
 
 	public AccountantPanel(int frameWidth, int frameHeight) {
 
@@ -90,12 +93,44 @@ public class AccountantPanel extends JPanel implements Watched, ActionListener {
 			this.notifyWatchers(State.ACCOUNTANTMAKESHEET);
 		} else if (e.getSource() == jb[2]) {
 
+			if (isSamll) {
+				addjb1 = new JButton("生成付款单");
+				addjb1.addActionListener(this);
+				addjb2 = new JButton("查看成本收益表");
+				addjb2.addActionListener(this);
+				addjb1.setBounds(frameWidth / 16, frameHeight / 3 + frameHeight
+						/ 15 * 3, frameWidth / 16 * 3, frameHeight / 30);
+				addjb2.setBounds(frameWidth / 16, frameHeight / 3 + frameHeight
+						/ 15 * 3 + frameHeight / 30, frameWidth / 16 * 3,
+						frameHeight / 30);
+				this.add(addjb1);
+				this.add(addjb2);
+				for (int i = 3; i < 5; i++) {
+					jb[i].setBounds(0, frameHeight / 3 + frameHeight / 15
+							* (i + 1), frameWidth / 4, frameHeight / 15);
+				}
+				this.isSamll = false;
+			} else {
+				this.remove(addjb1);
+				this.remove(addjb2);
+				for (int i = 3; i < 5; i++) {
+					jb[i].setBounds(0, frameHeight / 3 + frameHeight / 15 * i,
+							frameWidth / 4, frameHeight / 15);
+				}
+				this.isSamll = true;
+			}
+
 		} else if (e.getSource() == jb[3]) {
-
+			this.notifyWatchers(State.ACCOUNTANTMANAGE);
 		} else if (e.getSource() == jb[4]) {
-
+			this.notifyWatchers(State.ACCOUNTANTBALACE);
 		}
 
+		if (e.getSource() == addjb1) {
+			this.notifyWatchers(State.ACCOUNTANTPAYMENT);
+		} else if (e.getSource() == addjb2) {
+			this.notifyWatchers(State.ACCOUNTANTCOST);
+		}
 	}
 
 	public void addWatcher(Watcher watcher) {

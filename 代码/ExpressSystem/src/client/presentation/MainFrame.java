@@ -110,6 +110,21 @@ public class MainFrame extends JFrame implements Watcher {
 		} else if (state == State.ACCOUNTANTMAKESHEET) {
 			right = new AccountantMakeSheet(frameWidth, frameHeight);
 			((AccountantMakeSheet) right).addWatcher(this);
+		} else if (state == State.ACCOUNTANTPAYMENT) {
+			right = new AccountantPayment(frameWidth, frameHeight);
+			((AccountantPayment) right).addWatcher(this);
+		} else if (state == State.ACCOUNTANTCOST) {
+			right = new AccountantCost(frameWidth, frameHeight);
+			((AccountantCost) right).addWatcher(this);
+		} else if (state == State.ACCOUNTANTMANAGE) {
+			right = new AccountantManage(frameWidth, frameHeight);
+			((AccountantManage) right).addWatcher(this);
+		} else if (state == State.ACCOUNTANTBALACE) {
+			right = new AccountantBalace(frameWidth, frameHeight);
+			((AccountantBalace) right).addWatcher(this);
+		} else if (state == State.ACCOUNTANTBALACEAFTER) {
+			right = new AccountantBalaceAfter(frameWidth, frameHeight);
+			((AccountantBalaceAfter) right).addWatcher(this);
 		}
 
 		this.add(right);
