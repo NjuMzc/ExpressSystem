@@ -6,6 +6,7 @@ import client.presentation.left.*;
 import client.presentation.log.*;
 import client.presentation.right.accountant.*;
 import client.presentation.right.courier.*;
+import client.presentation.right.stockman.*;
 import client.presentation.right.ying_salesman.*;
 import client.presentation.right.zhong_salesman.*;
 import client.presentation.watcher.*;
@@ -20,7 +21,7 @@ public class MainFrame extends JFrame implements Watcher {
 	JPanel left;
 
 	// 界面状态
-	State state = State.COURIERSTART;
+	State state = State.STOCKMANSTART;
 
 	public static void main(String[] args) {
 		MainFrame m = new MainFrame();
@@ -31,9 +32,9 @@ public class MainFrame extends JFrame implements Watcher {
 		this.frameWidth = d.getFrameWidth();
 		this.frameHeight = d.getFrameHeight();
 
-		left = new AccountantPanel(frameWidth, frameHeight);
-		((AccountantPanel) left).addWatcher(this);
-		right = new AccountantStart(frameWidth, frameHeight);
+		left = new StockmanPanel(frameWidth, frameHeight);
+		((StockmanPanel) left).addWatcher(this);
+		right = new StockmanStart(frameWidth, frameHeight);
 
 		this.setTitle("快递物流系统");
 		this.setVisible(true);
@@ -125,8 +126,31 @@ public class MainFrame extends JFrame implements Watcher {
 		} else if (state == State.ACCOUNTANTBALACEAFTER) {
 			right = new AccountantBalaceAfter(frameWidth, frameHeight);
 			((AccountantBalaceAfter) right).addWatcher(this);
+		} else if (state == State.STOCKMANSTART) {
+			right = new StockmanStart(frameWidth, frameHeight);
+		}else if(state==State.STOCKMANINSTOCK){
+			right=new StockmanInStock(frameWidth, frameHeight);
+			((StockmanInStock)right).addWatcher(this);
+		}else if(state==State.STOCKMANINSTOCKAFTER){
+			right=new StockmanInStockAfter(frameWidth, frameHeight);
+			((StockmanInStockAfter)right).addWatcher(this);
+		}else if(state==State.STOCKMANOUTSTOCK){
+			right=new StockmanOutStock(frameWidth, frameHeight);
+			((StockmanOutStock)right).addWatcher(this);
+		}else if(state==State.STOCKMANOUTSTOCKAFTER){
+			right=new StockmanOutStockAfter(frameWidth, frameHeight);
+			((StockmanOutStockAfter)right).addWatcher(this);
+		}else if(state==State.STOCKMANSEARCH){
+			right=new StockmanSearch(frameWidth, frameHeight);
+			((StockmanSearch)right).addWatcher(this);
+		}else if(state==State.STOCKMANCHECK){
+			right=new StockmanCheck(frameWidth, frameHeight);
+			((StockmanCheck)right).addWatcher(this);
+		}else if(state==State.STOCKMANCHANGE){
+			right=new StockmanChange(frameWidth, frameHeight);
+			((StockmanChange)right).addWatcher(this);
 		}
-
+		
 		this.add(right);
 		this.repaint();
 	}

@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
-
-import client.presentation.Data;
 import client.presentation.watcher.*;
  
 
@@ -88,15 +86,15 @@ public class StockmanPanel extends JPanel implements Watched, ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		 if(e.getSource()==jb[0]){
-			 
+			 this.notifyWatchers(State.STOCKMANINSTOCK);
 		 }else if(e.getSource()==jb[1]){
-			 
+			 this.notifyWatchers(State.STOCKMANOUTSTOCK);
 		 }else if(e.getSource()==jb[2]){
-			 
+			 this.notifyWatchers(State.STOCKMANSEARCH);
 		 }else if(e.getSource()==jb[3]){
-			 
+			 this.notifyWatchers(State.STOCKMANCHECK);
 		 }else if(e.getSource()==jb[4]){
-			 
+			 this.notifyWatchers(State.STOCKMANCHANGE);
 		 } 
 		
 	}
