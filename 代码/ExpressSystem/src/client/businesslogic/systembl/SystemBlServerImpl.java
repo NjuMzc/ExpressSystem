@@ -10,30 +10,33 @@ import client.vo.SystemUserVO;
 public class SystemBlServerImpl implements systemServer {
 
 	systemDataServer dataServer;
-	
-	public SystemBlServerImpl(){
-		this.dataServer=new systemDataServer_Stub();
+
+	public SystemBlServerImpl() {
+		this.dataServer = new systemDataServer_Stub();
 	}
-	
-/*
- * 登录的实现
- * @parameter id,key
- * @return SystemUserVO
- * @see 
- */
+
+	/*
+	 * 登录的实现
+	 * 
+	 * @parameter id,key
+	 * 
+	 * @return SystemUserVO
+	 * 
+	 * @see
+	 */
 	public SystemUserVO login(String id, String key) {
 		// TODO Auto-generated method stub
-		SystemUserVO user=(SystemUserVO) dataServer.find(id);
-		
-		if(user==null)
+		SystemUserVO user = (SystemUserVO) dataServer.find(id);
+
+		if (user == null)
 			return null;
-		else{
-			if(user.getKey().equals(id))
+		else {
+			if (user.getKey().equals(id))
 				return user;
 			else
-			    return null;
+				return null;
 		}
-		
+
 	}
 
 	public SystemUserVO addUser(Message message) {

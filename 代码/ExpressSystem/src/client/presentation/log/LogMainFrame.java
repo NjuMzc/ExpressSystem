@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.swing.*;
 
+import client.businesslogic.systembl.SystemBlServerImpl;
+import client.po.SystemUserPO;
 import client.presentation.watcher.State;
 import client.presentation.watcher.Watched;
 import client.presentation.watcher.Watcher;
@@ -24,6 +26,8 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 	JLabel passport;
 	JButton confirm;
 	JButton cancel;
+	JTextField jtf;
+	JPasswordField jpf;
 
 	private List<Watcher> list;
 
@@ -44,6 +48,8 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		passport = new JLabel("密码");
 		confirm = new JButton("确认");
 		cancel = new JButton("取消");
+		jtf = new JTextField(12);
+		jpf = new JPasswordField();
 
 		init();
 
@@ -53,6 +59,8 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		this.add(passport);
 		this.add(confirm);
 		this.add(cancel);
+		this.add(jtf);
+		this.add(jpf);
 	}
 
 	private void init() {
@@ -75,10 +83,25 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		cancel.setBounds(frameWidth / 2, frameHeight * 7 / 8, frameWidth / 12,
 				frameWidth / 20);
 		cancel.addActionListener(this);
+
+		jtf.setBounds(frameWidth * 2 / 5, frameHeight * 5 / 8, 150, 30);
+		jpf.setBounds(frameWidth * 2 / 5, frameHeight * 3 / 4, 150, 30);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirm) {
+			String input_account = jtf.getText();
+			String input_password = jpf.getText();
+
+			// 登录验证
+			SystemBlServerImpl s = new SystemBlServerImpl();
+			if (s.login(input_account, input_password).getIdentity()
+					.equals("manager")) {
+				this.notifyWatchers(State.MANAGERSTART);
+			}
+
+			jtf.setText("");
+			jpf.setText("");
 
 		} else if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COVER);

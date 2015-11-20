@@ -35,8 +35,8 @@ public class Ying_loading extends JPanel implements Watched,ActionListener{
 		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		jl = new JLabel[8];
-		for (int i = 0; i < 8; i++) {
+		jl = new JLabel[9];
+		for (int i = 0; i < 9; i++) {
 			jl[i] = new JLabel();
 		}
 		confirm = new JButton("确认");
@@ -44,7 +44,7 @@ public class Ying_loading extends JPanel implements Watched,ActionListener{
 
 		init();
 
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 9; i++) {
 			this.add(jl[i]);
 		}
 		this.add(confirm);
@@ -59,11 +59,12 @@ public class Ying_loading extends JPanel implements Watched,ActionListener{
 		jl[4].setText("监运员");
 		jl[5].setText("押运员");
 		jl[6].setText("订单条形码号");
-		jl[7].setText("运费");
+		jl[7].setText("汽运编号");
+		jl[8].setText("合计");
 
-		jl[0].setBounds(frameWidth / 2, frameHeight / 10, 100, 65);
-		for (int i = 1; i < 8; i++) {
-			jl[i].setBounds(frameWidth / 9, frameHeight / 15 + frameHeight / 8
+		jl[0].setBounds(frameWidth / 2, frameHeight / 20, 100, 65);
+		for (int i = 1; i < 9; i++) {
+			jl[i].setBounds(frameWidth / 9, frameHeight / 20 + frameHeight / 15
 					* i, 100, 65);
 		}
 

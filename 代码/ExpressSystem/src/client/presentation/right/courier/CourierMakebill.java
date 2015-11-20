@@ -124,7 +124,6 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
-			System.out.println("1");
 			this.notifyWatchers(State.COURIERSTART);
 		} else if (e.getSource() == confirm) {
 

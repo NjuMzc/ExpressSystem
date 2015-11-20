@@ -6,6 +6,12 @@ import client.presentation.left.*;
 import client.presentation.log.*;
 import client.presentation.right.accountant.*;
 import client.presentation.right.courier.*;
+import client.presentation.right.manager.ManagerStart;
+import client.presentation.right.manager.Manager_Manage;
+import client.presentation.right.manager.Manager_check;
+import client.presentation.right.manager.Manager_find;
+import client.presentation.right.manager.Manager_make_constant;
+import client.presentation.right.manager.Manager_make_money;
 import client.presentation.right.stockman.*;
 import client.presentation.right.ying_salesman.*;
 import client.presentation.right.zhong_salesman.*;
@@ -32,9 +38,8 @@ public class MainFrame extends JFrame implements Watcher {
 		this.frameWidth = d.getFrameWidth();
 		this.frameHeight = d.getFrameHeight();
 
-		left = new StockmanPanel(frameWidth, frameHeight);
-		((StockmanPanel) left).addWatcher(this);
-		right = new StockmanStart(frameWidth, frameHeight);
+		right = new Cover(frameWidth, frameHeight);
+		((Cover) right).addWatcher(this);
 
 		this.setTitle("快递物流系统");
 		this.setVisible(true);
@@ -43,7 +48,6 @@ public class MainFrame extends JFrame implements Watcher {
 		this.setLayout(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		this.add(left);
 		this.add(right);
 	}
 
@@ -128,29 +132,52 @@ public class MainFrame extends JFrame implements Watcher {
 			((AccountantBalaceAfter) right).addWatcher(this);
 		} else if (state == State.STOCKMANSTART) {
 			right = new StockmanStart(frameWidth, frameHeight);
-		}else if(state==State.STOCKMANINSTOCK){
-			right=new StockmanInStock(frameWidth, frameHeight);
-			((StockmanInStock)right).addWatcher(this);
-		}else if(state==State.STOCKMANINSTOCKAFTER){
-			right=new StockmanInStockAfter(frameWidth, frameHeight);
-			((StockmanInStockAfter)right).addWatcher(this);
-		}else if(state==State.STOCKMANOUTSTOCK){
-			right=new StockmanOutStock(frameWidth, frameHeight);
-			((StockmanOutStock)right).addWatcher(this);
-		}else if(state==State.STOCKMANOUTSTOCKAFTER){
-			right=new StockmanOutStockAfter(frameWidth, frameHeight);
-			((StockmanOutStockAfter)right).addWatcher(this);
-		}else if(state==State.STOCKMANSEARCH){
-			right=new StockmanSearch(frameWidth, frameHeight);
-			((StockmanSearch)right).addWatcher(this);
-		}else if(state==State.STOCKMANCHECK){
-			right=new StockmanCheck(frameWidth, frameHeight);
-			((StockmanCheck)right).addWatcher(this);
-		}else if(state==State.STOCKMANCHANGE){
-			right=new StockmanChange(frameWidth, frameHeight);
-			((StockmanChange)right).addWatcher(this);
+		} else if (state == State.STOCKMANINSTOCK) {
+			right = new StockmanInStock(frameWidth, frameHeight);
+			((StockmanInStock) right).addWatcher(this);
+		} else if (state == State.STOCKMANINSTOCKAFTER) {
+			right = new StockmanInStockAfter(frameWidth, frameHeight);
+			((StockmanInStockAfter) right).addWatcher(this);
+		} else if (state == State.STOCKMANOUTSTOCK) {
+			right = new StockmanOutStock(frameWidth, frameHeight);
+			((StockmanOutStock) right).addWatcher(this);
+		} else if (state == State.STOCKMANOUTSTOCKAFTER) {
+			right = new StockmanOutStockAfter(frameWidth, frameHeight);
+			((StockmanOutStockAfter) right).addWatcher(this);
+		} else if (state == State.STOCKMANSEARCH) {
+			right = new StockmanSearch(frameWidth, frameHeight);
+			((StockmanSearch) right).addWatcher(this);
+		} else if (state == State.STOCKMANCHECK) {
+			right = new StockmanCheck(frameWidth, frameHeight);
+			((StockmanCheck) right).addWatcher(this);
+		} else if (state == State.STOCKMANCHANGE) {
+			right = new StockmanChange(frameWidth, frameHeight);
+			((StockmanChange) right).addWatcher(this);
+		} else if (state == State.MANAGERSTART) {
+			right = new ManagerStart(frameWidth, frameHeight);
+		} else if (state == State.MANAGERMAKEMONEY) {
+			right = new Manager_make_money(frameWidth, frameHeight);
+			((Manager_make_money) right).addWatcher(this);
+		} else if (state == State.MANAGERMAKECONSTANT) {
+			right = new Manager_make_constant(frameWidth, frameHeight);
+			((Manager_make_constant) right).addWatcher(this);
+		} else if (state == State.MANAGERMANAGE) {
+			right = new Manager_Manage(frameWidth, frameHeight);
+			((Manager_Manage) right).addWatcher(this);
+		} else if (state == State.MANAGERCHECK) {
+			right = new Manager_check(frameWidth, frameHeight);
+			((Manager_check) right).addWatcher(this);
+		} else if (state == State.MANAGERFIND) {
+			right = new Manager_find(frameWidth, frameHeight);
+			((Manager_find) right).addWatcher(this);
 		}
-		
+
+		if (state == State.LEFTMANAGER) {
+			left = new AccountantPanel(frameWidth, frameHeight);
+			((ManagerPanel) left).addWatcher(this);
+			this.add(left);
+		}
+
 		this.add(right);
 		this.repaint();
 	}
