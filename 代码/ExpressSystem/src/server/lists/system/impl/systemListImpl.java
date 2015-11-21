@@ -94,6 +94,11 @@ public class systemListImpl implements systemList {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(list));
 			users=(ArrayList<SystemUserPO>) ois.readObject();
+			System.out.println(users);
+			if(users==null){
+				users=new ArrayList<SystemUserPO>();
+				save();
+			}
 			ois.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("找不到文件");
@@ -108,6 +113,11 @@ public class systemListImpl implements systemList {
 		
 	}
 	
+	
+	public int size() {
+		// TODO Auto-generated method stub
+		return users.size();
+	}
 	/*
 	 * 测试用后期删除
 	 */
@@ -121,4 +131,5 @@ public class systemListImpl implements systemList {
 		systemListImpl a = new systemListImpl();
 		a.print();
 	}
+	
 }

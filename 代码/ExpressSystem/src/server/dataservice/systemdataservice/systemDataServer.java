@@ -13,5 +13,7 @@ public interface systemDataServer {
 	public void delete(SystemUserPO po);
 	
 	public void update(SystemUserPO po);
+	
+	public int getUserNum();
 	 
 }

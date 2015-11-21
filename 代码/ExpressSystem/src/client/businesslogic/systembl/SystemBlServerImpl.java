@@ -48,17 +48,30 @@ public class SystemBlServerImpl implements systemServer {
 
 	public boolean removeUser(String id) {
 		// TODO Auto-generated method stub
-		return false;
+		SystemUserPO user =dataServer.find(id);
+		if(user==null){
+			return false;
+		}else{
+			dataServer.delete(user);
+			return true;
+		}
+		
 	}
 
 	public void changeUser(String name, Message message) {
 		// TODO Auto-generated method stub
-
+        
 	}
 
 	public SystemUserVO inquire(String id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int getUserNum() {
+		// TODO Auto-generated method stub
+		
+		return dataServer.getUserNum();
 	}
 
 }
