@@ -1,5 +1,6 @@
 package server.lists.system.impl;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -95,9 +96,12 @@ public class systemListImpl implements systemList {
 			users=(ArrayList<SystemUserPO>) ois.readObject();
 			ois.close();
 		} catch (FileNotFoundException e) {
+			System.out.println("找不到文件");
 			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			users= new ArrayList<SystemUserPO>();
+			save();
+			load();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
