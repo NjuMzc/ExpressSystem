@@ -9,15 +9,6 @@ import client.vo.SystemUserVO;
 
 public class SystemBlServerImpl implements systemServer {
 	
-	public static void main(String[] args){
-		SystemBlServerImpl s=new SystemBlServerImpl();
-		Message msg=new Message();
-		msg.addInform("account");
-		msg.addInform("刘兴");
-		
-		s.addUser(msg);
-	}
-
 	systemDataServer dataServer;
 
 	public SystemBlServerImpl() {
