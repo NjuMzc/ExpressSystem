@@ -94,11 +94,6 @@ public class systemListImpl implements systemList {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(list));
 			users=(ArrayList<SystemUserPO>) ois.readObject();
-			System.out.println(users);
-			if(users==null){
-				users=new ArrayList<SystemUserPO>();
-				save();
-			}
 			ois.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("找不到文件");

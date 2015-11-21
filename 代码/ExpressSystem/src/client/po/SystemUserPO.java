@@ -7,11 +7,13 @@ public class SystemUserPO implements Serializable {
 	String key;
 	
 	String identity;
+	String userName;
 	
-	public SystemUserPO(String id,String key,String identity){
+	public SystemUserPO(String id,String key,String identity,String userName){
 		this.id=id;
 		this.key=key;
 		this.identity=identity;
+		this.userName=userName;
 		
 	}
 	
@@ -25,6 +27,10 @@ public class SystemUserPO implements Serializable {
 	
 	public String getIdentity(){
 		return this.identity;
+	}
+	
+	public String getUserName(){
+		return userName;
 	}
 
 }

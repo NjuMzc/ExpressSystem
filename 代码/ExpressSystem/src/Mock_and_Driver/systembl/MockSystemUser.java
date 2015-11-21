@@ -4,7 +4,7 @@ import client.po.SystemUserPO;
 
 public class MockSystemUser extends SystemUserPO{
 	public MockSystemUser(String id, String key, String identity) {
-		super(id, key, identity);
+		super(id, key, identity, identity);
 		// TODO Auto-generated constructor stub
 	}
 
