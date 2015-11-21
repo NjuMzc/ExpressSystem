@@ -115,8 +115,6 @@ public class systemListImpl implements systemList {
 	
 	public static void main(String[] args) {
 		systemListImpl a = new systemListImpl();
-		a.delUser(new SystemUserPO("12312", "3123123", "123123123"));
-		a.update(new SystemUserPO("12322","dashabi", "清洁阿姨"));
 		a.print();
 	}
 }
