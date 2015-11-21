@@ -1,6 +1,8 @@
 package client.po;
 
-public class SystemUserPO {
+import java.io.Serializable;
+
+public class SystemUserPO implements Serializable {
 	String id;
 	String key;
 	
