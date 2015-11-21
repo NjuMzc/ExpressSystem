@@ -93,9 +93,9 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 			SystemBlServerImpl s = new SystemBlServerImpl();
 			
 			Message msg=new Message();
-			msg.addInform("2015010002");
+			msg.addInform("2015070002");
 			msg.addInform("nova123321");
-			msg.addInform("manager");
+			msg.addInform("admin");
 			s.addUser(msg);
 			
 			Message msg2=new Message();
@@ -137,6 +137,8 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 					} else if (user.getIdentity()
 							.equals("admin")) {
 
+						this.notifyWatchers(State.ADMINSTART);
+						this.notifyWatchers(State.LEFTADMIN);
 					}
 				}else{
 					System.out.println("Fail login!");

@@ -205,6 +205,10 @@ public class MainFrame extends JFrame implements Watcher {
 			left = new Zhong_salesmanPanel(frameWidth, frameHeight);
 			((Zhong_salesmanPanel) left).addWatcher(this);
 			this.add(left);
+		}else if(state==State.LEFTADMIN){
+			left=new AdminPanel(frameWidth, frameHeight);
+			((AdminPanel)left).addWatcher(this);
+			this.add(left);
 		}
 
 		if (state == State.LOGOUT) {

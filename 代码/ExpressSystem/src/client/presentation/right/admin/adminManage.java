@@ -74,7 +74,8 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.ADMINSTART);
 		} else if (e.getSource() == add) {
-
+            
+			
 		}
 
 	}
