@@ -7,6 +7,11 @@ import client.po.SystemUserPO;
 import client.vo.Message;
 import client.vo.SystemUserVO;
 
+/**
+ * 系统管理员操作的实现
+ * @author rabook
+ *
+ */
 public class SystemBlServerImpl implements systemServer {
 	
 	systemDataServer dataServer;
@@ -38,6 +43,12 @@ public class SystemBlServerImpl implements systemServer {
 		}
 
 	}
+    
+	/*
+	 * 添加系统用户的实现
+	 * 输入只需要身份类型和姓名
+	 * @see client.businesslogicservice.systemblservice.systemServer#addUser(client.vo.Message)
+	 */
 
 	public SystemUserPO addUser(Message message) {
 		// TODO Auto-generated method stub
@@ -92,6 +103,10 @@ public class SystemBlServerImpl implements systemServer {
 		return user;
 	}
 
+	/*
+	 * 移除一个已有的用户
+	 * @see client.businesslogicservice.systemblservice.systemServer#removeUser(java.lang.String)
+	 */
 	public boolean removeUser(String id) {
 		// TODO Auto-generated method stub
 		SystemUserPO user =dataServer.find(id);
@@ -104,14 +119,38 @@ public class SystemBlServerImpl implements systemServer {
 		
 	}
 
+	/*
+	 * 修改已有账户的信息
+	 * 第一项是姓名， 第二项是密码
+	 * @see client.businesslogicservice.systemblservice.systemServer#changeUser(java.lang.String, client.vo.Message)
+	 */
 	public void changeUser(String name, Message message) {
 		// TODO Auto-generated method stub
-        
+		SystemUserPO user =dataServer.find(name);
+		
+		if(user==null){
+			System.out.println("用户不存在");
+		}else{
+			user.setName(message.getInform(0));
+			user.setKey(message.getInform(1));
+		}
+		
 	}
 
-	public SystemUserVO inquire(String id) {
+	/*
+	 * 通过账户查询一个用户
+	 * @see client.businesslogicservice.systemblservice.systemServer#inquire(java.lang.String)
+	 */
+	public SystemUserPO inquire(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		SystemUserPO user =dataServer.find(id);
+
+		if (user == null)
+			return null;
+		else {
+		    return user;
+		}
+		
 	}
 
 	public int getUserNum() {

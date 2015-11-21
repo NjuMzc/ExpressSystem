@@ -1,7 +1,11 @@
 package client.po;
 
 import java.io.Serializable;
-
+/**
+ * 系统用户的抽象类
+ * @author rabook
+ *
+ */
 public class SystemUserPO implements Serializable {
 	String id;
 	String key;
@@ -31,6 +35,14 @@ public class SystemUserPO implements Serializable {
 	
 	public String getUserName(){
 		return userName;
+	}
+	
+	public void setName(String newName){
+		this.userName=newName;
+	}
+	
+	public void setKey(String newKey){
+		this.key=newKey;
 	}
 
 }

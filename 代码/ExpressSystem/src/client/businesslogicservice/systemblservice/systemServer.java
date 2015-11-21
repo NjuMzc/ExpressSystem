@@ -21,7 +21,7 @@ public interface systemServer {
 	
 	public void changeUser(String name,Message message);
 	
-	public SystemUserVO inquire(String id);
+	public SystemUserPO inquire(String id);
 	
 	public int getUserNum();
 
