@@ -5,6 +5,8 @@ import javax.swing.*;
 import client.presentation.left.*;
 import client.presentation.log.*;
 import client.presentation.right.accountant.*;
+import client.presentation.right.admin.adminManage;
+import client.presentation.right.admin.adminStart;
 import client.presentation.right.courier.*;
 import client.presentation.right.manager.ManagerStart;
 import client.presentation.right.manager.Manager_Manage;
@@ -39,7 +41,7 @@ public class MainFrame extends JFrame implements Watcher {
 		this.frameHeight = d.getFrameHeight();
 
 		right = new Cover(frameWidth, frameHeight);
-		((Cover) right).addWatcher(this);
+		((Cover)right).addWatcher(this);
 
 		this.setTitle("快递物流系统ELMS");
 		this.setVisible(true);
@@ -56,6 +58,7 @@ public class MainFrame extends JFrame implements Watcher {
 
 		this.remove(right);
 		this.state = state;
+ 
 
 		if (state == State.COURIERSTART) {
 			right = new StartPanel(frameWidth, frameHeight);
@@ -171,6 +174,11 @@ public class MainFrame extends JFrame implements Watcher {
 		} else if (state == State.MANAGERFIND) {
 			right = new Manager_find(frameWidth, frameHeight);
 			((Manager_find) right).addWatcher(this);
+		} else if (state == State.ADMINSTART) {
+			right = new adminStart(frameWidth, frameHeight);
+		} else if (state == State.ADMINMANAGE) {
+			right = new adminManage(frameWidth, frameHeight);
+			((adminManage) right).addWatcher(this);
 		}
 
 		if (state == State.LEFTMANAGER) {
@@ -204,7 +212,6 @@ public class MainFrame extends JFrame implements Watcher {
 			this.remove(right);
 			right = new Cover(frameWidth, frameHeight);
 			((Cover) right).addWatcher(this);
-			System.out.println("1");
 		}
 
 		this.add(right);

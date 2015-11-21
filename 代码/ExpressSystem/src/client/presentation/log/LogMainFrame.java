@@ -125,9 +125,7 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 				jtf.setText("");
 				jpf.setText("");
 			}
-
-			jtf.setText("");
-			jpf.setText("");
+ 
 
 		} else if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COVER);
