@@ -15,6 +15,7 @@ import client.po.SystemUserPO;
 import client.presentation.watcher.State;
 import client.presentation.watcher.Watched;
 import client.presentation.watcher.Watcher;
+import client.vo.Message;
 
 public class LogMainFrame extends JPanel implements ActionListener, Watched {
 
@@ -90,37 +91,57 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 			// 登录验证
 
 			SystemBlServerImpl s = new SystemBlServerImpl();
+			
+			Message msg=new Message();
+			msg.addInform("2015010002");
+			msg.addInform("nova123321");
+			msg.addInform("manager");
+			s.addUser(msg);
+			
+			Message msg2=new Message();
+			msg2.addInform("2015020001");
+			msg2.addInform("nova123321");
+			msg2.addInform("account");
+			s.addUser(msg2);
+			
+			System.out.println("added!");
 
-			if (input_account != "" && input_password != "") {
-				if (s.login(input_account, input_password).getIdentity()
-						.equals("manager")) {
-					this.notifyWatchers(State.MANAGERSTART);
-					this.notifyWatchers(State.LEFTMANAGER);
+			if (!input_account .equals("") && !input_password.equals("") ) {
+				SystemUserPO user=s.login(input_account, input_password);
+				if(user!=null){
+					if (user.getIdentity()
+							.equals("manager")) {
+						this.notifyWatchers(State.MANAGERSTART);
+						this.notifyWatchers(State.LEFTMANAGER);
 
-				} else if (s.login(input_account, input_password).getIdentity()
-						.equals("account")) {
-					this.notifyWatchers(State.ACCOUNTANTSTART);
-					this.notifyWatchers(State.LEFTACCOUNTANT);
-				} else if (s.login(input_account, input_password).getIdentity()
-						.equals("courier")) {
-					this.notifyWatchers(State.COURIERSTART);
-					this.notifyWatchers(State.LEFTCOURIER);
-				} else if (s.login(input_account, input_password).getIdentity()
-						.equals("hstaff")) {
-					this.notifyWatchers(State.YING_START);
-					this.notifyWatchers(State.LEFTYING);
-				} else if (s.login(input_account, input_password).getIdentity()
-						.equals("tstaff")) {
-					this.notifyWatchers(State.ZHONG_START);
-					this.notifyWatchers(State.LEFTZHONG);
-				} else if (s.login(input_account, input_password).getIdentity()
-						.equals("keeper")) {
-					this.notifyWatchers(State.STOCKMANSTART);
-					this.notifyWatchers(State.LEFTSTOCKMAN);
-				} else if (s.login(input_account, input_password).getIdentity()
-						.equals("admin")) {
+					} else if (user.getIdentity()
+							.equals("account")) {
+						this.notifyWatchers(State.ACCOUNTANTSTART);
+						this.notifyWatchers(State.LEFTACCOUNTANT);
+					} else if (user.getIdentity()
+							.equals("courier")) {
+						this.notifyWatchers(State.COURIERSTART);
+						this.notifyWatchers(State.LEFTCOURIER);
+					} else if (user.getIdentity()
+							.equals("hstaff")) {
+						this.notifyWatchers(State.YING_START);
+						this.notifyWatchers(State.LEFTYING);
+					} else if (user.getIdentity()
+							.equals("tstaff")) {
+						this.notifyWatchers(State.ZHONG_START);
+						this.notifyWatchers(State.LEFTZHONG);
+					} else if (user.getIdentity()
+							.equals("keeper")) {
+						this.notifyWatchers(State.STOCKMANSTART);
+						this.notifyWatchers(State.LEFTSTOCKMAN);
+					} else if (user.getIdentity()
+							.equals("admin")) {
 
+					}
+				}else{
+					System.out.println("Fail login!");
 				}
+				
 
 				jtf.setText("");
 				jpf.setText("");

@@ -15,7 +15,7 @@ public interface systemServer {
 	
 	public SystemUserPO login(String id,String key);
 	
-	public SystemUserVO addUser(Message message);
+	public SystemUserPO addUser(Message message);
 	
 	public boolean removeUser(String id);
 	

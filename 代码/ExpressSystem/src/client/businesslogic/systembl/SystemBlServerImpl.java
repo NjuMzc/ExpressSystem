@@ -2,8 +2,7 @@ package client.businesslogic.systembl;
 
 import client.businesslogicservice.systemblservice.systemServer;
 import server.data.systemdata.*;
-import client.dataservice.systemdataservice.systemDataServer;
-import client.dataservice.systemdataservice.systemDataServer_Stub;
+import server.dataservice.systemdataservice.*;
 import client.po.SystemUserPO;
 import client.vo.Message;
 import client.vo.SystemUserVO;
@@ -13,7 +12,7 @@ public class SystemBlServerImpl implements systemServer {
 	systemDataServer dataServer;
 
 	public SystemBlServerImpl() {
-		this.dataServer = (systemDataServer) new SystemDataServerImpl();
+		this.dataServer =new SystemDataServerImpl();
 	}
 
 	/*
@@ -25,7 +24,7 @@ public class SystemBlServerImpl implements systemServer {
 	 * 
 	 * @see
 	 */
-	public SystemUserVO login(String id, String key) {
+	public SystemUserPO login(String id, String key) {
 		// TODO Auto-generated method stub
 		SystemUserPO user =dataServer.find(id);
 
@@ -33,18 +32,18 @@ public class SystemBlServerImpl implements systemServer {
 			return null;
 		else {
 			if (user.getKey().equals(key))
-				return (SystemUserVO) user;
+				return user;
 			else
 				return null;
 		}
 
 	}
 
-	public SystemUserVO addUser(Message message) {
+	public SystemUserPO addUser(Message message) {
 		// TODO Auto-generated method stub
 		SystemUserPO user=new SystemUserPO(message.getInform(0), message.getInform(1), message.getInform(2));
 		dataServer.insert(user);
-		return (SystemUserVO) user;
+		return user;
 	}
 
 	public boolean removeUser(String id) {
