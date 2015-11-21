@@ -73,6 +73,7 @@ public class ManagerPanel extends JPanel implements Watched, ActionListener {
 
 		logout.setMargin(new Insets(0, 0, 0, 0));
 		logout.setBounds(20, frameHeight - 100, 80, 30);
+		logout.addActionListener(this);
 		close.setMargin(new Insets(0, 0, 0, 0));
 		close.setBounds(frameWidth / 4 - 100, frameHeight - 100, 80, 30);
 
@@ -94,6 +95,10 @@ public class ManagerPanel extends JPanel implements Watched, ActionListener {
 			this.notifyWatchers(State.MANAGERCHECK);
 		} else if (e.getSource() == jb[4]) {
 			this.notifyWatchers(State.MANAGERFIND);
+		}
+		
+		if(e.getSource()==logout){
+			this.notifyWatchers(State.LOGOUT);
 		}
 
 	}

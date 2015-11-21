@@ -41,10 +41,11 @@ public class MainFrame extends JFrame implements Watcher {
 		right = new Cover(frameWidth, frameHeight);
 		((Cover) right).addWatcher(this);
 
-		this.setTitle("快递物流系统");
+		this.setTitle("快递物流系统ELMS");
 		this.setVisible(true);
 		this.setResizable(false);
-		this.setBounds(0, 0, frameWidth, frameHeight);
+		this.setBounds(frameWidth / 5, frameHeight / 15, frameWidth,
+				frameHeight);
 		this.setLayout(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -173,9 +174,37 @@ public class MainFrame extends JFrame implements Watcher {
 		}
 
 		if (state == State.LEFTMANAGER) {
-			left = new AccountantPanel(frameWidth, frameHeight);
+			left = new ManagerPanel(frameWidth, frameHeight);
 			((ManagerPanel) left).addWatcher(this);
 			this.add(left);
+		} else if (state == State.LEFTACCOUNTANT) {
+			left = new AccountantPanel(frameWidth, frameHeight);
+			((AccountantPanel) left).addWatcher(this);
+			this.add(left);
+		} else if (state == State.LEFTCOURIER) {
+			left = new CourierPanel(frameWidth, frameHeight);
+			((CourierPanel) right).addWatcher(this);
+			this.add(left);
+		} else if (state == State.LEFTSTOCKMAN) {
+			left = new StockmanPanel(frameWidth, frameHeight);
+			((StockmanPanel) left).addWatcher(this);
+			this.add(left);
+		} else if (state == State.LEFTYING) {
+			left = new Ying_salesmanPanel(frameWidth, frameHeight);
+			((Ying_salesmanPanel) left).addWatcher(this);
+			this.add(left);
+		} else if (state == State.LEFTZHONG) {
+			left = new Zhong_salesmanPanel(frameWidth, frameHeight);
+			((Zhong_salesmanPanel) left).addWatcher(this);
+			this.add(left);
+		}
+
+		if (state == State.LOGOUT) {
+			this.remove(left);
+			this.remove(right);
+			right = new Cover(frameWidth, frameHeight);
+			((Cover) right).addWatcher(this);
+			System.out.println("1");
 		}
 
 		this.add(right);

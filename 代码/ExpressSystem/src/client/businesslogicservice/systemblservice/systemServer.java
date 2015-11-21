@@ -13,7 +13,7 @@ import client.vo.SystemUserVO;
  */
 public interface systemServer {
 	
-	public SystemUserVO login(String id,String key);
+	public SystemUserPO login(String id,String key);
 	
 	public SystemUserVO addUser(Message message);
 	
