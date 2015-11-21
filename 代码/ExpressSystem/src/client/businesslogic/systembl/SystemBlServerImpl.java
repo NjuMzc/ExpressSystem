@@ -27,13 +27,13 @@ public class SystemBlServerImpl implements systemServer {
 	 */
 	public SystemUserVO login(String id, String key) {
 		// TODO Auto-generated method stub
-		SystemUserVO user = (SystemUserVO) dataServer.find(id);
+		SystemUserPO user =dataServer.find(id);
 
 		if (user == null)
 			return null;
 		else {
-			if (user.getKey().equals(id))
-				return user;
+			if (user.getKey().equals(key))
+				return (SystemUserVO) user;
 			else
 				return null;
 		}

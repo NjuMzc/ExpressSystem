@@ -21,7 +21,6 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 	int frameWidth;
 	int frameHeight;
 	JLabel remind;
-	JButton system;
 	JLabel account;
 	JLabel passport;
 	JButton confirm;
@@ -39,10 +38,9 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 
 		this.setLayout(null);
 		this.setBounds(0, 0, frameWidth, frameHeight);
-		this.setBackground(new Color(248, 147, 69));
+		this.setBackground(new Color(107, 155, 184));
 
 		remind = new JLabel("快递物流系统");
-		system = new JButton("系统登录");
 
 		account = new JLabel("账户");
 		passport = new JLabel("密码");
@@ -54,7 +52,6 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		init();
 
 		this.add(remind);
-		this.add(system);
 		this.add(account);
 		this.add(passport);
 		this.add(confirm);
@@ -68,14 +65,10 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		remind.setFont(f);
 		remind.setBounds(frameWidth / 3, frameHeight / 4, frameWidth / 3,
 				frameWidth / 18);
-		system.setMargin(new Insets(0, 0, 0, 0));
-		system.setFont(new Font("", Font.BOLD, 20));
-		system.setBounds(frameWidth / 3, frameHeight / 2, frameWidth / 3,
-				frameWidth / 12);
 
-		account.setBounds(frameWidth / 3, frameHeight * 5 / 8, frameWidth / 12,
+		account.setBounds(frameWidth / 3, frameHeight / 8 * 5, frameWidth / 12,
 				frameWidth / 20);
-		passport.setBounds(frameWidth / 3, frameHeight * 3 / 4,
+		passport.setBounds(frameWidth / 3, frameHeight / 4 * 3,
 				frameWidth / 12, frameWidth / 20);
 		confirm.setBounds(frameWidth / 3, frameHeight * 7 / 8, frameWidth / 12,
 				frameWidth / 20);
@@ -90,14 +83,47 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirm) {
+
 			String input_account = jtf.getText();
 			String input_password = jpf.getText();
 
 			// 登录验证
+
 			SystemBlServerImpl s = new SystemBlServerImpl();
-			if (s.login(input_account, input_password).getIdentity()
-					.equals("manager")) {
-				this.notifyWatchers(State.MANAGERSTART);
+
+			if (input_account != "" && input_password != "") {
+				if (s.login(input_account, input_password).getIdentity()
+						.equals("manager")) {
+					this.notifyWatchers(State.MANAGERSTART);
+					this.notifyWatchers(State.LEFTMANAGER);
+
+				} else if (s.login(input_account, input_password).getIdentity()
+						.equals("account")) {
+					this.notifyWatchers(State.ACCOUNTANTSTART);
+					this.notifyWatchers(State.LEFTACCOUNTANT);
+				} else if (s.login(input_account, input_password).getIdentity()
+						.equals("courier")) {
+					this.notifyWatchers(State.COURIERSTART);
+					this.notifyWatchers(State.LEFTCOURIER);
+				} else if (s.login(input_account, input_password).getIdentity()
+						.equals("hstaff")) {
+					this.notifyWatchers(State.YING_START);
+					this.notifyWatchers(State.LEFTYING);
+				} else if (s.login(input_account, input_password).getIdentity()
+						.equals("tstaff")) {
+					this.notifyWatchers(State.ZHONG_START);
+					this.notifyWatchers(State.LEFTZHONG);
+				} else if (s.login(input_account, input_password).getIdentity()
+						.equals("keeper")) {
+					this.notifyWatchers(State.STOCKMANSTART);
+					this.notifyWatchers(State.LEFTSTOCKMAN);
+				} else if (s.login(input_account, input_password).getIdentity()
+						.equals("admin")) {
+
+				}
+
+				jtf.setText("");
+				jpf.setText("");
 			}
 
 			jtf.setText("");

@@ -33,7 +33,7 @@ public class Cover extends JPanel implements Watched, ActionListener {
 
 		this.setLayout(null);
 		this.setBounds(0, 0, frameWidth, frameHeight);
-		this.setBackground(new Color(248, 147, 69));
+		this.setBackground(new Color(107, 155, 184));
 
 		remind = new JLabel("快递物流系统");
 		system = new JButton("系统登录");
@@ -47,7 +47,7 @@ public class Cover extends JPanel implements Watched, ActionListener {
 	}
 
 	private void init() {
-		Font f = new Font("", Font.BOLD, 45);
+		Font f = new Font("华文新魏", Font.BOLD, 45);
 		remind.setFont(f);
 		remind.setBounds(frameWidth / 3, frameHeight / 4, frameWidth / 3,
 				frameWidth / 18);
