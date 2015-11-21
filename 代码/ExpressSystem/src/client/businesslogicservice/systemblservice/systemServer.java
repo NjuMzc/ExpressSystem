@@ -23,6 +23,6 @@ public interface systemServer {
 	
 	public SystemUserVO inquire(String id);
 	
-	
+	public int getUserNum();
 
 }

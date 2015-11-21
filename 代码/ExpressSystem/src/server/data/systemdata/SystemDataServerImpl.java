@@ -26,5 +26,9 @@ public class SystemDataServerImpl implements systemDataServer {
 	public void update(SystemUserPO po) {
 		list.update(po);
 	}
+	public int getUserNum() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

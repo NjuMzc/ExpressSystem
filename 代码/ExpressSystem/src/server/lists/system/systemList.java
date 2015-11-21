@@ -10,4 +10,6 @@ public interface systemList {
 	boolean delUser(SystemUserPO po);
 	
 	boolean update(SystemUserPO po);
+	
+	int size();
 }
