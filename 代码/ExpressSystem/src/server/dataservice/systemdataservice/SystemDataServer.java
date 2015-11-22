@@ -1,19 +1,22 @@
 package server.dataservice.systemdataservice;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 import client.po.SystemUserPO;
 
 
 
-public interface SystemDataServer {
+public interface SystemDataServer extends Remote {
 
-	public SystemUserPO find(String id);
+	public SystemUserPO find(String id)throws RemoteException;
 	
-	public void insert(SystemUserPO po);
+	public void insert(SystemUserPO po)throws RemoteException;
 	
-	public void delete(SystemUserPO po);
+	public void delete(SystemUserPO po)throws RemoteException;
 	
-	public void update(SystemUserPO po);
+	public void update(SystemUserPO po)throws RemoteException;
 	
-	public int getUserNum();
+	public int getUserNum()throws RemoteException;
 	 
 }
