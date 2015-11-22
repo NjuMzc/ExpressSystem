@@ -1,5 +1,6 @@
 package server.lists.bank.impl;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,15 +12,15 @@ import java.util.ArrayList;
 
 import client.po.BankPO;
 import client.po.SystemUserPO;
-import server.lists.bank.bankList;
-import server.lists.system.impl.systemListImpl;
+import server.lists.bank.BankList;
+import server.lists.system.impl.SystemListImpl;
 
 //尚未完成，BankPO未完成
-public class bankListImpl implements bankList {
+public class BankListImpl implements BankList {
 	final String path ="src/server/dataList/bankList.dat";
 	private ArrayList<BankPO> banks;
 	
-	public bankListImpl() {
+	public BankListImpl() {
 		load();
 	}
 	
@@ -78,9 +79,13 @@ public class bankListImpl implements bankList {
 			ois.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (EOFException e) {
+			banks= new ArrayList<BankPO>();
+			save();
+			load();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
@@ -94,7 +99,7 @@ public class bankListImpl implements bankList {
 	}
 	
 	public static void main(String[] args) {
-		bankList a = new bankListImpl();
+		BankList a = new BankListImpl();
 		
 	}
 

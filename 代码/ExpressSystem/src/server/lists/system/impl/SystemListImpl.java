@@ -11,12 +11,12 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import client.po.SystemUserPO;
-import server.lists.system.systemList;
+import server.lists.system.SystemList;
 
-public class systemListImpl implements systemList {
+public class SystemListImpl implements SystemList {
 	final String path="src/server/dataList/userList.dat";
 	private ArrayList<SystemUserPO> users; 
-	public systemListImpl() {
+	public SystemListImpl() {
 		load();
 	}
 	public boolean addUser(SystemUserPO po) {
@@ -98,11 +98,13 @@ public class systemListImpl implements systemList {
 		} catch (FileNotFoundException e) {
 			System.out.println("找不到文件");
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (EOFException e) {
 			users= new ArrayList<SystemUserPO>();
 			save();
 			load();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
@@ -123,7 +125,7 @@ public class systemListImpl implements systemList {
 	}
 	
 	public static void main(String[] args) {
-		systemListImpl a = new systemListImpl();
+		SystemListImpl a = new SystemListImpl();
 		a.print();
 	}
 	

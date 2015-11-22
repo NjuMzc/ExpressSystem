@@ -4,7 +4,7 @@ import client.po.SystemUserPO;
 
 
 
-public interface systemDataServer {
+public interface SystemDataServer {
 
 	public SystemUserPO find(String id);
 	

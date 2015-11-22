@@ -3,14 +3,14 @@ package server.data.bankdata;
 import java.rmi.RemoteException;
 
 import client.po.BankPO;
-import server.dataservice.bankdataservice.bankDataServer;
-import server.lists.bank.bankList;
-import server.lists.bank.impl.bankListImpl;
+import server.dataservice.bankdataservice.BankDataServer;
+import server.lists.bank.BankList;
+import server.lists.bank.impl.BankListImpl;
 
-public class bankDataServerImpl implements bankDataServer {
-	bankList list;
-	public bankDataServerImpl() {
-		list = new bankListImpl();
+public class BankDataServerImpl implements BankDataServer {
+	BankList list;
+	public BankDataServerImpl() {
+		list = new BankListImpl();
 	}
 
 	public BankPO find(String id) throws RemoteException {

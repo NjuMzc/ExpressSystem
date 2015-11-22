@@ -2,7 +2,7 @@ package server.lists.system;
 
 import client.po.SystemUserPO;
 
-public interface systemList {
+public interface SystemList {
 	boolean addUser(SystemUserPO po);
 	
 	SystemUserPO find(String id);

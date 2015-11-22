@@ -1,14 +1,14 @@
 package server.data.systemdata;
 
 import client.po.SystemUserPO;
-import server.dataservice.systemdataservice.systemDataServer;
-import server.lists.system.systemList;
-import server.lists.system.impl.systemListImpl;
+import server.dataservice.systemdataservice.SystemDataServer;
+import server.lists.system.SystemList;
+import server.lists.system.impl.SystemListImpl;
 
-public class SystemDataServerImpl implements systemDataServer {
-	systemList list;
+public class SystemDataServerImpl implements SystemDataServer {
+	SystemList list;
 	public SystemDataServerImpl() {
-		list= new systemListImpl();
+		list= new SystemListImpl();
 	}
 	public SystemUserPO find(String id) {
 		SystemUserPO po = list.find(id);

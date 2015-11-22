@@ -14,7 +14,7 @@ import client.vo.SystemUserVO;
  */
 public class SystemBlServerImpl implements systemServer {
 	
-	systemDataServer dataServer;
+	SystemDataServer dataServer;
 
 	public SystemBlServerImpl() {
 		this.dataServer =new SystemDataServerImpl();

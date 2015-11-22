@@ -2,7 +2,7 @@ package server.lists.bank;
 
 import client.po.BankPO;
 
-public interface bankList {
+public interface BankList {
 	boolean addUser(BankPO po);
 	
 	BankPO find(String id);
