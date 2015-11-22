@@ -42,6 +42,7 @@ public class MainFrame extends JFrame implements Watcher {
 
 		right = new Cover(frameWidth, frameHeight);
 		((Cover)right).addWatcher(this);
+		 
 
 		this.setTitle("快递物流系统ELMS");
 		this.setVisible(true);
