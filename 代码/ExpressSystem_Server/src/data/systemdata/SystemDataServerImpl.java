@@ -2,6 +2,7 @@ package data.systemdata;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 import lists.system.SystemList;
 import lists.system.impl.SystemListImpl;
@@ -32,6 +33,11 @@ public class SystemDataServerImpl extends UnicastRemoteObject implements SystemD
 	public int getUserNum() throws RemoteException{
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	@Override
+	public ArrayList getAllUsers() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
