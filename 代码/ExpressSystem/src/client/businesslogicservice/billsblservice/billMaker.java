@@ -4,8 +4,7 @@ import client.po.BillPO;
 import client.vo.*;
 
 /**
- * 鍒朵綔璁㈠崟鐨勬帴鍙�
- * 杩斿洖BillVO鏄竴涓硾鍨嬬殑瀵硅薄
+ * 单据制作的接口
  * @author rabook
  *
  */

@@ -24,16 +24,10 @@ public class BillsMakerImpl implements billMaker {
 		
 	}
 
-	public OrderBill makeOrderBill(Message message) {
+	public BillPO makeOrderBill(Message message) {
 		// TODO Auto-generated method stub
 		OrderBill bill=new OrderBill(message);
-		try {
-			dataServer.insert(bill);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
 		return bill;
 	}
 
