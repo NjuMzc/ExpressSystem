@@ -16,6 +16,7 @@ import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 import businesslogic.systembl.SystemBlServerImpl;
+import businesslogicservice.systemblservice.systemServer;
 
 public class LogMainFrame extends JPanel implements ActionListener, Watched {
 
@@ -90,7 +91,7 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 
 			// 登录验证
 
-			SystemBlServerImpl s = new SystemBlServerImpl();
+			systemServer s = new SystemBlServerImpl();
 		    
 			s.addUser("admin");
 			

@@ -133,16 +133,16 @@ public class SystemDataServerImpl extends UnicastRemoteObject implements SystemD
 		}
 	}
 	
-	public static void main(String[] args) {
-		try {
-			SystemDataServer a = new SystemDataServerImpl();
-			a.insert(new SystemUserPO("201500000","123", "1", "王尼玛"));
-			a.find("201500000");
-			
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			SystemDataServer a = new SystemDataServerImpl();
+//			a.insert(new SystemUserPO("201500000","123", "1", "王尼玛"));
+//			a.find("201500000");
+//			
+//		} catch (RemoteException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 }
