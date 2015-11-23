@@ -9,22 +9,22 @@ import java.util.ArrayList;
  *
  */
 public class GoodPO {
-private String id;
+    private String id;//编号，与订单号一致
 	
-	private String depature;
+	private String depature;//出发地
 	
-	private String destination;
+	private String destination;//目的地
 	
-	private enum arriveState{OK,MISS,BAD};
+	private enum arriveState{OK,MISS,BAD};//到达状态
 	
 	private enum transState{Received,ArriveSendHall,ArriveSendStorage,
-		              Delivering,ArriveReceiveHall,ArriveReceiveStorage};
+		              Delivering,ArriveReceiveHall,ArriveReceiveStorage};//运输状态
 		              
     private transState tranState;
     
     private arriveState arriveState;
     
-    private ArrayList<String> trace;
+    private ArrayList<String> trace;//历史轨迹
     
     
     

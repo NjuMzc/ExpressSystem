@@ -1,11 +1,9 @@
 package businesslogicservice.systemblservice;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.Message;
 import po.SystemUserPO;
-import vo.SystemUserVO;
 
 /**
  * 系统管理员相关功能的接口
@@ -16,9 +14,9 @@ import vo.SystemUserVO;
  */
 public interface systemServer {
 	
-	public SystemUserPO login(String id,String key) ;
+	public SystemUserPO login(String id,String key) ;//处理登录
 	
-	public SystemUserPO addUser(Message message);
+	public SystemUserPO addUser(String id);
 	
 	public boolean removeUser(String id);
 	

@@ -1,19 +1,17 @@
 package dataservice.transportdataservice;
 
-import java.rmi.RemoteException;
-
 import po.GoodPO;
 
 /**
- * ��������ݲ�ӿ������ġ���
+ * 运输模块的数据接口
  * 
  * @author nick
  *
  */
 public interface transportDataServer {
-	public void insert(GoodPO po) throws RemoteException;
+	public void insert(GoodPO po);
 
-	public void update(GoodPO po) throws RemoteException;
+	public void update(GoodPO po);
 
-	public GoodPO find(String id) throws RemoteException;
+	public GoodPO find(String id);
 }
