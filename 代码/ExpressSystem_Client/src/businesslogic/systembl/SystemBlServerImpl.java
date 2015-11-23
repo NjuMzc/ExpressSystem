@@ -176,7 +176,7 @@ public class SystemBlServerImpl implements systemServer {
 	@Override
 	public ArrayList<SystemUserPO> getAllUsers() {
 		// TODO Auto-generated method stub
-		return null;
+		return dataServer.getAllUsers();
 	}
 
 

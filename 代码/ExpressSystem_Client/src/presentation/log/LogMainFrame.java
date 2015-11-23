@@ -92,8 +92,6 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 			// 登录验证
 
 			systemServer s = new SystemBlServerImpl();
-		    
-			s.addUser("admin");
 			
 			if (!input_account .equals("") && !input_password.equals("") ) {
 				SystemUserPO user=s.login(input_account, input_password);

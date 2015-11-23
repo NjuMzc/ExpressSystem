@@ -4,15 +4,22 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
+import businesslogic.systembl.SystemBlServerImpl;
+import businesslogicservice.systemblservice.systemServer;
+import po.SystemUserPO;
 import presentation.watcher.*;
 
 public class adminManage extends JPanel implements Watched, ActionListener {
+	systemServer blserver;
+	ArrayList users;
+	
 	int frameWidth;
 	int frameHeight;
 
@@ -28,7 +35,8 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 	private List<Watcher> list;
 
 	public adminManage(int frameWidth, int frameHeight) {
-
+        this.blserver=new SystemBlServerImpl();
+		
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 
@@ -74,6 +82,18 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 		change.addActionListener(this);
 		delete.setBounds(frameWidth / 3, frameHeight / 10, 100, 30);
 		delete.addActionListener(this);
+		
+		//初始化表内数据
+		users=blserver.getAllUsers();
+		Iterator it=users.iterator();
+	
+		
+		while(it.hasNext()){
+			System.out.println("Running!");
+			SystemUserPO user=(SystemUserPO) it.next();
+			model.addRow(user.getUserName(), user.getID(), user.getKey());
+		}
+		
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -92,26 +112,36 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == add) {
+			SystemUserPO user=null;
 			String currentType = (String) type.getSelectedItem();
 
 			// 各个类型人员的增加
 			if (currentType.equals("快递员")) {
+				user=blserver.addUser("courier");
 
 			} else if (currentType.equals("管理员")) {
+				user=blserver.addUser("admin");
 
 			} else if (currentType.equals("总经理")) {
+				user=blserver.addUser("manager");
 
 			} else if (currentType.equals("财务人员")) {
+				user=blserver.addUser("account");
 
 			} else if (currentType.equals("仓库管理人员")) {
+				user=blserver.addUser("keeper");
 
 			} else if (currentType.equals("营业厅业务员")) {
+				user=blserver.addUser("hstaff");
 
 			} else if (currentType.equals("中转中心业务员")) {
+				user=blserver.addUser("tstaff");
 
 			}
-
-			model.addRow("nova", "1412500", "12345");
+			
+			model.addRow(user.getUserName(), user.getID(), user.getKey());
+ 
+		
 			table.updateUI();
 		}
 
@@ -123,12 +153,17 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 		// 删除数据的实现
 		if (e.getSource() == delete) {
 			int rowDelete = table.getSelectedRow();
-			System.out.println(rowDelete);
 			if (rowDelete != -1&&rowDelete<model.getRowCount()) {
+				
+				//逻辑层数据删除
+				blserver.removeUser((String)model.getValueAt(rowDelete, 1));
 				model.removeRow(rowDelete);
 			}
 			table.updateUI();
+		 
+		 
 		}
+		 
 
 	}
 

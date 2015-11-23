@@ -16,7 +16,7 @@ public interface systemServer {
 	
 	public SystemUserPO login(String id,String key) ;//处理登录
 	
-	public SystemUserPO addUser(String id);
+	public SystemUserPO addUser(String identity);
 	
 	public boolean removeUser(String id);
 	
