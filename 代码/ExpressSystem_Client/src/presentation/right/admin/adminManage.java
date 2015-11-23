@@ -19,7 +19,10 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 	JTable table;
 	Table_Model model;
 	JScrollPane js;
-	JButton jb;
+	JLabel remind;
+	JComboBox type;
+	JButton add;
+	JButton change;
 
 	private List<Watcher> list;
 
@@ -37,22 +40,36 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 		model = new Table_Model(20);
 		table = new JTable(model);
 		js = new JScrollPane(table);
-		jb = new JButton("增加");
+		remind = new JLabel("选择类型:");
+		String[] items = { "快递员", "管理员", "总经理", "财务人员", "仓库管理人员", "营业厅业务员",
+				"中转中心业务员" };
+		type = new JComboBox(items);
+		add = new JButton("增加 ");
+		change = new JButton("修改");
 
 		init();
 
 		this.add(js);
-		this.add(jb);
+		this.add(remind);
+		this.add(type);
+		this.add(add);
+		this.add(change);
+
 	}
 
 	private void init() {
 
-		table.setBounds(frameWidth / 10, frameHeight / 10, frameWidth / 2,
+		table.getTableHeader().setReorderingAllowed(false);
+		js.setBounds(frameWidth / 10, frameHeight / 6, frameWidth / 2,
 				frameHeight / 10 * 7);
-		js.setBounds(frameWidth / 10, frameHeight / 10, frameWidth / 2,
-				frameHeight / 10 * 7);
-		jb.setBounds(frameWidth / 2, frameHeight / 10 * 9, 100, 30);
-		jb.addActionListener(this);
+
+		remind.setBounds(frameWidth / 10, frameHeight / 20, 100, 50);
+		type.setBounds(frameWidth / 3, frameHeight / 20, 110, 30);
+		add.setBounds(frameWidth / 2, frameHeight / 20, 100, 30);
+		add.addActionListener(this);
+		change.setBounds(frameWidth / 2, frameHeight / 10, 100, 30);
+		change.addActionListener(this);
+
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -70,14 +87,61 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==jb){
-        	model.addRow("nova", "1412500", "12345");
-        	table.updateUI();
-        }
+		if (e.getSource() == add) {
+			String currentType = (String) type.getSelectedItem();
+
+			// 各个类型人员的增加
+			if (currentType.equals("快递员")) {
+
+			} else if (currentType.equals("管理员")) {
+
+			} else if (currentType.equals("总经理")) {
+
+			} else if (currentType.equals("财务人员")) {
+
+			} else if (currentType.equals("仓库管理人员")) {
+
+			} else if (currentType.equals("营业厅业务员")) {
+
+			} else if (currentType.equals("中转中心业务员")) {
+
+			}
+
+			model.addRow("nova", "1412500", "12345");
+			table.updateUI();
+		}
+
+		// 修改数据的实现
+		if (e.getSource() == change) {
+			model.getChanged(table.getSelectedRow());
+
+			for (int i = 0; i < model.getRowCount(); i++) {
+				for (int j = 0; j < model.getColumnCount(); j++) {
+					System.out.print(model.getValueAt(i, j)+" ");
+				}
+				System.out.println();
+			}
+		}
+		
+		if(e.getSource()!=table){
+			for (int i = 0; i < model.getRowCount(); i++) {
+				for (int j = 0; j < model.getColumnCount(); j++) {
+					System.out.print(model.getValueAt(i, j)+" ");
+				}
+			}
+			System.out.println();
+		}
+	}
+
+	public void removeData(int row) {
+		model.removeRow(row);
+		table.updateUI();
 	}
 
 	// 内部类
 	class Table_Model extends AbstractTableModel {
+
+		private int rowChange = -2;
 
 		private Vector content = null;
 
@@ -99,11 +163,15 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 			content.remove(row);
 		}
 
+		public void getChanged(int row) {
+			this.rowChange = row;
+		}
+
 		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			if (columnIndex == 1) {
-				return false;
+			if (rowIndex == rowChange && (columnIndex == 0 || columnIndex == 2)) {
+				return true;
 			}
-			return true;
+			return false;
 		}
 
 		public void setValueAt(Object value, int row, int col) {
