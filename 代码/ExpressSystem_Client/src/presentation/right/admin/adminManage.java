@@ -148,6 +148,7 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 		// 修改数据的实现
 		if (e.getSource() == change) {
 			model.getChanged(table.getSelectedRow());
+			
 		}
 
 		// 删除数据的实现
