@@ -1,12 +1,13 @@
 package po;
 
 import java.io.Serializable;
+import java.rmi.Remote;
 /**
  * 系统用户的抽象类
  * @author rabook
  *
  */
-public class SystemUserPO implements Serializable {
+public class SystemUserPO implements Remote, Serializable {
 	String id;
 	String key;
 	

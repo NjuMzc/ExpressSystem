@@ -12,8 +12,10 @@ public class RMIHelper {
 	public static void init() {
 		try {
 			SystemDataServer systemData = (SystemDataServer) Naming.lookup("rmi://localhost:1099/systemData");
+			
 			SystemUserPO a = systemData.find("201500000");
-			System.out.println(a.getID()+" "+a.getKey()+" "+a.getIdentity());
+			System.out.println(a==null);
+			System.out.println(a.getID() + " " + a.getKey() + " " + a.getIdentity());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -21,5 +23,7 @@ public class RMIHelper {
 		} catch (NotBoundException e) {
 			e.printStackTrace();
 		}
+
 	}
+
 }

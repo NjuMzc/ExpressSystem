@@ -14,7 +14,7 @@ import lists.system.SystemList;
 import po.SystemUserPO;
 
 public class SystemListImpl implements SystemList {
-	final String path="src/server/dataList/userList.dat";
+	final String path="src/dataList/userList.dat";
 	private ArrayList<SystemUserPO> users; 
 	public SystemListImpl() {
 		load();
@@ -120,12 +120,15 @@ public class SystemListImpl implements SystemList {
 	 */
 	public void print(){
 		for(int i=0;i<users.size();i++){
-			System.out.println(users.get(i).getID()+" "+users.get(i).getKey()+" "+users.get(i).getIdentity());
+			System.out.println(users.get(i).getID()+" "+users.get(i).getKey()+" "+users.get(i).getIdentity()+" "+users.get(i).getUserName());
 		}
 	}
 	
 	public static void main(String[] args) {
 		SystemListImpl a = new SystemListImpl();
+//		a.addUser(new SystemUserPO("201500000", "nova123321", "123", "王尼玛"));
+		SystemUserPO b = a.find("201500000");
+		System.out.println(b==null);
 		a.print();
 	}
 	
