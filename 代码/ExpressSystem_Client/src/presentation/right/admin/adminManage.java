@@ -23,6 +23,7 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 	JComboBox type;
 	JButton add;
 	JButton change;
+	JButton delete;
 
 	private List<Watcher> list;
 
@@ -46,6 +47,7 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 		type = new JComboBox(items);
 		add = new JButton("增加 ");
 		change = new JButton("修改");
+		delete = new JButton("删除");
 
 		init();
 
@@ -54,6 +56,7 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 		this.add(type);
 		this.add(add);
 		this.add(change);
+		this.add(delete);
 
 	}
 
@@ -69,7 +72,8 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 		add.addActionListener(this);
 		change.setBounds(frameWidth / 2, frameHeight / 10, 100, 30);
 		change.addActionListener(this);
-
+		delete.setBounds(frameWidth / 3, frameHeight / 10, 100, 30);
+		delete.addActionListener(this);
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -114,23 +118,18 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 		// 修改数据的实现
 		if (e.getSource() == change) {
 			model.getChanged(table.getSelectedRow());
+		}
 
-			for (int i = 0; i < model.getRowCount(); i++) {
-				for (int j = 0; j < model.getColumnCount(); j++) {
-					System.out.print(model.getValueAt(i, j)+" ");
-				}
-				System.out.println();
+		// 删除数据的实现
+		if (e.getSource() == delete) {
+			int rowDelete = table.getSelectedRow();
+			System.out.println(rowDelete);
+			if (rowDelete != -1&&rowDelete<model.getRowCount()) {
+				model.removeRow(rowDelete);
 			}
+			table.updateUI();
 		}
-		
-		if(e.getSource()!=table){
-			for (int i = 0; i < model.getRowCount(); i++) {
-				for (int j = 0; j < model.getColumnCount(); j++) {
-					System.out.print(model.getValueAt(i, j)+" ");
-				}
-			}
-			System.out.println();
-		}
+
 	}
 
 	public void removeData(int row) {
