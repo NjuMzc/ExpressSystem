@@ -1,33 +1,36 @@
 package data.bankdata;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
-import lists.bank.BankList;
-import lists.bank.impl.BankListImpl;
 import dataservice.bankdataservice.BankDataServer;
 import po.BankPO;
 
 public class BankDataServerImpl implements BankDataServer {
-	BankList list;
+	final String path="src/dataList/bankList.dat";
+	private ArrayList<BankPO> banks;
 	public BankDataServerImpl() {
-		list = new BankListImpl();
+		
 	}
 
 	public BankPO find(String id) throws RemoteException {
-		BankPO  po = list.find(id);
-		return po;
+//		for (BankPO po : banks) {
+//			if(po.getID().equals(id))
+//				return po;
+//		}
+		return null;
 	}
 
 	public void insert(BankPO po) throws RemoteException {
-		list.addUser(po);
+		
 	}
 
 	public void delete(BankPO po) throws RemoteException {
-		list.delUser(po);
+
 	}
 
 	public void update(BankPO po) throws RemoteException {
-		list.update(po);
+		
 	}
 
 }

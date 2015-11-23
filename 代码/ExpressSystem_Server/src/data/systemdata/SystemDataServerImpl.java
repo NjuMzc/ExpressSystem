@@ -12,8 +12,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import lists.system.SystemList;
-import lists.system.impl.SystemListImpl;
+
 import dataservice.systemdataservice.SystemDataServer;
 import po.SystemUserPO;
 
@@ -25,7 +24,6 @@ public class SystemDataServerImpl extends UnicastRemoteObject implements SystemD
 		load();
 	}
 	public SystemUserPO find(String id) throws RemoteException{
-		print();
 		for (SystemUserPO po : users) {
 			if(po.getID().equals(id))
 				return po;
@@ -133,16 +131,16 @@ public class SystemDataServerImpl extends UnicastRemoteObject implements SystemD
 		}
 	}
 	
-//	public static void main(String[] args) {
-//		try {
-//			SystemDataServer a = new SystemDataServerImpl();
-//			a.insert(new SystemUserPO("201500000","123", "1", "王尼玛"));
-//			a.find("201500000");
-//			
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+
+	public static void main(String[] args) {
+		try {
+			SystemDataServerImpl a = new SystemDataServerImpl();
+			a.print();
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
