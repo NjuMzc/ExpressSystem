@@ -5,7 +5,7 @@ import po.Message;
 import po.StoragePO;
 
 /**
- * storage���ݲ����ɾ�Ĳ�
+ * storage的数据层增删改查
  * @author Nick
  *
  */
