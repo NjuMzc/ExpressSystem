@@ -40,9 +40,9 @@ public class MainFrame extends JFrame implements Watcher {
 		this.frameWidth = d.getFrameWidth();
 		this.frameHeight = d.getFrameHeight();
 
-		 right = new Cover(frameWidth, frameHeight);
-		 ((Cover) right).addWatcher(this);
- 
+		right = new Cover(frameWidth, frameHeight);
+		((Cover) right).addWatcher(this);
+		 
 
 		this.setTitle("快递物流系统ELMS");
 		this.setVisible(true);
@@ -191,7 +191,7 @@ public class MainFrame extends JFrame implements Watcher {
 			this.add(left);
 		} else if (state == State.LEFTCOURIER) {
 			left = new CourierPanel(frameWidth, frameHeight);
-			((CourierPanel) right).addWatcher(this);
+			((CourierPanel) left).addWatcher(this);
 			this.add(left);
 		} else if (state == State.LEFTSTOCKMAN) {
 			left = new StockmanPanel(frameWidth, frameHeight);

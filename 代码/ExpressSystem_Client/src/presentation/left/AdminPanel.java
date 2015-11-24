@@ -61,8 +61,10 @@ public class AdminPanel extends JPanel implements Watched, ActionListener {
 		manage.addActionListener(this);
 		logout.setMargin(new Insets(0, 0, 0, 0));
 		logout.setBounds(20, frameHeight - 100, 80, 30);
+		logout.addActionListener(this);
 		close.setMargin(new Insets(0, 0, 0, 0));
 		close.setBounds(frameWidth / 4 - 100, frameHeight - 100, 80, 30);
+		close.addActionListener(this);
 
 		picture.setBounds(0, 0, frameWidth / 4, frameHeight / 3);
 		name.setBounds(10, frameHeight / 3 - 50, 75, 25);
@@ -74,6 +76,10 @@ public class AdminPanel extends JPanel implements Watched, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == manage) {
 			this.notifyWatchers(State.ADMINMANAGE);
+		} else if (e.getSource() == logout) {
+			this.notifyWatchers(State.LOGOUT);
+		} else if (e.getSource() == close) {
+			System.exit(0);
 		}
 
 	}

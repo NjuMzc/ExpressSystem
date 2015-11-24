@@ -141,7 +141,7 @@ public class SystemBlServerImpl implements systemServer {
 			user.setName(message.getInform(0));
 			user.setKey(message.getInform(1));
 		}
-		
+		dataServer.update(user);
 	}
 
 	/*
