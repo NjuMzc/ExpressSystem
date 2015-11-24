@@ -1,5 +1,8 @@
 package po.bills;
 
+import java.io.Serializable;
+import java.rmi.Remote;
+
 import po.BillPO;
 import po.Message;
 
@@ -7,7 +10,7 @@ import po.Message;
  * 订单的类，继承了BillPO类
  * @author rabook
  */
-public class OrderBill {
+public class OrderBill implements Remote,Serializable {
     
 	private Client sender;//寄件人信息
 	private Client receiver;//收件人信息
