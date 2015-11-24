@@ -1,10 +1,8 @@
 package po.bills;
 
-import businesslogicservice.billsblservice.Approvabale;
-import po.BillPO;
 import po.Message;
 
-public class ChargeBill implements Approvabale{
+public class ChargeBill{
 
 private String senderNum;//快递员编号
 private  String orderNum;//托运订单条形码号
@@ -35,15 +33,4 @@ private String date;
 		return date;
 	}
 	
-	//实现Approvabale接口
-	@Override
-	public String getState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void setState(String newState) {
-		// TODO Auto-generated method stub
-		
-	}
 }

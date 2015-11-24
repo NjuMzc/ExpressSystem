@@ -1,7 +1,6 @@
 package po;
 
 
-
 /**
  * 单据的父类
  * @author nick

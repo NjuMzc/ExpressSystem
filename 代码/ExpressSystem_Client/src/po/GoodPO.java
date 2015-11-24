@@ -22,7 +22,7 @@ public class GoodPO {
 		              
     private transState tranState;
     
-    private arriveState arriveState;
+    private arriveState ArriveState;
     
     private ArrayList<String> trace;//历史轨迹
     
@@ -32,7 +32,7 @@ public class GoodPO {
     	this.id=id;
     	this.destination=destination;
     	this.depature=depature;
-    	this.arriveState=arriveState.OK;
+    	this.ArriveState=arriveState.OK;
     	this.tranState=transState.Delivering;
     }
     
@@ -44,19 +44,19 @@ public class GoodPO {
     	return this.trace;
     }
     
-    public void setTransState(transState tranState){
-    	this.tranState=tranState;
+    public void setTransState(String tranState){
+    	this.tranState=transState.valueOf(tranState);
     }
     
-    public transState getTransState(){
-    	return this.tranState;
+    public String getTransState(){
+    	return this.tranState.toString();
     }
     
-    public void setArriveState(arriveState arriveState){
-    	this.arriveState=arriveState;
+    public void setArriveState(String State){
+    	this.ArriveState=arriveState.valueOf(State);
     }
 
-    public arriveState getArriveState(){
-    	return this.arriveState;
+    public String getArriveState(){
+    	return this.ArriveState.toString();
     }
 }

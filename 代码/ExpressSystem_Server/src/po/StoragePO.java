@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 public class StoragePO {
 
-	private ArrayList GoodList;
+	private ArrayList<ListItem> GoodList;
 	
 	private boolean[] capacity;
 	
 	public StoragePO(int capacity){
 		this.capacity=new boolean[capacity];
-		this.GoodList=new ArrayList();
+		this.GoodList=new ArrayList<ListItem>();
 	}
 	
 	

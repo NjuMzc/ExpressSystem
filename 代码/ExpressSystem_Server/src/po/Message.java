@@ -10,14 +10,14 @@ import java.util.ArrayList;
 
 public  class Message {
 	
-     private ArrayList informs=new ArrayList();
+     private ArrayList<String> informs=new ArrayList<String>();
      
      public void addInform(String inform){
     	 informs.add(inform);
      }
      
      public String getInform(int number){
-    	 return informs.get(number).toString();
+    	 return informs.get(number);
      }
      
      public int length(){

@@ -9,22 +9,22 @@ import java.util.ArrayList;
  *
  */
 public class GoodPO {
-private String id;
+    private String id;//编号，与订单号一致
 	
-	private String depature;
+	private String depature;//出发地
 	
-	private String destination;
+	private String destination;//目的地
 	
-	private enum arriveState{OK,MISS,BAD};
+	private enum arriveState{OK,MISS,BAD};//到达状态
 	
 	private enum transState{Received,ArriveSendHall,ArriveSendStorage,
-		              Delivering,ArriveReceiveHall,ArriveReceiveStorage};
+		              Delivering,ArriveReceiveHall,ArriveReceiveStorage};//运输状态
 		              
     private transState tranState;
     
-    private arriveState arriveState;
+    private arriveState ArriveState;
     
-    private ArrayList<String> trace;
+    private ArrayList<String> trace;//历史轨迹
     
     
     
@@ -32,7 +32,7 @@ private String id;
     	this.id=id;
     	this.destination=destination;
     	this.depature=depature;
-    	this.arriveState=arriveState.OK;
+    	this.ArriveState=arriveState.OK;
     	this.tranState=transState.Delivering;
     }
     
@@ -44,19 +44,19 @@ private String id;
     	return this.trace;
     }
     
-    public void setTransState(transState tranState){
-    	this.tranState=tranState;
+    public void setTransState(String tranState){
+    	this.tranState=transState.valueOf(tranState);
     }
     
-    public transState getTransState(){
-    	return this.tranState;
+    public String getTransState(){
+    	return this.tranState.toString();
     }
     
-    public void setArriveState(arriveState arriveState){
-    	this.arriveState=arriveState;
+    public void setArriveState(String State){
+    	this.ArriveState=arriveState.valueOf(State);
     }
 
-    public arriveState getArriveState(){
-    	return this.arriveState;
+    public String getArriveState(){
+    	return this.ArriveState.toString();
     }
 }

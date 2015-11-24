@@ -13,11 +13,18 @@ public class OrderBillServerImpl implements OrderBillServer {
 		this.dataServer=dataServer;
 		
 	}
-	
+
 	@Override
 	public OrderBill makeBill(Message msg) {
 		// TODO Auto-generated method stub
 		OrderBill bill=new OrderBill(msg);
+		OrderBill_IDMaker idMaker=new OrderBill_IDMaker(dataServer);
+		OrderBill_ChargeCalculator calculator=new OrderBill_ChargeCalculator();
+		
+		
+		bill.setID(idMaker.giveID(bill));
+		bill.setCharge(calculator.calculate(bill));
+		
 		return bill;
 	}
 
@@ -37,7 +44,9 @@ public class OrderBillServerImpl implements OrderBillServer {
 	@Override
 	public void updateBill(OrderBill bill) {
 		// TODO Auto-generated method stub
-        dataServer.updateBill(bill);
+		
 	}
+
+
 
 }
