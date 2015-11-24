@@ -28,13 +28,22 @@ public class OrderBill implements Remote,Serializable {
 	public OrderBill(Message billInfor) {
 		// TODO Auto-generated constructor stub
 		//寄件人信息
+<<<<<<< HEAD
 	    this.sender.name=billInfor.getInform(0);
+=======
+		this.sender=new Client();
+		this.sender.name=billInfor.getInform(0);
+>>>>>>> origin/master
 	    this.sender.location=billInfor.getInform(1);
 	    this.sender.unit=billInfor.getInform(2);
 	    this.sender.telephone=billInfor.getInform(3);
 	    this.sender.mobile=billInfor.getInform(4);
 	    
 	    //收件人信息
+<<<<<<< HEAD
+=======
+	    this.receiver=new Client();
+>>>>>>> origin/master
 	    this.receiver.name=billInfor.getInform(5);
 	    this.receiver.location=billInfor.getInform(6);
 	    this.receiver.unit=billInfor.getInform(7);
@@ -42,6 +51,10 @@ public class OrderBill implements Remote,Serializable {
 	    this.receiver.mobile=billInfor.getInform(9);
 	    
 	    //货物信息
+<<<<<<< HEAD
+=======
+	    this.goodInfor=new GoodInfo();
+>>>>>>> origin/master
 	    this.goodInfor.num=Integer.parseInt(billInfor.getInform(10));
 	    this.goodInfor.weight=Double.parseDouble(billInfor.getInform(11));
 	    this.goodInfor.volume=Double.parseDouble(billInfor.getInform(12));

@@ -24,7 +24,7 @@ public class CourierPanel extends JPanel implements Watched, ActionListener {
 	JLabel photo;
 
 	public CourierPanel(int frameWidth, int frameHeight) {
-		 
+
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		list = new ArrayList<Watcher>();
@@ -56,7 +56,7 @@ public class CourierPanel extends JPanel implements Watched, ActionListener {
 		picture.add(num);
 		picture.add(photo);
 		this.add(picture);
- 
+
 	}
 
 	private void init() {
@@ -72,8 +72,10 @@ public class CourierPanel extends JPanel implements Watched, ActionListener {
 
 		logout.setMargin(new Insets(0, 0, 0, 0));
 		logout.setBounds(20, frameHeight - 100, 80, 30);
+		logout.addActionListener(this);
 		close.setMargin(new Insets(0, 0, 0, 0));
 		close.setBounds(frameWidth / 4 - 100, frameHeight - 100, 80, 30);
+		close.addActionListener(this);
 
 		picture.setBounds(0, 0, frameWidth / 4, frameHeight / 3);
 		name.setBounds(10, frameHeight / 3 - 50, 75, 25);
@@ -106,6 +108,12 @@ public class CourierPanel extends JPanel implements Watched, ActionListener {
 			this.notifyWatchers(State.COURIERMAKEBILL);
 		} else if (e.getSource() == jb[1]) {
 			this.notifyWatchers(State.COURIERSEARCH);
+		}
+
+		if (e.getSource() == logout) {
+			this.notifyWatchers(State.LOGOUT);
+		}else if(e.getSource()==close){
+			System.exit(0);
 		}
 	}
 }
