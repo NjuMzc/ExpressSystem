@@ -25,6 +25,9 @@ public class OrderBillServerImpl implements OrderBillServer {
 		bill.setID(idMaker.giveID(bill));
 		bill.setCharge(calculator.calculate(bill));
 		
+		//加入持久化数据中
+		dataServer.addBill(bill);
+		
 		return bill;
 	}
 
