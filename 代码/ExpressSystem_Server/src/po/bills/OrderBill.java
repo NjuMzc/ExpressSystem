@@ -213,7 +213,7 @@ public class OrderBill implements Remote,Serializable {
 	}
 }
 
-class Client{
+class Client implements Serializable{
 	
 	String name;
 	String location;
@@ -223,7 +223,7 @@ class Client{
 	
 }
 
-class GoodInfo{
+class GoodInfo implements Serializable{
 	
 	int num;
 	double weight;
