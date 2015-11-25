@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,62 +83,71 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		cancel.addActionListener(this);
 
 		jtf.setBounds(frameWidth * 2 / 5, frameHeight * 5 / 8, 150, 30);
+		jtf.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					jpf.requestFocus();
+				}
+			}
+		});
 		jpf.setBounds(frameWidth * 2 / 5, frameHeight * 3 / 4, 150, 30);
+		jpf.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					logConfirm();
+				}
+			}
+		});
+	}
+
+	private void logConfirm() {
+		String input_account = jtf.getText();
+		String input_password = jpf.getText();
+
+		// 登录验证
+
+		systemServer s = new SystemBlServerImpl();
+
+		if (!input_account.equals("") && !input_password.equals("")) {
+			SystemUserPO user = s.login(input_account, input_password);
+			if (user != null) {
+				if (user.getIdentity().equals("manager")) {
+					this.notifyWatchers(State.MANAGERSTART);
+					this.notifyWatchers(State.LEFTMANAGER);
+
+				} else if (user.getIdentity().equals("account")) {
+					this.notifyWatchers(State.ACCOUNTANTSTART);
+					this.notifyWatchers(State.LEFTACCOUNTANT);
+				} else if (user.getIdentity().equals("courier")) {
+					this.notifyWatchers(State.COURIERSTART);
+					this.notifyWatchers(State.LEFTCOURIER);
+				} else if (user.getIdentity().equals("hstaff")) {
+					this.notifyWatchers(State.YING_START);
+					this.notifyWatchers(State.LEFTYING);
+				} else if (user.getIdentity().equals("tstaff")) {
+					this.notifyWatchers(State.ZHONG_START);
+					this.notifyWatchers(State.LEFTZHONG);
+				} else if (user.getIdentity().equals("keeper")) {
+					this.notifyWatchers(State.STOCKMANSTART);
+					this.notifyWatchers(State.LEFTSTOCKMAN);
+				} else if (user.getIdentity().equals("admin")) {
+
+					this.notifyWatchers(State.ADMINSTART);
+					this.notifyWatchers(State.LEFTADMIN);
+				}
+			} else {
+				System.out.println("Fail login!");
+			}
+
+			jtf.setText("");
+			jpf.setText("");
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirm) {
 
-			String input_account = jtf.getText();
-			String input_password = jpf.getText();
-
-			// 登录验证
-
-			systemServer s = new SystemBlServerImpl();
-			
-			if (!input_account .equals("") && !input_password.equals("") ) {
-				SystemUserPO user=s.login(input_account, input_password);
-				if(user!=null){
-					if (user.getIdentity()
-							.equals("manager")) {
-						this.notifyWatchers(State.MANAGERSTART);
-						this.notifyWatchers(State.LEFTMANAGER);
-
-					} else if (user.getIdentity()
-							.equals("account")) {
-						this.notifyWatchers(State.ACCOUNTANTSTART);
-						this.notifyWatchers(State.LEFTACCOUNTANT);
-					} else if (user.getIdentity()
-							.equals("courier")) {
-						this.notifyWatchers(State.COURIERSTART);
-						this.notifyWatchers(State.LEFTCOURIER);
-					} else if (user.getIdentity()
-							.equals("hstaff")) {
-						this.notifyWatchers(State.YING_START);
-						this.notifyWatchers(State.LEFTYING);
-					} else if (user.getIdentity()
-							.equals("tstaff")) {
-						this.notifyWatchers(State.ZHONG_START);
-						this.notifyWatchers(State.LEFTZHONG);
-					} else if (user.getIdentity()
-							.equals("keeper")) {
-						this.notifyWatchers(State.STOCKMANSTART);
-						this.notifyWatchers(State.LEFTSTOCKMAN);
-					} else if (user.getIdentity()
-							.equals("admin")) {
-
-						this.notifyWatchers(State.ADMINSTART);
-						this.notifyWatchers(State.LEFTADMIN);
-					}
-				}else{
-					System.out.println("Fail login!");
-				}
-				
-
-				jtf.setText("");
-				jpf.setText("");
-			}
- 
+			logConfirm();
 
 		} else if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COVER);
