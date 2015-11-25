@@ -1,13 +1,13 @@
 package businesslogic.transportbl;
 
-import dataservice.transportdataservice.transportDataServer;
+import dataservice.transportdataservice.TransportDataServer;
 import po.GoodPO;
 import po.bills.OrderBill;
 
 public class GoodController {
-	transportDataServer dataServer;
+	TransportDataServer dataServer;
 	
-	public GoodController(transportDataServer dataServer){
+	public GoodController(TransportDataServer dataServer){
 		this.dataServer=dataServer;
 		
 	}

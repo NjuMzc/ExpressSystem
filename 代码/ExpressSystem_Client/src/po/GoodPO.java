@@ -1,5 +1,7 @@
 package po;
 
+import java.io.Serializable;
+import java.rmi.Remote;
 import java.util.ArrayList;
 
 
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  * @author nick
  *
  */
-public class GoodPO {
+public class GoodPO implements Remote,Serializable{
     private String id;//编号，与订单号一致
 	
 	private String depature;//出发地
@@ -58,5 +60,9 @@ public class GoodPO {
 
     public String getArriveState(){
     	return this.ArriveState.toString();
+    }
+    
+    public String getID(){
+    	return id;
     }
 }
