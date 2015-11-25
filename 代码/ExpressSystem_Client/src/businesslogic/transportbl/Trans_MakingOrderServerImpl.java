@@ -1,8 +1,5 @@
 package businesslogic.transportbl;
 
-import client.RMIHelper;
-import dataservice.transportdataservice.TransportDataServer;
-import po.GoodPO;
 import po.Message;
 import po.bills.OrderBill;
 import businesslogic.billsbl.billsServerImpl.OrderBillServer.OrderBillServerImpl;
@@ -11,15 +8,13 @@ import businesslogicservice.transportblservice.Trans_MakingOrderServer;
 
 public class Trans_MakingOrderServerImpl implements Trans_MakingOrderServer{
     
-	TransportDataServer dataServer;
 	OrderBillServer billServer;
 	GoodController goodController;
 	
 	//需要RMI提供
 	public Trans_MakingOrderServerImpl(){
-		this.dataServer=RMIHelper.getTransportData();
 		this.billServer=new OrderBillServerImpl();
-		this.goodController=new GoodController(dataServer);
+		this.goodController=new GoodController();
 	}
 	
 	@Override
@@ -31,6 +26,7 @@ public class Trans_MakingOrderServerImpl implements Trans_MakingOrderServer{
 	    	
 	    }
 	    
+	    //添加一个新的货物
 	    goodController.makeGood(bill);
 		return bill;
 	}

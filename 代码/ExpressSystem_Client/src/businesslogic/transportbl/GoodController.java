@@ -1,5 +1,8 @@
 package businesslogic.transportbl;
 
+import java.util.ArrayList;
+
+import client.RMIHelper;
 import dataservice.transportdataservice.TransportDataServer;
 import po.GoodPO;
 import po.bills.OrderBill;
@@ -7,8 +10,8 @@ import po.bills.OrderBill;
 public class GoodController {
 	TransportDataServer dataServer;
 	
-	public GoodController(TransportDataServer dataServer){
-		this.dataServer=dataServer;
+	public GoodController(){
+		this.dataServer=RMIHelper.getTransportData();
 		
 	}
 
@@ -31,5 +34,23 @@ public class GoodController {
 		GoodPO good=dataServer.find(id);
 		good.setTransState(newState);
 		dataServer.update(good);
+	}
+	
+	//获得货物的运输状态
+	public String getGoodTransState(String id){
+		GoodPO good=dataServer.find(id);
+		if(good==null){
+			return "Can't Find this Good!";
+		}else
+		    return good.getTransState();
+	}
+	
+	//获得货物的历史轨迹
+	public ArrayList<String> getGoodTrace(String id){
+		GoodPO good=dataServer.find(id);
+		if(good==null){
+			return null;
+		}else
+		    return good.getTrace();
 	}
 }

@@ -1,6 +1,5 @@
 package businesslogic.billsbl.billsServerImpl.OrderBillServer;
 
-import businesslogicservice.systemblservice.systemServer;
 import po.bills.OrderBill;
 
 public class OrderBill_ChargeCalculator {
