@@ -103,7 +103,6 @@ public class adminManage extends JPanel implements Watched, ActionListener {
 		Iterator it = users.iterator();
 
 		while (it.hasNext()) {
-			System.out.println("Running!");
 			SystemUserPO user = (SystemUserPO) it.next();
 			model.addRow(user.getUserName(), user.getID(), user.getKey(),
 					user.getIdentity());

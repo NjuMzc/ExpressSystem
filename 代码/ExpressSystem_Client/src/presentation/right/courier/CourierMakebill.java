@@ -2,6 +2,8 @@ package presentation.right.courier;
 
 import javax.swing.*;
 
+import businesslogic.transportbl.Trans_MakingOrderServerImpl;
+import businesslogicservice.transportblservice.Trans_MakingOrderServer;
 import po.Message;
 import presentation.Data;
 import presentation.watcher.*;
@@ -13,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourierMakebill extends JPanel implements Watched, ActionListener {
-
+    Trans_MakingOrderServer blServer;
+	
 	int frameWidth;
 	int frameHeight;
 	JPanel senderInfor;
@@ -25,6 +28,7 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 	private List<Watcher> list;
 
 	public CourierMakebill(int frameWidth, int frameHeight) {
+		this.blServer=new Trans_MakingOrderServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -136,7 +140,7 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 		inputText[14].setBounds(x / 3 * 2 + 70, 40 * 2, 100, 20);
 		inputText[15].setBounds(x / 3 * 2 + 70, 40 * 5, 100, 20);
 		for (int i = 0; i < 16; i++) {
-			inputText[i].setText("（必填）");
+			inputText[i].setText(String.valueOf(i));
 		}
 		type.setBounds(x / 3 * 2 + 70, 40 * 8, 100, 20);
 	}
@@ -172,8 +176,17 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 				}
 				
 			}
+			
+			Message message=new Message();
+			for(int i=0;i<16;i++){
+				message.addInform(inputText[i].getText());
+			}
+			
+			blServer.makeOrder(message);
+			
 			 
 		}
+		System.out.println("Added!");
 
 	}
 }
