@@ -5,8 +5,11 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.*;
 
+import data.billdata.OrderBillDataServerImpl;
 import data.systemdata.SystemDataServerImpl;
+import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.systemdataservice.SystemDataServer;
+import po.bills.OrderBill;
 
 public class RMIHelper {
 	
@@ -16,6 +19,10 @@ public class RMIHelper {
 
 			SystemDataServer systemDataService = new SystemDataServerImpl();
 			Naming.rebind("systemData", systemDataService);
+			
+			OrderBillDataServer orderBillDataService = new OrderBillDataServerImpl();
+			Naming.rebind("orderBillData", orderBillDataService);
+			
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {
 			e.printStackTrace();

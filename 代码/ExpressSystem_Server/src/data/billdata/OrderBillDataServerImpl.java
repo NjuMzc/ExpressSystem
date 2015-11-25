@@ -102,25 +102,4 @@ public class OrderBillDataServerImpl extends UnicastRemoteObject implements Orde
 		}
 
 	}
-
-	/*
-	 * 测试用后期删除
-	 */
-	public void print() {
-		for (OrderBill orderBill : orderBills) {
-			System.out.println(orderBill.getSenderName());
-		}
-	}
-	
-	public static void main(String[] args) {
-		try {
-			OrderBillDataServerImpl a = new OrderBillDataServerImpl();
-			a.addBill(new OrderBill(new Message()));
-			a.print();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 }
