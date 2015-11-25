@@ -33,4 +33,10 @@ public class BankDataServerImpl implements BankDataServer {
 		
 	}
 
+	@Override
+	public ArrayList getAllBank() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

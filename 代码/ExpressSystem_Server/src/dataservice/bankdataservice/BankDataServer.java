@@ -1,6 +1,7 @@
 package dataservice.bankdataservice;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import po.BankPO;
 
@@ -14,6 +15,6 @@ public interface BankDataServer {
 
 	public void update(BankPO po) throws RemoteException;
 
-	
+	public ArrayList getAllBank() throws RemoteException;
 
 }

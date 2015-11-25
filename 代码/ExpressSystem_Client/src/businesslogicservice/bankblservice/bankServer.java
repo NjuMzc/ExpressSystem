@@ -1,26 +1,27 @@
 package businesslogicservice.bankblservice;
 
+import po.BankPO;
 import po.Message;
 import vo.BankVO;
 
 /**
- * �ýӿ��ṩ�˻��������ط���
- * ����
- * �����˻�����ɾ�Ĳ�
+ * 银行账号的相关功能
  * @author rabook
  *
  */
 
 public interface bankServer {
 	
-	public BankVO addBank(String name,double balance);
+	public BankPO addBank(String name,String balance);
 	
 	public boolean removeBank(String name);
 	
-	public void changeBank(String name,Message message);
+	public boolean changeBankName(String name,String newName);
 	
-	public BankVO inquireBank(String name);
+	public BankPO inquireBank(String name);
 	
-	public void update(String name,double payment);
+	public boolean giveMoney(String name,String money);
+	
+	public boolean getMoney(String name,String money);
 
 }
