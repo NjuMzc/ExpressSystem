@@ -1,5 +1,6 @@
-package businesslogic.billsbl.billsServerImpl;
+package businesslogic.billsbl.billsServerImpl.OrderBillServer;
 
+import client.RMIHelper;
 import dataservice.billsdataservice.OrderBillDataServer;
 import po.Message;
 import po.bills.OrderBill;
@@ -9,8 +10,8 @@ public class OrderBillServerImpl implements OrderBillServer {
 
 	OrderBillDataServer dataServer;
 	
-	public OrderBillServerImpl(OrderBillDataServer dataServer){
-		this.dataServer=dataServer;
+	public OrderBillServerImpl(){
+		this.dataServer=RMIHelper.getOrderBillData();
 		
 	}
 
@@ -21,7 +22,7 @@ public class OrderBillServerImpl implements OrderBillServer {
 		OrderBill_IDMaker idMaker=new OrderBill_IDMaker(dataServer);
 		OrderBill_ChargeCalculator calculator=new OrderBill_ChargeCalculator();
 		
-		
+		//设置ID以及计算运费
 		bill.setID(idMaker.giveID(bill));
 		bill.setCharge(calculator.calculate(bill));
 		

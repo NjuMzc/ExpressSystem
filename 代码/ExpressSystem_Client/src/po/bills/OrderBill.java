@@ -46,7 +46,7 @@ public class OrderBill implements Remote,Serializable {
 	    this.goodInfor=new GoodInfo();
 	    this.goodInfor.num=Integer.parseInt(billInfor.getInform(10));
 	    this.goodInfor.weight=Double.parseDouble(billInfor.getInform(11));
-	    this.goodInfor.volume=Double.parseDouble(billInfor.getInform(12));
+	    this.goodInfor.size=billInfor.getInform(12);
 	    this.goodInfor.name=billInfor.getInform(13);
 	    
 	    //快递类型
@@ -65,7 +65,7 @@ public class OrderBill implements Remote,Serializable {
 	    
 	    //包装类型
 	    temp=billInfor.getInform(15);
-	    if(temp.equals("papaer")){
+	    if(temp.equals("paper")){
 	    	this.bagging=Bagging.paper;
 	    }else if(temp.equals("wood")){
 	    	this.bagging=Bagging.wood;
@@ -178,6 +178,11 @@ public class OrderBill implements Remote,Serializable {
 		return String.valueOf(goodInfor.volume);
 	}
 	
+	//货物尺寸
+	public String getGoodSize(){
+		return goodInfor.size;
+	}
+	
 	//货物名
 	public String getGoodName(){
 		return goodInfor.name;
@@ -210,6 +215,7 @@ public class OrderBill implements Remote,Serializable {
 	public void setTime(String Time){
 		this.time=Time;
 	}
+	
 }
 
 class Client implements Serializable{
@@ -226,8 +232,9 @@ class GoodInfo implements Serializable{
 	
 	int num;
 	double weight;
-	double volume;
+	String size;
 	String name;
+	double volume;
 	
 }
 
