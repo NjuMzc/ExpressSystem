@@ -13,8 +13,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import dataservice.billsdataservice.OrderBillDataServer;
-import po.Message;
-import po.SystemUserPO;
 import po.bills.OrderBill;
 
 public class OrderBillDataServerImpl extends UnicastRemoteObject implements OrderBillDataServer {
