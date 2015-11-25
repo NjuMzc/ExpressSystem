@@ -2,6 +2,7 @@ package presentation.right.courier;
 
 import javax.swing.*;
 
+import po.Message;
 import presentation.Data;
 import presentation.watcher.*;
 
@@ -165,9 +166,11 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 			boolean isFull = true;
 			for (int i = 0; i < 16; i++) {
 				if (inputText[i].getText().equals("（必填）")) {
+					
 					isFull = false;
 					break;
 				}
+				
 			}
 			 
 		}
