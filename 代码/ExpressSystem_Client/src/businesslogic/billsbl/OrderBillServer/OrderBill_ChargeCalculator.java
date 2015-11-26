@@ -1,4 +1,4 @@
-package businesslogic.billsbl.billsServerImpl.OrderBillServer;
+package businesslogic.billsbl.OrderBillServer;
 
 import po.bills.OrderBill;
 

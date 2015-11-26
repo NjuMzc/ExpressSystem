@@ -1,4 +1,4 @@
-package businesslogic.billsbl.billsServerImpl.OrderBillServer;
+package businesslogic.billsbl.OrderBillServer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

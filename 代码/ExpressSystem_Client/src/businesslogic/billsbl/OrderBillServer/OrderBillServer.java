@@ -1,21 +1,19 @@
-package businesslogic.billsbl.billsServerImpl.OrderBillServer;
+package businesslogic.billsbl.OrderBillServer;
 
 import client.RMIHelper;
 import dataservice.billsdataservice.OrderBillDataServer;
 import po.Message;
 import po.bills.OrderBill;
-import businesslogicservice.billsblservice.OrderBillServer;
 
-public class OrderBillServerImpl implements OrderBillServer {
+public class OrderBillServer {
 
 	OrderBillDataServer dataServer;
 	
-	public OrderBillServerImpl(){
+	public OrderBillServer(){
 		this.dataServer=RMIHelper.getOrderBillData();
 		
 	}
 
-	@Override
 	public OrderBill makeBill(Message msg) {
 		// TODO Auto-generated method stub
 		OrderBill bill=new OrderBill(msg);
@@ -32,20 +30,17 @@ public class OrderBillServerImpl implements OrderBillServer {
 		return bill;
 	}
 
-	@Override
 	public OrderBill findBill(String id) {
 		// TODO Auto-generated method stub
 		OrderBill bill=dataServer.findBill(id);
 		return bill;
 	}
 
-	@Override
 	public boolean removeBill(String id) {
 		// TODO Auto-generated method stub
 		return dataServer.removeBill(id);
 	}
 
-	@Override
 	public void updateBill(OrderBill bill) {
 		// TODO Auto-generated method stub
 		

@@ -1,8 +1,7 @@
 package businesslogic.transportbl;
 
 import po.bills.OrderBill;
-import businesslogic.billsbl.billsServerImpl.OrderBillServer.OrderBillServerImpl;
-import businesslogicservice.billsblservice.OrderBillServer;
+import businesslogic.billsbl.OrderBillServer.OrderBillServer;
 import businesslogicservice.transportblservice.Trans_InquireOrderServer;
 
 public class Trans_InquireOrderServerImpl implements Trans_InquireOrderServer {
@@ -10,7 +9,7 @@ public class Trans_InquireOrderServerImpl implements Trans_InquireOrderServer {
 	OrderBillServer billServer;
 	
 	public Trans_InquireOrderServerImpl(){
-		billServer=new OrderBillServerImpl();
+		billServer=new OrderBillServer();
 	}
 	@Override
 	public OrderBill inquire(String id) {

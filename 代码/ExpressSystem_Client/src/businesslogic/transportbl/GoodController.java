@@ -1,5 +1,9 @@
 package businesslogic.transportbl;
 
+/**
+ * 操作和货物相关的持久化数据修改
+ * 
+ */
 import java.util.ArrayList;
 
 import client.RMIHelper;

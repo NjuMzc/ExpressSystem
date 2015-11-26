@@ -1,8 +1,7 @@
 package businesslogic.transportbl;
 
 import po.bills.ReceiveBill;
-import businesslogic.billsbl.billsServerImpl.ReceiveBillServer.ReceiveBillServerImpl;
-import businesslogicservice.billsblservice.ReceiveBillServer;
+import businesslogic.billsbl.ReceiveBillServer.ReceiveBillServer;
 import businesslogicservice.transportblservice.Trans_MakingReceiveBillServer;
 
 public class Trans_MakingReceiveBillServerImpl implements
@@ -12,7 +11,7 @@ public class Trans_MakingReceiveBillServerImpl implements
 	GoodController goodController;
 	
 	public Trans_MakingReceiveBillServerImpl(){
-		this.billServer=new ReceiveBillServerImpl();
+		this.billServer=new ReceiveBillServer();
 		this.goodController=new GoodController();
 	}
 	

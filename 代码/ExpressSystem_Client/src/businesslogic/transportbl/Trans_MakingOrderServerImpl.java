@@ -2,8 +2,7 @@ package businesslogic.transportbl;
 
 import po.Message;
 import po.bills.OrderBill;
-import businesslogic.billsbl.billsServerImpl.OrderBillServer.OrderBillServerImpl;
-import businesslogicservice.billsblservice.OrderBillServer;
+import businesslogic.billsbl.OrderBillServer.OrderBillServer;
 import businesslogicservice.transportblservice.Trans_MakingOrderServer;
 
 public class Trans_MakingOrderServerImpl implements Trans_MakingOrderServer{
@@ -13,7 +12,7 @@ public class Trans_MakingOrderServerImpl implements Trans_MakingOrderServer{
 	
 	//需要RMI提供
 	public Trans_MakingOrderServerImpl(){
-		this.billServer=new OrderBillServerImpl();
+		this.billServer=new OrderBillServer();
 		this.goodController=new GoodController();
 	}
 	

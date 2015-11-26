@@ -1,23 +1,20 @@
-package businesslogic.billsbl.billsServerImpl.ReceiveBillServer;
+package businesslogic.billsbl.ReceiveBillServer;
 
 import dataservice.billsdataservice.ReceiveBillDataServer;
 import po.bills.ReceiveBill;
-import businesslogic.billsbl.billsServerImpl.OrderBillServer.OrderBillServerImpl;
-import businesslogicservice.billsblservice.OrderBillServer;
-import businesslogicservice.billsblservice.ReceiveBillServer;
+import businesslogic.billsbl.OrderBillServer.OrderBillServer;
 
-public class ReceiveBillServerImpl implements ReceiveBillServer {
+public class ReceiveBillServer  {
 	
 	ReceiveBillDataServer dataServer;
 	OrderBillServer orderBillServer;
 	
-	public ReceiveBillServerImpl(){
-		orderBillServer=new OrderBillServerImpl();
+	public ReceiveBillServer(){
+		orderBillServer=new OrderBillServer();
 		//RMI实现赋值
 		
 	}
 
-	@Override
 	public ReceiveBill makeBill(String id, String name, String time) {
 		// TODO Auto-generated method stub
 		if(orderBillServer.findBill(id)==null){
@@ -30,7 +27,6 @@ public class ReceiveBillServerImpl implements ReceiveBillServer {
 		}
 	}
 
-	@Override
 	public ReceiveBill getBill(String id) {
 		// TODO Auto-generated method stub
 		ReceiveBill bill=dataServer.findBill(id);
