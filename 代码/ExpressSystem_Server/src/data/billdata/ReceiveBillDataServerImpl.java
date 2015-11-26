@@ -1,4 +1,4 @@
-package data.bankdata;
+package data.billdata;
 
 import java.io.EOFException;
 import java.io.File;
@@ -12,59 +12,46 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import dataservice.bankdataservice.BankDataServer;
-import po.BankPO;
+import dataservice.billsdataservice.ReceiveBillDataServer;
+import po.Message;
+import po.bills.ReceiveBill;
 
-public class BankDataServerImpl extends UnicastRemoteObject implements BankDataServer {
-	final String path="src/dataList/bankList.dat";
-	private ArrayList<BankPO> banks;
-	public BankDataServerImpl() throws RemoteException{
+public class ReceiveBillDataServerImpl extends UnicastRemoteObject implements ReceiveBillDataServer {
+	final String path = "src/dataList/billList/receiveList.dat";
+	ArrayList<ReceiveBill> receiveBills;
+
+	public ReceiveBillDataServerImpl() throws RemoteException {
 		super();
 		load();
 	}
 
-	public BankPO find(String id) throws RemoteException {
-		for (BankPO bankPO : banks) {
-			if(bankPO.getid().equals(id))
-				return bankPO;
-		}
-		return null;
-	}
-
-	public void insert(BankPO po) throws RemoteException {
-		banks.add(po);
+	@Override
+	public void addBill(ReceiveBill bill) throws RemoteException {
+		receiveBills.add(bill);
 		save();
 	}
 
-	public void delete(BankPO po) throws RemoteException {
-		String id = po.getid();
-		BankPO poInArray =find(id);
-		if(poInArray!=null){
-			banks.remove(poInArray);
+	@Override
+	public boolean removeBill(String id) throws RemoteException {
+		ReceiveBill po = findBill(id);
+		if (po != null) {
+			receiveBills.remove(po);
 			save();
 			System.out.println("成功删除");
-		}else{
-			System.out.println("找不到该账户");
-		}
-	}
-
-	public void update(BankPO po) throws RemoteException {
-		String id = po.getid();
-		BankPO poInArray = find(id);
-		if(poInArray!=null){
-			int index =banks.indexOf(poInArray);
-			banks.remove(index);
-			banks.add(index, po);
-			save();
-			System.out.println("成功更改");
-		}else{
-			System.out.println("找不到该账户");
+			return true;
+		} else {
+			System.out.println("找不到该单据");
+			return false;
 		}
 	}
 
 	@Override
-	public ArrayList getAllBank() throws RemoteException {
-		return banks;
+	public ReceiveBill findBill(String id) throws RemoteException {
+		for (ReceiveBill receiveBill : receiveBills) {
+			if (receiveBill.getID().equals(id))
+				return receiveBill;
+		}
+		return null;
 	}
 
 	private void save() {
@@ -78,7 +65,7 @@ public class BankDataServerImpl extends UnicastRemoteObject implements BankDataS
 			}
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(list));
-			oos.writeObject(banks);
+			oos.writeObject(receiveBills);
 			oos.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -98,13 +85,13 @@ public class BankDataServerImpl extends UnicastRemoteObject implements BankDataS
 			}
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(list));
-			banks = (ArrayList<BankPO>) ois.readObject();
+			receiveBills = (ArrayList<ReceiveBill>) ois.readObject();
 			ois.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("找不到文件");
 			e.printStackTrace();
 		} catch (EOFException e) {
-			banks = new ArrayList<BankPO>();
+			receiveBills = new ArrayList<ReceiveBill>();
 			save();
 			load();
 		} catch (ClassNotFoundException e) {
@@ -114,5 +101,6 @@ public class BankDataServerImpl extends UnicastRemoteObject implements BankDataS
 		}
 
 	}
+	
 	
 }

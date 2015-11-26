@@ -1,8 +1,11 @@
 package po.bills;
 
+import java.io.Serializable;
+import java.rmi.Remote;
+
 import po.Message;
 
-public class ReceiveBill{
+public class ReceiveBill implements Remote,Serializable{
 
 	private String  time;//收件时间
 	private String  orderNum; //订单编号
