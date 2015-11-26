@@ -40,7 +40,7 @@ public class CourierSearch extends JPanel implements Watched, ActionListener {
 		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		remind = new JLabel("快递物流系统");
+		remind = new JLabel("请输入快递单号");
 		confirm = new JButton("确认");
 		cancel = new JButton("取消");
 		wrong = new JLabel("输入的快递单号不存在");
@@ -94,7 +94,6 @@ public class CourierSearch extends JPanel implements Watched, ActionListener {
 	}
 
 	private void init() {
-		remind.setForeground(Color.blue);
 		remind.setBounds(frameWidth / 4, frameHeight / 3, frameWidth / 4, 40);
 		confirm.setBounds(frameWidth / 4, frameHeight / 2, frameWidth / 12,
 				frameWidth / 20);

@@ -71,6 +71,7 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 		}
 		senderInfor.add(type);
 		senderInfor.add(type_decorate);
+
 		this.add(senderInfor);
 		this.add(confirm);
 		this.add(cancel);
@@ -79,7 +80,7 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 
 	private void init() {
 		senderInfor.setBounds(50, 50, frameWidth * 3 / 4 - 50,
-				frameHeight - 200);
+				frameHeight - 150);
 
 		int x = frameWidth * 3 / 4 - 20;
 		int y = frameHeight - 200;
@@ -335,6 +336,7 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 
 		type.setBounds(x / 3 * 2 + 70, 40 * 8, 100, 20);
 		type_decorate.setBounds(x / 3 * 2 + 70, 40 * 9, 100, 20);
+
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -374,6 +376,7 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 			blServer.makeOrder(message);
 
 			System.out.println("Added!");
+
 		}
 
 	}
