@@ -85,7 +85,8 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		jtf.setBounds(frameWidth * 2 / 5, frameHeight * 5 / 8, 150, 30);
 		jtf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
 					jpf.requestFocus();
 				}
 			}
@@ -95,6 +96,8 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					logConfirm();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf.requestFocus();
 				}
 			}
 		});
