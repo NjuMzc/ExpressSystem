@@ -1,8 +1,10 @@
 package dataservice.billsdataservice;
 
+import java.rmi.Remote;
+
 import po.bills.ChargeBill;
 
-public interface ChargeBillDataServer {
+public interface ChargeBillDataServer extends Remote {
 
     public void addBill(ChargeBill bill);
 	
