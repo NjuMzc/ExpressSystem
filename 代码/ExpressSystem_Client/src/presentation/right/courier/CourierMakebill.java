@@ -11,12 +11,15 @@ import presentation.watcher.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CourierMakebill extends JPanel implements Watched, ActionListener {
-    Trans_MakingOrderServer blServer;
-	
+	Trans_MakingOrderServer blServer;
+
 	int frameWidth;
 	int frameHeight;
 	JPanel senderInfor;
@@ -25,10 +28,11 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 	JButton cancel;
 	JTextField[] inputText;
 	JComboBox<String> type;
+	JComboBox<String> type_decorate;
 	private List<Watcher> list;
 
 	public CourierMakebill(int frameWidth, int frameHeight) {
-		this.blServer=new Trans_MakingOrderServerImpl();
+		this.blServer = new Trans_MakingOrderServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -41,31 +45,32 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 
 		senderInfor = new JPanel();
 		senderInfor.setLayout(null);
-		input = new JLabel[20];
-		for (int i = 0; i < 20; i++) {
+		input = new JLabel[21];
+		for (int i = 0; i < 21; i++) {
 			input[i] = new JLabel();
 		}
+		confirm = new JButton("确认");
+		cancel = new JButton("取消");
 
 		inputText = new JTextField[16];
 		for (int i = 0; i < 16; i++) {
 			inputText[i] = new JTextField();
 		}
-		confirm = new JButton("确认");
-		confirm.addActionListener(this);
-		cancel = new JButton("取消");
-		cancel.addActionListener(this);
 		String[] item = { "经济快递", "标准快递", "特快快递" };
 		type = new JComboBox<String>(item);
+		String[] items = { "纸箱", "木箱", "包装袋", "其他" };
+		type_decorate = new JComboBox<String>(items);
 
 		init();
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 21; i++) {
 			senderInfor.add(input[i]);
 		}
 		for (int i = 0; i < 16; i++) {
 			senderInfor.add(inputText[i]);
 		}
 		senderInfor.add(type);
+		senderInfor.add(type_decorate);
 		this.add(senderInfor);
 		this.add(confirm);
 		this.add(cancel);
@@ -98,6 +103,7 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 		input[17].setText("手机");
 		input[18].setText("手机");
 		input[19].setText("计费方式");
+		input[20].setText("包装类型");
 		for (int i = 0; i < 10; i++) {
 			input[i].setBounds(0, 40 * i, 100, 20);
 		}
@@ -111,6 +117,7 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 		input[17].setBounds(x / 3 * 2, 40 * 2, 100, 20);
 		input[18].setBounds(x / 3 * 2, 40 * 5, 100, 20);
 		input[19].setBounds(x / 3 * 2, 40 * 8, 100, 20);
+		input[20].setBounds(x / 3 * 2, 40 * 9, 100, 20);
 
 		confirm.setMargin(new Insets(0, 0, 0, 0));
 		confirm.setBounds(150, frameHeight - 100, frameWidth / 12,
@@ -142,16 +149,199 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 		for (int i = 0; i < 16; i++) {
 			inputText[i].setText(String.valueOf(i));
 		}
+
+		// 输入栏焦点转移
+		inputText[0].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[1].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					inputText[7].requestFocus();
+				}
+			}
+		});
+		inputText[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[2].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					inputText[8].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[0].requestFocus();
+				}
+			}
+		});
+		inputText[2].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[3].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					inputText[9].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[1].requestFocus();
+				}
+			}
+		});
+		inputText[3].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[4].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					inputText[10].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[2].requestFocus();
+				}
+			}
+		});
+		inputText[4].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[5].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					inputText[11].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[3].requestFocus();
+				}
+			}
+		});
+		inputText[5].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[6].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					inputText[12].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[4].requestFocus();
+				}
+			}
+		});
+		inputText[6].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					inputText[13].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[5].requestFocus();
+				}
+			}
+		});
+		inputText[7].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[8].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					inputText[0].requestFocus();
+				}
+			}
+		});
+		inputText[8].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[9].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					inputText[14].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[7].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					inputText[1].requestFocus();
+				}
+			}
+		});
+		inputText[9].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[10].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[8].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					inputText[2].requestFocus();
+				}
+			}
+		});
+		inputText[10].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[11].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					inputText[15].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[9].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					inputText[3].requestFocus();
+				}
+			}
+		});
+		inputText[11].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[12].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[10].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					inputText[4].requestFocus();
+				}
+			}
+		});
+		inputText[12].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[13].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[11].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					inputText[5].requestFocus();
+				}
+			}
+		});
+		inputText[13].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[12].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					inputText[6].requestFocus();
+				}
+			}
+		});
+		inputText[14].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					inputText[15].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					inputText[8].requestFocus();
+				}
+			}
+		});
+		inputText[15].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+					inputText[14].requestFocus();
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					inputText[10].requestFocus();
+				}
+			}
+		});
+
 		type.setBounds(x / 3 * 2 + 70, 40 * 8, 100, 20);
+		type_decorate.setBounds(x / 3 * 2 + 70, 40 * 9, 100, 20);
 	}
 
 	public void addWatcher(Watcher watcher) {
-		// TODO Auto-generated method stub
 		list.add(watcher);
 	}
 
 	public void removeWatcehr(Watcher watcher) {
-		// TODO Auto-generated method stub
 		list.remove(watcher);
 	}
 
@@ -163,6 +353,7 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
+			System.out.println("cancel!!!");
 			this.notifyWatchers(State.COURIERSTART);
 		} else if (e.getSource() == confirm) {
 
@@ -170,23 +361,20 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 			boolean isFull = true;
 			for (int i = 0; i < 16; i++) {
 				if (inputText[i].getText().equals("（必填）")) {
-					
 					isFull = false;
 					break;
 				}
-				
 			}
-			
-			Message message=new Message();
-			for(int i=0;i<16;i++){
+
+			Message message = new Message();
+			for (int i = 0; i < 16; i++) {
 				message.addInform(inputText[i].getText());
 			}
-			
+
 			blServer.makeOrder(message);
-			
-			 
+
+			System.out.println("Added!");
 		}
-		System.out.println("Added!");
 
 	}
 }
