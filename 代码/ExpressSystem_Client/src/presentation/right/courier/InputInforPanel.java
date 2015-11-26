@@ -19,6 +19,7 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 	JButton confirm;
 	JButton cancel;
 	JLabel jl[];
+	JLabel wrong;
 	JTextField jtfNum;
 	JTextField jtfName;
 	JComboBox jcbYear;
@@ -28,14 +29,15 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 	String name = null;
 	String time = null;
 	private List<Watcher> list;
+	boolean isWrongShow = false;
 
 	transportBillsMaker billmaker;
 	Message receiveMessage;
 
 	public InputInforPanel(int frameWidth, int frameHeight) {
-		 
+
 		this.frameWidth = frameWidth;
-		this.frameHeight =frameHeight; 
+		this.frameHeight = frameHeight;
 
 		list = new ArrayList<Watcher>();
 
@@ -61,12 +63,14 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 				"19", "20", "21", "22", "23", "24", "25", "26", "27", "28",
 				"29", "30", "31" };
 		jcbDay = new JComboBox(dayList);
+		wrong = new JLabel("输入的订单不存在");
 
 		init();
 
 		for (int i = 0; i < 3; i++) {
 			this.add(jl[i]);
 		}
+		this.add(wrong);
 		this.add(confirm);
 		this.add(cancel);
 		this.add(jtfName);
@@ -94,7 +98,6 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 		cancel.setBounds(frameWidth * 2 / 5, frameHeight / 10 + frameWidth / 2,
 				frameWidth / 12, frameWidth / 20);
 		cancel.setText("取消");
-
 		cancel.addActionListener(this);
 
 		for (int i = 0; i < 3; i++) {
@@ -119,7 +122,7 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 		jtfName.setBounds(frameWidth / 6 + 100, frameHeight / 8 + frameWidth
 				/ 5, frameWidth / 5, frameWidth / 30);
 
-		// �����
+		//
 		jcbYear.setBounds(frameWidth / 6 + 100, frameHeight / 8 + frameWidth
 				/ 5 * 2, 60, frameWidth / 30);
 
@@ -130,6 +133,11 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 		jcbDay.setBounds(frameWidth / 6 + 220, frameHeight / 8 + frameWidth / 5
 				* 2, 60, frameWidth / 30);
 		jcbDay.addActionListener(this);
+
+		wrong.setBounds(frameWidth * 2 / 5, frameHeight / 10 + frameWidth / 2
+				+ 30, frameWidth / 8, frameWidth / 20);
+		wrong.setVisible(false);
+		wrong.setForeground(Color.red);
 	}
 
 	public void save(Message msg) {
@@ -171,6 +179,13 @@ public class InputInforPanel extends JPanel implements ActionListener, Watched {
 
 			// billmaker.makeTransBill(receiveMessage);
 			save(receiveMessage);
+
+			//如果输入的订单号不存在，将isWrongShow设为true
+			isWrongShow=true;
+			if (isWrongShow) {
+				wrong.setVisible(true);
+			}
+
 		}
 
 		if (e.getSource() == cancel) {

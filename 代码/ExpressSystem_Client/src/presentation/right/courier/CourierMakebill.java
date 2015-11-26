@@ -130,13 +130,13 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 		cancel.addActionListener(this);
 
 		for (int i = 0; i < 2; i++) {
-			inputText[i].setBounds(70, 40 * (i + 1), 100, 20);
+			inputText[i].setBounds(80, 40 * (i + 1), 100, 20);
 		}
 		for (int i = 2; i < 4; i++) {
-			inputText[i].setBounds(70, 40 * (i + 2), 100, 20);
+			inputText[i].setBounds(80, 40 * (i + 2), 100, 20);
 		}
 		for (int i = 4; i < 7; i++) {
-			inputText[i].setBounds(70, 40 * (i + 3), 100, 20);
+			inputText[i].setBounds(80, 40 * (i + 3), 100, 20);
 		}
 		inputText[7].setBounds(x / 3 + 70, 40, 100, 20);
 		inputText[8].setBounds(x / 3 + 70, 40 * 2, 100, 20);
@@ -376,6 +376,8 @@ public class CourierMakebill extends JPanel implements Watched, ActionListener {
 			blServer.makeOrder(message);
 
 			System.out.println("Added!");
+
+			this.notifyWatchers(State.COURIERMAKEBILLAFTER);
 
 		}
 
