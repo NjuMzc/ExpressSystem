@@ -5,10 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import po.GoodPO;
-import po.SystemUserPO;
-import po.bills.OrderBill;
-import po.bills.ReceiveBill;
+import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
 import dataservice.systemdataservice.SystemDataServer;
@@ -19,13 +16,14 @@ public class RMIHelper {
 	private static OrderBillDataServer orderBillData;
 	private static TransportDataServer transportData;
 	private static ReceiveBillDataServer receiveBillData;
+	private static BankDataServer bankData;
 	public static void init() {
 		try {
 			systemData = (SystemDataServer) Naming.lookup("rmi://localhost:1099/systemData");
 			orderBillData = (OrderBillDataServer) Naming.lookup("rmi://localhost:1099/orderBillData");
 			transportData = (TransportDataServer) Naming.lookup("rmi://localhost:1099/transportData");
 			receiveBillData = (ReceiveBillDataServer) Naming.lookup("rmi://localhost:1099/receiveBillData");
-		
+			bankData = (BankDataServer) Naming.lookup("rmi://localhost:1099/bankData");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -50,5 +48,9 @@ public class RMIHelper {
 	
 	public static ReceiveBillDataServer getReceiBillData() {
 		return receiveBillData;
+	}
+	
+	public static BankDataServer getBankData(){
+		return bankData;
 	}
 }

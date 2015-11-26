@@ -57,7 +57,7 @@ public class BankServerImpl implements bankServer {
 		if(bank==null){
 			return false;
 		}else{
-			bank.setName(newName);
+			bank.setid(newName);
 			dataServer.update(bank);
 			return true;
 		}
