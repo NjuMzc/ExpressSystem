@@ -12,8 +12,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourierMakebill_After extends JPanel implements Watched,
-		ActionListener {
+public class CourierMakebill_After extends JPanel implements Watched, ActionListener {
 
 	int frameWidth;
 	int frameHeight;
@@ -71,8 +70,7 @@ public class CourierMakebill_After extends JPanel implements Watched,
 	}
 
 	private void init() {
-		senderInfor.setBounds(50, 50, frameWidth * 3 / 4 - 50,
-				frameHeight - 150);
+		senderInfor.setBounds(50, 50, frameWidth * 3 / 4 - 50, frameHeight - 150);
 
 		int x = frameWidth * 3 / 4 - 20;
 		int y = frameHeight - 200;

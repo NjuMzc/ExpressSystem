@@ -10,9 +10,11 @@ import dataservice.billsdataservice.HallArrivalBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
+import dataservice.informationdataservice.Inform_HallStaffDataServer;
 import dataservice.systemdataservice.SystemDataServer;
 import dataservice.transportdataservice.TransportDataServer;
 import po.Institution.HallPO;
+import po.Workers.HallStaffPO;
 
 public class RMIHelper {
 	private static SystemDataServer systemData;
@@ -21,6 +23,8 @@ public class RMIHelper {
 	private static ReceiveBillDataServer receiveBillData;
 	private static BankDataServer bankData;
 	private static Inform_HallDataServer hallData;
+	private static Inform_HallStaffDataServer hallStaffData;
+
 	public static void init() {
 		try {
 			systemData = (SystemDataServer) Naming.lookup("rmi://localhost:1099/systemData");
@@ -29,6 +33,8 @@ public class RMIHelper {
 			receiveBillData = (ReceiveBillDataServer) Naming.lookup("rmi://localhost:1099/receiveBillData");
 			bankData = (BankDataServer) Naming.lookup("rmi://localhost:1099/bankData");
 			hallData = (Inform_HallDataServer) Naming.lookup("rmi://localhost:1099/hallData");
+			hallStaffData = (Inform_HallStaffDataServer) Naming.lookup("rmi://localhost:1099/hallStaffData");
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -50,16 +56,20 @@ public class RMIHelper {
 	public static TransportDataServer getTransportData() {
 		return transportData;
 	}
-	
+
 	public static ReceiveBillDataServer getReceiBillData() {
 		return receiveBillData;
 	}
-	
-	public static BankDataServer getBankData(){
+
+	public static BankDataServer getBankData() {
 		return bankData;
 	}
-	
-	public static Inform_HallDataServer getHallData(){
+
+	public static Inform_HallDataServer getHallData() {
 		return hallData;
+	}
+
+	public static Inform_HallStaffDataServer getHallStaffData() {
+		return hallStaffData;
 	}
 }

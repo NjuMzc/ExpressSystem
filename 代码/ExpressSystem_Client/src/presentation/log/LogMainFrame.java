@@ -43,8 +43,8 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		this.setLayout(null);
 		this.setBounds(0, 0, frameWidth, frameHeight);
 
-		confirm = new JButton("");
-		cancel = new JButton("");
+		confirm = new JButton("确定");
+		cancel = new JButton("返回");
 		
 		confirm.setContentAreaFilled(false);//设置按钮透明
 		cancel.setContentAreaFilled(false);

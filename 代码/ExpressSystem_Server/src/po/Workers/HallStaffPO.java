@@ -45,5 +45,9 @@ public class HallStaffPO implements Remote,Serializable{
 	public void setHall(HallPO hall) {
 		this.hall = hall;
 	}
+	
+	public String getId(){
+		return id;
+	}
 
 }

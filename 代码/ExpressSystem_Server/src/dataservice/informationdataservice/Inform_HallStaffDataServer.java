@@ -1,5 +1,8 @@
 package dataservice.informationdataservice;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 import po.Workers.HallStaffPO;
 
 /**
@@ -8,14 +11,14 @@ import po.Workers.HallStaffPO;
  * @author rabook
  *
  */
-public interface Inform_HallStaffDataServer {
+public interface Inform_HallStaffDataServer extends Remote{
 
-	public void addStaff(HallStaffPO staff);
+	public void addStaff(HallStaffPO staff) throws RemoteException;
 	
-	public HallStaffPO find(String id);
+	public HallStaffPO find(String id)throws RemoteException;
 	
-	public void deleteStaff(HallStaffPO staff);
+	public void deleteStaff(HallStaffPO staff)throws RemoteException;
 	
-	public void update(HallStaffPO staff);
+	public void update(HallStaffPO staff)throws RemoteException;
 	
 }
