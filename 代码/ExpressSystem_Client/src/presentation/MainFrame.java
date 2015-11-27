@@ -6,19 +6,6 @@ import presentation.left.*;
 import presentation.log.*;
 import presentation.right.RightAll;
 import presentation.right.RightPanelFactory;
-import presentation.right.accountant.*;
-import presentation.right.admin.adminManage;
-import presentation.right.admin.adminStart;
-import presentation.right.courier.*;
-import presentation.right.manager.ManagerStart;
-import presentation.right.manager.Manager_Manage;
-import presentation.right.manager.Manager_check;
-import presentation.right.manager.Manager_find;
-import presentation.right.manager.Manager_make_constant;
-import presentation.right.manager.Manager_make_money;
-import presentation.right.stockman.*;
-import presentation.right.ying_salesman.*;
-import presentation.right.zhong_salesman.*;
 import presentation.watcher.*;
 
 public class MainFrame extends JFrame implements Watcher {
