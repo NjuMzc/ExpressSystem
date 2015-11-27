@@ -40,10 +40,11 @@ public class CourierSearch extends JPanel implements Watched, ActionListener {
 		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		remind = new JLabel("快递物流系统");
+		remind = new JLabel("请输入快递单号");
 		confirm = new JButton("确认");
 		cancel = new JButton("取消");
 		wrong = new JLabel("输入的快递单号不存在");
+		wrong.setVisible(false);
 		inputOrder = new JFormattedTextField(new DecimalFormat("###,#### "));
 		inputOrder.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent event) {
@@ -71,7 +72,7 @@ public class CourierSearch extends JPanel implements Watched, ActionListener {
 
 						if (index == 10) {
 							passed = true;
-							System.out.println("index="+index);
+							System.out.println("index=" + index);
 						}
 					}
 				} catch (NumberFormatException e) {
@@ -94,7 +95,6 @@ public class CourierSearch extends JPanel implements Watched, ActionListener {
 	}
 
 	private void init() {
-		remind.setForeground(Color.blue);
 		remind.setBounds(frameWidth / 4, frameHeight / 3, frameWidth / 4, 40);
 		confirm.setBounds(frameWidth / 4, frameHeight / 2, frameWidth / 12,
 				frameWidth / 20);
@@ -104,7 +104,6 @@ public class CourierSearch extends JPanel implements Watched, ActionListener {
 		cancel.addActionListener(this);
 		wrong.setBounds(frameWidth / 2, frameHeight / 4 * 3, 150, 30);
 		wrong.setForeground(new Color(227, 23, 13));
-		wrong.setVisible(isWrongShow);
 		inputOrder.setBounds(frameWidth / 2, frameHeight / 3, 150, 30);
 		inputOrder.setValue(new Integer(1111111111));
 
@@ -128,6 +127,14 @@ public class CourierSearch extends JPanel implements Watched, ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COURIERSTART);
 		} else if (e.getSource() == confirm) {
+
+			isWrongShow=false;
+			// 根据逻辑层的验证 修改isWrongShow 填在if判断条件中
+			if (isWrongShow) {
+				wrong.setVisible(true);
+			} else {
+				this.notifyWatchers(State.COURIERSEARCHAFTER);
+			}
 
 		}
 

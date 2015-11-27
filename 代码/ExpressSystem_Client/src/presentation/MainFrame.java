@@ -42,7 +42,6 @@ public class MainFrame extends JFrame implements Watcher {
 
 		right = new Cover(frameWidth, frameHeight);
 		((Cover) right).addWatcher(this);
-		 
 
 		this.setTitle("快递物流系统ELMS");
 		this.setVisible(true);
@@ -179,6 +178,12 @@ public class MainFrame extends JFrame implements Watcher {
 		} else if (state == State.ADMINMANAGE) {
 			right = new adminManage(frameWidth, frameHeight);
 			((adminManage) right).addWatcher(this);
+		} else if (state == State.COURIERMAKEBILLAFTER) {
+			right = new CourierMakebill_After(frameWidth, frameHeight);
+			((CourierMakebill_After) right).addWatcher(this);
+		} else if (state == State.COURIERSEARCHAFTER) {
+			right = new CourierSearch_After(frameWidth, frameHeight);
+			((CourierSearch_After) right).addWatcher(this);
 		}
 
 		if (state == State.LEFTMANAGER) {

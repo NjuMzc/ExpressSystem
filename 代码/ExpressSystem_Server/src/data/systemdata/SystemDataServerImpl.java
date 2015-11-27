@@ -67,13 +67,11 @@ public class SystemDataServerImpl extends UnicastRemoteObject implements SystemD
 	}
 
 	public int getUserNum() throws RemoteException {
-		// TODO Auto-generated method stub
 		return users.size();
 	}
 
 	@Override
 	public ArrayList getAllUsers() throws RemoteException {
-		// TODO Auto-generated method stub
 		return users;
 	}
 

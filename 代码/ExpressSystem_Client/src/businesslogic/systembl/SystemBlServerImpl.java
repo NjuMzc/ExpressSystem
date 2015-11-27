@@ -39,14 +39,18 @@ public class SystemBlServerImpl implements systemServer {
 			return null;
 		}
 		else {
-			if (user.getKey().equals(key))
+			if (user.getKey().equals(key)){
+				SystemHelper.setUser(user);
 				return user;
+			}
 			else{
 				System.out.println("密码错误！");
 				return null;
 			}
 				
 		}
+		
+		
 
 	}
     

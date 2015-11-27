@@ -1,6 +1,5 @@
 package po;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +8,7 @@ import java.util.ArrayList;
  *
  */
 
-public  class Message  {
+public  class Message {
 	
      private ArrayList<String> informs=new ArrayList<String>();
      
