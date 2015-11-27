@@ -30,10 +30,7 @@ public class MainFrame extends JFrame implements Watcher {
 
 	// 界面状态
 	State state = State.STOCKMANSTART;
-
-	public static void main(String[] args) {
-		MainFrame m = new MainFrame();
-	}
+ 
 
 	public MainFrame() {
 		Data d = new Data();

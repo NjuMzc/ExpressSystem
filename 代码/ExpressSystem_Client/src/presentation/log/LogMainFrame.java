@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +45,8 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		this.setLayout(null);
 		this.setBounds(0, 0, frameWidth, frameHeight);
 
-		confirm = new JButton("确定");
-		cancel = new JButton("返回");
+		confirm = new JButton("");
+		cancel = new JButton("");
 		
 		confirm.setContentAreaFilled(false);//设置按钮透明
 		cancel.setContentAreaFilled(false);
@@ -88,60 +90,80 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 		jtf.setFont(new Font("宋体",Font.PLAIN,28));
 		jpf.setBounds(frameWidth * 19 / 56, frameHeight * 19 /32, 300, 50);
 		jpf.setFont(new Font("宋体",Font.PLAIN,28));
+		jpf.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					logConfirm();
+				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf.requestFocus();
+				}
+			}
+		});
+		jtf.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jpf.requestFocus();
+				}
+			}
+		});
 	}
 	
+	private void logConfirm() {
+		String input_account = jtf.getText();
+		String input_password = jpf.getText();
+
+		// 登录验证
+
+		systemServer s = new SystemBlServerImpl();
+
+		if (!input_account.equals("") && !input_password.equals("")) {
+			SystemUserPO user = s.login(input_account, input_password);
+			if (user != null) {
+				if (user.getIdentity().equals("manager")) {
+					this.notifyWatchers(State.MANAGERSTART);
+					this.notifyWatchers(State.LEFTMANAGER);
+
+				} else if (user.getIdentity().equals("account")) {
+					this.notifyWatchers(State.ACCOUNTANTSTART);
+					this.notifyWatchers(State.LEFTACCOUNTANT);
+				} else if (user.getIdentity().equals("courier")) {
+					this.notifyWatchers(State.COURIERSTART);
+					this.notifyWatchers(State.LEFTCOURIER);
+				} else if (user.getIdentity().equals("hstaff")) {
+					this.notifyWatchers(State.YING_START);
+					this.notifyWatchers(State.LEFTYING);
+				} else if (user.getIdentity().equals("tstaff")) {
+					this.notifyWatchers(State.ZHONG_START);
+					this.notifyWatchers(State.LEFTZHONG);
+				} else if (user.getIdentity().equals("keeper")) {
+					this.notifyWatchers(State.STOCKMANSTART);
+					this.notifyWatchers(State.LEFTSTOCKMAN);
+				} else if (user.getIdentity().equals("admin")) {
+
+					this.notifyWatchers(State.ADMINSTART);
+					this.notifyWatchers(State.LEFTADMIN);
+				}
+			} else {
+				System.out.println("Fail login!");
+			}
+
+			jtf.setText("");
+			jpf.setText("");
+		}
+	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirm) {
 
-			String input_account = jtf.getText();
-			String input_password = jpf.getText();
-
-			// 登录验证
-
-			systemServer s = new SystemBlServerImpl();
-
-			if (!input_account.equals("") && !input_password.equals("")) {
-				SystemUserPO user = s.login(input_account, input_password);
-				if (user != null) {
-					if (user.getIdentity().equals("manager")) {
-						this.notifyWatchers(State.MANAGERSTART);
-						this.notifyWatchers(State.LEFTMANAGER);
-
-					} else if (user.getIdentity().equals("account")) {
-						this.notifyWatchers(State.ACCOUNTANTSTART);
-						this.notifyWatchers(State.LEFTACCOUNTANT);
-					} else if (user.getIdentity().equals("courier")) {
-						this.notifyWatchers(State.COURIERSTART);
-						this.notifyWatchers(State.LEFTCOURIER);
-					} else if (user.getIdentity().equals("hstaff")) {
-						this.notifyWatchers(State.YING_START);
-						this.notifyWatchers(State.LEFTYING);
-					} else if (user.getIdentity().equals("tstaff")) {
-						this.notifyWatchers(State.ZHONG_START);
-						this.notifyWatchers(State.LEFTZHONG);
-					} else if (user.getIdentity().equals("keeper")) {
-						this.notifyWatchers(State.STOCKMANSTART);
-						this.notifyWatchers(State.LEFTSTOCKMAN);
-					} else if (user.getIdentity().equals("admin")) {
-
-						this.notifyWatchers(State.ADMINSTART);
-						this.notifyWatchers(State.LEFTADMIN);
-					}
-				} else {
-					System.out.println("Fail login!");
-				}
-
-				jtf.setText("");
-				jpf.setText("");
-			}
+			logConfirm();
 
 		} else if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COVER);
 		}
 
 	}
-
+	 
 	public void addWatcher(Watcher watcher) {
 		list.add(watcher);
 
