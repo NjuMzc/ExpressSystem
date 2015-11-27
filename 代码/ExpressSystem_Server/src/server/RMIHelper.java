@@ -8,11 +8,13 @@ import java.rmi.registry.LocateRegistry;
 import data.bankdata.BankDataServerImpl;
 import data.billdata.OrderBillDataServerImpl;
 import data.billdata.ReceiveBillDataServerImpl;
+import data.informationdata.Inform_HallDataServerImpl;
 import data.systemdata.SystemDataServerImpl;
 import data.transportdata.TransportDataServerImpl;
 import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
+import dataservice.informationdataservice.Inform_HallDataServer;
 import dataservice.systemdataservice.SystemDataServer;
 import dataservice.transportdataservice.TransportDataServer;
 
@@ -36,6 +38,9 @@ public class RMIHelper {
 
 			BankDataServer bankDataService = new BankDataServerImpl();
 			Naming.rebind("bankData", bankDataService);
+			
+			Inform_HallDataServer hallDataService = new Inform_HallDataServerImpl();
+			Naming.rebind("hallData", hallDataService);
 			
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {

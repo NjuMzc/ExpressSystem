@@ -1,5 +1,7 @@
 package po.Institution;
 
+import java.io.Serializable;
+import java.rmi.Remote;
 import java.util.ArrayList;
 
 import po.Workers.HallStaffPO;
@@ -9,7 +11,12 @@ import po.Workers.HallStaffPO;
  * @author rabook
  *
  */
-public class HallPO {
+public class HallPO implements Remote,Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3106957535920594004L;
+
 	private String id;//机构编号，格式为所在地编号3位+3位流水号
 	
 	private ArrayList<HallStaffPO> HallStaffList;
