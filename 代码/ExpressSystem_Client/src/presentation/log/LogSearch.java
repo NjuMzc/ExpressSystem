@@ -1,6 +1,8 @@
 package presentation.log;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -40,7 +42,15 @@ public class LogSearch extends JPanel implements Watched, ActionListener {
 		this.add(confirm);
 		this.add(back);
 	}
-
+	//添加背景
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\背景.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0, null);
+	
+	}
 	private void init() {
 		remind.setBounds(frameWidth / 4, frameHeight / 6, frameWidth / 4, 40);
 		confirm.setBounds(frameWidth / 2, frameHeight / 6, frameWidth / 12,

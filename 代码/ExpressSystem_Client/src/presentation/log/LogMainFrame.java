@@ -2,6 +2,8 @@ package presentation.log;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,49 +42,55 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 
 		this.setLayout(null);
 		this.setBounds(0, 0, frameWidth, frameHeight);
-		this.setBackground(new Color(107, 155, 184));
 
-		remind = new JLabel("快递物流系统");
-
-		account = new JLabel("账户");
-		passport = new JLabel("密码");
-		confirm = new JButton("确认");
-		cancel = new JButton("取消");
+		confirm = new JButton("");
+		cancel = new JButton("");
+		
+		confirm.setContentAreaFilled(false);//设置按钮透明
+		cancel.setContentAreaFilled(false);
+		
+		confirm.setBorderPainted(false);//隐藏边框
+		cancel.setBorderPainted(false);
+		
 		jtf = new JTextField(12);
 		jpf = new JPasswordField();
+		
 
 		init();
 
-		this.add(remind);
-		this.add(account);
-		this.add(passport);
 		this.add(confirm);
 		this.add(cancel);
 		this.add(jtf);
 		this.add(jpf);
 	}
+	
+	@Override
+	//添加背景
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统登录界面.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0, null);
+	}
 
 	private void init() {
-		Font f = new Font("", Font.BOLD, 45);
-		remind.setFont(f);
-		remind.setBounds(frameWidth / 3, frameHeight / 4, frameWidth / 3,
-				frameWidth / 18);
 
-		account.setBounds(frameWidth / 3, frameHeight / 8 * 5, frameWidth / 12,
-				frameWidth / 20);
-		passport.setBounds(frameWidth / 3, frameHeight / 4 * 3,
-				frameWidth / 12, frameWidth / 20);
-		confirm.setBounds(frameWidth / 3, frameHeight * 7 / 8, frameWidth / 12,
+
+		confirm.setBounds(frameWidth *9/ 32, frameHeight * 23 / 32, frameWidth*7 /48,
 				frameWidth / 20);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth / 2, frameHeight * 7 / 8, frameWidth / 12,
+		cancel.setBounds(frameWidth *9/16, frameHeight *23/ 32, frameWidth *7/ 48,
 				frameWidth / 20);
 		cancel.addActionListener(this);
 
-		jtf.setBounds(frameWidth * 2 / 5, frameHeight * 5 / 8, 150, 30);
-		jpf.setBounds(frameWidth * 2 / 5, frameHeight * 3 / 4, 150, 30);
+		jtf.setBounds(frameWidth * 19 /56, frameHeight * 7/16, 300,50);
+		jtf.setFont(new Font("宋体",Font.PLAIN,28));
+		jpf.setBounds(frameWidth * 19 / 56, frameHeight * 19 /32, 300, 50);
+		jpf.setFont(new Font("宋体",Font.PLAIN,28));
 	}
-
+	
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirm) {
 
@@ -92,50 +100,41 @@ public class LogMainFrame extends JPanel implements ActionListener, Watched {
 			// 登录验证
 
 			systemServer s = new SystemBlServerImpl();
-			
-			if (!input_account .equals("") && !input_password.equals("") ) {
-				SystemUserPO user=s.login(input_account, input_password);
-				if(user!=null){
-					if (user.getIdentity()
-							.equals("manager")) {
+
+			if (!input_account.equals("") && !input_password.equals("")) {
+				SystemUserPO user = s.login(input_account, input_password);
+				if (user != null) {
+					if (user.getIdentity().equals("manager")) {
 						this.notifyWatchers(State.MANAGERSTART);
 						this.notifyWatchers(State.LEFTMANAGER);
 
-					} else if (user.getIdentity()
-							.equals("account")) {
+					} else if (user.getIdentity().equals("account")) {
 						this.notifyWatchers(State.ACCOUNTANTSTART);
 						this.notifyWatchers(State.LEFTACCOUNTANT);
-					} else if (user.getIdentity()
-							.equals("courier")) {
+					} else if (user.getIdentity().equals("courier")) {
 						this.notifyWatchers(State.COURIERSTART);
 						this.notifyWatchers(State.LEFTCOURIER);
-					} else if (user.getIdentity()
-							.equals("hstaff")) {
+					} else if (user.getIdentity().equals("hstaff")) {
 						this.notifyWatchers(State.YING_START);
 						this.notifyWatchers(State.LEFTYING);
-					} else if (user.getIdentity()
-							.equals("tstaff")) {
+					} else if (user.getIdentity().equals("tstaff")) {
 						this.notifyWatchers(State.ZHONG_START);
 						this.notifyWatchers(State.LEFTZHONG);
-					} else if (user.getIdentity()
-							.equals("keeper")) {
+					} else if (user.getIdentity().equals("keeper")) {
 						this.notifyWatchers(State.STOCKMANSTART);
 						this.notifyWatchers(State.LEFTSTOCKMAN);
-					} else if (user.getIdentity()
-							.equals("admin")) {
+					} else if (user.getIdentity().equals("admin")) {
 
 						this.notifyWatchers(State.ADMINSTART);
 						this.notifyWatchers(State.LEFTADMIN);
 					}
-				}else{
+				} else {
 					System.out.println("Fail login!");
 				}
-				
 
 				jtf.setText("");
 				jpf.setText("");
 			}
- 
 
 		} else if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COVER);

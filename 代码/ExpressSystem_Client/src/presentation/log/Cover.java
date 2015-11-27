@@ -2,6 +2,8 @@ package presentation.log;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,34 +35,51 @@ public class Cover extends JPanel implements Watched, ActionListener {
 
 		this.setLayout(null);
 		this.setBounds(0, 0, frameWidth, frameHeight);
-		this.setBackground(new Color(107, 155, 184));
 
-		remind = new JLabel("快递物流系统");
-		system = new JButton("系统登录");
-		customer = new JButton("客户登录");
+		system = new JButton();
+		system.setBorderPainted(false);
+		customer = new JButton();
+		customer.setBorderPainted(false);
 
 		init();
+		
+        ImageIcon icon1 = new ImageIcon("pictures//系统登录按钮剪裁.png");
+		Image temp1 = icon1.getImage().getScaledInstance(system.getWidth(),
+		system.getHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1= new ImageIcon(temp1);
+		system.setIcon(icon1);
+		
+        ImageIcon icon2 = new ImageIcon("pictures//客户登录按钮剪裁.png");
+		Image temp2 = icon2.getImage().getScaledInstance(customer.getWidth(),
+		customer.getHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon2= new ImageIcon(temp2);
+		customer.setIcon(icon2);
+		
 
-		this.add(remind);
-		this.add(system);
+		this.add(system);		
 		this.add(customer);
 	}
-
+	
+	//添加背景
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\初始背景.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0, null);
+	}
+	//以上为添加背景
+	
 	private void init() {
-		Font f = new Font("华文新魏", Font.BOLD, 45);
-		remind.setFont(f);
-		remind.setBounds(frameWidth / 3, frameHeight / 4, frameWidth / 3,
-				frameWidth / 18);
-
-		system.setMargin(new Insets(0, 0, 0, 0));
+	system.setMargin(new Insets(0, 0, 0, 0));
 		system.setFont(new Font("", Font.BOLD, 20));
-		system.setBounds(frameWidth / 3, frameHeight / 2, frameWidth / 3,
-				frameWidth / 12);
+		system.setBounds(frameWidth*5 / 14, 2*frameHeight /5,3* frameWidth /11,
+				frameWidth / 13);
 		system.addActionListener(this);
 		customer.setMargin(new Insets(0, 0, 0, 0));
 		customer.setFont(new Font("", Font.BOLD, 20));
-		customer.setBounds(frameWidth / 3, frameHeight * 3 / 4, frameWidth / 3,
-				frameWidth / 12);
+		customer.setBounds(frameWidth *5/ 14, frameHeight * 3 / 5, 3*frameWidth /11,
+	frameWidth / 13);
 		customer.addActionListener(this);
 	}
 
