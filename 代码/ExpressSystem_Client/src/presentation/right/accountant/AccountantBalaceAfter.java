@@ -8,9 +8,10 @@ import java.util.List;
 
 import javax.swing.*;
 
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class AccountantBalaceAfter extends JPanel implements Watched,
+public class AccountantBalaceAfter extends RightAll implements  
 		ActionListener {
 	int frameWidth;
 	int frameHeight;

@@ -6,6 +6,7 @@ import businesslogic.transportbl.Trans_MakingOrderServerImpl;
 import businesslogicservice.transportblservice.Trans_MakingOrderServer;
 import po.Message;
 import presentation.Data;
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourierMakebill extends JPanel implements Watched, ActionListener {
+public class CourierMakebill extends RightAll implements ActionListener {
 	Trans_MakingOrderServer blServer;
 
 	int frameWidth;

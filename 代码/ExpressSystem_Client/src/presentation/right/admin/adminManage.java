@@ -15,9 +15,10 @@ import businesslogic.systembl.SystemBlServerImpl;
 import businesslogicservice.systemblservice.systemServer;
 import po.Message;
 import po.SystemUserPO;
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class adminManage extends JPanel implements Watched, ActionListener {
+public class adminManage extends RightAll implements   ActionListener {
 	systemServer blserver;
 	ArrayList users;
 

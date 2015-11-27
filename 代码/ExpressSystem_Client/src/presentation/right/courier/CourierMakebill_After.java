@@ -2,6 +2,7 @@ package presentation.right.courier;
 
 import javax.swing.*;
 
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourierMakebill_After extends JPanel implements Watched, ActionListener {
+public class CourierMakebill_After extends RightAll implements  ActionListener {
 
 	int frameWidth;
 	int frameHeight;

@@ -5,7 +5,12 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Ying_start extends JPanel {
+import presentation.right.RightAll;
+import presentation.watcher.State;
+import presentation.watcher.Watched;
+import presentation.watcher.Watcher;
+
+public class Ying_start extends RightAll  {
 
 	int frameWidth;
 	int frameHeight;
@@ -31,5 +36,23 @@ public class Ying_start extends JPanel {
 	private void init() {
 		jl.setBounds(320, 320, 300, 300);
 		jl.setText("start");
+	}
+
+	@Override
+	public void addWatcher(Watcher watcher) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeWatcehr(Watcher watcher) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyWatchers(State state) {
+		// TODO Auto-generated method stub
+		
 	}
 }

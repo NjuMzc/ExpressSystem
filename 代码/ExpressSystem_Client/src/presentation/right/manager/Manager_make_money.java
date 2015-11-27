@@ -8,9 +8,10 @@ import java.util.List;
 
 import javax.swing.*;
 
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class Manager_make_money extends JPanel implements Watched,
+public class Manager_make_money extends RightAll implements 
 		ActionListener {
 	int frameWidth;
 	int frameHeight;

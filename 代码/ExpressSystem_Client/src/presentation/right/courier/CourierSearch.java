@@ -3,6 +3,7 @@ package presentation.right.courier;
 import javax.swing.*;
 
 import presentation.Data;
+import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
@@ -17,7 +18,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourierSearch extends JPanel implements Watched, ActionListener {
+public class CourierSearch extends RightAll implements   ActionListener {
 
 	int frameWidth;
 	int frameHeight;

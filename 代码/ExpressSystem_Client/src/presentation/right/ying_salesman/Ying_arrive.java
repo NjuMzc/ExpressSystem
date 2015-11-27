@@ -8,12 +8,13 @@ import java.util.List;
 
 import javax.swing.*;
 
+import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
 
-public class Ying_arrive extends JPanel implements Watched,ActionListener{
+public class Ying_arrive extends RightAll implements  ActionListener{
 
 	int frameWidth;
 	int frameHeight;

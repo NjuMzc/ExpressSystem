@@ -11,11 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
-public class Ying_loading extends JPanel implements Watched,ActionListener{
+public class Ying_loading extends RightAll implements  ActionListener{
 
 	int frameWidth;
 	int frameHeight;

@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
  
 
+
 import javax.swing.*;
 
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
 
-public class AccountantCost extends JPanel implements Watched,ActionListener{
+public class AccountantCost extends RightAll implements  ActionListener{
 	int frameWidth;
 	int frameHeight;
 	JLabel[] jl;

@@ -10,7 +10,7 @@ import javax.swing.*;
 import presentation.Data;
 import presentation.watcher.*;
 
-public class AccountantPanel extends JPanel implements Watched, ActionListener {
+public class AccountantPanel extends LeftAll implements  ActionListener {
 
 	private List<Watcher> list;
 	int frameWidth;

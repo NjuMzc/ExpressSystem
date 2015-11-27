@@ -10,9 +10,10 @@ import java.util.List;
 
 import javax.swing.*;
 
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class LogSearch extends JPanel implements Watched, ActionListener {
+public class LogSearch extends RightAll implements ActionListener {
 
 	int frameWidth;
 	int frameHeight;

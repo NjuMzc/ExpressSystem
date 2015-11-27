@@ -7,9 +7,10 @@ import java.util.List;
 
 import javax.swing.*;
 
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class StockmanInStockAfter extends JPanel implements Watched,
+public class StockmanInStockAfter extends RightAll implements 
 		ActionListener {
 	int frameWidth;
 	int frameHeight;

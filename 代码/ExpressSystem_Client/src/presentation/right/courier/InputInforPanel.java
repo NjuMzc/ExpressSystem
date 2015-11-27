@@ -11,9 +11,10 @@ import javax.swing.*;
 
 import po.Message;
 import presentation.Data;
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class InputInforPanel extends JPanel implements ActionListener, Watched {
+public class InputInforPanel extends RightAll implements ActionListener {
 	int frameWidth;
 	int frameHeight;
 	JButton confirm;

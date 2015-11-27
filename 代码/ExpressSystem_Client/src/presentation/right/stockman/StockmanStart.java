@@ -1,9 +1,15 @@
 package presentation.right.stockman;
 
 import java.awt.Color;
+
 import javax.swing.*;
 
-public class StockmanStart extends JPanel {
+import presentation.right.RightAll;
+import presentation.watcher.State;
+import presentation.watcher.Watched;
+import presentation.watcher.Watcher;
+
+public class StockmanStart extends RightAll   {
 	int frameWidth;
 	int frameHeight;
 	JLabel jl;
@@ -28,5 +34,23 @@ public class StockmanStart extends JPanel {
 	private void init() {
 		jl.setBounds(320, 320, 300, 300);
 		jl.setText("start");
+	}
+
+	@Override
+	public void addWatcher(Watcher watcher) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeWatcehr(Watcher watcher) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyWatchers(State state) {
+		// TODO Auto-generated method stub
+		
 	}
 }

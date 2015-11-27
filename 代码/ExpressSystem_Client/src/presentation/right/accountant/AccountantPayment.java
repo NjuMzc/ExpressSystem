@@ -11,9 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class AccountantPayment extends JPanel implements Watched,
+public class AccountantPayment extends RightAll implements 
 		ActionListener {
 	int frameWidth;
 	int frameHeight;

@@ -13,7 +13,7 @@ import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
-public class AdminPanel extends JPanel implements Watched, ActionListener {
+public class AdminPanel extends LeftAll implements Watched, ActionListener {
 
 	int frameWidth;
 	int frameHeight;

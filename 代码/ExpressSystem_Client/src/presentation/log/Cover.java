@@ -13,11 +13,12 @@ import java.util.List;
 import javax.swing.*;
 
 import presentation.Data;
+import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
-public class Cover extends JPanel implements Watched, ActionListener {
+public class Cover extends RightAll implements ActionListener {
 
 	int frameWidth;
 	int frameHeight;
@@ -42,44 +43,44 @@ public class Cover extends JPanel implements Watched, ActionListener {
 		customer.setBorderPainted(false);
 
 		init();
-		
-        ImageIcon icon1 = new ImageIcon("pictures//系统登录按钮剪裁.png");
-		Image temp1 = icon1.getImage().getScaledInstance(system.getWidth(),
-		system.getHeight(), icon1.getImage().SCALE_DEFAULT);
-		icon1= new ImageIcon(temp1);
-		system.setIcon(icon1);
-		
-        ImageIcon icon2 = new ImageIcon("pictures//客户登录按钮剪裁.png");
-		Image temp2 = icon2.getImage().getScaledInstance(customer.getWidth(),
-		customer.getHeight(), icon1.getImage().SCALE_DEFAULT);
-		icon2= new ImageIcon(temp2);
-		customer.setIcon(icon2);
-		
 
-		this.add(system);		
+		ImageIcon icon1 = new ImageIcon("pictures//系统登录按钮剪裁.png");
+		Image temp1 = icon1.getImage().getScaledInstance(system.getWidth(),
+				system.getHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		system.setIcon(icon1);
+
+		ImageIcon icon2 = new ImageIcon("pictures//客户登录按钮剪裁.png");
+		Image temp2 = icon2.getImage().getScaledInstance(customer.getWidth(),
+				customer.getHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		customer.setIcon(icon2);
+
+		this.add(system);
 		this.add(customer);
 	}
-	
-	//添加背景
+
+	// 添加背景
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\初始背景.png");
-		Image bg =background.getImage();
+		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, null);
 	}
-	//以上为添加背景
-	
+
+	// 以上为添加背景
+
 	private void init() {
-	system.setMargin(new Insets(0, 0, 0, 0));
+		system.setMargin(new Insets(0, 0, 0, 0));
 		system.setFont(new Font("", Font.BOLD, 20));
-		system.setBounds(frameWidth*5 / 14, 2*frameHeight /5,3* frameWidth /11,
-				frameWidth / 13);
+		system.setBounds(frameWidth * 5 / 14, 2 * frameHeight / 5,
+				3 * frameWidth / 11, frameWidth / 13);
 		system.addActionListener(this);
 		customer.setMargin(new Insets(0, 0, 0, 0));
 		customer.setFont(new Font("", Font.BOLD, 20));
-		customer.setBounds(frameWidth *5/ 14, frameHeight * 3 / 5, 3*frameWidth /11,
-	frameWidth / 13);
+		customer.setBounds(frameWidth * 5 / 14, frameHeight * 3 / 5,
+				3 * frameWidth / 11, frameWidth / 13);
 		customer.addActionListener(this);
 	}
 

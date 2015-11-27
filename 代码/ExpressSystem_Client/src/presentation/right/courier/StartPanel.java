@@ -5,8 +5,12 @@ import java.awt.Color;
 import javax.swing.*;
 
 import presentation.Data;
+import presentation.right.RightAll;
+import presentation.watcher.State;
+import presentation.watcher.Watched;
+import presentation.watcher.Watcher;
 
-public class StartPanel extends JPanel {
+public class StartPanel extends RightAll   {
 
 	int frameWidth;
 	int frameHeight;
@@ -32,5 +36,20 @@ public class StartPanel extends JPanel {
 	private void init() {
 		jl.setBounds(320, 320, 300, 300);
 		jl.setText("start");
+	}
+
+	@Override
+	public void addWatcher(Watcher watcher) {
+		 
+	}
+
+	@Override
+	public void removeWatcehr(Watcher watcher) {
+		 
+	}
+
+	@Override
+	public void notifyWatchers(State state) {
+		 
 	}
 }

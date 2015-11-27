@@ -4,6 +4,8 @@ import javax.swing.*;
 
 import presentation.left.*;
 import presentation.log.*;
+import presentation.right.RightAll;
+import presentation.right.RightPanelFactory;
 import presentation.right.accountant.*;
 import presentation.right.admin.adminManage;
 import presentation.right.admin.adminStart;
@@ -25,12 +27,14 @@ public class MainFrame extends JFrame implements Watcher {
 	int frameHeight;
 
 	// 左右侧panel，在登录时仅使用right
-	JPanel right;
-	JPanel left;
+	RightAll right;
+	LeftAll left;
 
 	// 界面状态
-	State state = State.STOCKMANSTART;
- 
+	State state = State.COVER;
+
+	RightPanelFactory rightFactory;
+	LeftPanelFactory leftFactory;
 
 	public MainFrame() {
 		Data d = new Data();
@@ -38,7 +42,10 @@ public class MainFrame extends JFrame implements Watcher {
 		this.frameHeight = d.getFrameHeight();
 
 		right = new Cover(frameWidth, frameHeight);
-		((Cover) right).addWatcher(this);
+		right.addWatcher(this);
+
+		rightFactory = new RightPanelFactory();
+		leftFactory = new LeftPanelFactory();
 
 		this.setTitle("快递物流系统ELMS");
 		this.setVisible(true);
@@ -56,172 +63,26 @@ public class MainFrame extends JFrame implements Watcher {
 		this.remove(right);
 		this.state = state;
 
-		if (state == State.COURIERSTART) {
-			right = new StartPanel(frameWidth, frameHeight);
-		} else if (state == State.COURIERMAKEBILL) {
-			right = new CourierMakebill(frameWidth, frameHeight);
-			((CourierMakebill) right).addWatcher(this);
-		} else if (state == State.COURIERINPUTINFOR) {
-			right = new InputInforPanel(frameWidth, frameHeight);
-			((InputInforPanel) right).addWatcher(this);
-		} else if (state == State.COURIERSEARCH) {
-			right = new CourierSearch(frameWidth, frameHeight);
-			((CourierSearch) right).addWatcher(this);
-		} else if (state == State.LOGMAINFRAME) {
-			right = new LogMainFrame(frameWidth, frameHeight);
-			((LogMainFrame) right).addWatcher(this);
-		} else if (state == State.COVER) {
-			right = new Cover(frameWidth, frameHeight);
-			((Cover) right).addWatcher(this);
-		} else if (state == State.ZHONG_START) {
-			right = new Zhong_start(frameWidth, frameHeight);
-		} else if (state == State.ZHONG_TRANSFER) {
-			right = new Zhong_transfer(frameWidth, frameHeight);
-			((Zhong_transfer) right).addWatcher(this);
-		} else if (state == State.ZHONG_ARRIVAL) {
-			right = new Zhong_arrival(frameWidth, frameHeight);
-			((Zhong_arrival) right).addWatcher(this);
-		} else if (state == State.ZHONG_ENTRUCKING) {
-			right = new Zhong_entrucking(frameWidth, frameHeight);
-			((Zhong_entrucking) right).addWatcher(this);
-		} else if (state == State.YING_START) {
-			right = new Ying_start(frameWidth, frameHeight);
-		} else if (state == State.YING_COLLECT) {
-			right = new Ying_collect(frameWidth, frameHeight);
-			((Ying_collect) right).addWatcher(this);
-		} else if (state == State.YING_ARRIVE) {
-			right = new Ying_arrive(frameWidth, frameHeight);
-			((Ying_arrive) right).addWatcher(this);
-		} else if (state == State.YING_RECEIVE) {
-			right = new Ying_receive(frameWidth, frameHeight);
-			((Ying_receive) right).addWatcher(this);
-		} else if (state == State.YING_PAYMENT) {
-			right = new Ying_payment(frameWidth, frameHeight);
-			((Ying_payment) right).addWatcher(this);
-		} else if (state == State.YING_LOADING) {
-			right = new Ying_loading(frameWidth, frameHeight);
-			((Ying_loading) right).addWatcher(this);
-		} else if (state == State.YING_MANAGEINFOR) {
-			right = new Ying_manageInfor(frameWidth, frameHeight);
-			((Ying_manageInfor) right).addWatcher(this);
-		} else if (state == State.LOGSEARCH) {
-			right = new LogSearch(frameWidth, frameHeight);
-			((LogSearch) right).addWatcher(this);
-		} else if (state == State.ACCOUNTANTSTART) {
-			right = new AccountantStart(frameWidth, frameHeight);
-		} else if (state == State.ACCOUNTANTMAKEBILL) {
-			right = new AccountantMakebill(frameWidth, frameHeight);
-			((AccountantMakebill) right).addWatcher(this);
-		} else if (state == State.ACCOUNTANTMAKESHEET) {
-			right = new AccountantMakeSheet(frameWidth, frameHeight);
-			((AccountantMakeSheet) right).addWatcher(this);
-		} else if (state == State.ACCOUNTANTPAYMENT) {
-			right = new AccountantPayment(frameWidth, frameHeight);
-			((AccountantPayment) right).addWatcher(this);
-		} else if (state == State.ACCOUNTANTCOST) {
-			right = new AccountantCost(frameWidth, frameHeight);
-			((AccountantCost) right).addWatcher(this);
-		} else if (state == State.ACCOUNTANTMANAGE) {
-			right = new AccountantManage(frameWidth, frameHeight);
-			((AccountantManage) right).addWatcher(this);
-		} else if (state == State.ACCOUNTANTBALACE) {
-			right = new AccountantBalace(frameWidth, frameHeight);
-			((AccountantBalace) right).addWatcher(this);
-		} else if (state == State.ACCOUNTANTBALACEAFTER) {
-			right = new AccountantBalaceAfter(frameWidth, frameHeight);
-			((AccountantBalaceAfter) right).addWatcher(this);
-		} else if (state == State.STOCKMANSTART) {
-			right = new StockmanStart(frameWidth, frameHeight);
-		} else if (state == State.STOCKMANINSTOCK) {
-			right = new StockmanInStock(frameWidth, frameHeight);
-			((StockmanInStock) right).addWatcher(this);
-		} else if (state == State.STOCKMANINSTOCKAFTER) {
-			right = new StockmanInStockAfter(frameWidth, frameHeight);
-			((StockmanInStockAfter) right).addWatcher(this);
-		} else if (state == State.STOCKMANOUTSTOCK) {
-			right = new StockmanOutStock(frameWidth, frameHeight);
-			((StockmanOutStock) right).addWatcher(this);
-		} else if (state == State.STOCKMANOUTSTOCKAFTER) {
-			right = new StockmanOutStockAfter(frameWidth, frameHeight);
-			((StockmanOutStockAfter) right).addWatcher(this);
-		} else if (state == State.STOCKMANSEARCH) {
-			right = new StockmanSearch(frameWidth, frameHeight);
-			((StockmanSearch) right).addWatcher(this);
-		} else if (state == State.STOCKMANCHECK) {
-			right = new StockmanCheck(frameWidth, frameHeight);
-			((StockmanCheck) right).addWatcher(this);
-		} else if (state == State.STOCKMANCHANGE) {
-			right = new StockmanChange(frameWidth, frameHeight);
-			((StockmanChange) right).addWatcher(this);
-		} else if (state == State.MANAGERSTART) {
-			right = new ManagerStart(frameWidth, frameHeight);
-		} else if (state == State.MANAGERMAKEMONEY) {
-			right = new Manager_make_money(frameWidth, frameHeight);
-			((Manager_make_money) right).addWatcher(this);
-		} else if (state == State.MANAGERMAKECONSTANT) {
-			right = new Manager_make_constant(frameWidth, frameHeight);
-			((Manager_make_constant) right).addWatcher(this);
-		} else if (state == State.MANAGERMANAGE) {
-			right = new Manager_Manage(frameWidth, frameHeight);
-			((Manager_Manage) right).addWatcher(this);
-		} else if (state == State.MANAGERCHECK) {
-			right = new Manager_check(frameWidth, frameHeight);
-			((Manager_check) right).addWatcher(this);
-		} else if (state == State.MANAGERFIND) {
-			right = new Manager_find(frameWidth, frameHeight);
-			((Manager_find) right).addWatcher(this);
-		} else if (state == State.ADMINSTART) {
-			right = new adminStart(frameWidth, frameHeight);
-		} else if (state == State.ADMINMANAGE) {
-			right = new adminManage(frameWidth, frameHeight);
-			((adminManage) right).addWatcher(this);
-		} else if (state == State.COURIERMAKEBILLAFTER) {
-			right = new CourierMakebill_After(frameWidth, frameHeight);
-			((CourierMakebill_After) right).addWatcher(this);
-		} else if (state == State.COURIERSEARCHAFTER) {
-			right = new CourierSearch_After(frameWidth, frameHeight);
-			((CourierSearch_After) right).addWatcher(this);
-		}
-
-		if (state == State.LEFTMANAGER) {
-			left = new ManagerPanel(frameWidth, frameHeight);
-			((ManagerPanel) left).addWatcher(this);
+		if (state != State.LOGOUT && state != State.LEFTACCOUNTANT
+				&& state != State.LEFTADMIN && state != State.LEFTCOURIER
+				&& state != State.LEFTMANAGER && state != State.LEFTSTOCKMAN
+				&& state != State.LEFTYING && state != State.LEFTZHONG) {
+			right = rightFactory.createRightPanel(state, frameWidth,
+					frameHeight);
+			this.repaint();
+			right.addWatcher(this);
+		} else if (state != State.LOGOUT) {
+			left = leftFactory.createLeftPanel(state, frameWidth, frameHeight);
+			left.addWatcher(this);
 			this.add(left);
-		} else if (state == State.LEFTACCOUNTANT) {
-			left = new AccountantPanel(frameWidth, frameHeight);
-			((AccountantPanel) left).addWatcher(this);
-			this.add(left);
-		} else if (state == State.LEFTCOURIER) {
-			left = new CourierPanel(frameWidth, frameHeight);
-			((CourierPanel) left).addWatcher(this);
-			this.add(left);
-		} else if (state == State.LEFTSTOCKMAN) {
-			left = new StockmanPanel(frameWidth, frameHeight);
-			((StockmanPanel) left).addWatcher(this);
-			this.add(left);
-		} else if (state == State.LEFTYING) {
-			left = new Ying_salesmanPanel(frameWidth, frameHeight);
-			((Ying_salesmanPanel) left).addWatcher(this);
-			this.add(left);
-		} else if (state == State.LEFTZHONG) {
-			left = new Zhong_salesmanPanel(frameWidth, frameHeight);
-			((Zhong_salesmanPanel) left).addWatcher(this);
-			this.add(left);
-		} else if (state == State.LEFTADMIN) {
-			left = new AdminPanel(frameWidth, frameHeight);
-			((AdminPanel) left).addWatcher(this);
-			this.add(left);
-		}
-
-		if (state == State.LOGOUT) {
+		} else {
 			this.remove(left);
 			this.remove(right);
 			right = new Cover(frameWidth, frameHeight);
-			((Cover) right).addWatcher(this);
+			right.addWatcher(this);
 		}
 
 		this.add(right);
 		this.repaint();
 	}
-
 }

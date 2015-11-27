@@ -16,13 +16,14 @@ import javax.swing.*;
 
 import po.Message;
 import po.SystemUserPO;
+import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 import businesslogic.systembl.SystemBlServerImpl;
 import businesslogicservice.systemblservice.systemServer;
 
-public class LogMainFrame extends JPanel implements ActionListener, Watched {
+public class LogMainFrame extends RightAll implements ActionListener  {
 
 	int frameWidth;
 	int frameHeight;

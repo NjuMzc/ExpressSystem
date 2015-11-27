@@ -8,9 +8,10 @@ import java.util.List;
 
 import javax.swing.*;
 
+import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class Manager_check extends JPanel implements Watched, ActionListener {
+public class Manager_check extends RightAll implements   ActionListener {
 	int frameWidth;
 	int frameHeight;
 	JLabel tobe;

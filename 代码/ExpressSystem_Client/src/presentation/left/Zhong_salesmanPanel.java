@@ -10,7 +10,7 @@ import javax.swing.*;
 import presentation.Data;
 import presentation.watcher.*;
 
-public class Zhong_salesmanPanel extends JPanel implements Watched,
+public class Zhong_salesmanPanel extends LeftAll implements  
 		ActionListener {
 
 	private List<Watcher> list;
