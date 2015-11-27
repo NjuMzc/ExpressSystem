@@ -1,5 +1,8 @@
 package po.Workers;
 
+import java.io.Serializable;
+import java.rmi.Remote;
+
 import po.Institution.HallPO;
 
 /**
@@ -7,8 +10,12 @@ import po.Institution.HallPO;
  * @author rabook
  *
  */
-public class HallStaffPO {
+public class HallStaffPO implements Remote,Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -309906341519428337L;
 	private String name;//姓名
 	private String id;//编号，与系统编号相同
 	

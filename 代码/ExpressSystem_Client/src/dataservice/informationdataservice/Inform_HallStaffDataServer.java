@@ -1,5 +1,7 @@
 package dataservice.informationdataservice;
 
+import java.rmi.Remote;
+
 import po.Workers.HallStaffPO;
 
 /**
@@ -8,7 +10,7 @@ import po.Workers.HallStaffPO;
  * @author rabook
  *
  */
-public interface Inform_HallStaffDataServer {
+public interface Inform_HallStaffDataServer extends Remote{
 
 	public void addStaff(HallStaffPO staff);
 	
