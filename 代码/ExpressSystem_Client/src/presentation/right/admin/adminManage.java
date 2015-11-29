@@ -1,6 +1,9 @@
 package presentation.right.admin;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -54,17 +57,26 @@ public class adminManage extends RightAll implements   ActionListener {
 		model = new Table_Model(20);
 		table = new JTable(model);
 		js = new JScrollPane(table);
-		remind = new JLabel("选择类型:");
+		//remind = new JLabel("选择类型:");
 		type = new JComboBox<String>();
-		add = new JButton("增加 ");
-		change = new JButton("修改");
-		delete = new JButton("删除");
-		change_success = new JButton("完成修改");
+		add = new JButton(" ");//增加
+		change = new JButton("");//修改
+		delete = new JButton("");//删除
+		change_success = new JButton("");//完成修改
 
+		delete.setContentAreaFilled(false);
+		delete.setBorderPainted(false);
+		change.setContentAreaFilled(false);
+		change.setBorderPainted(false);
+		change_success.setContentAreaFilled(false);
+		change_success.setBorderPainted(false);
+		add.setContentAreaFilled(false);
+		add.setBorderPainted(false);
+		
 		init();
 
 		this.add(js);
-		this.add(remind);
+		//this.add(remind);
 		this.add(type);
 		this.add(add);
 		this.add(change);
@@ -72,7 +84,15 @@ public class adminManage extends RightAll implements   ActionListener {
 		this.add(change_success);
 
 	}
-
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理right.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+	}
+	
 	private void init() {
 
 		table.setBackground(new Color(188, 199, 199));
@@ -81,22 +101,23 @@ public class adminManage extends RightAll implements   ActionListener {
 		js.setBounds(frameWidth / 10, frameHeight / 6, frameWidth / 2,
 				frameHeight / 10 * 7);
 
-		remind.setBounds(frameWidth / 10, frameHeight / 20, 100, 50);
+		//remind.setBounds(frameWidth / 10, frameHeight / 20, 100, 50);
 		type.addItem("快递员");
 		type.addItem("管理员");
 		type.addItem("总经理");
 		type.addItem("财务人员");
 		type.addItem("仓库管理人员");
 		type.addItem("营业厅业务员");
-		type.setBounds(frameWidth / 4, frameHeight / 20, 100, 30);
-		add.setBounds(frameWidth / 2, frameHeight / 20, 80, 30);
+		type.setBounds(frameWidth *29/ 128, frameHeight / 30, 150, 40);
+		type.setFont(new Font("宋体",Font.PLAIN,18));
+		add.setBounds(frameWidth *34/ 64, frameHeight / 33, 105, 45);
 		add.addActionListener(this);
-		change.setBounds(frameWidth / 8 * 3, frameHeight / 10 * 9, 80, 30);
+		change.setBounds(frameWidth / 64 * 21, frameHeight / 10 * 9, 105, 45);
 		change.addActionListener(this);
-		change_success.setBounds(frameWidth / 16 * 9, frameHeight / 10 * 9,
-				100, 30);
+		change_success.setBounds(frameWidth / 64 * 37, frameHeight / 10 * 9,
+				105,45);
 		change_success.addActionListener(this);
-		delete.setBounds(frameWidth / 16 * 3, frameHeight / 10 * 9, 80, 30);
+		delete.setBounds(frameWidth / 128 *10, frameHeight / 10 * 9, 105, 45);
 		delete.addActionListener(this);
 
 		// 初始化表内数据
