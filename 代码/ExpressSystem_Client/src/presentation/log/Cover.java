@@ -66,7 +66,7 @@ public class Cover extends RightAll implements ActionListener {
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\初始背景.png");
 		Image bg = background.getImage();
-		g.drawImage(bg, 0, 0, null);
+		g.drawImage(bg, 0, 0, frameWidth,frameHeight,null);
 	}
 
 	// 以上为添加背景

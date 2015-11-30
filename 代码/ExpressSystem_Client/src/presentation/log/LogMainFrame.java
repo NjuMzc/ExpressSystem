@@ -74,7 +74,7 @@ public class LogMainFrame extends RightAll implements ActionListener  {
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\系统登录界面.png");
 		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0, null);
+		g.drawImage(bg, 0, 0,frameWidth,frameHeight, null);
 	}
 
 	private void init() {
