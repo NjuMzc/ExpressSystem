@@ -43,15 +43,7 @@ public class LogSearch extends RightAll implements ActionListener {
 		this.add(confirm);
 		this.add(back);
 	}
-	//添加背景
-	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
-		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\背景.png");
-		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0,frameWidth,frameHeight, null);
-	
-	}
+	 
 	private void init() {
 		remind.setBounds(frameWidth / 4, frameHeight / 6, frameWidth / 4, 40);
 		confirm.setBounds(frameWidth / 2, frameHeight / 6, frameWidth / 12,
