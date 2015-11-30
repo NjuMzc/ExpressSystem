@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.rmi.Remote;
 import java.util.ArrayList;
 
+import po.Workers.CarPO;
+import po.Workers.DriverPO;
 import po.Workers.HallStaffPO;
 
 /**
@@ -20,6 +22,8 @@ public class HallPO implements Remote, Serializable {
 	private String id;// 机构编号，格式为所在地编号3位+3位流水号
 
 	private ArrayList<HallStaffPO> HallStaffList;
+	private ArrayList<DriverPO> DriverList;
+	private ArrayList<CarPO> CarList;
 
 	public HallPO(String id) {
 		this.id = id;
@@ -38,4 +42,31 @@ public class HallPO implements Remote, Serializable {
 		return id;
 	}
 
+	public ArrayList<HallStaffPO> getAllStaff(){
+		return HallStaffList;
+	}
+	
+	public void addDriver(DriverPO driver){
+		DriverList.add(driver);
+	}
+	
+	public void removeDriver(DriverPO driver){
+		DriverList.remove(driver);
+	}
+	
+	public ArrayList<DriverPO> getAllDriver(){
+		return DriverList;
+	}
+	
+	public void addCar(CarPO car){
+		CarList.add(car);
+	}
+	
+	public void removeCar(CarPO car){
+		CarList.remove(car);
+	}
+	
+	public ArrayList<CarPO> getAllCar(){
+		return CarList;
+	}
 }
