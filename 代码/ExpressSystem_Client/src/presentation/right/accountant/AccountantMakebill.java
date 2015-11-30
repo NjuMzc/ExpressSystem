@@ -11,8 +11,7 @@ import javax.swing.*;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class AccountantMakebill extends RightAll implements 
-		ActionListener {
+public class AccountantMakebill extends RightAll implements ActionListener {
 	int frameWidth;
 	int frameHeight;
 
@@ -53,6 +52,7 @@ public class AccountantMakebill extends RightAll implements
 	}
 
 	private void init() {
+		up.setLayout(null);
 		up.setBounds(0, 0, frameWidth / 4 * 3, frameHeight / 3);
 		up.setBackground(Color.cyan);
 		accountantInfor.setBounds(frameWidth / 10, frameHeight / 30, 100, 50);
@@ -156,6 +156,7 @@ public class AccountantMakebill extends RightAll implements
 					frameHeight / 8, 100, 30);
 		}
 
+		bankPanel.setLayout(null);
 		bankPanel.add(confirm);
 		bankPanel.add(cancel);
 		for (int i = 0; i < 4; i++) {
@@ -208,6 +209,7 @@ public class AccountantMakebill extends RightAll implements
 					frameHeight / 8, 100, 30);
 		}
 
+		storagePanel.setLayout(null);
 		storagePanel.add(confirm);
 		storagePanel.add(cancel);
 		for (int i = 0; i < 4; i++) {
@@ -260,6 +262,7 @@ public class AccountantMakebill extends RightAll implements
 					* frameHeight / 8, 100, 30);
 		}
 
+		paymentPanel.setLayout(null);
 		paymentPanel.add(confirm);
 		paymentPanel.add(cancel);
 		for (int i = 0; i < 4; i++) {
@@ -311,6 +314,7 @@ public class AccountantMakebill extends RightAll implements
 					frameHeight / 8, 100, 30);
 		}
 
+		carPanel.setLayout(null);
 		carPanel.add(confirm);
 		carPanel.add(cancel);
 		for (int i = 0; i < 3; i++) {
@@ -363,6 +367,7 @@ public class AccountantMakebill extends RightAll implements
 					frameHeight / 8, 100, 30);
 		}
 
+		peoplePanel.setLayout(null);
 		peoplePanel.add(confirm);
 		peoplePanel.add(cancel);
 		for (int i = 0; i < 4; i++) {
@@ -415,14 +420,15 @@ public class AccountantMakebill extends RightAll implements
 
 		jl[0].setBounds(frameWidth / 10, frameHeight / 20, 100, 30);
 		for (int i = 1; i < 4; i++) {
-			jl[i].setBounds(frameWidth / 10, frameHeight / 8 + (i-1) * frameHeight
-					/ 8, 100, 30);
+			jl[i].setBounds(frameWidth / 10, frameHeight / 8 + (i - 1)
+					* frameHeight / 8, 100, 30);
 		}
 		for (int i = 4; i < 8; i++) {
 			jl[i].setBounds(frameWidth / 10 + (i - 3) * frameWidth / 10,
 					frameHeight / 20, 100, 30);
 		}
 
+		orangizationPanel.setLayout(null);
 		orangizationPanel.add(confirm);
 		orangizationPanel.add(cancel);
 		for (int i = 0; i < 8; i++) {

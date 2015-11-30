@@ -10,7 +10,7 @@ import javax.swing.*;
 import presentation.Data;
 import presentation.watcher.*;
 
-public class AccountantPanel extends LeftAll implements  ActionListener {
+public class AccountantPanel extends LeftAll implements ActionListener {
 
 	private List<Watcher> list;
 	int frameWidth;
@@ -76,8 +76,10 @@ public class AccountantPanel extends LeftAll implements  ActionListener {
 
 		logout.setMargin(new Insets(0, 0, 0, 0));
 		logout.setBounds(20, frameHeight - 100, 80, 30);
+		logout.addActionListener(this);
 		close.setMargin(new Insets(0, 0, 0, 0));
 		close.setBounds(frameWidth / 4 - 100, frameHeight - 100, 80, 30);
+		close.addActionListener(this);
 
 		picture.setBounds(0, 0, frameWidth / 4, frameHeight / 3);
 		name.setBounds(10, frameHeight / 3 - 50, 75, 25);
@@ -124,6 +126,13 @@ public class AccountantPanel extends LeftAll implements  ActionListener {
 			this.notifyWatchers(State.ACCOUNTANTMANAGE);
 		} else if (e.getSource() == jb[4]) {
 			this.notifyWatchers(State.ACCOUNTANTBALACE);
+		}
+
+		if (e.getSource() == logout) {
+			System.out.println("logout");
+			this.notifyWatchers(State.LOGOUT);
+		}else if(e.getSource()==close){
+			System.exit(0);
 		}
 
 		if (e.getSource() == addjb1) {

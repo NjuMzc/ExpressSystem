@@ -54,7 +54,7 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		jtfNum = new JTextField(15);
 		jtfName = new JTextField(10);
 		String[] yearList = new String[] { "2015", "2016", "2017", "2018",
-				"2019", "2020", "2021", "2022" };
+				"2019", "2020" };
 		jcbYear = new JComboBox(yearList);
 		String[] monthList = new String[] { "1", "2", "3", "4", "5", "6", "7",
 				"8", "9", "10", "11", "12" };

@@ -10,7 +10,7 @@ import javax.swing.*;
 import presentation.Data;
 import presentation.watcher.*;
 
-public class ManagerPanel extends LeftAll implements  ActionListener {
+public class ManagerPanel extends LeftAll implements ActionListener {
 
 	private List<Watcher> list;
 	int frameWidth;
@@ -96,9 +96,11 @@ public class ManagerPanel extends LeftAll implements  ActionListener {
 		} else if (e.getSource() == jb[4]) {
 			this.notifyWatchers(State.MANAGERFIND);
 		}
-		
-		if(e.getSource()==logout){
+
+		if (e.getSource() == logout) {
 			this.notifyWatchers(State.LOGOUT);
+		} else if (e.getSource() == close) {
+			System.exit(0);
 		}
 
 	}
