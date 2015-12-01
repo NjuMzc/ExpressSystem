@@ -3,6 +3,8 @@ package businesslogicservice.informationblservice.InstitutionInform;
 import java.util.ArrayList;
 
 import po.Institution.HallPO;
+import po.Workers.CarPO;
+import po.Workers.DriverPO;
 import po.Workers.HallStaffPO;
 
 public interface Inform_HallInformServer {
@@ -11,11 +13,15 @@ public interface Inform_HallInformServer {
 	
 	public boolean removeHall(String id);
 	
-	public boolean addStaff(HallPO hall,String StaffID);
+	public boolean addStaff(String HallID,String StaffID);
 	
-	public boolean removeStaff(HallPO hall,String StaffID);
+	public boolean removeStaff(String HallID,String StaffID);
 	
-	public ArrayList<HallStaffPO> getAllStaff(HallPO hall);
+	public ArrayList<HallStaffPO> getAllStaff(String HallID);
+	
+	public ArrayList<CarPO> getAllCar(String HallID);
+	
+	public ArrayList<DriverPO> getAllDriver(String HallID);
 	
 
 }

@@ -4,17 +4,25 @@ import java.util.ArrayList;
 
 import client.RMIHelper;
 import dataservice.informationdataservice.Inform_HallDataServer;
+import dataservice.informationdataservice.Inform_HallStaffDataServer;
+import po.SystemUserPO;
 import po.Institution.HallPO;
+import po.Workers.CarPO;
+import po.Workers.DriverPO;
 import po.Workers.HallStaffPO;
 import businesslogic.LocationNumGetter;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_HallInformServer;
+import businesslogicservice.systemblservice.*;
 
 public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 
-	Inform_HallDataServer dataServer;
+	Inform_HallDataServer HallDataServer;
+	Inform_HallStaffDataServer StaffDataServer;
+	
+	systemServer systemServer;
 	
 	public Inform_HallInformServerImpl(){
-		this.dataServer=RMIHelper.getHallData();
+		this.HallDataServer=RMIHelper.getHallData();
 	}
 
 	@Override
@@ -24,7 +32,7 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 		
 		int counter=0;
 		String count="000";
-		while(dataServer.find(locationNum+count)!=null){
+		while(HallDataServer.find(locationNum+count)!=null){
 			counter++;
 			if(counter<=9){
 				count="00"+String.valueOf(counter);
@@ -37,30 +45,94 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 		}
 		
 		HallPO hall=new HallPO(locationNum+count);
-		dataServer.addHall(hall);
+		HallDataServer.addHall(hall);
 		return hall;
 	}
 
 	@Override
 	public boolean removeHall(String id) {
 		// TODO Auto-generated method stub
-		return false;
+		HallPO hall=HallDataServer.find(id);
+		if(hall==null)
+			return false;
+		else{
+			HallDataServer.deleteHall(hall);
+			return true;
+		}
 	}
 
 	@Override
-	public boolean addStaff(HallPO hall, String StaffID) {
+	public boolean addStaff(String HallID, String StaffID) {
 		// TODO Auto-generated method stub
-		return false;
+		HallPO hall=HallDataServer.find(HallID);
+		SystemUserPO user=systemServer.inquire(StaffID);
+		
+		if(hall==null||user==null)
+			return false;
+		
+		HallStaffPO staff=StaffDataServer.find(StaffID);
+		
+		//如果该员工对象已经存在
+		if(staff!=null){
+			if(staff.getHall()!=null){
+				System.out.println("该员工已经在某个营业厅工作了！");
+				return false;
+			}else{
+				hall.addHallStaff(staff);
+				staff.setHall(hall);
+				
+				HallDataServer.updateHall(hall);
+				StaffDataServer.update(staff);
+				return true;
+			}
+		}//员工对象不存在
+		else{
+			staff=new HallStaffPO(StaffID, user.getUserName(), hall);
+			hall.addHallStaff(staff);
+			
+			HallDataServer.updateHall(hall);
+			StaffDataServer.addStaff(staff);
+			return true;
+		}
+		
 	}
 
 	@Override
-	public boolean removeStaff(HallPO hall, String StaffID) {
+	public boolean removeStaff(String HallID, String StaffID) {
 		// TODO Auto-generated method stub
-		return false;
+		HallPO hall=HallDataServer.find(HallID);
+		HallStaffPO staff=StaffDataServer.find(StaffID);
+		
+		if(hall==null||staff==null)
+			return false;
+		
+		hall.removeHallStaff(staff);
+		staff.setHall(null);
+		
+		HallDataServer.updateHall(hall);
+		StaffDataServer.update(staff);
+		
+		return true;
 	}
 
 	@Override
-	public ArrayList<HallStaffPO> getAllStaff(HallPO hall) {
+	public ArrayList<HallStaffPO> getAllStaff(String HallID) {
+		// TODO Auto-generated method stub
+		HallPO hall=HallDataServer.find(HallID);
+		if(hall==null)
+			return null;
+		
+		return hall.getAllStaff();
+	}
+
+	@Override
+	public ArrayList<CarPO> getAllCar(String HallID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<DriverPO> getAllDriver(String HallID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

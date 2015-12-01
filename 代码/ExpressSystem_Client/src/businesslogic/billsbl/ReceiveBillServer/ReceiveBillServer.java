@@ -1,5 +1,6 @@
 package businesslogic.billsbl.ReceiveBillServer;
 
+import client.RMIHelper;
 import dataservice.billsdataservice.ReceiveBillDataServer;
 import po.bills.ReceiveBill;
 import businesslogic.billsbl.OrderBillServer.OrderBillServer;
@@ -12,7 +13,7 @@ public class ReceiveBillServer  {
 	public ReceiveBillServer(){
 		orderBillServer=new OrderBillServer();
 		//RMI实现赋值
-		
+		dataServer=RMIHelper.getReceiBillData();
 	}
 
 	public ReceiveBill makeBill(String id, String name, String time) {
