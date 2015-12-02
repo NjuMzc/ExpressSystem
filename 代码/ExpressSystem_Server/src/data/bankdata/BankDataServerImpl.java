@@ -16,7 +16,7 @@ import dataservice.bankdataservice.BankDataServer;
 import po.BankPO;
 
 public class BankDataServerImpl extends UnicastRemoteObject implements BankDataServer {
-	final String path="src/dataList/bankList.dat";
+	private final String path="src/dataList/bankList.dat";
 	private ArrayList<BankPO> banks;
 	public BankDataServerImpl() throws RemoteException{
 		super();

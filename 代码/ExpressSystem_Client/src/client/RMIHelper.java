@@ -6,15 +6,18 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import dataservice.bankdataservice.BankDataServer;
-import dataservice.billsdataservice.HallArrivalBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
+import dataservice.informationdataservice.Inform_KeeperDataServer;
+import dataservice.informationdataservice.Inform_StorageDataServer;
+import dataservice.informationdataservice.Inform_TranStaffDataServer;
+import dataservice.informationdataservice.Inform_TranStationDataServer;
 import dataservice.systemdataservice.SystemDataServer;
 import dataservice.transportdataservice.TransportDataServer;
-import po.Institution.HallPO;
-import po.Workers.HallStaffPO;
+import po.Institution.StoragePO;
+import po.Workers.StorageKeeperPO;
 
 public class RMIHelper {
 	private static SystemDataServer systemData;
@@ -24,6 +27,10 @@ public class RMIHelper {
 	private static BankDataServer bankData;
 	private static Inform_HallDataServer hallData;
 	private static Inform_HallStaffDataServer hallStaffData;
+	private static Inform_KeeperDataServer keeperData;
+	private static Inform_StorageDataServer storageData;
+	private static Inform_TranStaffDataServer tranStaffData;
+	private static Inform_TranStationDataServer tranStationData;
 
 	public static void init() {
 		try {
@@ -34,7 +41,10 @@ public class RMIHelper {
 			bankData = (BankDataServer) Naming.lookup("rmi://localhost:1099/bankData");
 			hallData = (Inform_HallDataServer) Naming.lookup("rmi://localhost:1099/hallData");
 			hallStaffData = (Inform_HallStaffDataServer) Naming.lookup("rmi://localhost:1099/hallStaffData");
-
+			keeperData = (Inform_KeeperDataServer) Naming.lookup("rmi://localhost:1099/keeperData");
+			storageData = (Inform_StorageDataServer) Naming.lookup("rmi://localhost:1099/storageData");
+			tranStaffData = (Inform_TranStaffDataServer) Naming.lookup("rmi://localhost:1099/tranStaffData");
+			tranStationData = (Inform_TranStationDataServer) Naming.lookup("rmi://localhost:1099/tranStationData");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -71,5 +81,21 @@ public class RMIHelper {
 
 	public static Inform_HallStaffDataServer getHallStaffData() {
 		return hallStaffData;
+	}
+
+	public static Inform_KeeperDataServer getKeeperData() {
+		return keeperData;
+	}
+
+	public static Inform_StorageDataServer getStorageData() {
+		return storageData;
+	}
+
+	public static Inform_TranStaffDataServer getTranStaffData() {
+		return tranStaffData;
+	}
+
+	public static Inform_TranStationDataServer getTranStationData() {
+		return tranStationData;
 	}
 }

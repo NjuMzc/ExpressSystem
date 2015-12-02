@@ -1,5 +1,7 @@
 package po.Institution;
 
+import java.io.Serializable;
+import java.rmi.Remote;
 import java.util.ArrayList;
 
 import po.Workers.TranStaffPO;
@@ -9,7 +11,7 @@ import po.Workers.TranStaffPO;
  * @author rabook
  *
  */
-public class TranStationPO {
+public class TranStationPO implements Remote,Serializable{
 
 	private String id;//中转中心编号，格式为 地区编号3位
 	private String name;//机构名称

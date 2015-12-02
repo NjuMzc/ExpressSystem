@@ -1,5 +1,7 @@
 package po.Institution;
 
+import java.io.Serializable;
+import java.rmi.Remote;
 import java.util.ArrayList;
 
 import po.GoodPO;
@@ -11,7 +13,7 @@ import po.Workers.StorageKeeperPO;
  *
  */
 
-public class StoragePO {
+public class StoragePO implements Serializable,Remote{
     private String id;//中转中心仓库编号，同中转中心编号
 	private ArrayList<ListItem> GoodList;//该仓库的货物清单
 	private boolean[][][][] capacity;//该仓库的容量列表

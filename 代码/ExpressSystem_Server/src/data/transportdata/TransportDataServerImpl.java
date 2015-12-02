@@ -16,7 +16,7 @@ import dataservice.transportdataservice.TransportDataServer;
 import po.GoodPO;
 
 public class TransportDataServerImpl extends UnicastRemoteObject implements TransportDataServer {
-	final String path = "src/dataList/goodList.dat";
+	private final String path = "src/dataList/goodList.dat";
 	private ArrayList<GoodPO> goods;
 
 	public TransportDataServerImpl() throws RemoteException {

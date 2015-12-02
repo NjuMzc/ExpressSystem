@@ -1,8 +1,11 @@
 package po.Workers;
 
+import java.io.Serializable;
+import java.rmi.Remote;
+
 import po.Institution.TranStationPO;
 
-public class TranStaffPO {
+public class TranStaffPO implements Serializable,Remote{
 	private String name;//姓名,与系统名字相同
 	private String id;//编号，与系统编号相同
 	private TranStationPO station;//所属的营业厅
