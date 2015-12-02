@@ -24,22 +24,29 @@ public class Inform_StorageDataServerImpl extends UnicastRemoteObject implements
 
 	private final String path = "src/dataList/informationList/storageList.dat";
 	private ArrayList<StoragePO> storages;
+
 	public Inform_StorageDataServerImpl() throws RemoteException {
 		super();
 		load();
 	}
 
 	@Override
+	public void add(StoragePO storage) throws RemoteException {
+		storages.add(storage);
+		save();
+	}
+
+	@Override
 	public void update(StoragePO storage) throws RemoteException {
-		String id= storage.getID();
+		String id = storage.getID();
 		StoragePO poInArray = find(id);
-		if(poInArray!=null){
+		if (poInArray != null) {
 			int index = storages.indexOf(poInArray);
 			storages.remove(index);
 			storages.add(index, storage);
 			save();
 			System.out.println("修改成功");
-		}else{
+		} else {
 			System.out.println("Not Found");
 		}
 	}
@@ -47,12 +54,12 @@ public class Inform_StorageDataServerImpl extends UnicastRemoteObject implements
 	@Override
 	public StoragePO find(String id) throws RemoteException {
 		for (StoragePO storagePO : storages) {
-			if(storagePO.getID().equals(id))
+			if (storagePO.getID().equals(id))
 				return storagePO;
 		}
 		return null;
 	}
-	
+
 	private void save() {
 		File list = new File(path);
 		if (!list.exists())

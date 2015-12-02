@@ -11,4 +11,6 @@ public interface Inform_StorageDataServer extends Remote{
 	
 	public StoragePO find(String id)throws RemoteException;
 	
+	public void add(StoragePO storage)throws RemoteException;
+	
 }
