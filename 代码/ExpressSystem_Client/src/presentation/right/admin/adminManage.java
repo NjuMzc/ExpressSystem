@@ -108,6 +108,7 @@ public class adminManage extends RightAll implements   ActionListener {
 		type.addItem("财务人员");
 		type.addItem("仓库管理人员");
 		type.addItem("营业厅业务员");
+		type.addItem("中转中心业务员");
 		type.setBounds(frameWidth *29/ 128, frameHeight / 30, 150, 40);
 		type.setFont(new Font("宋体",Font.PLAIN,18));
 		add.setBounds(frameWidth *34/ 64, frameHeight / 33, 105, 45);

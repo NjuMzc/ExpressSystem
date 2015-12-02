@@ -38,14 +38,13 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 		jb = new JButton[5];
 		for (int i = 0; i < 5; i++) {
 			jb[i] = new JButton();
-		}
-		logout = new JButton("登出账户");
-		close = new JButton("关闭系统");
-		picture = new JPanel();
-		picture.setLayout(null);
-		name = new JLabel("姓名");
-		num = new JLabel("编号");
-		photo = new JLabel("hhh");
+ 		}
+		logout = new JButton("");//登出账户
+		close = new JButton("");//关闭系统
+	       logout.setContentAreaFilled(false);
+	       close.setContentAreaFilled(false);
+	       logout.setBorderPainted(false);
+	       close.setBorderPainted(false);
 
 		init();
 
@@ -55,37 +54,38 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 		}
 		this.add(logout);
 		this.add(close);
-		picture.add(name);
-		picture.add(num);
-		picture.add(photo);
-		this.add(picture);
 	}
 
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\accountleft.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth/4,frameHeight,null);
+	}
+	
 	private void init() {
 		for (int i = 0; i < 5; i++) {
 			jb[i] = new JButton();
-			jb[i].setBounds(0, frameHeight / 3 + frameHeight / 15 * i,
-					frameWidth / 4, frameHeight / 15);
+			jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i,
+					frameWidth / 4, frameHeight / 13);
+	      	jb[i].setContentAreaFilled(false);
 			jb[i].addActionListener(this);
 		}
-		jb[0].setText("期初建账");
-		jb[1].setText("制作报表");
-		jb[2].setText("成本管理");
-		jb[3].setText("账户管理");
-		jb[4].setText("结算管理");
+		jb[0].setText("");//期初建账
+		jb[1].setText("");//制作报表
+		jb[2].setText("");//成本管理
+		jb[3].setText("");//账户管理
+		jb[4].setText("");//结算管理
 
 		logout.setMargin(new Insets(0, 0, 0, 0));
-		logout.setBounds(20, frameHeight - 100, 80, 30);
+		logout.setBounds(frameWidth*3/80, frameHeight *63/72,frameWidth/17, frameWidth/17);
 		logout.addActionListener(this);
 		close.setMargin(new Insets(0, 0, 0, 0));
-		close.setBounds(frameWidth / 4 - 100, frameHeight - 100, 80, 30);
+		close.setBounds(frameWidth*13/80, frameHeight *63/72,frameWidth/17, frameWidth/17);
 		close.addActionListener(this);
 
-		picture.setBounds(0, 0, frameWidth / 4, frameHeight / 3);
-		name.setBounds(10, frameHeight / 3 - 50, 75, 25);
-		num.setBounds(10, frameHeight / 3 - 25, 75, 25);
-		photo.setBounds(frameWidth / 40, frameWidth / 40, frameWidth / 5,
-				frameWidth / 5);
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -96,6 +96,7 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 		} else if (e.getSource() == jb[2]) {
 
 			if (isSamll) {
+				
 				addjb1 = new JButton("生成付款单");
 				addjb1.addActionListener(this);
 				addjb2 = new JButton("查看成本收益表");
@@ -108,16 +109,16 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 				this.add(addjb1);
 				this.add(addjb2);
 				for (int i = 3; i < 5; i++) {
-					jb[i].setBounds(0, frameHeight / 3 + frameHeight / 15
-							* (i + 1), frameWidth / 4, frameHeight / 15);
+					jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13
+							* (i + 1), frameWidth / 4, frameHeight / 13);
 				}
 				this.isSamll = false;
 			} else {
 				this.remove(addjb1);
 				this.remove(addjb2);
 				for (int i = 3; i < 5; i++) {
-					jb[i].setBounds(0, frameHeight / 3 + frameHeight / 15 * i,
-							frameWidth / 4, frameHeight / 15);
+					jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i,
+							frameWidth / 4, frameHeight / 13);
 				}
 				this.isSamll = true;
 			}

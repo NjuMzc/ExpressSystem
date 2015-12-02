@@ -87,10 +87,14 @@ public class LogMainFrame extends RightAll implements ActionListener  {
 				frameWidth / 20);
 		cancel.addActionListener(this);
 
-		jtf.setBounds(frameWidth * 19 /56, frameHeight * 7/16, 300,50);
+		jtf.setBounds(frameWidth * 38 /112, frameHeight * 57/128, 300,50);
 		jtf.setFont(new Font("宋体",Font.PLAIN,28));
-		jpf.setBounds(frameWidth * 19 / 56, frameHeight * 19 /32, 300, 50);
+		jtf.setOpaque(false);
+		jtf.setBorder(null);
+		jpf.setBounds(frameWidth * 38 / 112, frameHeight * 77 /128, 300, 50);
 		jpf.setFont(new Font("宋体",Font.PLAIN,28));
+		jpf.setBorder(null);
+		jpf.setOpaque(false);
 		jpf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {

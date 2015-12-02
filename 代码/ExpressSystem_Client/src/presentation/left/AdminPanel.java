@@ -48,29 +48,20 @@ public class AdminPanel extends LeftAll implements Watched, ActionListener {
 		logout.setBorderPainted(false);
 		close.setBorderPainted(false);
 		
-//		picture = new JPanel();
-//		picture.setLayout(null);
-//		name = new JLabel("姓名");
-//		num = new JLabel("编号");
-//		photo = new JLabel("hhh");
 
 		init();
 
-		//this.setBackground(new Color(248, 147, 69));
 		this.add(manage);
 		this.add(logout);
 		this.add(close);
-//		picture.add(name);
-//		picture.add(num);
-//		picture.add(photo);
-//		this.add(picture);
+
 	}
 	
 	//添加背景
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\系统管理left.png");
+		ImageIcon background = new ImageIcon("pictures\\adminleft.png");
 		Image bg =background.getImage();
 		g.drawImage(bg, 0, 0,frameWidth/4,frameHeight,null);
 	}
@@ -79,17 +70,13 @@ public class AdminPanel extends LeftAll implements Watched, ActionListener {
 		manage.setBounds(0, frameHeight*40 /120, frameWidth / 4, frameHeight*3 / 32);
 		manage.addActionListener(this);
 		logout.setMargin(new Insets(0, 0, 0, 0));
-		logout.setBounds(28, frameHeight - 90, 55, 55);
+		logout.setBounds(frameWidth*3/80, frameHeight *63/72,frameWidth/17, frameWidth/17);
 		logout.addActionListener(this);
 		close.setMargin(new Insets(0, 0, 0, 0));
-		close.setBounds(frameWidth / 4 - 85, frameHeight - 90, 55, 55);
+		close.setBounds(frameWidth*13/80, frameHeight *63/72,frameWidth/17, frameWidth/17);
 		close.addActionListener(this);
 
-	//	picture.setBounds(0, 0, frameWidth / 4, frameHeight / 3);
-		//name.setBounds(10, frameHeight / 3 - 50, 75, 25);
-		//num.setBounds(10, frameHeight / 3 - 25, 75, 25);
-		//photo.setBounds(frameWidth / 40, frameWidth / 40, frameWidth / 5,
-		//		frameWidth / 5);
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
