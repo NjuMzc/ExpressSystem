@@ -17,5 +17,5 @@ public interface Inform_HallInformServer {
 	
 	public Iterator<HallStaffPO> getAllStaff(String HallID);
 	
-
+	public Iterator<HallPO> getByLocation(String place);
 }

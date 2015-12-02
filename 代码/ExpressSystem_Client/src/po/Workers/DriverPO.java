@@ -1,11 +1,19 @@
 package po.Workers;
+import java.io.Serializable;
+import java.rmi.Remote;
+
 /**
  * 司机的PO对象
  */
 import po.Institution.HallPO;
 
-public class DriverPO {
+public class DriverPO implements Remote, Serializable {
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 777488687470027279L;
 
 	private String name;//姓名
 	

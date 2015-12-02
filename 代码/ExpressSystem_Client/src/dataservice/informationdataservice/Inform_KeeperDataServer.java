@@ -1,8 +1,10 @@
 package dataservice.informationdataservice;
 
+import java.rmi.Remote;
+
 import po.Workers.StorageKeeperPO;
 
-public interface Inform_KeeperDataServer {
+public interface Inform_KeeperDataServer extends Remote{
 	
 	public StorageKeeperPO find(String id);
 	

@@ -1,10 +1,17 @@
 package po.bills;
 
 
+import java.io.Serializable;
+import java.rmi.Remote;
+
 import po.Message;
 
-public class HallArrivalBill{
+public class HallArrivalBill implements Serializable,Remote{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1987190184183752459L;
 	private String date;//到达日期
 	private String transOrderNum;//中转单编号
 	private String departure;//出发地

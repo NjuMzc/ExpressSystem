@@ -17,8 +17,8 @@ import po.Message;
 import po.bills.ReceiveBill;
 
 public class ReceiveBillDataServerImpl extends UnicastRemoteObject implements ReceiveBillDataServer {
-	final String path = "src/dataList/billList/receiveList.dat";
-	ArrayList<ReceiveBill> receiveBills;
+	private final String path = "src/dataList/billList/receiveList.dat";
+	private ArrayList<ReceiveBill> receiveBills;
 
 	public ReceiveBillDataServerImpl() throws RemoteException {
 		super();

@@ -16,6 +16,9 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import businesslogicservice.informationblservice.InstitutionInform.Inform_HallInformServer;
+import businesslogicservice.informationblservice.InstitutionInform.Inform_StorageInformServer;
+import businesslogicservice.informationblservice.InstitutionInform.Inform_TranStationInformServer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -27,6 +30,10 @@ public class Manager_Manage extends RightAll {
 	String currentCity = null;
 
 	private List<Watcher> list;
+	
+	Inform_TranStationInformServer tranServer;
+	Inform_StorageInformServer storageServer;
+	Inform_HallInformServer hallServer;
 
 	public Manager_Manage(int frameWidth, int frameHeight) {
 
@@ -342,6 +349,7 @@ public class Manager_Manage extends RightAll {
 			con_tableModel.addColumn("编号");
 
 			// 根据currentOrg判断初始化信息，并加入
+			
 		}
 
 		private void addPanel() {
