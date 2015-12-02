@@ -1,25 +1,30 @@
-package po;
+package po.Institution;
 
 import java.util.ArrayList;
 
+import po.GoodPO;
+
 /**
- * �ֿ��PO����
+ * 中转中心仓库的对象
  * @author nick
  *
  */
 
 public class StoragePO {
-
-	private ArrayList<ListItem> GoodList;
+    private String id;//中转中心仓库编号，同中转中心编号
+	private ArrayList<ListItem> GoodList;//该仓库的货物清单
+	private boolean[][][][] capacity;//该仓库的容量列表
 	
-	private boolean[] capacity;
 	
-	public StoragePO(int capacity){
-		this.capacity=new boolean[capacity];
+	public StoragePO(String id){
+		this.id=id;
+		this.capacity=new boolean[3][10][10][10];//设定容量为每个3000
 		this.GoodList=new ArrayList<ListItem>();
 	}
 	
-	
+	public String getID(){
+		return id;
+	}
 }
 
 class ListItem{

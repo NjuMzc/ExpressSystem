@@ -1,16 +1,15 @@
 package businesslogic.informationbl;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
 import client.RMIHelper;
 import dataservice.informationdataservice.Inform_HallDataServer;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
 import po.SystemUserPO;
 import po.Institution.HallPO;
-import po.Workers.CarPO;
-import po.Workers.DriverPO;
 import po.Workers.HallStaffPO;
 import businesslogic.LocationNumGetter;
+import businesslogic.systembl.SystemBlServerImpl;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_HallInformServer;
 import businesslogicservice.systemblservice.*;
 
@@ -23,6 +22,9 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 	
 	public Inform_HallInformServerImpl(){
 		this.HallDataServer=RMIHelper.getHallData();
+		systemServer=new SystemBlServerImpl();
+		
+		//RMI实现
 	}
 
 	@Override
@@ -116,26 +118,16 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 	}
 
 	@Override
-	public ArrayList<HallStaffPO> getAllStaff(String HallID) {
+	public Iterator<HallStaffPO> getAllStaff(String HallID) {
 		// TODO Auto-generated method stub
 		HallPO hall=HallDataServer.find(HallID);
 		if(hall==null)
 			return null;
 		
-		return hall.getAllStaff();
+		return hall.getAllStaff().iterator();
 	}
 
-	@Override
-	public ArrayList<CarPO> getAllCar(String HallID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public ArrayList<DriverPO> getAllDriver(String HallID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }
