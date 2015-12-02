@@ -1,8 +1,8 @@
 package businesslogicservice.informationblservice.InstitutionInform;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
+import po.Institution.StoragePO;
 import po.Workers.StorageKeeperPO;
 
 public interface Inform_StorageInformServer {
@@ -13,5 +13,5 @@ public interface Inform_StorageInformServer {
 	
 	public Iterator<StorageKeeperPO> getAllKeeper(String storageID);
 	
-	
+	public Iterator<StoragePO> getByLocation(String place);
 }

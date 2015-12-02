@@ -1,5 +1,6 @@
 package businesslogic.informationbl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import client.RMIHelper;
@@ -125,6 +126,31 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 			return null;
 		
 		return hall.getAllStaff().iterator();
+	}
+
+	@Override
+	public Iterator<HallPO> getByLocation(String place) {
+		// TODO Auto-generated method stub
+		String location=LocationNumGetter.getNum(place);
+		String flow="000";
+		int counter=0;
+		ArrayList<HallPO> list=new ArrayList<HallPO>();
+		HallPO hall=HallDataServer.find(location+flow);
+		
+		
+		while(hall!=null){
+			list.add(hall);
+			counter++;
+			if(counter<=9)
+				flow="00"+String.valueOf(counter);
+			else if(counter<=99)
+				flow="0"+String.valueOf(counter);
+			else
+				flow=String.valueOf(counter);
+			
+			hall=HallDataServer.find(location+flow);
+		}
+		return list.iterator();
 	}
 
 

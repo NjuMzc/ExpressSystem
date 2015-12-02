@@ -1,5 +1,6 @@
 package businesslogic.informationbl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import dataservice.informationdataservice.Inform_TranStaffDataServer;
@@ -7,6 +8,7 @@ import dataservice.informationdataservice.Inform_TranStationDataServer;
 import po.SystemUserPO;
 import po.Institution.TranStationPO;
 import po.Workers.TranStaffPO;
+import businesslogic.LocationNumGetter;
 import businesslogic.systembl.SystemBlServerImpl;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_TranStationInformServer;
 import businesslogicservice.systemblservice.systemServer;
@@ -84,6 +86,31 @@ public class Infrom_TranStationInformServerImpl implements Inform_TranStationInf
 			return null;
 		
 		return station.getAllStaff().iterator();
+	}
+
+	@Override
+	public Iterator<TranStationPO> getByLocation(String place) {
+		// TODO Auto-generated method stub
+		String location=LocationNumGetter.getNum(place);
+		String flow="000";
+		int counter=0;
+		ArrayList<TranStationPO> list=new ArrayList<TranStationPO>();
+		TranStationPO hall=stationDataServer.find(location+flow);
+		
+		
+		while(hall!=null){
+			list.add(hall);
+			counter++;
+			if(counter<=9)
+				flow="00"+String.valueOf(counter);
+			else if(counter<=99)
+				flow="0"+String.valueOf(counter);
+			else
+				flow=String.valueOf(counter);
+			
+			hall=stationDataServer.find(location+flow);
+		}
+		return list.iterator();
 	}
 
 }
