@@ -76,6 +76,7 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 		logout.addActionListener(this);
 		close.setMargin(new Insets(0, 0, 0, 0));
 		close.setBounds(frameWidth / 4 - 100, frameHeight - 100, 80, 30);
+		close.addActionListener(this);
 
 		picture.setBounds(0, 0, frameWidth / 4, frameHeight / 3);
 		name.setBounds(10, frameHeight / 3 - 50, 75, 25);
