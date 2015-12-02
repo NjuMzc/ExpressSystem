@@ -14,6 +14,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import presentation.right.RightAll;
 import presentation.watcher.*;
@@ -139,6 +140,8 @@ public class Manager_Manage extends RightAll {
 
 			initOrgTable(currentCity);
 			orgTablel = new JTable(orgTableModel);
+			TableColumn firstColumn = orgTablel.getColumnModel().getColumn(0);
+			firstColumn.setPreferredWidth(frameWidth / 6);
 			orgTablel.getTableHeader().setReorderingAllowed(false);
 			orgTablel.getTableHeader().setResizingAllowed(false);
 			orgTablel.addMouseListener(new MouseListener() {
@@ -198,18 +201,23 @@ public class Manager_Manage extends RightAll {
 		private void initOrgTable(String city1) {
 			orgTableModel = new DefaultTableModel();
 			orgTableModel.addColumn("机构");
+			orgTableModel.addColumn("编号");
 			Vector<String> vec = new Vector<String>();
 			if (city1.equals("nj")) {
 				vec.add("南京大学仙林营业厅");
+				vec.add("110");
 				orgTableModel.addRow(vec);
 			} else if (city1.equals("bj")) {
 				vec.add("北京大学营业厅");
+				vec.add("110");
 				orgTableModel.addRow(vec);
 			} else if (city1.equals("sh")) {
 				vec.add("复旦大学营业厅");
+				vec.add("110");
 				orgTableModel.addRow(vec);
 			} else if (city1.equals("gz")) {
 				vec.add("中山大学营业厅");
+				vec.add("110");
 				orgTableModel.addRow(vec);
 			}
 		}
@@ -224,7 +232,7 @@ public class Manager_Manage extends RightAll {
 				if (row >= 0) {
 					orgTableModel.removeRow(row);
 				}
-				//逻辑层删除
+				// 逻辑层删除
 
 			}
 		}
@@ -251,6 +259,7 @@ public class Manager_Manage extends RightAll {
 							// listModel.addElement(input);
 							Vector vec = new Vector();
 							vec.add(input);
+							vec.add("110");
 							orgTableModel.addRow(vec);
 
 							removeAddPanel();
