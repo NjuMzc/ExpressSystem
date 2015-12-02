@@ -16,7 +16,7 @@ import dataservice.billsdataservice.OrderBillDataServer;
 import po.bills.OrderBill;
 
 public class OrderBillDataServerImpl extends UnicastRemoteObject implements OrderBillDataServer {
-	final String path = "src/dataList/billList/orderList.dat";
+	private final String path = "src/dataList/billList/orderList.dat";
 	private ArrayList<OrderBill> orderBills;
 
 	public OrderBillDataServerImpl() throws RemoteException {

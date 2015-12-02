@@ -12,64 +12,63 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import dataservice.informationdataservice.Inform_HallDataServer;
-import po.Institution.HallPO;
+import dataservice.informationdataservice.Inform_TranStaffDataServer;
+import po.Workers.TranStaffPO;
 
-public class Inform_HallDataServerImpl extends UnicastRemoteObject implements Inform_HallDataServer {
-
+public class Inform_TranStaffDataServerImpl extends UnicastRemoteObject implements Inform_TranStaffDataServer {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2769537207813564932L;
-	private final String path = "src/dataList/informationList/hallList.dat";
-	private ArrayList<HallPO> halls;
+	private static final long serialVersionUID = -1181823342321141225L;
+	private final String path = "src/dataList/informationList/tranStaffList.dat";
+	private ArrayList<TranStaffPO> tranStaffs;
 
-	public Inform_HallDataServerImpl() throws RemoteException {
+	public Inform_TranStaffDataServerImpl() throws RemoteException {
 		super();
 		load();
 	}
 
 	@Override
-	public void addHall(HallPO hall) throws RemoteException {
-		halls.add(hall);
+	public void addStaff(TranStaffPO staff) throws RemoteException {
+		tranStaffs.add(staff);
 		save();
 	}
 
 	@Override
-	public HallPO find(String id) throws RemoteException {
-		for (HallPO hallPO : halls) {
-			if(hallPO.getID().equals(id))
-				return hallPO;
+	public TranStaffPO find(String id) throws RemoteException {
+		for (TranStaffPO tranStaffPO : tranStaffs) {
+			if (tranStaffPO.getId().equals(id))
+				return tranStaffPO;
 		}
 		return null;
 	}
 
 	@Override
-	public void deleteHall(HallPO hall) throws RemoteException {
-		String id = hall.getID();
-		HallPO poInArray= find(id);
-		if(poInArray!=null){
-			halls.remove(poInArray);
+	public void deleteStaff(TranStaffPO staff) throws RemoteException {
+		String id = staff.getId();
+		TranStaffPO poInArray = find(id);
+		if (poInArray != null) {
+			tranStaffs.remove(poInArray);
 			save();
-			System.out.println("成功删除");
-		}else{
-			System.out.println("找不到该机构");
+			System.out.println("Deleted");
+		} else {
+			System.out.println("Not Found");
 		}
 	}
 
 	@Override
-	public void updateHall(HallPO hall) throws RemoteException {
-		String id = hall.getID();
-		HallPO poInArray = find(id);
-		if(poInArray!=null){
-			int index = halls.indexOf(poInArray);
-			halls.remove(index);
-			halls.add(index, hall);
+	public void update(TranStaffPO staff) throws RemoteException {
+		String id = staff.getId();
+		TranStaffPO poInArray = find(id);
+		if (poInArray != null) {
+			int index = tranStaffs.indexOf(poInArray);
+			tranStaffs.remove(index);
+			tranStaffs.add(index, staff);
 			save();
-			System.out.println("成功更改");
-		}else{
-			System.out.println("找不到该机构");
+			System.out.println("Updated");
+		} else {
+			System.out.println("Not Found");
 		}
 	}
 
@@ -84,7 +83,7 @@ public class Inform_HallDataServerImpl extends UnicastRemoteObject implements In
 			}
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(list));
-			oos.writeObject(halls);
+			oos.writeObject(tranStaffs);
 			oos.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -104,13 +103,13 @@ public class Inform_HallDataServerImpl extends UnicastRemoteObject implements In
 			}
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(list));
-			halls = (ArrayList<HallPO>) ois.readObject();
+			tranStaffs = (ArrayList<TranStaffPO>) ois.readObject();
 			ois.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("找不到文件");
 			e.printStackTrace();
 		} catch (EOFException e) {
-			halls = new ArrayList<HallPO>();
+			tranStaffs = new ArrayList<TranStaffPO>();
 			save();
 			load();
 		} catch (ClassNotFoundException e) {
@@ -120,6 +119,4 @@ public class Inform_HallDataServerImpl extends UnicastRemoteObject implements In
 		}
 
 	}
-	
-
 }

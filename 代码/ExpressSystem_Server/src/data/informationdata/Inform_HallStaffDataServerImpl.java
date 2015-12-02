@@ -22,8 +22,8 @@ public class Inform_HallStaffDataServerImpl extends UnicastRemoteObject implemen
 	 * 
 	 */
 	private static final long serialVersionUID = -3944464479342626181L;
-	final String path = "src/dataList/informationList/hallStaffList.dat";
-	ArrayList<HallStaffPO> hallStaffs;
+	private final String path = "src/dataList/informationList/hallStaffList.dat";
+	private ArrayList<HallStaffPO> hallStaffs;
 	public Inform_HallStaffDataServerImpl() throws RemoteException {
 		super();
 		load();
