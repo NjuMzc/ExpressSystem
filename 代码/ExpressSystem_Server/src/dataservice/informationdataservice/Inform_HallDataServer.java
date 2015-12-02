@@ -1,4 +1,5 @@
 package dataservice.informationdataservice;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -8,14 +9,14 @@ import java.rmi.RemoteException;
  */
 import po.Institution.HallPO;
 
-public interface Inform_HallDataServer extends Remote{
-	
+public interface Inform_HallDataServer extends Remote {
+
 	public void addHall(HallPO hall) throws RemoteException;
-	
-	public HallPO find(String id)throws RemoteException;
-	
-	public void deleteHall(HallPO hall)throws RemoteException;
-	
-	public void updateHall(HallPO hall)throws RemoteException;
+
+	public HallPO find(String id) throws RemoteException;
+
+	public void deleteHall(HallPO hall) throws RemoteException;
+
+	public void updateHall(HallPO hall) throws RemoteException;
 
 }

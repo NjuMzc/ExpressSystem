@@ -1,14 +1,23 @@
 package po.bills;
 
 
+import java.io.Serializable;
+import java.rmi.Remote;
+
 import po.Message;
 
-public class HallArrivalBill{
+public class HallArrivalBill implements Serializable,Remote{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1987190184183752459L;
 	private String date;//到达日期
 	private String transOrderNum;//中转单编号
 	private String departure;//出发地
 	private String state;//货物到达状态
+	
+	private String id;//单据编号
 	
 	public HallArrivalBill(Message billInfor) {
 		// TODO Auto-generated constructor stub
@@ -22,9 +31,11 @@ public class HallArrivalBill{
 		else if(temp.equals("丢失")){
            this.state="MISS";    
 	}
-		else if(temp.equals("破损")){
+		else{
 			this.state="BAD";
 		}
+		//单据编号和中转单编号相同
+		this.id=transOrderNum;
 	}
 	
 	public String getDate(){
@@ -43,4 +54,7 @@ public class HallArrivalBill{
 		return state;
 	}
 
+	public String getID(){
+		return id;
+	}
 }

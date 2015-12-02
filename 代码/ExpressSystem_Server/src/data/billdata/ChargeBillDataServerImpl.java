@@ -21,8 +21,8 @@ public class ChargeBillDataServerImpl extends UnicastRemoteObject implements Cha
 	 */
 	private static final long serialVersionUID = 2224265360684397199L;
 
-	final String path = "src/dataList/billList/chargeList.dat";
-	ArrayList<ChargeBill> chargeBills;
+	private final String path = "src/dataList/billList/chargeList.dat";
+	private ArrayList<ChargeBill> chargeBills;
 
 	public ChargeBillDataServerImpl() throws RemoteException {
 		super();

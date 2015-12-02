@@ -1,33 +1,41 @@
 package po.bills;
 
 
-import po.BillPO;
+import java.io.Serializable;
+import java.rmi.Remote;
+
 import po.Message;
-import po.bills.TransArrivalBill.GoodState;
 
-public class HallArrivalBill extends BillPO {
+public class HallArrivalBill implements Serializable,Remote{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1987190184183752459L;
 	private String date;//到达日期
 	private String transOrderNum;//中转单编号
-	private String place;//出发地
-	private GoodState state;//货物到达状态
+	private String departure;//出发地
+	private String state;//货物到达状态
+	
+	private String id;//单据编号
 	
 	public HallArrivalBill(Message billInfor) {
-		super(billInfor);
 		// TODO Auto-generated constructor stub
 		this.date=billInfor.getInform(0);
 		this.transOrderNum=billInfor.getInform(1);
-		this.place=billInfor.getInform(2);
+		this.departure=billInfor.getInform(2);
 		String temp=billInfor.getInform(3);
 		if(temp.equals("完好")){
-			this.state=GoodState.GOOD;
+			this.state="OK";
 		}
 		else if(temp.equals("丢失")){
-           this.state=GoodState.MISS;    
+           this.state="MISS";    
 	}
-		else if(temp.equals("破损")){
-			this.state=GoodState.BROKEN;
+		else{
+			this.state="BAD";
 		}
+		//单据编号和中转单编号相同
+		this.id=transOrderNum;
 	}
 	
 	public String getDate(){
@@ -38,16 +46,15 @@ public class HallArrivalBill extends BillPO {
 		return transOrderNum;
 	}
 	
-	public String getPlace(){
-		return place;
+	public String getDeparture(){
+		return departure;
 	}
 	
-	public GoodState getGoodState(){
+	public String getGoodState(){
 		return state;
 	}
-	
-	enum GoodState{
-	GOOD,MISS,BROKEN
-}
 
+	public String getID(){
+		return id;
+	}
 }

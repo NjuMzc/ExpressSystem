@@ -12,11 +12,11 @@ import vo.BillVO;
 
 public interface transportBillsMaker {
 	
-	public BillPO makeOrderBill(Message message);
+//	public BillPO makeOrderBill(Message message);
 
 	public BillPO makeDeliveryBill(Message message);
 
-	public BillPO makeHallArrivalBill(Message message);
+//	public BillPO makeHallArrivalBill(Message message);
 
 	public BillPO makeTransArrivalBill(Message message);
 
@@ -24,7 +24,7 @@ public interface transportBillsMaker {
 
 	public BillPO makeSendingBill(Message message);
 
-	public BillPO makeReceiveBill(Message message);
+//	public BillPO makeReceiveBill(Message message);
 
 	
 }

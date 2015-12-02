@@ -16,7 +16,7 @@ import dataservice.systemdataservice.SystemDataServer;
 import po.SystemUserPO;
 
 public class SystemDataServerImpl extends UnicastRemoteObject implements SystemDataServer {
-	final String path = "src/dataList/userList.dat";
+	private final String path = "src/dataList/userList.dat";
 	private ArrayList<SystemUserPO> users;
 
 	public SystemDataServerImpl() throws RemoteException {

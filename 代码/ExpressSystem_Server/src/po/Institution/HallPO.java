@@ -20,6 +20,7 @@ public class HallPO implements Remote, Serializable {
 	 */
 	private static final long serialVersionUID = 3106957535920594004L;
 	private String id;// 机构编号，格式为所在地编号3位+3位流水号
+	private String name;//该机构的名字
 
 	private ArrayList<HallStaffPO> HallStaffList;
 	private ArrayList<DriverPO> DriverList;
@@ -28,6 +29,7 @@ public class HallPO implements Remote, Serializable {
 	public HallPO(String id) {
 		this.id = id;
 		this.HallStaffList = new ArrayList<HallStaffPO>();
+		this.name="默认营业厅";
 	}
 
 	public void addHallStaff(HallStaffPO hall) {
@@ -68,5 +70,13 @@ public class HallPO implements Remote, Serializable {
 	
 	public ArrayList<CarPO> getAllCar(){
 		return CarList;
+	}
+	
+	public void setName(String name){
+		this.name=name;
+	}
+	
+	public String getName(){
+		return name;
 	}
 }

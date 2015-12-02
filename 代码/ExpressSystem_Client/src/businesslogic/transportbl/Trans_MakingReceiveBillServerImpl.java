@@ -20,6 +20,8 @@ public class Trans_MakingReceiveBillServerImpl implements
 	public ReceiveBill makeBill(String id, String name, String time) {
 		// TODO Auto-generated method stub
 		ReceiveBill bill=billServer.makeBill(id, name, time);
+		if(bill==null)
+			return null;
 		goodController.setGoodTransState(id, "Received");
 		
 		return bill;

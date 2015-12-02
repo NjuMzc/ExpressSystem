@@ -1,6 +1,6 @@
 package businesslogicservice.informationblservice.InstitutionInform;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
 import po.Institution.HallPO;
 import po.Workers.HallStaffPO;
@@ -11,11 +11,11 @@ public interface Inform_HallInformServer {
 	
 	public boolean removeHall(String id);
 	
-	public boolean addStaff(HallPO hall,String StaffID);
+	public boolean addStaff(String HallID,String StaffID);
 	
-	public boolean removeStaff(HallPO hall,String StaffID);
+	public boolean removeStaff(String HallID,String StaffID);
 	
-	public ArrayList<HallStaffPO> getAllStaff(HallPO hall);
+	public Iterator<HallStaffPO> getAllStaff(String HallID);
 	
-
+	public Iterator<HallPO> getByLocation(String place);
 }
