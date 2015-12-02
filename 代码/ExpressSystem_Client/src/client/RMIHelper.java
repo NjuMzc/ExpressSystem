@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import dataservice.bankdataservice.BankDataServer;
+import dataservice.billsdataservice.HallArrivalBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
@@ -31,6 +32,7 @@ public class RMIHelper {
 	private static Inform_StorageDataServer storageData;
 	private static Inform_TranStaffDataServer tranStaffData;
 	private static Inform_TranStationDataServer tranStationData;
+	private static HallArrivalBillDataServer hallArrivalBillData;
 
 	public static void init() {
 		try {
@@ -45,6 +47,8 @@ public class RMIHelper {
 			storageData = (Inform_StorageDataServer) Naming.lookup("rmi://localhost:1099/storageData");
 			tranStaffData = (Inform_TranStaffDataServer) Naming.lookup("rmi://localhost:1099/tranStaffData");
 			tranStationData = (Inform_TranStationDataServer) Naming.lookup("rmi://localhost:1099/tranStationData");
+			hallArrivalBillData = (HallArrivalBillDataServer) Naming.lookup("rmi://localhost:1099/hallArrivalBillData");
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -97,5 +101,9 @@ public class RMIHelper {
 
 	public static Inform_TranStationDataServer getTranStationData() {
 		return tranStationData;
+	}
+
+	public static HallArrivalBillDataServer getHallArrivalBillData() {
+		return hallArrivalBillData;
 	}
 }
