@@ -82,7 +82,7 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 		logout.addActionListener(this);
 		close.setMargin(new Insets(0, 0, 0, 0));
 		close.setBounds(frameWidth *13/ 80, frameHeight *63/72,frameWidth/17 , frameWidth/17);
-
+        close.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e) {

@@ -246,7 +246,7 @@ public class Manager_Manage extends RightAll {
 		private void initOrgPanel() {
 
 			initOrgTable(currentCity);
-			orgTablel = new JTable(orgTableModel);
+			orgTablel = new JTable(orgTableModel){ public boolean isCellEditable(int row, int column) { return false; }}; ;
 			TableColumn firstColumn = orgTablel.getColumnModel().getColumn(0);
 			firstColumn.setPreferredWidth(frameWidth / 6);
 			orgTablel.getTableHeader().setReorderingAllowed(false);
