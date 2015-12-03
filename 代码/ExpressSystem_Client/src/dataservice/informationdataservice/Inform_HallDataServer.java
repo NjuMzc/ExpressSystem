@@ -1,4 +1,6 @@
+
 package dataservice.informationdataservice;
+
 import java.rmi.Remote;
 
 /**
@@ -8,13 +10,13 @@ import java.rmi.Remote;
 import po.Institution.HallPO;
 
 public interface Inform_HallDataServer extends Remote {
-	
+
 	public void addHall(HallPO hall);
-	
+
 	public HallPO find(String id);
-	
+
 	public void deleteHall(HallPO hall);
-	
+
 	public void updateHall(HallPO hall);
 
 }

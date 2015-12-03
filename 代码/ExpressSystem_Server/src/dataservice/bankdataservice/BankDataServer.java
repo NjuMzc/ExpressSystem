@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import po.BankPO;
 
-public interface BankDataServer extends Remote{
-	
+public interface BankDataServer extends Remote {
+
 	public BankPO find(String id) throws RemoteException;
 
 	public void insert(BankPO po) throws RemoteException;

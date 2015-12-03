@@ -22,6 +22,7 @@ public class Inform_StorageDataServerImpl extends UnicastRemoteObject implements
 	 */
 	private static final long serialVersionUID = 6519809664263657267L;
 
+
 	private final String path = "src/dataList/informationList/storageList.dat";
 	private ArrayList<StoragePO> storages;
 

@@ -33,7 +33,7 @@ public class Inform_KeeperDataServerImpl extends UnicastRemoteObject implements 
 	@Override
 	public StorageKeeperPO find(String id) throws RemoteException {
 		for (StorageKeeperPO keeper : keepers) {
-			if(keeper.getID().equals(id))
+			if (keeper.getID().equals(id))
 				return keeper;
 		}
 		return null;
@@ -49,11 +49,11 @@ public class Inform_KeeperDataServerImpl extends UnicastRemoteObject implements 
 	public void deleteKeeper(StorageKeeperPO keeper) throws RemoteException {
 		String id = keeper.getID();
 		StorageKeeperPO poInArray = find(id);
-		if(poInArray!=null){
+		if (poInArray != null) {
 			keepers.remove(poInArray);
 			save();
 			System.out.println("删除成功");
-		}else{
+		} else {
 			System.out.println("Not Found");
 		}
 	}
@@ -62,13 +62,13 @@ public class Inform_KeeperDataServerImpl extends UnicastRemoteObject implements 
 	public void update(StorageKeeperPO keeper) throws RemoteException {
 		String id = keeper.getID();
 		StorageKeeperPO poInArray = find(id);
-		if(poInArray!=null){
+		if (poInArray != null) {
 			int index = keepers.indexOf(poInArray);
 			keepers.remove(index);
 			keepers.add(index, keeper);
 			save();
 			System.out.println("修改成功");
-		}else{
+		} else {
 			System.out.println("Not Found");
 		}
 	}
