@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -30,7 +27,7 @@ public class Manager_Manage extends RightAll {
 	String currentCity = null;
 
 	private List<Watcher> list;
-	
+
 	Inform_TranStationInformServer tranServer;
 	Inform_StorageInformServer storageServer;
 	Inform_HallInformServer hallServer;
@@ -57,7 +54,16 @@ public class Manager_Manage extends RightAll {
 		JButton bj;
 		JButton sh;
 		JButton gz;
+
+		JButton newCity;
+		JButton addCity;
+		JTextField jtf;
+		JLabel addLabel;
+		JButton overButton;
+
+		Vector<JButton> vecButton;
 		OrgPanel org = null;
+		int numCity = 4;
 
 		public cityPanel() {
 			this.setLayout(null);
@@ -69,9 +75,12 @@ public class Manager_Manage extends RightAll {
 			bj = new JButton("北京");
 			sh = new JButton("上海");
 			gz = new JButton("广州");
+			addCity = new JButton("增加城市");
+			vecButton = new Vector<JButton>();
 
 			initCityPanel();
 
+			this.add(addCity);
 			this.add(city_remind);
 			this.add(nj);
 			this.add(bj);
@@ -81,36 +90,106 @@ public class Manager_Manage extends RightAll {
 
 		private void initCityPanel() {
 			city_remind.setBounds(0, 0, frameWidth / 4, frameHeight / 15);
-			nj.setBounds(0, frameHeight / 3, frameWidth / 4, frameHeight / 15);
+			nj.setBounds(0, frameHeight / 5, frameWidth / 4, frameHeight / 15);
 			nj.addActionListener(this);
 			nj.setActionCommand("nj");
-			bj.setBounds(0, frameHeight / 3 + frameHeight / 15, frameWidth / 4,
+			bj.setBounds(0, frameHeight / 5 + frameHeight / 15, frameWidth / 4,
 					frameHeight / 15);
 			bj.addActionListener(this);
 			bj.setActionCommand("bj");
-			sh.setBounds(0, frameHeight / 3 + frameHeight / 15 * 2,
+			sh.setBounds(0, frameHeight / 5 + frameHeight / 15 * 2,
 					frameWidth / 4, frameHeight / 15);
 			sh.addActionListener(this);
 			sh.setActionCommand("sh");
-			gz.setBounds(0, frameHeight / 3 + frameHeight / 5, frameWidth / 4,
+			gz.setBounds(0, frameHeight / 5 + frameHeight / 5, frameWidth / 4,
 					frameHeight / 15);
 			gz.addActionListener(this);
 			gz.setActionCommand("gz");
+			addCity.setBounds(frameWidth / 16, frameHeight / 10 * 9,
+					frameWidth / 8, frameHeight / 20);
+			addCity.addActionListener(this);
+
+			vecButton.add(nj);
+			vecButton.add(bj);
+			vecButton.add(gz);
+			vecButton.add(sh);
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == nj || e.getSource() == bj
-					|| e.getSource() == sh || e.getSource() == gz) {
-				currentCity = e.getActionCommand();
-				if (org != null) {
-					Manager_Manage.this.remove(org);
+			for (int i = 0; i < vecButton.size(); i++) {
+				if (e.getSource() == vecButton.elementAt(i)) {
+					System.out.println("in");
+					currentCity = e.getActionCommand();
+
+					if (org != null) {
+						Manager_Manage.this.remove(org);
+						if (org.conOrgPanel != null) {
+							Manager_Manage.this.remove(org.conOrgPanel);
+						}
+					}
+
+					org = new OrgPanel();
+
+					Manager_Manage.this.add(org);
+					Manager_Manage.this.repaint();
 				}
+			}
+			if (e.getSource() == addCity) {
+				numCity++;
+				newCity = new JButton("");
+				newCity.addActionListener(this);
+				newCity.setBounds(0, frameHeight / 5 + frameHeight / 15
+						* (numCity - 1), frameWidth / 4, frameHeight / 15);
 
-				org = new OrgPanel();
+				addPanel();
 
-				Manager_Manage.this.add(org);
-				Manager_Manage.this.repaint();
+				vecButton.add(newCity);
+				this.add(newCity);
+				this.repaint();
+			}
+
+		}
+
+		private void removeAddPanel() {
+			this.remove(jtf);
+			this.remove(addLabel);
+			this.remove(overButton);
+
+			jtf = null;
+			addLabel = null;
+			overButton = null;
+			this.repaint();
+		}
+
+		private void addPanel() {
+			if (jtf == null) {
+				this.repaint();
+				this.jtf = new JTextField();
+				this.addLabel = new JLabel("请新城市名称:");
+				this.overButton = new JButton("完成");
+				jtf.setBounds(frameWidth / 24, frameHeight / 2 + frameHeight
+						/ 4, frameWidth / 6, frameHeight / 20);
+				addLabel.setBounds(frameWidth / 24, frameHeight / 2
+						+ frameHeight / 5, frameWidth / 6, frameHeight / 20);
+				overButton.setBounds(frameWidth / 16, frameHeight / 20 * 17,
+						frameWidth / 8, frameHeight / 20);
+				overButton.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String input = jtf.getText();
+						if (!input.equals("")) {
+							newCity.setText(input);
+							removeAddPanel();
+						}
+					}
+				});
+
+				this.add(jtf);
+				this.add(addLabel);
+				this.add(overButton);
+				this.repaint();
 			}
 		}
 	}
@@ -127,7 +206,7 @@ public class Manager_Manage extends RightAll {
 		JLabel addLabel;
 		JButton overButton;
 
-		ConcretOrgPanel conOrgPanel;
+		ConcretOrgPanel conOrgPanel = null;
 
 		public OrgPanel() {
 
@@ -349,7 +428,7 @@ public class Manager_Manage extends RightAll {
 			con_tableModel.addColumn("编号");
 
 			// 根据currentOrg判断初始化信息，并加入
-			
+
 		}
 
 		private void addPanel() {
