@@ -13,13 +13,13 @@ import businesslogic.systembl.SystemBlServerImpl;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_TranStationInformServer;
 import businesslogicservice.systemblservice.systemServer;
 
-public class Infrom_TranStationInformServerImpl implements Inform_TranStationInformServer{
+public class Inform_TranStationInformServerImpl implements Inform_TranStationInformServer{
 
 	Inform_TranStaffDataServer staffDataServer;
 	Inform_TranStationDataServer stationDataServer;
 	systemServer systemServer;
 	
-	public Infrom_TranStationInformServerImpl(){
+	public Inform_TranStationInformServerImpl(){
 		systemServer=new SystemBlServerImpl();
 		//RMI实现
 		
