@@ -7,7 +7,7 @@ import po.Workers.HallStaffPO;
 
 public interface Inform_HallInformServer {
 
-	public HallPO addHall(String place);
+	public HallPO addHall(String place,String name);
 
 	public boolean removeHall(String id);
 

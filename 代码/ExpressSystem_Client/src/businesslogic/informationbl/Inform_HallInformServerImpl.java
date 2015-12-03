@@ -22,14 +22,16 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 	systemServer systemServer;
 
 	public Inform_HallInformServerImpl() {
-		this.HallDataServer = RMIHelper.getHallData();
+		
 		systemServer = new SystemBlServerImpl();
 
 		// RMI实现
+		this.HallDataServer = RMIHelper.getHallData();
+		this.StaffDataServer=RMIHelper.getHallStaffData();
 	}
 
 	@Override
-	public HallPO addHall(String place) {
+	public HallPO addHall(String place,String name) {
 		// TODO Auto-generated method stub
 		String locationNum = LocationNumGetter.getNum(place);
 
@@ -48,6 +50,7 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 		}
 
 		HallPO hall = new HallPO(locationNum + count);
+		hall.setName(name);
 		HallDataServer.addHall(hall);
 		return hall;
 	}
@@ -59,6 +62,12 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 		if (hall == null)
 			return false;
 		else {
+			Iterator staffList=hall.getAllStaff().iterator();
+			while(staffList.hasNext()){
+				HallStaffPO staff=(HallStaffPO) staffList.next();
+				staff.setHall(null);
+				StaffDataServer.update(staff);
+			}
 			HallDataServer.deleteHall(hall);
 			return true;
 		}
@@ -109,11 +118,19 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 		if (hall == null || staff == null)
 			return false;
 
-		hall.removeHallStaff(staff);
+		
+		Iterator it=hall.getAllStaff().iterator();
+		while(it.hasNext()){
+			HallStaffPO staff2=(HallStaffPO) it.next();
+			if(staff2.getId().equals(staff.getId())){
+				it.remove();
+			}
+		}
 		staff.setHall(null);
 
 		HallDataServer.updateHall(hall);
 		StaffDataServer.update(staff);
+		
 
 		return true;
 	}

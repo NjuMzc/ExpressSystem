@@ -3,10 +3,12 @@ package businesslogic.informationbl;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import client.RMIHelper;
 import dataservice.informationdataservice.Inform_KeeperDataServer;
 import dataservice.informationdataservice.Inform_StorageDataServer;
 import po.SystemUserPO;
 import po.Institution.StoragePO;
+import po.Workers.HallStaffPO;
 import po.Workers.StorageKeeperPO;
 import businesslogic.LocationNumGetter;
 import businesslogic.systembl.SystemBlServerImpl;
@@ -22,7 +24,8 @@ public class Inform_StorageInformServerImpl implements Inform_StorageInformServe
     public Inform_StorageInformServerImpl(){
     	systemServer=new SystemBlServerImpl();
     	//RMI
-    	
+    	storageDataServer=RMIHelper.getStorageData();
+    	keeperDataServer=RMIHelper.getKeeperData();
     }
     
 	@Override
@@ -69,9 +72,15 @@ public class Inform_StorageInformServerImpl implements Inform_StorageInformServe
 		if(storage==null||staff==null)
 			return false;
 		
-		storage.removeKeeper(staff);
+		Iterator it=storage.getAllKeeper().iterator();
+		while(it.hasNext()){
+			StorageKeeperPO staff2=(StorageKeeperPO) it.next();
+			if(staff2.getID().equals(staff.getID())){
+				it.remove();
+			}
+		}
 		staff.setStorage(null);
-		
+
 		storageDataServer.update(storage);
 		keeperDataServer.update(staff);
 		
@@ -91,24 +100,10 @@ public class Inform_StorageInformServerImpl implements Inform_StorageInformServe
 	public Iterator<StoragePO> getByLocation(String place) {
 		// TODO Auto-generated method stub
 		String location=LocationNumGetter.getNum(place);
-		String flow="000";
-		int counter=0;
 		ArrayList<StoragePO> list=new ArrayList<StoragePO>();
-		StoragePO hall=storageDataServer.find(location+flow);
+		StoragePO hall=storageDataServer.find(location);
+		list.add(hall);
 		
-		
-		while(hall!=null){
-			list.add(hall);
-			counter++;
-			if(counter<=9)
-				flow="00"+String.valueOf(counter);
-			else if(counter<=99)
-				flow="0"+String.valueOf(counter);
-			else
-				flow=String.valueOf(counter);
-			
-			hall=storageDataServer.find(location+flow);
-		}
 		return list.iterator();
 	}
 

@@ -3,10 +3,12 @@ package businesslogic.informationbl;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import client.RMIHelper;
 import dataservice.informationdataservice.Inform_TranStaffDataServer;
 import dataservice.informationdataservice.Inform_TranStationDataServer;
 import po.SystemUserPO;
 import po.Institution.TranStationPO;
+import po.Workers.StorageKeeperPO;
 import po.Workers.TranStaffPO;
 import businesslogic.LocationNumGetter;
 import businesslogic.systembl.SystemBlServerImpl;
@@ -22,7 +24,11 @@ public class Inform_TranStationInformServerImpl implements Inform_TranStationInf
 	public Inform_TranStationInformServerImpl(){
 		systemServer=new SystemBlServerImpl();
 		//RMI实现
+		staffDataServer=RMIHelper.getTranStaffData();
+		stationDataServer=RMIHelper.getTranStationData();
 		
+		Inform_TranStationInitial init=new Inform_TranStationInitial();
+		init.init();
 		
 	}
 	
@@ -69,9 +75,15 @@ public class Inform_TranStationInformServerImpl implements Inform_TranStationInf
 		if(station==null||staff==null)
 			return false;
 		
-		station.removeStaff(staff);
+		Iterator it=station.getAllStaff().iterator();
+		while(it.hasNext()){
+			TranStaffPO staff2=(TranStaffPO) it.next();
+			if(staff2.getId().equals(staff.getId())){
+				it.remove();
+			}
+		}
 		staff.setStation(null);
-		
+
 		stationDataServer.update(station);
 		staffDataServer.update(staff);
 		
@@ -92,24 +104,10 @@ public class Inform_TranStationInformServerImpl implements Inform_TranStationInf
 	public Iterator<TranStationPO> getByLocation(String place) {
 		// TODO Auto-generated method stub
 		String location=LocationNumGetter.getNum(place);
-		String flow="000";
-		int counter=0;
 		ArrayList<TranStationPO> list=new ArrayList<TranStationPO>();
-		TranStationPO hall=stationDataServer.find(location+flow);
+		TranStationPO hall=stationDataServer.find(location);
+		list.add(hall);
 		
-		
-		while(hall!=null){
-			list.add(hall);
-			counter++;
-			if(counter<=9)
-				flow="00"+String.valueOf(counter);
-			else if(counter<=99)
-				flow="0"+String.valueOf(counter);
-			else
-				flow=String.valueOf(counter);
-			
-			hall=stationDataServer.find(location+flow);
-		}
 		return list.iterator();
 	}
 

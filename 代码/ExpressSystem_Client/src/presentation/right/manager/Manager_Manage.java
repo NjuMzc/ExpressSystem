@@ -22,6 +22,8 @@ import po.Institution.HallPO;
 import po.Institution.StoragePO;
 import po.Institution.TranStationPO;
 import po.Workers.HallStaffPO;
+import po.Workers.StorageKeeperPO;
+import po.Workers.TranStaffPO;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 import businesslogicservice.systemblservice.*;
@@ -37,6 +39,7 @@ public class Manager_Manage extends RightAll {
 	cityPanel city;
 	String currentCity = null;
 	String currentID=null;
+	String currentOrg=null;
 
 	private List<Watcher> list;
 
@@ -110,19 +113,19 @@ public class Manager_Manage extends RightAll {
 			city_remind.setBounds(0, 0, frameWidth / 4, frameHeight / 15);
 			nj.setBounds(0, frameHeight / 5, frameWidth / 4, frameHeight / 15);
 			nj.addActionListener(this);
-			nj.setActionCommand("nj");
+			nj.setActionCommand("NanJing");
 			bj.setBounds(0, frameHeight / 5 + frameHeight / 15, frameWidth / 4,
 					frameHeight / 15);
 			bj.addActionListener(this);
-			bj.setActionCommand("bj");
+			bj.setActionCommand("BeiJing");
 			sh.setBounds(0, frameHeight / 5 + frameHeight / 15 * 2,
 					frameWidth / 4, frameHeight / 15);
 			sh.addActionListener(this);
-			sh.setActionCommand("sh");
+			sh.setActionCommand("ShangHai");
 			gz.setBounds(0, frameHeight / 5 + frameHeight / 5, frameWidth / 4,
 					frameHeight / 15);
 			gz.addActionListener(this);
-			gz.setActionCommand("gz");
+			gz.setActionCommand("GuangZhou");
 			addCity.setBounds(frameWidth / 16, frameHeight / 10 * 9,
 					frameWidth / 8, frameHeight / 20);
 			addCity.addActionListener(this);
@@ -274,6 +277,7 @@ public class Manager_Manage extends RightAll {
 				public void mouseClicked(MouseEvent e) {
 					String location = (String) ((JTable) e.getSource())
 							.getValueAt(orgTablel.getSelectedRow(), 0);
+				    currentOrg=location;
 					currentID= (String) ((JTable) e.getSource())
 							.getValueAt(orgTablel.getSelectedRow(), 1);
 					if (conOrgPanel != null) {
@@ -328,7 +332,7 @@ public class Manager_Manage extends RightAll {
 				{
 					vec= new Vector<String>();
 					StoragePO storage=(StoragePO) it.next();
-					vec.add("中转中心仓库");
+					vec.add(storage.getName());
 					vec.add(storage.getID());
 					orgTableModel.addRow(vec);
 				}
@@ -354,7 +358,7 @@ public class Manager_Manage extends RightAll {
 			} else if (e.getSource() == orgDel) {
 
 				int row = orgTablel.getSelectedRow();
-				if (row >= 0) {
+				if (row >= 2) {
 					String id=(String) orgTablel.getValueAt(row, 1);
 					System.out.println("delete!");
 					
@@ -386,9 +390,10 @@ public class Manager_Manage extends RightAll {
 						if (!input.equals("")) {
 
 							// listModel.addElement(input);
+							HallPO hall=hallServer.addHall(currentCity,input);
 							Vector vec = new Vector();
 							vec.add(input);
-							vec.add("110");
+							vec.add(hall.getID());
 							orgTableModel.addRow(vec);
 
 							removeAddPanel();
@@ -471,17 +476,45 @@ public class Manager_Manage extends RightAll {
 			con_tableModel.addColumn("编号");
 
 			// 根据currentOrg判断初始化信息，并加入
-			Iterator<HallStaffPO> it=hallServer.getAllStaff(currentID);
-			while(it.hasNext()){
-				HallStaffPO staff=it.next();
-				Vector vec=new Vector<>();
-				
-				vec.add(staff.getName());
-				vec.add(staff.getId());
-				
-				con_tableModel.addRow(vec);
-				
+			
+			if(currentOrg.contains("仓库")){
+				Iterator<StorageKeeperPO> it=storageServer.getAllKeeper(currentID);
+				while(it.hasNext()){
+					StorageKeeperPO keeper=it.next();
+					Vector vec=new Vector<>();
+					
+					vec.add(keeper.getName());
+					vec.add(keeper.getID());
+					
+					con_tableModel.addRow(vec);
+					
+				}
+			}else if(currentOrg.contains("中转中心")){
+				Iterator<TranStaffPO> it=tranServer.getAllStaff(currentID);
+				while(it.hasNext()){
+					TranStaffPO staff=it.next();
+					Vector vec=new Vector<>();
+					
+					vec.add(staff.getName());
+					vec.add(staff.getId());
+					
+					con_tableModel.addRow(vec);
+					
+				}
+			}else{
+				Iterator<HallStaffPO> it=hallServer.getAllStaff(currentID);
+				while(it.hasNext()){
+					HallStaffPO staff=it.next();
+					Vector vec=new Vector<>();
+					
+					vec.add(staff.getName());
+					vec.add(staff.getId());
+					
+					con_tableModel.addRow(vec);
+					
+				}
 			}
+			
 		}
 
 		private void addPanel() {
@@ -504,8 +537,7 @@ public class Manager_Manage extends RightAll {
 						Vector<String> vec = new Vector<String>();
 
 						// 向量的第一维根据由input根据逻辑层得到员工姓名
-                        hallServer.addStaff(currentID, input);
-						
+					
 						SystemUserPO user=systemServer.inquire(input);
 						if(user==null)
 							System.out.println("不存在该系统用户！");
@@ -513,8 +545,16 @@ public class Manager_Manage extends RightAll {
 							vec.add(user.getUserName());
 							vec.add(input);
 						}
+						boolean OK;
+						if(currentOrg.contains("仓库")){
+							OK=storageServer.addKeeper(currentID, input);
+						}else if(currentOrg.contains("中转中心")){
+							OK=tranServer.addStaff(currentID, input);
+						}else{
+							OK=hallServer.addStaff(currentID, input);
+						}
 
-						if (!input.equals("")) {
+						if (!input.equals("")&&user!=null&&OK) {
 							con_tableModel.addRow(vec);
 							removeAddPanel();
 						}
@@ -545,8 +585,22 @@ public class Manager_Manage extends RightAll {
 				addPanel();
 			} else if (e.getSource() == con_orgDel) {
 				int row = con_table.getSelectedRow();
+				String currentStaffID=(String) con_table.getValueAt(row, 1);
+				boolean ok;
 				if (row >= 0) {
-					con_tableModel.removeRow(row);
+					if(currentOrg.contains("仓库")){
+						ok=storageServer.removeKeeper(currentID, currentStaffID);
+					}else if(currentOrg.contains("中转中心")){
+						ok=tranServer.removeStaff(currentID,  currentStaffID);
+					}else{
+						ok=hallServer.removeStaff(currentID,  currentStaffID);
+						System.out.println(currentID);
+						System.out.println(currentStaffID);
+					}
+					if(ok){
+						con_tableModel.removeRow(row);
+					}
+					
 				}
 			}
 		}

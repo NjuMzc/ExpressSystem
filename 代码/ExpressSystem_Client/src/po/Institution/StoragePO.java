@@ -15,6 +15,7 @@ import po.Workers.StorageKeeperPO;
 
 public class StoragePO implements Serializable,Remote{
     private String id;//中转中心仓库编号，同中转中心编号
+    private String name;//仓库名字
 	private ArrayList<ListItem> GoodList;//该仓库的货物清单
 	private boolean[][][][] capacity;//该仓库的容量列表
 	private ArrayList<StorageKeeperPO> keeperList;//仓库管理员列表
@@ -22,6 +23,7 @@ public class StoragePO implements Serializable,Remote{
 	
 	public StoragePO(String id){
 		this.id=id;
+		this.name="";
 		this.capacity=new boolean[3][10][10][10];//设定容量为每个3000
 		this.GoodList=new ArrayList<ListItem>();
 		this.keeperList=new ArrayList<StorageKeeperPO>();
@@ -34,6 +36,14 @@ public class StoragePO implements Serializable,Remote{
 	
 	public ArrayList<StorageKeeperPO> getAllKeeper(){
 		return keeperList;
+	}
+	
+	public void setName(String name){
+		this.name=name;
+	}
+	
+	public String getName(){
+		return name;
 	}
 	
 	//增删人员

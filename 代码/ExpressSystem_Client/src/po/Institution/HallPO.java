@@ -37,7 +37,7 @@ public class HallPO implements Remote, Serializable {
 	}
 
 	public void removeHallStaff(HallStaffPO hall) {
-		HallStaffList.remove(hall);
+	    HallStaffList.remove(hall);
 	}
 
 	public String getID() {
