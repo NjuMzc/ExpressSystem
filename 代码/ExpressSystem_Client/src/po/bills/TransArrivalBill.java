@@ -3,54 +3,63 @@ package po.bills;
 import po.BillPO;
 import po.Message;
 
-public class TransArrivalBill extends BillPO{
+public class TransArrivalBill{
 
-	private String transCenterNum;//中转中心编号
+	private String tranStationNum;//中转中心编号
 	private String date;//到达日期
 	private String transOrderNum;//中转单编号
-	private String place;//出发地
-	private GoodState state;//货物到达状态
-	public TransArrivalBill(Message billInfor) {
-		super(billInfor);
+	private String departure;//出发地
+	private String state;//货物到达状态
+	private String goodID;//货物编号
+	
+	private String id;//单据编号
+	
+	public TransArrivalBill(String tranStationNum,String GoodID,String date, String transOrderNum, String departure, String state) {
 		// TODO Auto-generated constructor stub
-		this.transCenterNum=billInfor.getInform(0);
-		this.date=billInfor.getInform(1);
-		this.transOrderNum=billInfor.getInform(2);
-		this.place=billInfor.getInform(3);
-		String temp=billInfor.getInform(4);
+		this.tranStationNum=tranStationNum;
+		this.date=date;
+		this.transOrderNum=transOrderNum;
+		this.departure=departure;
+		String temp=state;
 		if(temp.equals("完好")){
-			this.state=GoodState.GOOD;
+			this.state="OK";
 		}
 		else if(temp.equals("丢失")){
-           this.state=GoodState.MISS;    
+           this.state="MISS";    
 	}
-		else if(temp.equals("破损")){
-			this.state=GoodState.BROKEN;
+		else{
+			this.state="BAD";
 		}
+		//单据编号和中转单编号相同
+		this.id=transOrderNum+goodID;
+		this.goodID=GoodID;
+	}
 	
- }
-	//以下是各种get方法
 	public String getDate(){
 		return date;
-	}
-	
-	public String getTransCenterNum(){
-		return transCenterNum;
 	}
 	
 	public String getTransOrderNum(){
 		return transOrderNum;
 	}
 	
-	public String getPlace(){
-		return place;
+	public String getDeparture(){
+		return departure;
 	}
 	
-	public GoodState getGoodState(){
+	public String getGoodState(){
 		return state;
 	}
+
+	public String getID(){
+		return id;
+	}
 	
-	enum GoodState{
-	GOOD,MISS,BROKEN
-}
+	public String getGoodID(){
+		return goodID;
+	}
+	
+	public String getTranStationNum(){
+		return tranStationNum;
+	}
 }
