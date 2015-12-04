@@ -33,6 +33,8 @@ public class Manager_check extends RightAll implements ActionListener {
 	CWCheckBoxRenderer cw;
 	JPanel billPanel;
 	private List<Watcher> list;
+	String BillId;
+	String BillType;
 
 	public Manager_check(int frameWidth, int frameHeight) {
 
@@ -121,18 +123,28 @@ public class Manager_check extends RightAll implements ActionListener {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String BillId = (String) ((JTable) e.getSource()).getValueAt(
+				BillId = (String) ((JTable) e.getSource()).getValueAt(
 						jtable1.getSelectedRow(), 4);
-
-				// 根据单据号判断单据
-				billPanel = new ChargeBillPanel();
-				billPanel.setBounds(frameWidth / 60 * 23, frameHeight / 10,
-						frameWidth / 3, frameHeight / 10 * 9);
-                
+				BillType = (String) ((JTable) e.getSource()).getValueAt(
+						jtable1.getSelectedRow(), 3);
+				addPanel();
 			}
 		});
 
 		initTableModel();
+	}
+
+	private void addPanel() {
+		if (billPanel != null) {
+			this.remove(billPanel);
+		}
+		// 根据单据号,单据类型判断单据
+		billPanel = new ChargeBillPanel();
+		billPanel.setBounds(frameWidth / 5 * 2, frameHeight / 10,
+				frameWidth / 3, frameHeight / 4 * 3);
+		billPanel.setBackground(Color.gray);
+		this.add(billPanel);
+		this.repaint();
 	}
 
 	private void initTableModel() {
