@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -24,12 +26,12 @@ public class Manager_check extends RightAll implements ActionListener {
 	int frameHeight;
 	JButton allpass;
 
-	JPanel tobeChecked;
 	JTable jtable1;
 	DefaultTableModel model;
 	JScrollPane js;
 	DefaultTableCellRenderer dtc;
 	CWCheckBoxRenderer cw;
+	JPanel billPanel;
 	private List<Watcher> list;
 
 	public Manager_check(int frameWidth, int frameHeight) {
@@ -39,11 +41,9 @@ public class Manager_check extends RightAll implements ActionListener {
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		allpass = new JButton("批量审批");
-		tobeChecked = new JPanel();
 		model = new DefaultTableModel();
 		jtable1 = new JTable(model) {
 			public boolean isCellEditable(int row, int column) {
@@ -57,17 +57,16 @@ public class Manager_check extends RightAll implements ActionListener {
 
 		init();
 
-		tobeChecked.add(js);
-		this.add(tobeChecked);
+		this.add(js);
 		this.add(allpass);
 	}
 
 	private void init() {
 		allpass.setBounds(frameWidth / 3, frameHeight / 10 * 9, 100, 30);
 		initTable();
-		js.setBounds(0, 0, frameWidth / 8 * 3, frameHeight / 4 * 3);
-		tobeChecked.setBounds(frameWidth / 20, frameHeight / 10,
-				frameWidth / 8 * 3, frameHeight / 4 * 3);
+		js.setBounds(frameWidth / 20, frameHeight / 10, frameWidth / 3,
+				frameHeight / 4 * 3);
+
 	}
 
 	private void initTable() {
@@ -76,7 +75,6 @@ public class Manager_check extends RightAll implements ActionListener {
 		model.addColumn("日期");
 		model.addColumn("类型");
 		model.addColumn("单据号");
-
 
 		jtable1.getTableHeader().setReorderingAllowed(false);
 		jtable1.getTableHeader().setResizingAllowed(false);
@@ -89,13 +87,61 @@ public class Manager_check extends RightAll implements ActionListener {
 		jtable1.getColumnModel().getColumn(2).setCellRenderer(dtc);
 		jtable1.getColumnModel().getColumn(3).setCellRenderer(dtc);
 		jtable1.getColumnModel().getColumn(4).setCellRenderer(dtc);
+		jtable1.getColumnModel().getColumn(0)
+				.setPreferredWidth(frameWidth / 20);
+		jtable1.getColumnModel().getColumn(1)
+				.setPreferredWidth(frameWidth / 20);
+		jtable1.getColumnModel().getColumn(2)
+				.setPreferredWidth(frameWidth / 10);
+		jtable1.getColumnModel().getColumn(3)
+				.setPreferredWidth(frameWidth / 15);
+		jtable1.getColumnModel().getColumn(4)
+				.setPreferredWidth(frameWidth / 10);
+		jtable1.addMouseListener(new MouseListener() {
 
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String BillId = (String) ((JTable) e.getSource()).getValueAt(
+						jtable1.getSelectedRow(), 4);
+
+				// 根据单据号判断单据
+				billPanel = new ChargeBillPanel();
+				billPanel.setBounds(frameWidth / 60 * 23, frameHeight / 10,
+						frameWidth / 3, frameHeight / 10 * 9);
+                
+			}
+		});
+
+		initTableModel();
+	}
+
+	private void initTableModel() {
 		Vector<Object> vec = new Vector<Object>();
 		vec.add(new Boolean(false));
 		vec.add("1");
 		vec.add("2015.10.1");
 		vec.add("入库单");
-		vec.add("110");
+		vec.add("123456789");
 
 		for (int i = 0; i < 40; i++) {
 			model.addRow(vec);
@@ -120,9 +166,15 @@ public class Manager_check extends RightAll implements ActionListener {
 
 	}
 
-	// ~ Inner Classes
-	// ----------------------------------------------------------------------------------------------------
+	// 内部类：各个单据的panel
+	private class ChargeBillPanel extends JPanel {
 
+		public ChargeBillPanel() {
+
+		}
+	}
+
+	// ~ Inner Classes:表格的重绘修改
 	private class CheckBoxCellEditor extends AbstractCellEditor implements
 			TableCellEditor {
 		// ~ Static fields/initializers

@@ -37,7 +37,6 @@ public class Manager_make_money extends RightAll implements ActionListener {
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		jl = new JLabel[7];
