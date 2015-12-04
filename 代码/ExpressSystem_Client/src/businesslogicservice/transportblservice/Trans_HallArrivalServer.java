@@ -8,5 +8,5 @@ import po.bills.HallArrivalBill;
 
 public interface Trans_HallArrivalServer {
 
-	public HallArrivalBill makeBill(String date, String transOrderNum, String departure, String state);
+	public HallArrivalBill makeBill(String GoodID,String date, String transOrderNum, String departure, String state);
 }

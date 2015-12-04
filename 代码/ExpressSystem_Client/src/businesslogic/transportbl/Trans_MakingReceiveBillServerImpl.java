@@ -1,5 +1,7 @@
 package businesslogic.transportbl;
-
+/**
+ * 收件功能的实现
+ */
 import po.bills.ReceiveBill;
 import businesslogic.billsbl.ReceiveBillServer.ReceiveBillServer;
 import businesslogicservice.transportblservice.Trans_MakingReceiveBillServer;
