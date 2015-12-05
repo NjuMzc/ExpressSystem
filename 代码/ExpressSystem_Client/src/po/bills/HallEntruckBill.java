@@ -1,4 +1,6 @@
 package po.bills;
+import java.io.Serializable;
+import java.rmi.Remote;
 /**
  * 营业厅装车单的po对象
  */
@@ -7,9 +9,13 @@ import java.util.Iterator;
 
 import po.Message;
 
-public class HallEntruckBill{
+public class HallEntruckBill implements Serializable,Remote{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6406491278553726793L;
 	private String date;//装车日期
 	private String hallID;//本营业厅编号
 	private String transNum;//汽运编号，营业厅编号6位+日期8位+5位流水号

@@ -9,6 +9,7 @@ import data.bankdata.BankDataServerImpl;
 import data.billdata.ChargeBillDataServerImpl;
 import data.billdata.DeliveryBillDataServerImpl;
 import data.billdata.HallArrivalBillDataServerImpl;
+import data.billdata.HallEntruckBillDataServerImpl;
 import data.billdata.OrderBillDataServerImpl;
 import data.billdata.ReceiveBillDataServerImpl;
 import data.informationdata.Inform_HallDataServerImpl;
@@ -23,6 +24,7 @@ import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.ChargeBillDataServer;
 import dataservice.billsdataservice.DeliveryBillDataServer;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
+import dataservice.billsdataservice.HallEntruckBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
@@ -81,6 +83,9 @@ public class RMIHelper {
 
 			DeliveryBillDataServer deliveryBillDataService = new DeliveryBillDataServerImpl();
 			Naming.rebind("deliveryBillData", deliveryBillDataService);
+
+			HallEntruckBillDataServer hallEntruckBillDataService = new HallEntruckBillDataServerImpl();
+			Naming.rebind("hallEntruckBillData", hallEntruckBillDataService);
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {
 			e.printStackTrace();

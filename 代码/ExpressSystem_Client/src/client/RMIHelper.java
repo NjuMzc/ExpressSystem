@@ -9,6 +9,7 @@ import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.ChargeBillDataServer;
 import dataservice.billsdataservice.DeliveryBillDataServer;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
+import dataservice.billsdataservice.HallEntruckBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
@@ -35,6 +36,7 @@ public class RMIHelper {
 	private static HallArrivalBillDataServer hallArrivalBillData;
 	private static ChargeBillDataServer chargeBillData;
 	private static DeliveryBillDataServer deliveryBillData;
+	private static HallEntruckBillDataServer hallEntruckData;
 
 	public static void init() {
 		try {
@@ -52,6 +54,7 @@ public class RMIHelper {
 			hallArrivalBillData = (HallArrivalBillDataServer) Naming.lookup("rmi://localhost:1099/hallArrivalBillData");
 			chargeBillData = (ChargeBillDataServer) Naming.lookup("rmi://localhost:1099/chargeBillData");
 			deliveryBillData = (DeliveryBillDataServer) Naming.lookup("rmi://localhost:1099/deliveryBillData");
+			hallEntruckData = (HallEntruckBillDataServer) Naming.lookup("rmi://localhost:1099/hallEntruckBillData");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -60,6 +63,10 @@ public class RMIHelper {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static HallEntruckBillDataServer getHallEntruckData() {
+		return hallEntruckData;
 	}
 
 	public static DeliveryBillDataServer getDeliveryBillData() {
