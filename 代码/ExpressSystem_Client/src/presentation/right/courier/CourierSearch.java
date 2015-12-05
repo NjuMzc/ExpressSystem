@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourierSearch extends RightAll implements   ActionListener {
+public class CourierSearch extends RightAll implements ActionListener {
 	Trans_InquireOrderServer blServer;
 
 	int frameWidth;
@@ -35,7 +35,7 @@ public class CourierSearch extends RightAll implements   ActionListener {
 	private List<Watcher> list;
 
 	public CourierSearch(int frameWidth, int frameHeight) {
-		blServer=new Trans_InquireOrderServerImpl();
+		blServer = new Trans_InquireOrderServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -43,7 +43,6 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		remind = new JLabel("请输入快递单号");
@@ -52,7 +51,6 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		wrong = new JLabel("输入的快递单号不存在");
 		wrong.setVisible(false);
 		inputOrder = new JTextField();
-		 
 
 		init();
 
@@ -64,16 +62,19 @@ public class CourierSearch extends RightAll implements   ActionListener {
 	}
 
 	private void init() {
-		remind.setBounds(frameWidth / 4, frameHeight / 3, frameWidth / 4, 40);
-		confirm.setBounds(frameWidth / 4, frameHeight / 2, frameWidth / 12,
+		remind.setBounds(frameWidth / 4, frameHeight / 3, frameWidth / 4,
+				frameHeight / 20);
+		confirm.setBounds(frameWidth / 4, frameHeight / 2, frameWidth / 10,
 				frameWidth / 20);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth / 2, frameHeight / 2, frameWidth / 12,
+		cancel.setBounds(frameWidth / 2, frameHeight / 2, frameWidth / 10,
 				frameWidth / 20);
 		cancel.addActionListener(this);
-		wrong.setBounds(frameWidth / 2, frameHeight / 4 * 3, 150, 30);
+		wrong.setBounds(frameWidth / 2, frameHeight / 4 * 3, frameWidth / 5,
+				frameWidth / 20);
 		wrong.setForeground(new Color(227, 23, 13));
-		inputOrder.setBounds(frameWidth / 2, frameHeight / 3, 150, 30);
+		inputOrder.setBounds(frameWidth / 2, frameHeight / 3, frameWidth / 5,
+				frameWidth / 20);
 
 	}
 
@@ -95,15 +96,15 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COURIERSTART);
 		} else if (e.getSource() == confirm) {
-            OrderBill bill=blServer.inquire(inputOrder.getText());
-            System.out.println(inputOrder.getText());
-			if(bill==null){
+			OrderBill bill = blServer.inquire(inputOrder.getText());
+			System.out.println(inputOrder.getText());
+			if (bill == null) {
 				wrong.setVisible(true);
-			}else{
+			} else {
 				BillNow.setBill(bill);
 				this.notifyWatchers(State.COURIERSEARCHAFTER);
 			}
-	
+
 		}
 
 	}

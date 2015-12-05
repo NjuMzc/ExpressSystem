@@ -24,7 +24,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 
 	int frameWidth;
 	int frameHeight;
-	JPanel senderInfor;
+	// JPanel senderInfor;
 	JLabel[] input;
 	JButton confirm;
 	JButton cancel;
@@ -35,6 +35,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 	JLabel orderFee;
 	JLabel orderTime;
 	JTextField jtf[];
+	JButton over;
 	private List<Watcher> list;
 
 	public CourierMakebill(int frameWidth, int frameHeight) {
@@ -46,11 +47,8 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		senderInfor = new JPanel();
-		senderInfor.setLayout(null);
 		input = new JLabel[21];
 		for (int i = 0; i < 21; i++) {
 			input[i] = new JLabel();
@@ -66,40 +64,30 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		type = new JComboBox<String>(item);
 		String[] items = { "纸箱", "木箱", "包装袋", "其他" };
 		type_decorate = new JComboBox<String>(items);
-		
-		orderFee=new JLabel("快递费用");
-		orderNum=new JLabel("快递编号");
-		orderTime=new JLabel("预计到达时间");
-		jtf=new JTextField[3];
-		for(int i=0;i<3;i++){
-			jtf[i]=new JTextField();
-		}
 
 		init();
 
 		for (int i = 0; i < 21; i++) {
-			if(i!=16)
-			senderInfor.add(input[i]);
+			if (i != 16)
+				this.add(input[i]);
 		}
 		for (int i = 0; i < 16; i++) {
-			if(i!=13)
-			senderInfor.add(inputText[i]);
+			if (i != 13)
+				this.add(inputText[i]);
 		}
-		senderInfor.add(type);
-		senderInfor.add(type_decorate);
 
-		this.add(senderInfor);
+		this.add(type);
+		this.add(type_decorate);
+
 		this.add(confirm);
 		this.add(cancel);
 
 	}
 
 	private void init() {
-		senderInfor.setBounds(50, 50, frameWidth * 3 / 4 - 50,
-				frameHeight - 150);
 
-		int x = frameWidth * 3 / 4 - 20;
-		int y = frameHeight - 200;
+		int x = frameWidth / 4;
+		int y = frameHeight / 15;
 		input[0].setText("寄件人信息");
 		input[1].setText("姓名");
 		input[2].setText("单位");
@@ -122,52 +110,49 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		input[19].setText("快递类型");
 		input[20].setText("包装类型");
 		for (int i = 0; i < 10; i++) {
-			input[i].setBounds(0, 40 * i, 100, 20);
+			input[i].setBounds(0, frameHeight / 15 * i, frameWidth / 10,
+					frameHeight / 20);
 		}
-		input[10].setBounds(x / 3, 40, 100, 20);
-		input[11].setBounds(x / 3, 40 * 2, 100, 20);
-		input[12].setBounds(x / 3, 40 * 4, 100, 20);
-		input[13].setBounds(x / 3, 40 * 5, 100, 20);
-		input[14].setBounds(x / 3, 40 * 7, 100, 20);
-		input[15].setBounds(x / 3, 40 * 8, 100, 20);
-		input[16].setBounds(x / 3, 40 * 9, 100, 20);
-		input[17].setBounds(x / 3 * 2, 40 * 2, 100, 20);
-		input[18].setBounds(x / 3 * 2, 40 * 5, 100, 20);
-		input[19].setBounds(x / 3 * 2, 40 * 8, 100, 20);
-		input[20].setBounds(x / 3 * 2, 40 * 9, 100, 20);
+		int width = frameWidth / 10;
+		int height = frameHeight / 20;
+		input[10].setBounds(x, y, width, height);
+		input[11].setBounds(x, y * 2, width, height);
+		input[12].setBounds(x, y * 4, width, height);
+		input[13].setBounds(x, y * 5, width, height);
+		input[14].setBounds(x, y * 7, width, height);
+		input[15].setBounds(x, y * 8, width, height);
+		input[16].setBounds(x, y * 9, width, height);
+		input[17].setBounds(x * 2, y * 2, width, height);
+		input[18].setBounds(x * 2, y * 5, width, height);
+		input[19].setBounds(x * 2, y * 7, width, height);
+		input[20].setBounds(x * 2, y * 8, width, height);
 
-		confirm.setMargin(new Insets(0, 0, 0, 0));
-		confirm.setBounds(150, frameHeight - 100, frameWidth / 12,
-				frameWidth / 20);
+		confirm.setBounds(frameWidth / 4, frameHeight / 10 * 9, width, height);
 		confirm.addActionListener(this);
-		cancel.setMargin(new Insets(0, 0, 0, 0));
-		cancel.setBounds(frameWidth * 3 / 4 - 225, frameHeight - 100,
-				frameWidth / 12, frameWidth / 20);
+		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, width, height);
 		cancel.addActionListener(this);
 
 		for (int i = 0; i < 2; i++) {
-			inputText[i].setBounds(80, 40 * (i + 1), 100, 20);
+			inputText[i].setBounds(x / 3, y * (i + 1), width, height);
 		}
 		for (int i = 2; i < 4; i++) {
-			inputText[i].setBounds(80, 40 * (i + 2), 100, 20);
+			inputText[i].setBounds(x / 3, y * (i + 2), width, height);
 		}
 		for (int i = 4; i < 7; i++) {
-			inputText[i].setBounds(80, 40 * (i + 3), 100, 20);
+			inputText[i].setBounds(x / 3, y * (i + 3), width, height);
 		}
-		inputText[7].setBounds(x / 3 + 70, 40, 100, 20);
-		inputText[8].setBounds(x / 3 + 70, 40 * 2, 100, 20);
-		inputText[9].setBounds(x / 3 + 70, 40 * 4, 100, 20);
-		inputText[10].setBounds(x / 3 + 70, 40 * 5, 100, 20);
-		inputText[11].setBounds(x / 3 + 70, 40 * 7, 100, 20);
-		inputText[12].setBounds(x / 3 + 70, 40 * 8, 100, 20);
-		inputText[13].setBounds(x / 3 + 70, 40 * 9, 100, 20);
-		inputText[14].setBounds(x / 3 * 2 + 70, 40 * 2, 100, 20);
-		inputText[15].setBounds(x / 3 * 2 + 70, 40 * 5, 100, 20);
+		inputText[7].setBounds(x + frameWidth / 10, y, width, height);
+		inputText[8].setBounds(x + frameWidth / 10, y * 2, width, height);
+		inputText[9].setBounds(x + frameWidth / 10, y * 4, width, height);
+		inputText[10].setBounds(x + frameWidth / 10, y * 5, width, height);
+		inputText[11].setBounds(x + frameWidth / 10, y * 7, width, height);
+		inputText[12].setBounds(x + frameWidth / 10, y * 8, width, height);
+		inputText[13].setBounds(x + frameWidth / 10, y * 9, width, height);
+		inputText[14].setBounds(x * 2 + frameWidth / 10, y * 2, width, height);
+		inputText[15].setBounds(x * 2 + frameWidth / 10, y * 5, width, height);
 		for (int i = 0; i < 16; i++) {
-			inputText[i].setText(String.valueOf(i));
+			inputText[i].setText("（必填）");
 		}
-		
-		 
 
 		// 输入栏焦点转移
 		inputText[0].addKeyListener(new KeyAdapter() {
@@ -352,8 +337,8 @@ public class CourierMakebill extends RightAll implements ActionListener {
 			}
 		});
 
-		type.setBounds(x / 3 * 2 + 70, 40 * 8, 100, 20);
-		type_decorate.setBounds(x / 3 * 2 + 70, 40 * 9, 100, 20);
+		type.setBounds(x * 2 + frameWidth / 10, y * 7, width, height);
+		type_decorate.setBounds(x * 2 + frameWidth / 10, y * 8, width, height);
 
 	}
 
@@ -371,6 +356,45 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		}
 	}
 
+	private void addOver() {
+		orderFee = new JLabel("快递费用");
+		orderNum = new JLabel("快递编号");
+		orderTime = new JLabel("预计到达时间");
+		jtf = new JTextField[3];
+		for (int i = 0; i < 3; i++) {
+			jtf[i] = new JTextField();
+		}
+
+		orderNum.setBounds(0, frameHeight / 15 * 10, frameWidth / 10,
+				frameHeight / 20);
+		orderFee.setBounds(0, frameHeight / 15 * 11, frameWidth / 10,
+				frameHeight / 20);
+		orderTime.setBounds(0, frameHeight / 15 * 12, frameWidth / 10,
+				frameHeight / 20);
+		for (int i = 0; i < 3; i++) {
+			jtf[i].setBounds(frameWidth / 12, frameHeight / 15 * (i + 10),
+					frameWidth / 10, frameHeight / 20);
+		}
+
+		this.add(orderFee);
+		this.add(orderNum);
+		this.add(orderTime);
+		for (int i = 0; i < 3; i++) {
+			this.add(jtf[i]);
+		}
+		for (int i = 0; i < 16; i++) {
+			inputText[i].setEditable(false);
+		}
+		over = new JButton("完成");
+		over.setBounds(frameWidth / 12, frameHeight / 10 * 9, frameWidth / 10,
+				frameHeight / 20);
+		over.addActionListener(this);
+		this.remove(confirm);
+		this.remove(cancel);
+		this.add(over);
+		this.repaint();
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			System.out.println("cancel!!!");
@@ -385,48 +409,35 @@ public class CourierMakebill extends RightAll implements ActionListener {
 					break;
 				}
 			}
-			
-			
-			orderNum.setBounds(0, 40 * 10, 100, 20);
-			orderFee.setBounds(0, 40 * 11, 100, 20);
-			orderTime.setBounds(0, 40 * 12, 100, 20);
-			for(int i=0;i<3;i++){
-				jtf[i].setBounds(80, 40 * (i + 10), 100, 20 );
-			}
-			
-			senderInfor.add(orderFee);
-			senderInfor.add(orderNum);
-			senderInfor.add(orderTime);
-			for(int i=0;i<3;i++){
-				senderInfor.add(jtf[i]);
-				
-			}
-			for(int i=0;i<16;i++){
-				inputText[i].setEditable(false);
-			}
+
+			addOver();
 
 			Message message = new Message();
 			for (int i = 0; i < 16; i++) {
-				if(i!=13){
+				if (i != 13) {
 					message.addInform(inputText[i].getText());
-				}else{
+				} else {
 					message.addInform("");
 				}
-				
+
 			}
-			message.addInform((String)type.getSelectedItem());
-			message.addInform((String)type_decorate.getSelectedItem());
-			
-			OrderBill bill=blServer.makeOrder(message);
-			
+			message.addInform((String) type.getSelectedItem());
+			message.addInform((String) type_decorate.getSelectedItem());
+
+			OrderBill bill = blServer.makeOrder(message);
+
 			jtf[0].setText(bill.getID());
 			jtf[1].setText(bill.getCharge());
 			jtf[2].setText(bill.getTime());
 
-			for(int i=0;i<3;i++){
+			for (int i = 0; i < 3; i++) {
 				jtf[i].setEditable(false);
 			}
 
+		}
+
+		if (e.getSource() == over) {
+			this.notifyWatchers(State.COURIERMAKEBILL);
 		}
 
 	}
