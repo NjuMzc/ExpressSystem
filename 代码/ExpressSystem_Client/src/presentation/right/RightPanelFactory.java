@@ -48,9 +48,7 @@ public class RightPanelFactory {
 			right = new Ying_collect(frameWidth, frameHeight);
 		} else if (state == State.YING_ARRIVE) {
 			right = new Ying_arrive(frameWidth, frameHeight);
-		} else if (state == State.YING_RECEIVE) {
-			right = new Ying_receive(frameWidth, frameHeight);
-		} else if (state == State.YING_PAYMENT) {
+		}else if (state == State.YING_PAYMENT) {
 			right = new Ying_payment(frameWidth, frameHeight);
 		} else if (state == State.YING_LOADING) {
 			right = new Ying_loading(frameWidth, frameHeight);
