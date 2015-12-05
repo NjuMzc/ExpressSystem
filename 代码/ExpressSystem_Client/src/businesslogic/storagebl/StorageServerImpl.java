@@ -8,6 +8,7 @@ import dataservice.informationdataservice.Inform_StorageDataServer;
 import dataservice.transportdataservice.TransportDataServer;
 import po.GoodPO;
 import po.Institution.StoragePO;
+import po.Institution.storageAssist.Record;
 import po.Institution.storageAssist.StorageInfo;
 
 /**
@@ -71,7 +72,7 @@ public class StorageServerImpl implements storageServer {
 	}
 
 	@Override
-	public Iterator getStorageHistory(String storageID, String startTime, String endTime) {
+	public Iterator<Record> getStorageHistory(String storageID, String startTime, String endTime) {
 		StoragePO storage = storageServer.find(storageID);
 		return storage.getIORecord(startTime, endTime).iterator();
 	}
