@@ -42,6 +42,8 @@ public class CourierPanel extends LeftAll implements  ActionListener {
 	       close.setContentAreaFilled(false);
 	       logout.setBorderPainted(false);
 	       close.setBorderPainted(false);
+		
+	
 
 		init();
 
@@ -58,7 +60,7 @@ public class CourierPanel extends LeftAll implements  ActionListener {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\courierleft.png");
+		ImageIcon background = new ImageIcon("pictures\\courierleft1.png");
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth/4,frameHeight,null);
 	}
@@ -68,9 +70,32 @@ public class CourierPanel extends LeftAll implements  ActionListener {
 			jb[i] = new JButton();
 		jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i,
 					frameWidth / 4, frameHeight / 13);
-		jb[i].setContentAreaFilled(false);
-			jb[i].addActionListener(this);
+		//jb[i].setContentAreaFilled(false);
+		jb[i].addActionListener(this);
 		}
+		
+		//左栏按钮贴图
+		ImageIcon icon0 = new ImageIcon("pictures//制作订单.png");
+		Image temp0 = icon0.getImage().getScaledInstance(jb[0].getWidth(),
+				jb[0].getHeight(), icon0.getImage().SCALE_DEFAULT);
+		icon0 = new ImageIcon(temp0);
+		jb[0].setIcon(icon0);
+		
+		//左栏按钮贴图
+		ImageIcon icon1 = new ImageIcon("pictures//查询订单.png");
+		Image temp1 = icon1.getImage().getScaledInstance(jb[1].getWidth(),
+				jb[1].getHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		jb[1].setIcon(icon1);
+		
+		//左栏按钮贴图
+		ImageIcon icon2 = new ImageIcon("pictures//收件c.png");
+		Image temp2 = icon2.getImage().getScaledInstance(jb[2].getWidth(),
+				jb[2].getHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		jb[2].setIcon(icon2);
+		
+	
 		jb[0].setText("");//制作订单
 		jb[1].setText("");//查询订单
 		jb[2].setText("");//收件

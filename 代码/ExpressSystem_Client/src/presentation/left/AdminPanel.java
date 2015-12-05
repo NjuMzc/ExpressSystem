@@ -40,11 +40,13 @@ public class AdminPanel extends LeftAll implements Watched, ActionListener {
 		manage = new JButton("");// 系统管理
 		logout = new JButton("");// 登出账号
 		close = new JButton("");// 关闭系统
-		manage.setContentAreaFilled(false);
+		
+		
+//		manage.setContentAreaFilled(false);
 		logout.setContentAreaFilled(false);
 		close.setContentAreaFilled(false);
-
-		manage.setBorderPainted(false);
+	//
+//		manage.setBorderPainted(false);
 		logout.setBorderPainted(false);
 		close.setBorderPainted(false);
 
@@ -60,15 +62,15 @@ public class AdminPanel extends LeftAll implements Watched, ActionListener {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\adminleft.png");
+		ImageIcon background = new ImageIcon("pictures\\adminleft1.png");
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth / 4, frameHeight, null);
 	}
 
 	private void init() {
 		manage.setBounds(0, frameHeight * 40 / 120, frameWidth / 4,
-				frameHeight * 3 / 32);
-		manage.addActionListener(this);
+				frameHeight *1 / 13);
+		manage.addActionListener(this);	
 		logout.setMargin(new Insets(0, 0, 0, 0));
 		logout.setBounds(frameWidth * 3 / 80, frameHeight * 63 / 72,
 				frameWidth / 17, frameWidth / 17);
@@ -77,9 +79,18 @@ public class AdminPanel extends LeftAll implements Watched, ActionListener {
 		close.setBounds(frameWidth * 13 / 80, frameHeight * 63 / 72,
 				frameWidth / 17, frameWidth / 17);
 		close.addActionListener(this);
-		close.addActionListener(this);
+		close.addActionListener(this);		
+		
+		//左栏按钮贴图
+		ImageIcon icon0 = new ImageIcon("pictures//系统管理.png");
+		Image temp0 = icon0.getImage().getScaledInstance(frameWidth/4,frameHeight/13, icon0.getImage().SCALE_DEFAULT);
+		icon0 = new ImageIcon(temp0);
+		manage.setIcon(icon0);
+			
+		}
 
-	}
+
+
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == manage) {

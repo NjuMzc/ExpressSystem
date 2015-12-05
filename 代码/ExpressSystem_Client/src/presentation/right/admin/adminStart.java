@@ -26,12 +26,9 @@ public class adminStart extends RightAll  {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		//jl = new JLabel("");
 
-		//init();
 
 		this.setBackground(new Color(254, 67, 101));
-		//this.add(jl);
 
 	}
 	protected void paintComponent(Graphics g) {
@@ -43,8 +40,7 @@ public class adminStart extends RightAll  {
 	}
 
 	private void init() {
-		//jl.setBounds(320, 320, 300, 300);
-		//jl.setText("start");
+
 	}
 
 	@Override
