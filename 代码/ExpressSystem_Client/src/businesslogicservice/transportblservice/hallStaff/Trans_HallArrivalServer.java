@@ -1,4 +1,4 @@
-package businesslogicservice.transportblservice;
+package businesslogicservice.transportblservice.hallStaff;
 
 /**
  * 营业厅到达单填写接口

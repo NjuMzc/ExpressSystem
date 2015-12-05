@@ -9,6 +9,12 @@ import po.bills.HallEntruckBill;
 public class HallEntruckBillServer {
     HallEntruckBillDataServer dataServer;
     HallEntruckFeeCalculator calculator;
+    
+    public HallEntruckBillServer(){
+    	calculator=new HallEntruckFeeCalculator();
+    	//RMI
+    	
+    }
 	
 	public HallEntruckBill makeBill(Message message,Iterator<String> orderList){
 		HallEntruckBill bill=new HallEntruckBill(message, orderList);

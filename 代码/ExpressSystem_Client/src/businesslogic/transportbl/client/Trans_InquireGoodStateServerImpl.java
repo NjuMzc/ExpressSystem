@@ -1,8 +1,9 @@
-package businesslogic.transportbl;
+package businesslogic.transportbl.client;
 
 import java.util.ArrayList;
 
-import businesslogicservice.transportblservice.Trans_InquireGoodStateServer;
+import businesslogic.transportbl.GoodController;
+import businesslogicservice.transportblservice.client.Trans_InquireGoodStateServer;
 
 public class Trans_InquireGoodStateServerImpl implements
 		Trans_InquireGoodStateServer {

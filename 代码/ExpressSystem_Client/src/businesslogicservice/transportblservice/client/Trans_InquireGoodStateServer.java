@@ -1,4 +1,4 @@
-package businesslogicservice.transportblservice;
+package businesslogicservice.transportblservice.client;
 
 import java.util.ArrayList;
 

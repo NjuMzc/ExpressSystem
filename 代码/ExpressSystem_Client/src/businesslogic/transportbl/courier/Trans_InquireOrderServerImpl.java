@@ -1,10 +1,10 @@
-package businesslogic.transportbl;
+package businesslogic.transportbl.courier;
 /**
  * 查询订单功能的实现
  */
 import po.bills.OrderBill;
 import businesslogic.billsbl.OrderBillServer.OrderBillServer;
-import businesslogicservice.transportblservice.Trans_InquireOrderServer;
+import businesslogicservice.transportblservice.courier.Trans_InquireOrderServer;
 
 public class Trans_InquireOrderServerImpl implements Trans_InquireOrderServer {
 

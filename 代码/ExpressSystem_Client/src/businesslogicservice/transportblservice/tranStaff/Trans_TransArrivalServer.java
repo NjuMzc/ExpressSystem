@@ -1,4 +1,4 @@
-package businesslogicservice.transportblservice;
+package businesslogicservice.transportblservice.tranStaff;
 
 import po.bills.TransArrivalBill;
 

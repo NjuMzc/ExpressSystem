@@ -1,4 +1,4 @@
-package businesslogicservice.transportblservice;
+package businesslogicservice.transportblservice.courier;
 
 import po.Message;
 import po.bills.OrderBill;

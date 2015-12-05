@@ -1,4 +1,4 @@
-package businesslogic.transportbl;
+package businesslogic.transportbl.hallStaff;
 
 /**
  * 营业厅到达单功能的实现
@@ -12,16 +12,26 @@ import po.Workers.HallStaffPO;
 import po.bills.HallArrivalBill;
 import businesslogic.LocationNumGetter;
 import businesslogic.billsbl.HallArrivalBillServer.HallArrivalBillServer;
+import businesslogic.informationbl.Inform_HallInformServerImpl;
 import businesslogic.systembl.SystemHelper;
+import businesslogic.transportbl.GoodController;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_HallInformServer;
-import businesslogicservice.transportblservice.Trans_HallArrivalServer;
+import businesslogicservice.transportblservice.hallStaff.Trans_HallArrivalServer;
 
 public class Trans_HallArrivalServerImpl implements Trans_HallArrivalServer {
 	HallArrivalBillServer billServer;
 	GoodController goodController;
 	Inform_HallInformServer hallServer;
 	Inform_HallStaffDataServer staffServer;
+	
 	HallStaffPO staffNow;
+	
+	public Trans_HallArrivalServerImpl(){
+		billServer=new HallArrivalBillServer();
+		goodController=new GoodController();
+		hallServer=new Inform_HallInformServerImpl();
+		//RMI
+	}
 
 	@Override
 	public HallArrivalBill makeBill(String GoodID,String date, String transOrderNum, String departure, String state) {

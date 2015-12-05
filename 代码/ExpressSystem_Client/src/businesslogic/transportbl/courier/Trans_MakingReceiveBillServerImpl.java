@@ -1,10 +1,11 @@
-package businesslogic.transportbl;
+package businesslogic.transportbl.courier;
 /**
  * 收件功能的实现
  */
 import po.bills.ReceiveBill;
 import businesslogic.billsbl.ReceiveBillServer.ReceiveBillServer;
-import businesslogicservice.transportblservice.Trans_MakingReceiveBillServer;
+import businesslogic.transportbl.GoodController;
+import businesslogicservice.transportblservice.courier.Trans_MakingReceiveBillServer;
 
 public class Trans_MakingReceiveBillServerImpl implements
 		Trans_MakingReceiveBillServer {

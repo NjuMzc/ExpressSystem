@@ -1,4 +1,4 @@
-package businesslogic.transportbl;
+package businesslogic.transportbl.tranStaff;
 
 import dataservice.informationdataservice.Inform_TranStaffDataServer;
 import po.GoodPO;
@@ -8,8 +8,9 @@ import po.bills.TransArrivalBill;
 import businesslogic.LocationNumGetter;
 import businesslogic.billsbl.TransArrivalBillServer.TransArrivalBillServer;
 import businesslogic.systembl.SystemHelper;
+import businesslogic.transportbl.GoodController;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_TranStationInformServer;
-import businesslogicservice.transportblservice.Trans_TransArrivalServer;
+import businesslogicservice.transportblservice.tranStaff.Trans_TransArrivalServer;
 
 public class Trans_TransArrivalServerImpl implements Trans_TransArrivalServer {
 

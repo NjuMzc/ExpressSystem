@@ -1,11 +1,12 @@
-package businesslogic.transportbl;
+package businesslogic.transportbl.courier;
 /**
  * 制作订单功能的实现
  */
 import po.Message;
 import po.bills.OrderBill;
 import businesslogic.billsbl.OrderBillServer.OrderBillServer;
-import businesslogicservice.transportblservice.Trans_MakingOrderServer;
+import businesslogic.transportbl.GoodController;
+import businesslogicservice.transportblservice.courier.Trans_MakingOrderServer;
 
 public class Trans_MakingOrderServerImpl implements Trans_MakingOrderServer{
     

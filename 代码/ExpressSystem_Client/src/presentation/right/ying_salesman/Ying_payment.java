@@ -5,42 +5,77 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
-public class Ying_payment extends RightAll implements  ActionListener{
+public class Ying_payment extends RightAll implements ActionListener {
 
 	int frameWidth;
 	int frameHeight;
 	JLabel jl[];
 	JButton confirm;
 	JButton cancel;
-	
+	JTextField jtf[];
+	JLabel time[];
+	JComboBox<String>[] timeInput;
+	DefaultTableModel tableModel;
+	JTable jtable;
+	JScrollPane js;
+	JButton add;
+
 	private List<Watcher> list;
 
 	public Ying_payment(int frameWidth, int frameHeight) {
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
-		
-		list=new ArrayList<Watcher>();
+
+		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		jl = new JLabel[5];
 		for (int i = 0; i < 5; i++) {
 			jl[i] = new JLabel();
 		}
+		jtf = new JTextField[3];
+		for (int i = 0; i < 3; i++) {
+			jtf[i] = new JTextField();
+		}
 		confirm = new JButton("确认");
 		cancel = new JButton("取消");
+		time = new JLabel[3];
+		timeInput = new JComboBox[3];
+		for (int i = 0; i < 3; i++) {
+			time[i] = new JLabel();
+		}
+		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
+		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+				"11", "12" };
+		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+				"31" };
+		timeInput[0] = new JComboBox<String>(year);
+		timeInput[1] = new JComboBox<String>(month);
+		timeInput[2] = new JComboBox<String>(day);
+		tableModel = new DefaultTableModel();
+		jtable = new JTable(tableModel);
+		js = new JScrollPane(jtable);
+		add = new JButton("添加");
 
 		init();
 
@@ -49,43 +84,99 @@ public class Ying_payment extends RightAll implements  ActionListener{
 		}
 		this.add(confirm);
 		this.add(cancel);
+		for (int i = 0; i < 3; i++) {
+			this.add(jtf[i]);
+			this.add(time[i]);
+			this.add(timeInput[i]);
+		}
+		this.add(js);
+		this.add(add);
 	}
 
 	private void init() {
 		jl[0].setText("收款单");
-		jl[1].setText("收款快递员编号");
-		jl[2].setText("托运订单条形码号");
-		jl[3].setText("收款金额");
-		jl[4].setText("收款日期");
+		jl[3].setText("收款快递员编号");
+		jl[4].setText("托运订单条形码号");
+		jl[2].setText("收款金额");
+		jl[1].setText("收款日期");
 
-		jl[0].setBounds(frameWidth / 2, frameHeight / 10, 100, 65);
+		jl[0].setBounds(frameWidth / 3, 0, frameWidth / 10, frameHeight / 20);
 		for (int i = 1; i < 5; i++) {
-			jl[i].setBounds(frameWidth / 9, frameHeight / 15 + frameHeight / 8
-					* i, 100, 65);
+			jl[i].setBounds(frameWidth /8, frameHeight / 20 + frameHeight
+					/ 10 * i, frameWidth / 10, frameHeight / 20);
+		}
+		for (int i = 0; i < 3; i++) {
+			jtf[i].setBounds(frameWidth / 4, frameHeight / 20 + frameHeight
+					/ 10 * (i + 2), frameWidth / 10, frameHeight / 20);
+
+			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
+					frameHeight / 20 + frameHeight / 10, frameWidth / 12,
+					frameHeight / 20);
+			time[i].setBounds(frameWidth / 3 + frameWidth / 10 * i, frameHeight
+					/ 20 + frameHeight / 10, frameWidth / 12, frameHeight / 20);
 		}
 
-		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10, 80, 30);
-		cancel.setBounds(frameWidth * 2 / 5, frameHeight * 9 / 10, 80, 30);
+		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10,
+				frameWidth / 10, frameHeight / 20);
+		confirm.addActionListener(this);
+		cancel.setBounds(frameWidth * 2 / 5, frameHeight * 9 / 10,
+				frameWidth / 10, frameHeight / 20);
 		cancel.addActionListener(this);
+
+		initTable();
+
+		js.setBounds(frameWidth / 4, frameHeight / 10 * 6, frameWidth / 4,
+				frameHeight / 5);
+		add.setBounds(frameWidth / 2, frameHeight / 20 + frameHeight / 10 * 4,
+				frameWidth / 10, frameHeight / 20);
+		add.addActionListener(this);
+	}
+
+	private void initTable() {
+		tableModel.addColumn("已有单号列表");
+		jtable.getTableHeader().setReorderingAllowed(false);
+		jtable.getTableHeader().setResizingAllowed(false);
+		initTableModel();
+	}
+
+	private void initTableModel() {
+		Vector<String> vec = new Vector<>();
+		vec.add("12345666");
+
+		// 初始化已有单号列表
+		tableModel.addRow(vec);
 	}
 
 	public void addWatcher(Watcher watcher) {
-		 list.add(watcher);
+		list.add(watcher);
 	}
 
 	public void removeWatcehr(Watcher watcher) {
-	 list.remove(watcher);
+		list.remove(watcher);
 	}
 
 	public void notifyWatchers(State state) {
-	 for(Watcher watcher:list){
-		 watcher.update(state);
-	 }
+		for (Watcher watcher : list) {
+			watcher.update(state);
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		 if(e.getSource()==cancel){
-			 this.notifyWatchers(State.YING_START);
-		 }
+		if (e.getSource() == cancel) {
+			this.notifyWatchers(State.YING_START);
+		} else if (e.getSource() == confirm) {
+			this.notifyWatchers(State.YING_PAYMENT);
+		}
+
+		if (e.getSource() == add) {
+			// 添加单号列表
+			String input = jtf[2].getText();
+			if (!input.equals("")) {
+				Vector<String> vec = new Vector<>();
+				vec.add(input);
+				tableModel.addRow(vec);
+				jtf[2].setText("");
+			}
+		}
 	}
 }
