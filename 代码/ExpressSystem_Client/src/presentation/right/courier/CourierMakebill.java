@@ -2,6 +2,8 @@ package presentation.right.courier;
 
 import javax.swing.*;
 
+import businesslogic.transportbl.courier.Trans_MakingOrderServerImpl;
+import businesslogicservice.transportblservice.courier.Trans_MakingOrderServer;
 import po.Message;
 import presentation.Data;
 import presentation.right.RightAll;

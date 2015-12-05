@@ -19,6 +19,8 @@ public class StockmanInStock extends RightAll implements ActionListener {
 	JButton confirm;
 	JButton cancel;
 	JTextField jtf[];
+	JLabel time[];
+	JComboBox<String>[] timeInput;
 	private List<Watcher> list;
 
 	public StockmanInStock(int frameWidth, int frameHeight) {
@@ -41,6 +43,22 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		for(int i=0;i<7;i++){
 			jtf[i]=new JTextField();
 		}
+		
+		time = new JLabel[3];
+		timeInput = new JComboBox[3];
+		for (int i = 0; i < 3; i++) {
+			time[i] = new JLabel();
+		}
+		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
+		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+				"11", "12" };
+		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+				"31" };
+		timeInput[0] = new JComboBox<String>(year);
+		timeInput[1] = new JComboBox<String>(month);
+		timeInput[2] = new JComboBox<String>(day);
 
 		init();
 
@@ -51,6 +69,10 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		this.add(cancel);
 		for (int i = 0; i < 7; i++) {
 			this.add(jtf[i]);
+		}
+		for(int i=0;i<3;i++){
+			this.add(time[i]);
+			this.add(timeInput[i]);
 		}
 
 	}
@@ -76,12 +98,23 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 3; i++) {
+			if(i!=1)
 			jtf[i].setBounds(frameWidth / 4, frameHeight / 10 * (i + 1),
 					frameWidth / 10, frameHeight / 20);
 		}
 		for (int i = 3; i < 7; i++) {
 			jtf[i].setBounds(frameWidth / 3, frameHeight / 10 * (i + 1),
 					frameWidth / 10, frameHeight / 20);
+		}
+		
+		time[0].setText("年");
+		time[1].setText("月");
+		time[2].setText("日");
+		for (int i = 0; i < 3; i++) {
+			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
+					frameHeight / 5, frameWidth / 12, frameHeight / 20);
+			time[i].setBounds(frameWidth / 3+ frameWidth / 10 * i,
+					frameHeight / 5, frameWidth / 12, frameHeight / 20);
 		}
 
 		confirm.setBounds(frameWidth / 4, frameHeight / 10 * 9,
