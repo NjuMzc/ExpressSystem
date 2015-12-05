@@ -1,0 +1,15 @@
+<<<<<<< Updated upstream
+/presentation/
+/vo/
+/businesslogic/
+/businesslogicservice/
+/client/
+/dataservice/
+/po/
+=======
+/businesslogic/
+/businesslogicservice/
+/client/
+/po/
+/presentation/
+>>>>>>> Stashed changes
