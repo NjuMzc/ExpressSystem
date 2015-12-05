@@ -1,4 +1,4 @@
-package businesslogic.transportbl.hallStaff;
+ package businesslogic.transportbl.hallStaff;
 
 /**
  * 营业厅到达单功能的实现
@@ -19,7 +19,7 @@ import businesslogicservice.informationblservice.InstitutionInform.Inform_HallIn
 import businesslogicservice.transportblservice.hallStaff.Trans_HallArrivalServer;
 
 public class Trans_HallArrivalServerImpl implements Trans_HallArrivalServer {
-	HallArrivalBillServer billServer;
+	HallArrivalBillServer billServer; 
 	GoodController goodController;
 	Inform_HallInformServer hallServer;
 	Inform_HallStaffDataServer staffServer;

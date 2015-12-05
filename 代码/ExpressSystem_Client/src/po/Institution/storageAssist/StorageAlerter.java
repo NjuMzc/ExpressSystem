@@ -1,4 +1,6 @@
-package businesslogic.storagebl;
+package po.Institution.storageAssist;
+
+import java.io.Serializable;
 
 /**
  * 库存报警装置，仓库的辅助类
@@ -6,7 +8,7 @@ package businesslogic.storagebl;
  * @author rabook
  *
  */
-public class StorageAlerter {
+public class StorageAlerter implements Serializable{
 	private double rate;
 
 	public StorageAlerter() {

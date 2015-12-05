@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.rmi.Remote;
 import java.util.ArrayList;
 
-import businesslogic.storagebl.CapacityReocrder;
-import businesslogic.storagebl.IORecorder;
-import businesslogic.storagebl.IO_Type;
-import businesslogic.storagebl.Record;
-import businesslogic.storagebl.StorageAlerter;
-import businesslogic.storagebl.StorageInfo;
 import po.GoodPO;
+import po.Institution.storageAssist.CapacityReocrder;
+import po.Institution.storageAssist.IORecorder;
+import po.Institution.storageAssist.IO_Type;
+import po.Institution.storageAssist.Record;
+import po.Institution.storageAssist.StorageAlerter;
+import po.Institution.storageAssist.StorageInfo;
 import po.Workers.StorageKeeperPO;
 
 /**
@@ -93,8 +93,8 @@ public class StoragePO implements Serializable, Remote {
 		StorageInfo info = capacity.getInfo(oldLocation);
 		String date = info.getTime();
 		GoodPO good = info.getGood();
-		
-		return false;
+		capacity.exportGood(oldLocation);
+		return importGood(good, newLocation, date);
 	}
 
 	// 增删人员

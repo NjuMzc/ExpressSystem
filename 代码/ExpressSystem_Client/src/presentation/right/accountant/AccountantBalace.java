@@ -79,7 +79,7 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.YING_START);
 		} else if (e.getSource() == confirm) {
-			this.notifyWatchers(State.ACCOUNTANTBALACEAFTER);
+			 
 		}
 	}
 }

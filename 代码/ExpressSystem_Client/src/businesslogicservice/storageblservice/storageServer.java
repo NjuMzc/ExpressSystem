@@ -2,7 +2,8 @@ package businesslogicservice.storageblservice;
 
 import java.util.Iterator;
 
-import businesslogic.storagebl.StorageInfo;
+import po.Institution.storageAssist.StorageInfo;
+
 
 
 

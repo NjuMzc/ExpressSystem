@@ -8,6 +8,7 @@ import dataservice.informationdataservice.Inform_StorageDataServer;
 import dataservice.transportdataservice.TransportDataServer;
 import po.GoodPO;
 import po.Institution.StoragePO;
+import po.Institution.storageAssist.StorageInfo;
 
 /**
  * 
@@ -77,6 +78,11 @@ public class StorageServerImpl implements storageServer {
 
 	@Override
 	public boolean changeStorage(String storageID, String oldLocation, String newLocation) {
+		StoragePO storage = storageServer.find(storageID);
+		if (storage.change(oldLocation, newLocation)) {
+			storageServer.update(storage);
+			return true;
+		}
 		return false;
 	}
 

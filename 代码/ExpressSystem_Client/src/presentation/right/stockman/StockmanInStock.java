@@ -18,6 +18,7 @@ public class StockmanInStock extends RightAll implements ActionListener {
 	JLabel[] jl;
 	JButton confirm;
 	JButton cancel;
+	JTextField jtf[];
 	private List<Watcher> list;
 
 	public StockmanInStock(int frameWidth, int frameHeight) {
@@ -36,6 +37,10 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		}
 		confirm = new JButton("确认");
 		cancel = new JButton("取消");
+		jtf = new JTextField[7];
+		for(int i=0;i<7;i++){
+			jtf[i]=new JTextField();
+		}
 
 		init();
 
@@ -44,6 +49,9 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		}
 		this.add(confirm);
 		this.add(cancel);
+		for (int i = 0; i < 7; i++) {
+			this.add(jtf[i]);
+		}
 
 	}
 
@@ -67,7 +75,16 @@ public class StockmanInStock extends RightAll implements ActionListener {
 					frameWidth / 10, frameHeight / 20);
 		}
 
-		confirm.setBounds(frameWidth / 3, frameHeight / 10 * 9,
+		for (int i = 0; i < 3; i++) {
+			jtf[i].setBounds(frameWidth / 4, frameHeight / 10 * (i + 1),
+					frameWidth / 10, frameHeight / 20);
+		}
+		for (int i = 3; i < 7; i++) {
+			jtf[i].setBounds(frameWidth / 3, frameHeight / 10 * (i + 1),
+					frameWidth / 10, frameHeight / 20);
+		}
+
+		confirm.setBounds(frameWidth / 4, frameHeight / 10 * 9,
 				frameWidth / 10, frameHeight / 20);
 		confirm.addActionListener(this);
 		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10,
@@ -94,7 +111,7 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.STOCKMANSTART);
 		} else if (e.getSource() == confirm) {
-			this.notifyWatchers(State.STOCKMANINSTOCKAFTER);
+			this.notifyWatchers(State.STOCKMANINSTOCK);
 		}
 	}
 }

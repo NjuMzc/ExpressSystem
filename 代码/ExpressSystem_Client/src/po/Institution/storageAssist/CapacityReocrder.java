@@ -1,4 +1,4 @@
-package businesslogic.storagebl;
+package po.Institution.storageAssist;
 
 import java.io.Serializable;
 
@@ -11,6 +11,10 @@ import po.GoodPO;
  *
  */
 public class CapacityReocrder implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1738284309651167038L;
 	private final int area = 4;
 	private final int row = 50;
 	private final int shelf = 10;

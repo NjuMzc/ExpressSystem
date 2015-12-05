@@ -70,15 +70,11 @@ public class RightPanelFactory {
 			right = new AccountantManage(frameWidth, frameHeight);
 		} else if (state == State.ACCOUNTANTBALACE) {
 			right = new AccountantBalace(frameWidth, frameHeight);
-		} else if (state == State.ACCOUNTANTBALACEAFTER) {
-			right = new AccountantBalaceAfter(frameWidth, frameHeight);
 		} else if (state == State.STOCKMANSTART) {
 			right = new StockmanStart(frameWidth, frameHeight);
 		} else if (state == State.STOCKMANINSTOCK) {
 			right = new StockmanInStock(frameWidth, frameHeight);
-		} else if (state == State.STOCKMANINSTOCKAFTER) {
-			right = new StockmanInStockAfter(frameWidth, frameHeight);
-		} else if (state == State.STOCKMANOUTSTOCK) {
+		}  else if (state == State.STOCKMANOUTSTOCK) {
 			right = new StockmanOutStock(frameWidth, frameHeight);
 		} else if (state == State.STOCKMANOUTSTOCKAFTER) {
 			right = new StockmanOutStockAfter(frameWidth, frameHeight);
