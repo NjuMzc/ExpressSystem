@@ -1,5 +1,7 @@
 package po.bills;
-
+/**
+ * 营业厅到达单的po对象
+ */
 
 import java.io.Serializable;
 import java.rmi.Remote;
