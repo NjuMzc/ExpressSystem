@@ -20,7 +20,7 @@ public class Data {
 		screenWidth = (int) screenSize.getWidth();
 		screenHeight = (int) screenSize.getHeight();
 		if (screenWidth * 3 > screenHeight * 4) {
-			this.frameHeight = screenHeight - 100;
+			this.frameHeight = screenHeight * 13 / 15;
 			this.frameWidth = frameHeight * 4 / 3;
 		} else {
 			this.frameWidth = screenWidth;

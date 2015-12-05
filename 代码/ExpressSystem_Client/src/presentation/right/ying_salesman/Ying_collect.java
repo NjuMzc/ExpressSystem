@@ -10,13 +10,15 @@ import javax.swing.*;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class Ying_collect extends RightAll implements  ActionListener {
+public class Ying_collect extends RightAll implements ActionListener {
 
 	int frameWidth;
 	int frameHeight;
 	JLabel jl[];
+	JTextField jtf[];
 	JButton confirm;
 	JButton cancel;
+	JButton over;
 
 	private List<Watcher> list;
 
@@ -27,15 +29,19 @@ public class Ying_collect extends RightAll implements  ActionListener {
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		jl = new JLabel[4];
-		for (int i = 0; i < 4; i++) {
+		jl = new JLabel[5];
+		for (int i = 0; i < 5; i++) {
 			jl[i] = new JLabel();
 		}
 		confirm = new JButton("确认");
 		cancel = new JButton("取消");
+		jtf = new JTextField[4];
+		for (int i = 0; i < 4; i++) {
+			jtf[i] = new JTextField();
+		}
+		over = new JButton("完成");
 
 		init();
 
@@ -44,6 +50,9 @@ public class Ying_collect extends RightAll implements  ActionListener {
 		}
 		this.add(confirm);
 		this.add(cancel);
+		for (int i = 0; i < 3; i++) {
+			this.add(jtf[i]);
+		}
 	}
 
 	private void init() {
@@ -51,16 +60,29 @@ public class Ying_collect extends RightAll implements  ActionListener {
 		jl[1].setText("到达日期");
 		jl[2].setText("托运单条形码");
 		jl[3].setText("快递员编号");
+		jl[4].setText("快递员姓名");
 
-		jl[0].setBounds(frameWidth / 2, frameHeight / 10, 100, 65);
-		for (int i = 1; i < 4; i++) {
-			jl[i].setBounds(frameWidth / 9, frameHeight / 15 + frameHeight / 8
-					* i, 100, 65);
+		jl[0].setBounds(frameWidth / 2, frameHeight / 10, frameWidth / 10,
+				frameHeight / 20);
+		for (int i = 1; i < 5; i++) {
+			jl[i].setBounds(frameWidth / 10, frameHeight / 6 * i,
+					frameWidth / 10, frameHeight / 20);
 		}
 
-		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10, 80, 30);
-		cancel.setBounds(frameWidth * 2 / 5, frameHeight * 9 / 10, 80, 30);
+		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10,
+				frameWidth / 10, frameHeight / 20);
+		confirm.addActionListener(this);
+		cancel.setBounds(frameWidth * 2 / 5, frameHeight * 9 / 10,
+				frameWidth / 10, frameHeight / 20);
 		cancel.addActionListener(this);
+
+		for (int i = 0; i < 4; i++) {
+			jtf[i].setBounds(frameWidth / 4, frameHeight / 6 * (1 + i),
+					frameWidth / 10, frameHeight / 20);
+		}
+		over.setBounds(frameWidth / 3, frameHeight * 9 / 10, frameWidth / 10,
+				frameHeight / 20);
+		over.addActionListener(this);
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -78,8 +100,22 @@ public class Ying_collect extends RightAll implements  ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		 if(e.getSource()==cancel){
-			 this.notifyWatchers(State.ZHONG_START);
-		 }
+		if (e.getSource() == cancel) {
+			this.notifyWatchers(State.ZHONG_START);
+		} else if (e.getSource() == confirm) {
+			this.remove(confirm);
+			this.remove(cancel);
+			this.add(over);
+			this.add(jtf[3]);
+			this.add(jl[4]);
+			for (int i = 0; i < 4; i++) {
+				jtf[i].setEditable(false);
+			}
+			this.repaint();
+		}
+
+		if (e.getSource() == over) {
+			this.notifyWatchers(State.YING_START);
+		}
 	}
 }
