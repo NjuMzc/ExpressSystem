@@ -65,4 +65,12 @@ public class GoodPO implements Remote,Serializable{
     public String getID(){
     	return id;
     }
+    
+    public String getDeparture(){
+    	return depature;
+    }
+    
+    public String getDestination(){
+    	return destination;
+    }
 }

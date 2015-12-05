@@ -144,6 +144,9 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 		confirm.setBounds(frameWidth / 4 * 3 - 100, frameHeight - 80, 80, 40);
 		confirm.addActionListener(this);
 
+		
+		
+		
 	}
 
 	public void addWatcher(Watcher watcher) {

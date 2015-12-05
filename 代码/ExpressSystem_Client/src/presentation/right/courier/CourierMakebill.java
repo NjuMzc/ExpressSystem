@@ -5,6 +5,7 @@ import javax.swing.*;
 import businesslogic.transportbl.courier.Trans_MakingOrderServerImpl;
 import businesslogicservice.transportblservice.courier.Trans_MakingOrderServer;
 import po.Message;
+import po.bills.OrderBill;
 import presentation.Data;
 import presentation.right.RightAll;
 import presentation.watcher.*;
@@ -30,6 +31,10 @@ public class CourierMakebill extends RightAll implements ActionListener {
 	JTextField[] inputText;
 	JComboBox<String> type;
 	JComboBox<String> type_decorate;
+	JLabel orderNum;
+	JLabel orderFee;
+	JLabel orderTime;
+	JTextField jtf[];
 	private List<Watcher> list;
 
 	public CourierMakebill(int frameWidth, int frameHeight) {
@@ -61,13 +66,23 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		type = new JComboBox<String>(item);
 		String[] items = { "纸箱", "木箱", "包装袋", "其他" };
 		type_decorate = new JComboBox<String>(items);
+		
+		orderFee=new JLabel("快递费用");
+		orderNum=new JLabel("快递编号");
+		orderTime=new JLabel("预计到达时间");
+		jtf=new JTextField[3];
+		for(int i=0;i<3;i++){
+			jtf[i]=new JTextField();
+		}
 
 		init();
 
 		for (int i = 0; i < 21; i++) {
+			if(i!=16)
 			senderInfor.add(input[i]);
 		}
 		for (int i = 0; i < 16; i++) {
+			if(i!=13)
 			senderInfor.add(inputText[i]);
 		}
 		senderInfor.add(type);
@@ -104,7 +119,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		input[16].setText("快递类型");
 		input[17].setText("手机");
 		input[18].setText("手机");
-		input[19].setText("计费方式");
+		input[19].setText("快递类型");
 		input[20].setText("包装类型");
 		for (int i = 0; i < 10; i++) {
 			input[i].setBounds(0, 40 * i, 100, 20);
@@ -151,6 +166,8 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		for (int i = 0; i < 16; i++) {
 			inputText[i].setText(String.valueOf(i));
 		}
+		
+		 
 
 		// 输入栏焦点转移
 		inputText[0].addKeyListener(new KeyAdapter() {
@@ -368,17 +385,47 @@ public class CourierMakebill extends RightAll implements ActionListener {
 					break;
 				}
 			}
+			
+			
+			orderNum.setBounds(0, 40 * 10, 100, 20);
+			orderFee.setBounds(0, 40 * 11, 100, 20);
+			orderTime.setBounds(0, 40 * 12, 100, 20);
+			for(int i=0;i<3;i++){
+				jtf[i].setBounds(80, 40 * (i + 10), 100, 20 );
+			}
+			
+			senderInfor.add(orderFee);
+			senderInfor.add(orderNum);
+			senderInfor.add(orderTime);
+			for(int i=0;i<3;i++){
+				senderInfor.add(jtf[i]);
+				
+			}
+			for(int i=0;i<16;i++){
+				inputText[i].setEditable(false);
+			}
 
 			Message message = new Message();
 			for (int i = 0; i < 16; i++) {
-				message.addInform(inputText[i].getText());
+				if(i!=13){
+					message.addInform(inputText[i].getText());
+				}else{
+					message.addInform("");
+				}
+				
 			}
+			message.addInform((String)type.getSelectedItem());
+			message.addInform((String)type_decorate.getSelectedItem());
+			
+			OrderBill bill=blServer.makeOrder(message);
+			
+			jtf[0].setText(bill.getID());
+			jtf[1].setText(bill.getCharge());
+			jtf[2].setText(bill.getTime());
 
-			blServer.makeOrder(message);
-
-			System.out.println("Added!");
-
-			this.notifyWatchers(State.COURIERMAKEBILLAFTER);
+			for(int i=0;i<3;i++){
+				jtf[i].setEditable(false);
+			}
 
 		}
 

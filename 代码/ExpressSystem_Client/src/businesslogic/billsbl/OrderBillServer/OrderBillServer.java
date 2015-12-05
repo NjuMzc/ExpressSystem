@@ -23,9 +23,10 @@ public class OrderBillServer {
 		//设置ID以及计算运费
 		bill.setID(idMaker.giveID(bill));
 		bill.setCharge(calculator.calculate(bill));
-		
+
 		//加入持久化数据中
 		dataServer.addBill(bill);
+		System.out.println("Add "+bill.getID());
 		
 		return bill;
 	}

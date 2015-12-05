@@ -27,6 +27,7 @@ public class GoodController {
 	//新建货物对象
 	public GoodPO makeGood(OrderBill bill){
         GoodPO good=new GoodPO(bill.getID(), bill.getDepature(),bill.getDestination());
+        System.out.println(good.getID());
         dataServer.insert(good);
 		return good;
 	}

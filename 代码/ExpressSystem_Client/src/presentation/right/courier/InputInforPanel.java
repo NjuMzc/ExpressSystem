@@ -5,11 +5,16 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
+import businesslogic.transportbl.courier.Trans_InquireOrderServerImpl;
+import businesslogic.transportbl.courier.Trans_MakingReceiveBillServerImpl;
 import businesslogicservice.transportblservice.transportBillsMaker;
+import businesslogicservice.transportblservice.courier.Trans_InquireOrderServer;
+import businesslogicservice.transportblservice.courier.Trans_MakingReceiveBillServer;
 
 import javax.swing.*;
 
 import po.Message;
+import po.bills.ReceiveBill;
 import presentation.Data;
 import presentation.right.RightAll;
 import presentation.watcher.*;
@@ -32,10 +37,11 @@ public class InputInforPanel extends RightAll implements ActionListener {
 	private List<Watcher> list;
 	boolean isWrongShow = false;
 
-	transportBillsMaker billmaker;
-	Message receiveMessage;
+	Trans_MakingReceiveBillServer blServer;
+
 
 	public InputInforPanel(int frameWidth, int frameHeight) {
+		this.blServer=new Trans_MakingReceiveBillServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -95,7 +101,6 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		confirm.setBounds(frameWidth / 4, frameHeight / 10 + frameWidth / 2,
 				frameWidth / 12, frameWidth / 20);
 		confirm.setText("确认");
-		confirm.addActionListener(this);
 		cancel.setBounds(frameWidth * 2 / 5, frameHeight / 10 + frameWidth / 2,
 				frameWidth / 12, frameWidth / 20);
 		cancel.setText("取消");
@@ -165,7 +170,6 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		// TODO Auto-generated method stub
 
 		if (e.getSource() == confirm) {
-			this.receiveMessage = new Message();
 			num = jtfNum.getText();
 			name = jtfName.getText();
 			time = (String) jcbYear.getSelectedItem()
@@ -174,15 +178,13 @@ public class InputInforPanel extends RightAll implements ActionListener {
 			jtfName.setText("");
 			jtfNum.setText("");
 
-			receiveMessage.addInform(name);
-			receiveMessage.addInform(num);
-			receiveMessage.addInform(time);
 
-			// billmaker.makeTransBill(receiveMessage);
-			save(receiveMessage);
+			if(blServer.makeBill(num, name, time)==null){
+				isWrongShow=true;
+			}else{
+				isWrongShow=false;
+			}
 
-			//如果输入的订单号不存在，将isWrongShow设为true
-			isWrongShow=true;
 			if (isWrongShow) {
 				wrong.setVisible(true);
 			}

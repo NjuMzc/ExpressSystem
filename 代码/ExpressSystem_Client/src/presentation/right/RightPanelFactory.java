@@ -100,9 +100,7 @@ public class RightPanelFactory {
 			right = new adminStart(frameWidth, frameHeight);
 		} else if (state == State.ADMINMANAGE) {
 			right = new adminManage(frameWidth, frameHeight);
-		} else if (state == State.COURIERMAKEBILLAFTER) {
-			right = new CourierMakebill_After(frameWidth, frameHeight);
-		} else if (state == State.COURIERSEARCHAFTER) {
+		}  else if (state == State.COURIERSEARCHAFTER) {
 			right = new CourierSearch_After(frameWidth, frameHeight);
 		}
 		

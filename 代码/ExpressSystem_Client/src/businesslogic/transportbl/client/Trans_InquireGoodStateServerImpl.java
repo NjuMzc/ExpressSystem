@@ -9,6 +9,10 @@ public class Trans_InquireGoodStateServerImpl implements
 		Trans_InquireGoodStateServer {
 	GoodController goodController;
 	
+	public Trans_InquireGoodStateServerImpl(){
+		goodController=new GoodController();
+	}
+	
 
 	@Override
 	public String getGoodState(String id) {

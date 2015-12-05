@@ -2,6 +2,9 @@ package presentation.right.courier;
 
 import javax.swing.*;
 
+import businesslogic.transportbl.courier.Trans_InquireOrderServerImpl;
+import businesslogicservice.transportblservice.courier.Trans_InquireOrderServer;
+import po.bills.OrderBill;
 import presentation.Data;
 import presentation.right.RightAll;
 import presentation.watcher.State;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourierSearch extends RightAll implements   ActionListener {
+	Trans_InquireOrderServer blServer;
 
 	int frameWidth;
 	int frameHeight;
@@ -26,11 +30,12 @@ public class CourierSearch extends RightAll implements   ActionListener {
 	JLabel wrong;
 	JButton confirm;
 	JButton cancel;
-	JFormattedTextField inputOrder;
+	JTextField inputOrder;
 	boolean isWrongShow = false;
 	private List<Watcher> list;
 
 	public CourierSearch(int frameWidth, int frameHeight) {
+		blServer=new Trans_InquireOrderServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -46,45 +51,8 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		cancel = new JButton("取消");
 		wrong = new JLabel("输入的快递单号不存在");
 		wrong.setVisible(false);
-		inputOrder = new JFormattedTextField(new DecimalFormat("###,#### "));
-		inputOrder.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent event) {
-				if (inputOrder.getText().length() > 10) {
-					event.consume();
-				}
-			}
-		});
-		inputOrder.setInputVerifier(new InputVerifier() {
-
-			@Override
-			public boolean verify(JComponent comp) {
-				JTextField field = (JTextField) comp;
-				boolean passed = false;
-				try {
-					String input = field.getText();
-					if (input.length() == 10) {
-						int index = 0;
-						for (int i = 0; i < 10; i++) {
-							if (input.charAt(i) >= '0'
-									&& input.charAt(i) <= '9') {
-								index++;
-							}
-						}
-
-						if (index == 10) {
-							passed = true;
-							System.out.println("index=" + index);
-						}
-					}
-				} catch (NumberFormatException e) {
-				}
-				if (!passed) {
-					comp.getToolkit().beep();
-					field.selectAll();
-				}
-				return passed;
-			}
-		});
+		inputOrder = new JTextField();
+		 
 
 		init();
 
@@ -106,7 +74,6 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		wrong.setBounds(frameWidth / 2, frameHeight / 4 * 3, 150, 30);
 		wrong.setForeground(new Color(227, 23, 13));
 		inputOrder.setBounds(frameWidth / 2, frameHeight / 3, 150, 30);
-		inputOrder.setValue(new Integer(1111111111));
 
 	}
 
@@ -128,15 +95,15 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COURIERSTART);
 		} else if (e.getSource() == confirm) {
-
-			isWrongShow=false;
-			// 根据逻辑层的验证 修改isWrongShow 填在if判断条件中
-			if (isWrongShow) {
+            OrderBill bill=blServer.inquire(inputOrder.getText());
+            System.out.println(inputOrder.getText());
+			if(bill==null){
 				wrong.setVisible(true);
-			} else {
+			}else{
+				BillNow.setBill(bill);
 				this.notifyWatchers(State.COURIERSEARCHAFTER);
 			}
-
+	
 		}
 
 	}
