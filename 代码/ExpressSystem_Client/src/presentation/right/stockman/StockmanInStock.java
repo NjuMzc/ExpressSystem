@@ -12,7 +12,7 @@ import javax.swing.*;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
-public class StockmanInStock extends RightAll implements  ActionListener {
+public class StockmanInStock extends RightAll implements ActionListener {
 	int frameWidth;
 	int frameHeight;
 	JLabel[] jl;
@@ -28,7 +28,6 @@ public class StockmanInStock extends RightAll implements  ActionListener {
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		jl = new JLabel[8];
@@ -60,19 +59,19 @@ public class StockmanInStock extends RightAll implements  ActionListener {
 		jl[7].setText("位号");
 
 		for (int i = 0; i < 4; i++) {
-			jl[i].setBounds(frameWidth / 8, frameHeight / 10 * (i + 1), 100, 65);
+			jl[i].setBounds(frameWidth / 8, frameHeight / 10 * (i + 1),
+					frameWidth / 10, frameHeight / 20);
 		}
 		for (int i = 4; i < 8; i++) {
-			jl[i].setBounds(frameWidth / 4, frameHeight / 10 * i, 100, 65);
+			jl[i].setBounds(frameWidth / 4, frameHeight / 10 * i,
+					frameWidth / 10, frameHeight / 20);
 		}
 
-		confirm.setMargin(new Insets(0, 0, 0, 0));
-		confirm.setBounds(150, frameHeight - 100, frameWidth / 12,
-				frameWidth / 20);
+		confirm.setBounds(frameWidth / 3, frameHeight / 10 * 9,
+				frameWidth / 10, frameHeight / 20);
 		confirm.addActionListener(this);
-		cancel.setMargin(new Insets(0, 0, 0, 0));
-		cancel.setBounds(frameWidth * 3 / 4 - 225, frameHeight - 100,
-				frameWidth / 12, frameWidth / 20);
+		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10,
+				frameHeight / 20);
 		cancel.addActionListener(this);
 
 	}
@@ -94,7 +93,7 @@ public class StockmanInStock extends RightAll implements  ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.STOCKMANSTART);
-		}else if(e.getSource()==confirm){
+		} else if (e.getSource() == confirm) {
 			this.notifyWatchers(State.STOCKMANINSTOCKAFTER);
 		}
 	}

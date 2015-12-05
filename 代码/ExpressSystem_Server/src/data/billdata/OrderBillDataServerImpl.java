@@ -45,7 +45,7 @@ public class OrderBillDataServerImpl extends UnicastRemoteObject implements Orde
 	}
 
 	@Override
-	public OrderBill findBill(String id) throws RemoteException {
+	public OrderBill findBill(String id) throws RemoteException{
 		for (OrderBill orderBill : orderBills) {
 			if (orderBill.getID().equals(id))
 				return orderBill;
