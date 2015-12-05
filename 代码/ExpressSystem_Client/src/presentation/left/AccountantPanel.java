@@ -36,9 +36,9 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 		this.setBounds(0, 0, frameWidth / 4, frameHeight);
 
 		jb = new JButton[5];
-		for (int i = 0; i < 5; i++) {
-			jb[i] = new JButton();
- 		}
+//		for (int i = 0; i < 5; i++) {
+//			jb[i] = new JButton();
+//// 		}
 		logout = new JButton("");//登出账户
 		close = new JButton("");//关闭系统
 	       logout.setContentAreaFilled(false);
@@ -59,7 +59,7 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\accountleft.png");
+		ImageIcon background = new ImageIcon("pictures\\account.png");
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth/4,frameHeight,null);
 	}
@@ -69,9 +69,43 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 			jb[i] = new JButton();
 			jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i,
 					frameWidth / 4, frameHeight / 13);
-	      	jb[i].setContentAreaFilled(false);
+	      //	jb[i].setContentAreaFilled(true);
 			jb[i].addActionListener(this);
 		}
+		
+		//左栏按钮贴图
+		ImageIcon icon0 = new ImageIcon("pictures//期初建账.png");
+		Image temp0 = icon0.getImage().getScaledInstance(jb[0].getWidth(),
+				jb[0].getHeight(), icon0.getImage().SCALE_DEFAULT);
+		icon0 = new ImageIcon(temp0);
+		jb[0].setIcon(icon0);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//制作报表.png");
+		Image temp1 = icon1.getImage().getScaledInstance(jb[1].getWidth(),
+				jb[1].getHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		jb[1].setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//成本管理.png");
+		Image temp2 = icon2.getImage().getScaledInstance(jb[2].getWidth(),
+				jb[2].getHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		jb[2].setIcon(icon2);
+		
+		
+		ImageIcon icon3 = new ImageIcon("pictures//账户管理.png");
+		Image temp3 = icon3.getImage().getScaledInstance(jb[3].getWidth(),
+				jb[3].getHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3 = new ImageIcon(temp3);
+		jb[3].setIcon(icon3);
+		
+		ImageIcon icon4 = new ImageIcon("pictures//结算管理.png");
+		Image temp4 = icon4.getImage().getScaledInstance(jb[4].getWidth(),
+				jb[4].getHeight(), icon4.getImage().SCALE_DEFAULT);
+		icon4 = new ImageIcon(temp4);
+		jb[4].setIcon(icon4);
+		
+		
 		jb[0].setText("");//期初建账
 		jb[1].setText("");//制作报表
 		jb[2].setText("");//成本管理
@@ -97,20 +131,33 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 
 			if (isSamll) {
 				
-				addjb1 = new JButton("生成付款单");
+				addjb1 = new JButton("");//生成付款单
 				addjb1.addActionListener(this);
-				addjb2 = new JButton("查看成本收益表");
+				addjb2 = new JButton("");//查看成本收益表
 				addjb2.addActionListener(this);
-				addjb1.setBounds(frameWidth / 16, frameHeight / 3 + frameHeight
-						/ 15 * 3, frameWidth / 16 * 3, frameHeight / 30);
-				addjb2.setBounds(frameWidth / 16, frameHeight / 3 + frameHeight
-						/ 15 * 3 + frameHeight / 30, frameWidth / 16 * 3,
-						frameHeight / 30);
+				addjb1.setBounds(0, frameHeight / 3 + frameHeight
+						/ 13 * 3, frameWidth / 4, frameHeight / 23);
+				addjb2.setBounds(0, frameHeight / 3 + frameHeight
+						/ 13 * 3 + frameHeight / 23, frameWidth /4,
+						frameHeight / 23);
+				
+				ImageIcon icon8 = new ImageIcon("pictures//查看成本收益表.png");
+				Image temp8 = icon8.getImage().getScaledInstance(frameWidth / 4,
+						frameHeight / 23, icon8.getImage().SCALE_DEFAULT);
+				icon8 = new ImageIcon(temp8);
+				addjb1.setIcon(icon8);
+				
+				ImageIcon icon9 = new ImageIcon("pictures//生成付款单.png");
+				Image temp9 = icon9.getImage().getScaledInstance(addjb2.getWidth(),
+						addjb2.getHeight(), icon9.getImage().SCALE_DEFAULT);
+				icon9 = new ImageIcon(temp9);
+				addjb2.setIcon(icon9);
+				
 				this.add(addjb1);
 				this.add(addjb2);
 				for (int i = 3; i < 5; i++) {
-					jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13
-							* (i + 1), frameWidth / 4, frameHeight / 13);
+					jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13* i +
+							frameHeight/23*2, frameWidth / 4, frameHeight / 13);
 				}
 				this.isSamll = false;
 			} else {

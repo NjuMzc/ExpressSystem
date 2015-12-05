@@ -54,13 +54,16 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 
 	}
 
+
+	
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\manageleft.png");
+ 		ImageIcon background = new ImageIcon("pictures\\managerleft1.png");
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth/4,frameHeight,null);
 	}
+	
 	
 	private void init() {
 		for (int i = 0; i < 5; i++) {
@@ -68,9 +71,40 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 			jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i,
 					frameWidth / 4, frameHeight / 13);
 			jb[i].addActionListener(this);
-			jb[i].setContentAreaFilled(false);
-	//		jb[i].setBorderPainted(false);
 		}
+		
+			ImageIcon icon0 = new ImageIcon("pictures//人员机构管理.png");
+			Image temp0 = icon0.getImage().getScaledInstance(jb[0].getWidth(),
+					jb[0].getHeight(), icon0.getImage().SCALE_DEFAULT);
+			icon0 = new ImageIcon(temp0);
+			jb[0].setIcon(icon0);
+			
+			ImageIcon icon1 = new ImageIcon("pictures//制定薪水.png");
+			Image temp1 = icon1.getImage().getScaledInstance(jb[1].getWidth(),
+					jb[1].getHeight(), icon1.getImage().SCALE_DEFAULT);
+			icon1 = new ImageIcon(temp1);
+			jb[1].setIcon(icon1);
+			
+			ImageIcon icon2 = new ImageIcon("pictures//制定常量.png");
+			Image temp2 = icon2.getImage().getScaledInstance(jb[2].getWidth(),
+					jb[1].getHeight(), icon2.getImage().SCALE_DEFAULT);
+			icon2 = new ImageIcon(temp2);
+			jb[2].setIcon(icon2);
+			
+			ImageIcon icon3 = new ImageIcon("pictures//审批单据.png");
+			Image temp3 = icon3.getImage().getScaledInstance(jb[3].getWidth(),
+					jb[3].getHeight(), icon3.getImage().SCALE_DEFAULT);
+			icon3 = new ImageIcon(temp3);
+			jb[3].setIcon(icon3);
+			
+			ImageIcon icon4 = new ImageIcon("pictures//查看报表.png");
+			Image temp4 = icon4.getImage().getScaledInstance(jb[4].getWidth(),
+					jb[4].getHeight(), icon4.getImage().SCALE_DEFAULT);
+			icon4 = new ImageIcon(temp4);
+			jb[4].setIcon(icon4);
+		
+//			jb[i].setContentAreaFilled(false);
+//         	jb[i].setBorderPainted(false);
 		jb[0].setText("");//人员机构管理
 		jb[1].setText("");//制定薪水
 		jb[2].setText("");//制定常量

@@ -45,6 +45,7 @@ public class StockmanPanel extends  LeftAll implements   ActionListener{
         logout.addActionListener(this);
         close.addActionListener(this);
 	
+
 		
 		init();
 		
@@ -59,7 +60,7 @@ public class StockmanPanel extends  LeftAll implements   ActionListener{
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\stockleft.png");
+		ImageIcon background = new ImageIcon("pictures\\keeperleft1.png");
 		Image bg =background.getImage();
 		g.drawImage(bg, 0, 0,frameWidth/4,frameHeight,null);
 	}
@@ -70,9 +71,42 @@ public class StockmanPanel extends  LeftAll implements   ActionListener{
 			jb[i] = new JButton();
 			jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i,
 					frameWidth / 4, frameHeight / 13);
-			jb[i].setContentAreaFilled(false);
+			
+			//jb[i].setContentAreaFilled(false);
 			jb[i].addActionListener(this);
 		}
+			
+			ImageIcon icon0 = new ImageIcon("pictures//入库单填写.png");
+			Image temp0 = icon0.getImage().getScaledInstance(jb[0].getWidth(),
+					jb[0].getHeight(), icon0.getImage().SCALE_DEFAULT);
+			icon0 = new ImageIcon(temp0);
+			jb[0].setIcon(icon0);
+			
+			ImageIcon icon1 = new ImageIcon("pictures//出库单填写.png");
+			Image temp1 = icon1.getImage().getScaledInstance(jb[1].getWidth(),
+					jb[1].getHeight(), icon1.getImage().SCALE_DEFAULT);
+			icon1 = new ImageIcon(temp1);
+			jb[1].setIcon(icon1);
+			
+			ImageIcon icon2 = new ImageIcon("pictures//库存查看.png");
+			Image temp2 = icon2.getImage().getScaledInstance(jb[2].getWidth(),
+					jb[1].getHeight(), icon2.getImage().SCALE_DEFAULT);
+			icon2 = new ImageIcon(temp2);
+			jb[2].setIcon(icon2);
+			
+			ImageIcon icon3 = new ImageIcon("pictures//库存盘点.png");
+			Image temp3 = icon3.getImage().getScaledInstance(jb[3].getWidth(),
+					jb[3].getHeight(), icon3.getImage().SCALE_DEFAULT);
+			icon3 = new ImageIcon(temp3);
+			jb[3].setIcon(icon3);
+			
+			ImageIcon icon4 = new ImageIcon("pictures//分区调整.png");
+			Image temp4 = icon4.getImage().getScaledInstance(jb[4].getWidth(),
+					jb[4].getHeight(), icon4.getImage().SCALE_DEFAULT);
+			icon4 = new ImageIcon(temp4);
+			jb[4].setIcon(icon4);
+			
+
 		jb[0].setText("");//入库单填写
 		jb[1].setText("");//出库单填写
 		jb[2].setText("");//库存查看

@@ -38,9 +38,9 @@ public class Cover extends RightAll implements ActionListener {
 		this.setBounds(0, 0, frameWidth, frameHeight);
 
 		system = new JButton();
-		system.setBorderPainted(false);
+		//system.setBorderPainted(false);
 		customer = new JButton();
-		customer.setBorderPainted(false);
+		//customer.setBorderPainted(false);
 
 		init();
 

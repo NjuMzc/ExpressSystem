@@ -1,6 +1,8 @@
 package presentation.right.stockman;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.*;
 
@@ -22,18 +24,27 @@ public class StockmanStart extends RightAll   {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		jl = new JLabel("start");
+	//	jl = new JLabel("start");
 
 		init();
 
 		this.setBackground(new Color(254, 67, 101));
-		this.add(jl);
+	//	this.add(jl);
 
 	}
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+	}
+	
 
 	private void init() {
-		jl.setBounds(320, 320, 300, 300);
-		jl.setText("start");
+//		jl.setBounds(320, 320, 300, 300);
+//		jl.setText("start");
 	}
 
 	@Override
