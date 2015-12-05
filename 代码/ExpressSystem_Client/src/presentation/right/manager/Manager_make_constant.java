@@ -1,6 +1,8 @@
 package presentation.right.manager;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,6 +80,15 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 
 	}
 
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+	}
+	
+	
 	private void init() {
 		cityremind.setBounds(frameWidth / 10, frameHeight / 10,
 				frameWidth / 10, frameHeight / 10);

@@ -5,7 +5,7 @@ import dataservice.billsdataservice.HallArrivalBillDataServer;
 import po.Message;
 import po.bills.HallArrivalBill;
 
-public class HallArrivalBillServer {
+public class HallArrivalBillServer  {
 	HallArrivalBillDataServer dataServer;
 	
 	public HallArrivalBillServer(){

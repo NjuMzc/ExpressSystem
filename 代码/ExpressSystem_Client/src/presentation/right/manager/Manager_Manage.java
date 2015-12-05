@@ -1,6 +1,8 @@
 package presentation.right.manager;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -108,6 +110,15 @@ public class Manager_Manage extends RightAll {
 			this.add(gz);
 		}
 
+		protected void paintComponent(Graphics g) {
+			// TODO Auto-generated method stub
+			super.paintComponent(g);
+			ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+			Image bg =background.getImage();
+			g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+		}
+		
+		
 		private void initCityPanel() {
 			city_remind.setBounds(0, 0, frameWidth / 4, frameHeight / 15);
 			nj.setBounds(0, frameHeight / 5, frameWidth / 4, frameHeight / 15);

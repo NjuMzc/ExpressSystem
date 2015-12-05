@@ -1,12 +1,17 @@
 package presentation.right.manager;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
+
+import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
 import presentation.right.RightAll;
 import presentation.watcher.*;
@@ -44,6 +49,7 @@ public class Manager_make_money extends RightAll implements ActionListener {
 			jl[i] = new JLabel();
 		}
 		ok = new JButton("提交");
+		ok.setFont(new Font("宋体",Font.PLAIN,20));
 		cancel = new JButton("取消");
 
 		jradiobutton1 = new JRadioButton[7];
@@ -64,11 +70,21 @@ public class Manager_make_money extends RightAll implements ActionListener {
 			way2[i] = new JLabel("%");
 			jtf1[i] = new JTextField();
 			jtf2[i] = new JTextField();
+			
+			jradiobutton1[i].setFont(new Font("宋体",Font.PLAIN,14));
+			jradiobutton2[i].setFont(new Font("宋体",Font.PLAIN,14));
+	    way1[i].setFont(new Font("宋体",Font.PLAIN,14));
+			
 		}
 		for (int i = 0; i < 3; i++) {
 			jradiobutton3[i] = new JRadioButton("计次：");
+			jradiobutton3[i].setFont(new Font("宋体",Font.PLAIN,14));
+			jradiobutton3[i].setBorderPainted(false); //不绘制边界搜索
+		   jradiobutton3[i].setContentAreaFilled(false); //不填充所占的矩形区域
 			way3[i] = new JLabel("元/次 ");
+			way3[i].setFont(new Font("宋体",Font.PLAIN,14));
 			jtf3[i] = new JTextField();
+			jtf3[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
 
 		init();
@@ -92,6 +108,16 @@ public class Manager_make_money extends RightAll implements ActionListener {
 		this.add(cancel);
 
 	}
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+	}
+	
+	
 
 	private void init() {
 
@@ -122,8 +148,8 @@ public class Manager_make_money extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 3; i++) {
-			jradiobutton3[i].setBounds(frameWidth / 2 + frameWidth / 20,
-					frameHeight / 10 * (i + 5), frameWidth / 12,
+			jradiobutton3[i].setBounds(frameWidth / 2 + frameWidth / 22,
+					frameHeight / 10 * (i + 5), frameWidth / 11,
 					frameHeight / 20);
 			way3[i].setBounds(frameWidth / 30 * 23, frameHeight / 10 * (i + 5),
 					frameHeight / 20, frameHeight / 20);
@@ -141,9 +167,11 @@ public class Manager_make_money extends RightAll implements ActionListener {
 			buttongroup[i].add(jradiobutton3[i - 4]);
 		}
 
-		ok.setBounds(frameWidth / 4, frameHeight / 5 * 4, 80, 30);
+		ok.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+		ok.setBounds(frameWidth / 5, frameHeight / 5 * 4, 90, 40);
 		ok.addActionListener(this);
-		cancel.setBounds(frameWidth / 2, frameHeight / 5 * 4, 80, 30);
+		cancel.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+		cancel.setBounds(frameWidth / 5*2, frameHeight / 5 * 4, 90, 40);
 		cancel.addActionListener(this);
 	}
 
