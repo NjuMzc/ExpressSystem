@@ -1,5 +1,7 @@
 package businesslogic.transportbl;
-
+/**
+ * 制作订单功能的实现
+ */
 import po.Message;
 import po.bills.OrderBill;
 import businesslogic.billsbl.OrderBillServer.OrderBillServer;

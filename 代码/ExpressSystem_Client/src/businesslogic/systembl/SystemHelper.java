@@ -13,7 +13,7 @@ public class SystemHelper {
 		UserNow = user;
 	}
 
-	public static SystemUserPO getUser() {
-		return UserNow;
+	public static String getUserID() {
+		return UserNow.getID();
 	}
 }

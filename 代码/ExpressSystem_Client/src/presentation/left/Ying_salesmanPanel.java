@@ -172,9 +172,9 @@ public class Ying_salesmanPanel extends LeftAll implements
 		} else if (e.getSource() == jb[2]) {
 			this.notifyWatchers(State.YING_MANAGEINFOR);
 		} else if (e.getSource() == jb[3]) {
-			this.notifyWatchers(State.YING_PAYMENT);
-		} else if (e.getSource() == jb[4]) {
 			this.notifyWatchers(State.YING_LOADING);
+		} else if (e.getSource() == jb[4]) {
+			this.notifyWatchers(State.YING_PAYMENT);
 		}
 
 		if (e.getSource() == arrival) {

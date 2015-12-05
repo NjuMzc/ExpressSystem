@@ -10,18 +10,12 @@ public class HallArrivalBillServer {
 	
 	public HallArrivalBillServer(){
 		//RMI赋值
-		
+		dataServer=RMIHelper.getHallArrivalBillData();
 	}
 	
-	public HallArrivalBill makeBill(String date,String transOrderNum,String departure,String state){
-		Message message=new Message();
+	public HallArrivalBill makeBill(String GoodID,String date,String transOrderNum,String departure,String state){
 		
-		message.addInform(date);
-		message.addInform(transOrderNum);
-		message.addInform(departure);
-		message.addInform(state);
-		
-		HallArrivalBill bill=new HallArrivalBill(message);
+		HallArrivalBill bill=new HallArrivalBill(GoodID,state,transOrderNum,departure,state);
 		dataServer.addBill(bill);
 		
 		return bill;

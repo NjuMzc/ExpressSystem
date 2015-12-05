@@ -18,6 +18,11 @@ public class GoodController {
 		this.dataServer=RMIHelper.getTransportData();
 		
 	}
+	
+	//搜索货物对象
+	public GoodPO getGood(String goodID){
+		return dataServer.find(goodID);
+	}
 
 	//新建货物对象
 	public GoodPO makeGood(OrderBill bill){

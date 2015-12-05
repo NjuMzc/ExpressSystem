@@ -169,4 +169,8 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 		return list.iterator();
 	}
 
+	public HallPO getHall(String id){
+		HallPO hall=HallDataServer.find(id);
+		return hall;
+	}
 }
