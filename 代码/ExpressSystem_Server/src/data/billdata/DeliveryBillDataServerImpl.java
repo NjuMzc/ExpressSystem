@@ -12,49 +12,48 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import dataservice.billsdataservice.ChargeBillDataServer;
-import po.bills.ChargeBill;
+import dataservice.billsdataservice.DeliveryBillDataServer;
+import po.bills.DeliveryBill;
 
-public class ChargeBillDataServerImpl extends UnicastRemoteObject implements ChargeBillDataServer {
+public class DeliveryBillDataServerImpl extends UnicastRemoteObject implements DeliveryBillDataServer {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2224265360684397199L;
+	private static final long serialVersionUID = -2002233704170163232L;
+	private final String path = "src/dataList/billList/deliveryList.dat";
+	private ArrayList<DeliveryBill> deliveryBills;
 
-	private final String path = "src/dataList/billList/chargeList.dat";
-	private ArrayList<ChargeBill> chargeBills;
-
-	public ChargeBillDataServerImpl() throws RemoteException {
+	public DeliveryBillDataServerImpl() throws RemoteException {
 		super();
 		load();
+
 	}
 
 	@Override
-	public void addBill(ChargeBill bill) throws RemoteException {
-		chargeBills.add(bill);
+	public void addBill(DeliveryBill bill) throws RemoteException {
+		deliveryBills.add(bill);
 		save();
 	}
-	
 
 	@Override
 	public boolean removeBill(String id) throws RemoteException {
-		ChargeBill poInArray = findBill(id);
+		DeliveryBill poInArray = findBill(id);
 		if (poInArray != null) {
-			chargeBills.remove(poInArray);
+			deliveryBills.remove(poInArray);
 			save();
 			System.out.println("成功删除");
 			return true;
-		} else {
-			System.out.println("找不到该单据");
-			return false;
 		}
+		System.out.println("找不到该单据");
+		return false;
 	}
 
 	@Override
-	public ChargeBill findBill(String id) throws RemoteException {
-		for (ChargeBill chargeBill : chargeBills) {
-			if (chargeBill.getId().equals(id))
-				return chargeBill;
+	public DeliveryBill findBill(String id) throws RemoteException {
+		for (DeliveryBill deliveryBill : deliveryBills) {
+			if (deliveryBill.getId().equals(id))
+				return deliveryBill;
 		}
 		return null;
 	}
@@ -70,7 +69,7 @@ public class ChargeBillDataServerImpl extends UnicastRemoteObject implements Cha
 			}
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(list));
-			oos.writeObject(chargeBills);
+			oos.writeObject(deliveryBills);
 			oos.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -90,13 +89,13 @@ public class ChargeBillDataServerImpl extends UnicastRemoteObject implements Cha
 			}
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(list));
-			chargeBills = (ArrayList<ChargeBill>) ois.readObject();
+			deliveryBills = (ArrayList<DeliveryBill>) ois.readObject();
 			ois.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("找不到文件");
 			e.printStackTrace();
 		} catch (EOFException e) {
-			chargeBills = new ArrayList<ChargeBill>();
+			deliveryBills = new ArrayList<DeliveryBill>();
 			save();
 			load();
 		} catch (ClassNotFoundException e) {

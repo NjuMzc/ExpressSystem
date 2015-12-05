@@ -6,6 +6,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
 import data.bankdata.BankDataServerImpl;
+import data.billdata.ChargeBillDataServerImpl;
+import data.billdata.DeliveryBillDataServerImpl;
 import data.billdata.HallArrivalBillDataServerImpl;
 import data.billdata.OrderBillDataServerImpl;
 import data.billdata.ReceiveBillDataServerImpl;
@@ -18,6 +20,8 @@ import data.informationdata.Inform_TranStationDataServerImpl;
 import data.systemdata.SystemDataServerImpl;
 import data.transportdata.TransportDataServerImpl;
 import dataservice.bankdataservice.BankDataServer;
+import dataservice.billsdataservice.ChargeBillDataServer;
+import dataservice.billsdataservice.DeliveryBillDataServer;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
@@ -65,13 +69,18 @@ public class RMIHelper {
 
 			Inform_TranStaffDataServer tranStaffDataService = new Inform_TranStaffDataServerImpl();
 			Naming.rebind("tranStaffData", tranStaffDataService);
-			
+
 			Inform_TranStationDataServer tranStationDataService = new Inform_TranStationDataServerImpl();
 			Naming.rebind("tranStationData", tranStationDataService);
-			
+
 			HallArrivalBillDataServer hallArrivalBillDataService = new HallArrivalBillDataServerImpl();
 			Naming.rebind("hallArrivalBillData", hallArrivalBillDataService);
 
+			ChargeBillDataServer chargeBillDataService = new ChargeBillDataServerImpl();
+			Naming.rebind("chargeBillData", chargeBillDataService);
+
+			DeliveryBillDataServer deliveryBillDataService = new DeliveryBillDataServerImpl();
+			Naming.rebind("deliveryBillData", deliveryBillDataService);
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {
 			e.printStackTrace();

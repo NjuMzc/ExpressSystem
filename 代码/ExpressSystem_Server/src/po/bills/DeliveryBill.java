@@ -1,12 +1,14 @@
 package po.bills;
 
+import java.io.Serializable;
+import java.rmi.Remote;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import po.BillPO;
 import po.Message;
 
-public class DeliveryBill{
+public class DeliveryBill implements Serializable,Remote{
 
     private String kind;//中转类型，分为：air，railway，highway
 	private String date;//装车日期
