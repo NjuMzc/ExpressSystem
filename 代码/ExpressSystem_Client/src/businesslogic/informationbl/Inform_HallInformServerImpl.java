@@ -173,4 +173,8 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 		HallPO hall=HallDataServer.find(id);
 		return hall;
 	}
+	
+	public void updateHall(HallPO hall){
+		HallDataServer.updateHall(hall);
+	}
 }

@@ -51,12 +51,12 @@ public class OrderBill implements Remote,Serializable {
 	    
 	    //快递类型
 	    //如果输入有错误，这里默认设置为标准快递
-	    String temp=billInfor.getInform(13);
-	    if(temp.equals("ecnomic")){
+	    String temp=billInfor.getInform(16);
+	    if(temp.equals("经济快递")){
 	    	this.kind=Kind.ecnomic;
-	    }else if(temp.equals("standard")){
+	    }else if(temp.equals("标准快递")){
 	    	this.kind=Kind.standard;
-	    }else if(temp.equals("express")){
+	    }else if(temp.equals("特快专递")){
 	    	this.kind=Kind.express;
 	    }else{
 	    	System.out.println(temp+" 生成快递类型出错，置为默认标准快递");
@@ -64,14 +64,14 @@ public class OrderBill implements Remote,Serializable {
 	    }
 	    
 	    //包装类型
-	    temp=billInfor.getInform(15);
-	    if(temp.equals("paper")){
+	    temp=billInfor.getInform(17);
+	    if(temp.equals("纸箱")){
 	    	this.bagging=Bagging.paper;
-	    }else if(temp.equals("wood")){
+	    }else if(temp.equals("木箱")){
 	    	this.bagging=Bagging.wood;
-	    }else if(temp.equals("bag")){
+	    }else if(temp.equals("包装袋")){
 	    	this.bagging=Bagging.bag;
-	    }else if(temp.equals("other")){
+	    }else if(temp.equals("其他")){
 	    	this.bagging=Bagging.other;
 	    }else{
 	    	System.out.println(temp+" 生成包装费出错，置为默认快递袋");

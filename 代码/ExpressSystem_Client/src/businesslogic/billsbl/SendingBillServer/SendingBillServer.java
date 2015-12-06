@@ -1,5 +1,6 @@
 package businesslogic.billsbl.SendingBillServer;
 
+import client.RMIHelper;
 import po.bills.SendingBill;
 import dataservice.billsdataservice.SendingBillDataServer;
 
@@ -8,7 +9,7 @@ public class SendingBillServer {
 	
 	public SendingBillServer(){
 		//RMI实现
-		
+		dataServer=RMIHelper.getSendingBillData();
 		
 	}
 	

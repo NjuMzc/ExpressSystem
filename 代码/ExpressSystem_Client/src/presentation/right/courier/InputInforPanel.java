@@ -5,17 +5,12 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
-import businesslogic.transportbl.courier.Trans_InquireOrderServerImpl;
 import businesslogic.transportbl.courier.Trans_MakingReceiveBillServerImpl;
-import businesslogicservice.transportblservice.transportBillsMaker;
-import businesslogicservice.transportblservice.courier.Trans_InquireOrderServer;
 import businesslogicservice.transportblservice.courier.Trans_MakingReceiveBillServer;
 
 import javax.swing.*;
 
 import po.Message;
-import po.bills.ReceiveBill;
-import presentation.Data;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 

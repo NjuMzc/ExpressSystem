@@ -2,6 +2,7 @@ package businesslogic.billsbl.HallEntruckBillServer;
 
 import java.util.Iterator;
 
+import client.RMIHelper;
 import dataservice.billsdataservice.HallEntruckBillDataServer;
 import po.Message;
 import po.bills.HallEntruckBill;
@@ -13,7 +14,7 @@ public class HallEntruckBillServer {
     public HallEntruckBillServer(){
     	calculator=new HallEntruckFeeCalculator();
     	//RMI
-    	
+    	dataServer=RMIHelper.getHallEntruckData();
     }
 	
 	public HallEntruckBill makeBill(Message message,Iterator<String> orderList){

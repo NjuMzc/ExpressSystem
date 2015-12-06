@@ -1,5 +1,6 @@
 package businesslogic.constantbl;
 
+import client.RMIHelper;
 import po.constants.PriceListPO;
 import dataservice.constantdataservice.PriceListDataServer;
 import businesslogicservice.constantblservice.PriceListServer;
@@ -11,7 +12,7 @@ public class PriceListServerImpl implements PriceListServer {
 	
 	public PriceListServerImpl(){
 		//RMI
-		
+		dataServer=RMIHelper.getPriceListData();
 		list=dataServer.get();
 		
 	}
@@ -51,5 +52,51 @@ public class PriceListServerImpl implements PriceListServer {
 		// TODO Auto-generated method stub
 		return list.getEconomicPrice();
 	}
+
+	@Override
+	public void setCarPrice(double price) {
+		// TODO Auto-generated method stub
+		list.setCarPrice(price);
+		dataServer.update();
+	}
+
+	@Override
+	public void setTrainPrice(double price) {
+		// TODO Auto-generated method stub
+		list.setTrainPrice(price);
+		dataServer.update();
+	}
+
+	@Override
+	public void setAirPrice(double price) {
+		// TODO Auto-generated method stub
+		list.setAirPrice(price);
+		dataServer.update();
+	}
+
+	@Override
+	public void setStandardPrice(double price) {
+		// TODO Auto-generated method stub
+		list.setStandardPrice(price);
+		dataServer.update();
+	}
+
+	@Override
+	public void setExpressPrice(double price) {
+		// TODO Auto-generated method stub
+		list.setExpressPrice(price);
+		dataServer.update();
+	}
+
+	@Override
+	public void setEconomicPrice(double price) {
+		// TODO Auto-generated method stub
+		list.setEconomicPrice(price);
+		dataServer.update();
+		
+	}
+
+
+
 
 }

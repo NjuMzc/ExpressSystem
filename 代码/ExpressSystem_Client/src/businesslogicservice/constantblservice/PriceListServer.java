@@ -14,4 +14,16 @@ public interface PriceListServer {
 	
 	public double getEconomicPrice();
 	
+	public void setCarPrice(double price);
+	
+	public void setTrainPrice(double price);
+	
+	public void setAirPrice(double price);
+	
+	public void setStandardPrice(double price);
+	
+	public void setExpressPrice(double price);
+	
+	public void setEconomicPrice(double price);
+	
 }

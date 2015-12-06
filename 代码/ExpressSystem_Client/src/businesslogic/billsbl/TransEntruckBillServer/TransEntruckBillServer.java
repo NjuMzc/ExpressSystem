@@ -2,6 +2,7 @@ package businesslogic.billsbl.TransEntruckBillServer;
 
 import java.util.Iterator;
 
+import client.RMIHelper;
 import dataservice.billsdataservice.TransEntruckBillDataServer;
 import po.Message;
 import po.bills.TransEntruckBill;
@@ -10,6 +11,11 @@ public class TransEntruckBillServer {
 	
 	   TransEntruckBillDataServer dataServer;
 	   TransEntruckFeeCalculator calculator;
+	   
+	   public TransEntruckBillServer(){
+		   dataServer=RMIHelper.getTransEntruckBillData();
+		   calculator=new TransEntruckFeeCalculator();
+	   }
 		
 		public TransEntruckBill makeBill(Message message,Iterator<String> orderList){
 			TransEntruckBill bill=new TransEntruckBill(message, orderList);

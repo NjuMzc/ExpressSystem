@@ -8,6 +8,8 @@ import po.bills.OrderBill;
 public class OrderBillServer {
 
 	OrderBillDataServer dataServer;
+	OrderBill_IDMaker idMaker;
+	OrderBill_ChargeCalculator calculator;
 	
 	public OrderBillServer(){
 		this.dataServer=RMIHelper.getOrderBillData();
@@ -17,8 +19,8 @@ public class OrderBillServer {
 	public OrderBill makeBill(Message msg) {
 		// TODO Auto-generated method stub
 		OrderBill bill=new OrderBill(msg);
-		OrderBill_IDMaker idMaker=new OrderBill_IDMaker(dataServer);
-		OrderBill_ChargeCalculator calculator=new OrderBill_ChargeCalculator();
+		idMaker=new OrderBill_IDMaker(dataServer);
+		calculator=new OrderBill_ChargeCalculator();
 		
 		//设置ID以及计算运费
 		bill.setID(idMaker.giveID(bill));

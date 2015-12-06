@@ -2,7 +2,6 @@ package businesslogic.billsbl.HallArrivalBillServer;
 
 import client.RMIHelper;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
-import po.Message;
 import po.bills.HallArrivalBill;
 
 public class HallArrivalBillServer  {

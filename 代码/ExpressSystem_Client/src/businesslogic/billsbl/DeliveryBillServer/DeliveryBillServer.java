@@ -2,6 +2,7 @@ package businesslogic.billsbl.DeliveryBillServer;
 
 import java.util.Iterator;
 
+import client.RMIHelper;
 import dataservice.billsdataservice.DeliveryBillDataServer;
 import po.Message;
 import po.bills.DeliveryBill;
@@ -9,6 +10,11 @@ import po.bills.DeliveryBill;
 public class DeliveryBillServer {
 	DeliveryBillDataServer dataServer;
 	DeliveryFeeCalculator calculator;
+	
+	public DeliveryBillServer(){
+		this.dataServer=RMIHelper.getDeliveryBillData();
+		calculator=new DeliveryFeeCalculator();
+	}
 	
 	public DeliveryBill makeBill(Message message,Iterator<String> billList){
 		DeliveryBill bill=new DeliveryBill(message, billList);

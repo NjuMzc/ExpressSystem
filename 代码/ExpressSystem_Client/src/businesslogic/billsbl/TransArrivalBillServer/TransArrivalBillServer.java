@@ -9,7 +9,7 @@ public class TransArrivalBillServer {
 	
 	public TransArrivalBillServer(){
 		//RMI赋值
-		
+		dataServer=RMIHelper.getTransArrivalBillData();
 	}
 	
 	public TransArrivalBill makeBill(String tranStationNum,String GoodID,String date,String transOrderNum,String departure,String state){

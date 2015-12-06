@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.rmi.Remote;
 
 import po.Message;
-
+  
 public class HallArrivalBill implements Serializable,Remote{
 
 	/**

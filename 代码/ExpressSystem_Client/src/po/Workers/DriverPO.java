@@ -2,6 +2,7 @@ package po.Workers;
 import java.io.Serializable;
 import java.rmi.Remote;
 
+
 /**
  * 司机的PO对象
  */
@@ -31,8 +32,15 @@ public class DriverPO implements Remote, Serializable {
 	
 	private HallPO hall;//所在的营业厅
 	
-	public DriverPO(String id){
+	public DriverPO(String id,String name, String birth, String ShenFenZheng,
+			String mobile, String sex, String portTime){
 		this.id=id;
+		this.name=name;
+		this.birth=birth;
+		this.ShenFenZheng=ShenFenZheng;
+		this.mobileNum=mobile;
+		this.sex=sex;
+		this.portTime=portTime;
 	}
 	
 	

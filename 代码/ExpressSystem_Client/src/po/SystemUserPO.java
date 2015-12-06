@@ -7,7 +7,7 @@ import java.rmi.Remote;
  * @author rabook
  *
  */
-public class SystemUserPO implements Remote, Serializable {
+public class SystemUserPO implements Remote, Serializable{
 	String id;
 	String key;
 	
@@ -45,5 +45,6 @@ public class SystemUserPO implements Remote, Serializable {
 	public void setKey(String newKey){
 		this.key=newKey;
 	}
+
 
 }

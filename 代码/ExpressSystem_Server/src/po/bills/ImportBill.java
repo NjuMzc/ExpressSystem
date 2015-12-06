@@ -1,9 +1,8 @@
 package po.bills;
 
-import po.BillPO;
 import po.Message;
 
-public class ImportBill extends BillPO{
+public class ImportBill{
 
     String number;
 	String date;
@@ -12,7 +11,6 @@ public class ImportBill extends BillPO{
 	
 	
 	public ImportBill(Message message) {
-		super(message);
 		// TODO Auto-generated constructor stub
 		location=new String[4];
 		this.number=message.getInform(0);

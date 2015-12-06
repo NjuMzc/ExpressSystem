@@ -17,8 +17,11 @@ public class CarPO {
 	
 	private HallPO hall;//所属营业厅
 	
-	public CarPO(String id){
+	public CarPO(String id,String ChePai,String UsingTime,HallPO hall){
 		this.id=id;
+		this.ChePai=ChePai;
+		this.UsingTime=UsingTime;
+		this.hall=hall;
 	}
 	
     //Setters and Getters	

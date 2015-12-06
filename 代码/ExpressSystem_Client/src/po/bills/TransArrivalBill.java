@@ -3,7 +3,6 @@ package po.bills;
 import java.io.Serializable;
 import java.rmi.Remote;
 
-import po.BillPO;
 import po.Message;
 
 public class TransArrivalBill implements Serializable,Remote{

@@ -5,7 +5,6 @@ import java.rmi.Remote;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import po.BillPO;
 import po.Message;
 
 public class DeliveryBill implements Serializable,Remote{

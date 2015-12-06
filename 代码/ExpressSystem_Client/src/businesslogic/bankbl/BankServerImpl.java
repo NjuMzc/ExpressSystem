@@ -4,6 +4,7 @@ package businesslogic.bankbl;
  * 银行账号操作的实现
  * 
  */
+import client.RMIHelper;
 import dataservice.bankdataservice.BankDataServer;
 import po.BankPO;
 import businesslogicservice.bankblservice.bankServer;
@@ -13,6 +14,7 @@ public class BankServerImpl implements bankServer {
 
 	public BankServerImpl() {
 		// RMI实现
+		dataServer=RMIHelper.getBankData();
 	}
 
 	/*

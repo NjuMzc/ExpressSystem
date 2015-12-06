@@ -1,5 +1,6 @@
 package businesslogic.constantbl;
 
+import client.RMIHelper;
 import po.constants.CityDistancePO;
 import dataservice.constantdataservice.CityDistanceDataServer;
 import businesslogicservice.constantblservice.CityDistanceServer;
@@ -9,7 +10,7 @@ public class CityDistanceServerImpl implements CityDistanceServer{
     
     public CityDistanceServerImpl(){
     	//RMI实现
-    	
+    	dataServer=RMIHelper.getCityDistanceData();
     }
 	
 	@Override
