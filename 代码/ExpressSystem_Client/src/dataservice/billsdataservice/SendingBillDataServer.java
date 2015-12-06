@@ -1,8 +1,10 @@
 package dataservice.billsdataservice;
 
+import java.rmi.Remote;
+
 import po.bills.SendingBill;
 
-public interface SendingBillDataServer {
+public interface SendingBillDataServer extends Remote{
     public void addBill(SendingBill bill);
 	
 	public boolean removeBill(String id);

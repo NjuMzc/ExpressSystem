@@ -13,6 +13,9 @@ import dataservice.billsdataservice.HallEntruckBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.PaymentBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
+import dataservice.billsdataservice.SendingBillDataServer;
+import dataservice.billsdataservice.TransArrivalBillDataServer;
+import dataservice.billsdataservice.TransEntruckBillDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
 import dataservice.informationdataservice.Inform_KeeperDataServer;
@@ -39,6 +42,9 @@ public class RMIHelper {
 	private static DeliveryBillDataServer deliveryBillData;
 	private static HallEntruckBillDataServer hallEntruckData;
 	private static PaymentBillDataServer paymentBillData;
+	private static SendingBillDataServer sendingBillData;
+	private static TransArrivalBillDataServer transArrivalBillData;
+	private static TransEntruckBillDataServer transEntruckBillData;
 
 	public static void init() {
 		try {
@@ -58,6 +64,9 @@ public class RMIHelper {
 			deliveryBillData = (DeliveryBillDataServer) Naming.lookup("rmi://localhost:1099/deliveryBillData");
 			hallEntruckData = (HallEntruckBillDataServer) Naming.lookup("rmi://localhost:1099/hallEntruckBillData");
 			paymentBillData= (PaymentBillDataServer)Naming.lookup("rmi://localhost:1099/paymentBillData");
+			sendingBillData=(SendingBillDataServer)Naming.lookup("rmi://localhost:1099/sendingBillData");
+			transArrivalBillData=(TransArrivalBillDataServer)Naming.lookup("rmi://localhost:1099/transArrivalBillData");
+			transEntruckBillData =(TransEntruckBillDataServer)Naming.lookup("rmi://localhost:1099/transEntruckBillData");
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -67,6 +76,18 @@ public class RMIHelper {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static TransEntruckBillDataServer getTransEntruckBillData() {
+		return transEntruckBillData;
+	}
+
+	public static TransArrivalBillDataServer getTransArrivalBillData() {
+		return transArrivalBillData;
+	}
+
+	public static SendingBillDataServer getSendingBillData() {
+		return sendingBillData;
 	}
 
 	public static PaymentBillDataServer getPaymentBillData() {

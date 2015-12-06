@@ -1,4 +1,6 @@
 package po.bills;
+import java.io.Serializable;
+import java.rmi.Remote;
 /**
  * 中转中心装车单的po对象
  */
@@ -7,7 +9,11 @@ import java.util.Iterator;
 
 import po.Message;
 
-public class TransEntruckBill {
+public class TransEntruckBill implements Serializable,Remote{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7278223348350309861L;
 	private String date;//装车日期
 	private String transNum;//中转中心汽运编号，营业厅编号6位+日期8位+5位流水号
 	private String destination;//到达地

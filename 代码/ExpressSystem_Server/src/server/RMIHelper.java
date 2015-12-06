@@ -13,6 +13,9 @@ import data.billdata.HallEntruckBillDataServerImpl;
 import data.billdata.OrderBillDataServerImpl;
 import data.billdata.PaymentBillDataServerImpl;
 import data.billdata.ReceiveBillDataServerImpl;
+import data.billdata.SendingBillDataServerImpl;
+import data.billdata.TransArrivalBillDataServerImpl;
+import data.billdata.TransEntruckBillDataServerImpl;
 import data.informationdata.Inform_HallDataServerImpl;
 import data.informationdata.Inform_HallStaffDataServerImpl;
 import data.informationdata.Inform_KeeperDataServerImpl;
@@ -29,6 +32,9 @@ import dataservice.billsdataservice.HallEntruckBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.PaymentBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
+import dataservice.billsdataservice.SendingBillDataServer;
+import dataservice.billsdataservice.TransArrivalBillDataServer;
+import dataservice.billsdataservice.TransEntruckBillDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
 import dataservice.informationdataservice.Inform_KeeperDataServer;
@@ -42,6 +48,8 @@ public class RMIHelper {
 
 	public static void init() {
 		System.out.println("服务器初始化中，请稍候-----------");
+		TimeCounter timeCounter = new TimeCounter();
+		timeCounter.start();
 		try {
 			LocateRegistry.createRegistry(1099);
 
@@ -92,13 +100,41 @@ public class RMIHelper {
 
 			PaymentBillDataServer paymentBillDataService = new PaymentBillDataServerImpl();
 			Naming.rebind("paymentBillData", paymentBillDataService);
+
+			SendingBillDataServer sendingBillDataService = new SendingBillDataServerImpl();
+			Naming.rebind("sendingBillData", sendingBillDataService);
+			
+			TransArrivalBillDataServer transArrivallDataService = new TransArrivalBillDataServerImpl();
+			Naming.rebind("transArrivalBillData", transArrivallDataService);
+			
+			TransEntruckBillDataServer transEntruckBillDataService = new TransEntruckBillDataServerImpl();
+			Naming.rebind("transEntruckBillData", transEntruckBillDataService);
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		timeCounter.stop();
 
 	}
 
+}
+
+class TimeCounter extends Thread {
+	@Override
+	public void run() {
+		int i = 1;
+		super.run();
+		while (true) {
+			System.out.println(i + ".......");
+			i++;
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }
