@@ -16,6 +16,8 @@ import dataservice.billsdataservice.ReceiveBillDataServer;
 import dataservice.billsdataservice.SendingBillDataServer;
 import dataservice.billsdataservice.TransArrivalBillDataServer;
 import dataservice.billsdataservice.TransEntruckBillDataServer;
+import dataservice.constantdataservice.CityDistanceDataServer;
+import dataservice.constantdataservice.PriceListDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
 import dataservice.informationdataservice.Inform_KeeperDataServer;
@@ -45,6 +47,8 @@ public class RMIHelper {
 	private static SendingBillDataServer sendingBillData;
 	private static TransArrivalBillDataServer transArrivalBillData;
 	private static TransEntruckBillDataServer transEntruckBillData;
+	private static PriceListDataServer priceListData;
+	private static CityDistanceDataServer cityDistanceData;
 
 	public static void init() {
 		try {
@@ -63,11 +67,14 @@ public class RMIHelper {
 			chargeBillData = (ChargeBillDataServer) Naming.lookup("rmi://localhost:1099/chargeBillData");
 			deliveryBillData = (DeliveryBillDataServer) Naming.lookup("rmi://localhost:1099/deliveryBillData");
 			hallEntruckData = (HallEntruckBillDataServer) Naming.lookup("rmi://localhost:1099/hallEntruckBillData");
-			paymentBillData= (PaymentBillDataServer)Naming.lookup("rmi://localhost:1099/paymentBillData");
-			sendingBillData=(SendingBillDataServer)Naming.lookup("rmi://localhost:1099/sendingBillData");
-			transArrivalBillData=(TransArrivalBillDataServer)Naming.lookup("rmi://localhost:1099/transArrivalBillData");
-			transEntruckBillData =(TransEntruckBillDataServer)Naming.lookup("rmi://localhost:1099/transEntruckBillData");
-			
+			paymentBillData = (PaymentBillDataServer) Naming.lookup("rmi://localhost:1099/paymentBillData");
+			sendingBillData = (SendingBillDataServer) Naming.lookup("rmi://localhost:1099/sendingBillData");
+			transArrivalBillData = (TransArrivalBillDataServer) Naming
+					.lookup("rmi://localhost:1099/transArrivalBillData");
+			transEntruckBillData = (TransEntruckBillDataServer) Naming
+					.lookup("rmi://localhost:1099/transEntruckBillData");
+			priceListData = (PriceListDataServer) Naming.lookup("rmi://localhost:1099/priceListData");
+			cityDistanceData = (CityDistanceDataServer) Naming.lookup("rmi://localhost:1099/cityDistanceData");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -76,6 +83,14 @@ public class RMIHelper {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static CityDistanceDataServer getCityDistanceData() {
+		return cityDistanceData;
+	}
+
+	public static PriceListDataServer getPriceListData() {
+		return priceListData;
 	}
 
 	public static TransEntruckBillDataServer getTransEntruckBillData() {

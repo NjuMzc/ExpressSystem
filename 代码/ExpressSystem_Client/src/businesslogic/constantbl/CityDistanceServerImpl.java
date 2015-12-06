@@ -41,7 +41,7 @@ public class CityDistanceServerImpl implements CityDistanceServer{
 			return false;
 		}else{
 			dis.setDistance(distance);
-			dataServer.update(dis);
+			dataServer.update(city1,city2,distance);
 			return true;
 		}
 	}
