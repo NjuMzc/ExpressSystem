@@ -201,6 +201,8 @@ public class adminManage extends RightAll implements   ActionListener {
 				Message message = new Message();
 				message.addInform((String) model.getValueAt(this.row_Change, 0));
 				message.addInform((String) model.getValueAt(this.row_Change, 2));
+				
+				System.out.println((String) model.getValueAt(this.row_Change, 2)+"passport");
 
 				blserver.changeUser(
 						(String) model.getValueAt(this.row_Change, 1), message);
