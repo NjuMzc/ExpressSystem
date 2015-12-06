@@ -23,6 +23,8 @@ public class Ying_salesmanPanel extends LeftAll implements ActionListener {
 	JLabel name;
 	JLabel num;
 	JLabel photo;
+	JTextField jtf_num;
+	JTextField jtf_name;
 
 	public Ying_salesmanPanel(int frameWidth, int frameHeight) {
 
@@ -43,6 +45,8 @@ public class Ying_salesmanPanel extends LeftAll implements ActionListener {
 		close.setContentAreaFilled(false);
 		logout.setBorderPainted(false);
 		close.setBorderPainted(false);
+		jtf_name = new JTextField();
+		jtf_num = new JTextField();
 
 		init();
 
@@ -52,6 +56,8 @@ public class Ying_salesmanPanel extends LeftAll implements ActionListener {
 		}
 		this.add(logout);
 		this.add(close);
+		this.add(jtf_name);
+		this.add(jtf_num);
 
 	}
 
@@ -117,6 +123,11 @@ public class Ying_salesmanPanel extends LeftAll implements ActionListener {
 				frameWidth / 17, frameWidth / 17);
 		logout.addActionListener(this);
 		close.addActionListener(this);
+		
+		jtf_num.setBounds(frameWidth / 10, frameHeight / 64*15, frameWidth / 10,
+				frameHeight / 30);
+		jtf_name.setBounds(frameWidth / 10, frameHeight / 64*18,
+				frameWidth / 10, frameHeight / 30);
 
 	}
 
