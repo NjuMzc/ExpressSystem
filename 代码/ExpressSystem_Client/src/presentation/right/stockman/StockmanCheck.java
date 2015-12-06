@@ -3,10 +3,15 @@ package presentation.right.stockman;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import java.util.Calendar;
 
 import presentation.right.RightAll;
 import presentation.watcher.*;
@@ -14,9 +19,16 @@ import presentation.watcher.*;
 public class StockmanCheck extends RightAll implements ActionListener {
 	int frameWidth;
 	int frameHeight;
-	JLabel[] jl;
-	JButton back;
+	JButton cancel;
+	JButton export;
+	JLabel currenttime;
 	private List<Watcher> list;
+
+	JLabel time[];
+	JTextField timeInput[];
+	DefaultTableModel tableModel;
+	JTable table;
+	JScrollPane js;
 
 	public StockmanCheck(int frameWidth, int frameHeight) {
 
@@ -26,40 +38,104 @@ public class StockmanCheck extends RightAll implements ActionListener {
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		jl = new JLabel[7];
-		for (int i = 0; i < 7; i++) {
-			jl[i] = new JLabel();
+		cancel = new JButton("返回");
+		tableModel = new DefaultTableModel();
+		table = new JTable(tableModel);
+		js = new JScrollPane(table);
+		currenttime = new JLabel("当前日期");
+		time = new JLabel[3];
+		timeInput = new JTextField[3];
+		for (int i = 0; i < 3; i++) {
+			time[i] = new JLabel();
+			timeInput[i] = new JTextField();
 		}
-		back = new JButton("返回");
+		export = new JButton("导出报表");
 
 		init();
 
-		for (int i = 0; i < 7; i++) {
-			this.add(jl[i]);
+		this.add(cancel);
+		this.add(js);
+		this.add(currenttime);
+		for (int i = 0; i < 3; i++) {
+			this.add(time[i]);
+			this.add(timeInput[i]);
 		}
-		this.add(back);
-
+		this.add(export);
 	}
 
 	private void init() {
+		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10,
+				frameHeight / 20);
+		cancel.addActionListener(this);
+		export.setBounds(frameWidth / 5, frameHeight / 10 * 9, frameWidth / 10,
+				frameHeight / 20);
+		export.addActionListener(this);
+		currenttime.setBounds(0, 0, frameWidth / 10, frameHeight / 10);
 
-		jl[0].setText("快递编号");
-		jl[1].setText("入库日期");
-		jl[2].setText("目的地");
-		jl[3].setText("区号");
-		jl[4].setText("排号");
-		jl[5].setText("架号");
-		jl[6].setText("位号");
-
-		for (int i = 0; i < 7; i++) {
-			jl[i].setBounds(frameWidth / 10 * (i + 1), frameHeight / 10, 100, 65);
+		time[0].setText("年");
+		time[1].setText("月");
+		time[2].setText("日");
+		for (int i = 0; i < 3; i++) {
+			timeInput[i].setBounds(frameWidth / 10 * (i + 1), frameHeight / 40,
+					frameWidth / 12, frameHeight / 20);
+			time[i].setBounds(frameWidth / 12 + frameWidth / 10 * (i + 1),
+					frameHeight / 40, frameWidth / 12, frameHeight / 20);
 		}
 
-		back.setBounds(frameWidth / 4, frameHeight / 5 * 4, 80, 30);
-		back.addActionListener(this);
+		initTime();
+		initTable();
+
+		js.setBounds(0, frameHeight / 10, frameWidth / 4 * 3,
+				frameHeight / 5 * 4);
+	}
+
+	private void initTime() {
+
+		Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);
+		int month = c.get(Calendar.MONTH) + 1;
+		int day = c.get(Calendar.DATE);
+
+		System.out.println(year + " " + month + " " + day);
+
+		// 获取当前时间
+		timeInput[0].setText(year + "");
+		timeInput[1].setText(month + "");
+		timeInput[2].setText(day + "");
+
+		for (int i = 0; i < 3; i++) {
+			timeInput[i].setEditable(false);
+		}
+	}
+
+	private void initTable() {
+		tableModel.addColumn("快递编号");
+		tableModel.addColumn("入库日期");
+		tableModel.addColumn("目的地");
+		tableModel.addColumn("区号");
+		tableModel.addColumn("排号");
+		tableModel.addColumn("架号");
+		tableModel.addColumn("位号");
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
+
+		initTableModel();
+	}
+
+	private void initTableModel() {
+		Vector<String> vec = new Vector<>();
+
+		vec.add("123456789");
+		vec.add("2015.12.12");
+		vec.add("南京");
+		vec.add("1");
+		vec.add("1");
+		vec.add("1");
+		vec.add("1");
+
+		tableModel.addRow(vec);
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -77,8 +153,12 @@ public class StockmanCheck extends RightAll implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == back) {
+		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.STOCKMANSTART);
+		} else if (e.getSource() == export) {
+
+			// 导出报表
+
 		}
 	}
 }
