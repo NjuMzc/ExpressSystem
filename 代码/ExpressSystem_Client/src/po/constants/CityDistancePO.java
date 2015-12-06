@@ -1,7 +1,14 @@
 package po.constants;
 
-public class CityDistancePO {
+import java.io.Serializable;
+import java.rmi.Remote;
 
+public class CityDistancePO implements Serializable,Remote{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7457460054259364116L;
 	String city1;
 	String city2;
 	

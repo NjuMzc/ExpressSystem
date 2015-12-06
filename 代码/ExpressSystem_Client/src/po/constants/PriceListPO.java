@@ -1,10 +1,19 @@
 package po.constants;
+
+import java.io.Serializable;
+import java.rmi.Remote;
+
 /**
  * 各种各样的价格列表
  * @author rabook
  *
  */
-public class PriceListPO {
+public class PriceListPO implements Serializable,Remote{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5429360673004104582L;
 
 	private double CarPrice;
 	
@@ -18,7 +27,7 @@ public class PriceListPO {
 
 	private double expressPrice;
 	
-	private PriceListPO(){
+	public PriceListPO(){
 		this.CarPrice=2;
 		this.TrainPrice=0.2;
 		this.AirPrice=20;

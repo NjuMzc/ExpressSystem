@@ -1,10 +1,11 @@
 package dataservice.constantdataservice;
 
+import java.rmi.Remote;
+
 import po.constants.PriceListPO;
 
-public interface PriceListDataServer {
+public interface PriceListDataServer extends Remote{
 
-	public void add(PriceListPO list);
 	
 	public PriceListPO get();
 	
