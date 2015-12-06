@@ -84,6 +84,9 @@ public class ChargeBillDataServerImpl extends UnicastRemoteObject implements Cha
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				chargeBills = new ArrayList<ChargeBill>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

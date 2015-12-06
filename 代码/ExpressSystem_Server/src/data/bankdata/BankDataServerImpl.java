@@ -92,6 +92,9 @@ public class BankDataServerImpl extends UnicastRemoteObject implements BankDataS
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				banks = new ArrayList<BankPO>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

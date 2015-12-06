@@ -98,6 +98,9 @@ public class Inform_HallDataServerImpl extends UnicastRemoteObject implements In
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				halls = new ArrayList<HallPO>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

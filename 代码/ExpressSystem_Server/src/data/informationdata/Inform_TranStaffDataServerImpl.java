@@ -97,6 +97,9 @@ public class Inform_TranStaffDataServerImpl extends UnicastRemoteObject implemen
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				tranStaffs = new ArrayList<TranStaffPO>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

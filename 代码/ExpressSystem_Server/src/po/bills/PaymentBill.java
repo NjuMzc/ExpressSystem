@@ -1,8 +1,15 @@
 package po.bills;
 
+import java.io.Serializable;
+import java.rmi.Remote;
+
 import po.Message;
 
-public class PaymentBill {	
+public class PaymentBill implements  Serializable,Remote{	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7458849121566130285L;
 	private String id;//该单据id
 
 	

@@ -83,6 +83,9 @@ public class DeliveryBillDataServerImpl extends UnicastRemoteObject implements D
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				deliveryBills = new ArrayList<DeliveryBill>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

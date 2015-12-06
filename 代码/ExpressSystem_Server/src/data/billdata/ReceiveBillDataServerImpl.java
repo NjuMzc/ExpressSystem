@@ -79,6 +79,9 @@ public class ReceiveBillDataServerImpl extends UnicastRemoteObject implements Re
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				receiveBills = new ArrayList<ReceiveBill>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

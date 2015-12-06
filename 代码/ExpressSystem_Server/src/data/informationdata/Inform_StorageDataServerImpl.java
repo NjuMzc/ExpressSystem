@@ -86,6 +86,9 @@ public class Inform_StorageDataServerImpl extends UnicastRemoteObject implements
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				storages = new ArrayList<StoragePO>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

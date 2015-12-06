@@ -79,6 +79,9 @@ public class TransportDataServerImpl extends UnicastRemoteObject implements Tran
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				goods = new ArrayList<GoodPO>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

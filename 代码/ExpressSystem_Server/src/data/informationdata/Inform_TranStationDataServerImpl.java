@@ -85,6 +85,9 @@ public class Inform_TranStationDataServerImpl extends UnicastRemoteObject implem
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				tranStations = new ArrayList<TranStationPO>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -97,6 +97,9 @@ public class Inform_HallStaffDataServerImpl extends UnicastRemoteObject implemen
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				hallStaffs = new ArrayList<HallStaffPO>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

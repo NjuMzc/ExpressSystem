@@ -16,6 +16,10 @@ import dataservice.billsdataservice.OrderBillDataServer;
 import po.bills.OrderBill;
 
 public class OrderBillDataServerImpl extends UnicastRemoteObject implements OrderBillDataServer {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2689370206783500246L;
 	private final String path = "src/dataList/billList/orderList.dat";
 	private ArrayList<OrderBill> orderBills;
 
@@ -78,6 +82,9 @@ public class OrderBillDataServerImpl extends UnicastRemoteObject implements Orde
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				orderBills = new ArrayList<OrderBill>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -83,6 +83,9 @@ public class HallArrivalBillDataServerImpl extends UnicastRemoteObject implement
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				hallArrivalBills = new ArrayList<HallArrivalBill>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

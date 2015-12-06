@@ -11,6 +11,7 @@ import data.billdata.DeliveryBillDataServerImpl;
 import data.billdata.HallArrivalBillDataServerImpl;
 import data.billdata.HallEntruckBillDataServerImpl;
 import data.billdata.OrderBillDataServerImpl;
+import data.billdata.PaymentBillDataServerImpl;
 import data.billdata.ReceiveBillDataServerImpl;
 import data.informationdata.Inform_HallDataServerImpl;
 import data.informationdata.Inform_HallStaffDataServerImpl;
@@ -26,6 +27,7 @@ import dataservice.billsdataservice.DeliveryBillDataServer;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
 import dataservice.billsdataservice.HallEntruckBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
+import dataservice.billsdataservice.PaymentBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
@@ -39,6 +41,7 @@ import dataservice.transportdataservice.TransportDataServer;
 public class RMIHelper {
 
 	public static void init() {
+		System.out.println("服务器初始化中，请稍候-----------");
 		try {
 			LocateRegistry.createRegistry(1099);
 
@@ -86,6 +89,9 @@ public class RMIHelper {
 
 			HallEntruckBillDataServer hallEntruckBillDataService = new HallEntruckBillDataServerImpl();
 			Naming.rebind("hallEntruckBillData", hallEntruckBillDataService);
+
+			PaymentBillDataServer paymentBillDataService = new PaymentBillDataServerImpl();
+			Naming.rebind("paymentBillData", paymentBillDataService);
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {
 			e.printStackTrace();

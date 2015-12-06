@@ -98,6 +98,9 @@ public class Inform_KeeperDataServerImpl extends UnicastRemoteObject implements 
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				keepers = new ArrayList<StorageKeeperPO>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();

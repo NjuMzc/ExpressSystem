@@ -100,6 +100,9 @@ public class SystemDataServerImpl extends UnicastRemoteObject implements SystemD
 		if (!list.exists())
 			try {
 				list.createNewFile();
+				users = new ArrayList<SystemUserPO>();
+				save();
+				load();
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();
