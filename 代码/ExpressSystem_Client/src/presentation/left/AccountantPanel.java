@@ -25,6 +25,9 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 	boolean isSamll = true;
 	JButton addjb1;
 	JButton addjb2;
+	
+	JTextField jtf_num;
+	JTextField jtf_name;
 
 	public AccountantPanel(int frameWidth, int frameHeight) {
 
@@ -45,6 +48,9 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 	       close.setContentAreaFilled(false);
 	       logout.setBorderPainted(false);
 	       close.setBorderPainted(false);
+	       
+	   	jtf_name = new JTextField();
+		jtf_num = new JTextField();
 
 		init();
 
@@ -54,6 +60,8 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 		}
 		this.add(logout);
 		this.add(close);
+		this.add(jtf_name);
+		this.add(jtf_num);
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -119,7 +127,10 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 		close.setBounds(frameWidth*13/80, frameHeight *63/72,frameWidth/17, frameWidth/17);
 		close.addActionListener(this);
 
-
+		jtf_num.setBounds(frameWidth / 10, frameHeight / 64*15, frameWidth / 10,
+				frameHeight / 30);
+		jtf_name.setBounds(frameWidth / 10, frameHeight / 64*18,
+				frameWidth / 10, frameHeight / 30);
 	}
 
 	public void actionPerformed(ActionEvent e) {

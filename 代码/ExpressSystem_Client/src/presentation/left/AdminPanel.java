@@ -27,6 +27,9 @@ public class AdminPanel extends LeftAll implements Watched, ActionListener {
 	JLabel num;
 	JLabel photo;
 	private List<Watcher> list;
+	
+	JTextField jtf_num;
+	JTextField jtf_name;
 
 	public AdminPanel(int frameWidth, int frameHeight) {
 		this.frameWidth = frameWidth;
@@ -49,12 +52,17 @@ public class AdminPanel extends LeftAll implements Watched, ActionListener {
 //		manage.setBorderPainted(false);
 		logout.setBorderPainted(false);
 		close.setBorderPainted(false);
+		
+		jtf_name = new JTextField();
+		jtf_num = new JTextField();
 
 		init();
 
 		this.add(manage);
 		this.add(logout);
 		this.add(close);
+		this.add(jtf_name);
+		this.add(jtf_num);
 
 	}
 
@@ -86,6 +94,11 @@ public class AdminPanel extends LeftAll implements Watched, ActionListener {
 		Image temp0 = icon0.getImage().getScaledInstance(frameWidth/4,frameHeight/13, icon0.getImage().SCALE_DEFAULT);
 		icon0 = new ImageIcon(temp0);
 		manage.setIcon(icon0);
+		
+		jtf_num.setBounds(frameWidth / 10, frameHeight / 64*15, frameWidth / 10,
+				frameHeight / 30);
+		jtf_name.setBounds(frameWidth / 10, frameHeight / 64*18,
+				frameWidth / 10, frameHeight / 30);
 			
 		}
 
