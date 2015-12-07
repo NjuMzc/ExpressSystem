@@ -9,8 +9,10 @@ import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.BillApproverDataServer;
 import dataservice.billsdataservice.ChargeBillDataServer;
 import dataservice.billsdataservice.DeliveryBillDataServer;
+import dataservice.billsdataservice.ExportBillDataServer;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
 import dataservice.billsdataservice.HallEntruckBillDataServer;
+import dataservice.billsdataservice.ImportBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.PaymentBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
@@ -57,6 +59,8 @@ public class RMIHelper {
 	private static Inform_DriverDataServer driverData;
 	private static CityDataServer cityData;
 	private static BillApproverDataServer billApproverData;
+	private static ExportBillDataServer exportBillData;
+	private static ImportBillDataServer importBillData;
 	
 	public static void init() {
 		try {
@@ -87,6 +91,8 @@ public class RMIHelper {
 			driverData =(Inform_DriverDataServer)Naming.lookup("rmi://localhost:1099/driverData");
 			cityData=(CityDataServer)Naming.lookup("rmi://localhost:1099/cityData");
 			billApproverData =(BillApproverDataServer)Naming.lookup("rmi://localhost:1099/billApproverData");
+			exportBillData =(ExportBillDataServer)Naming.lookup("rmi://localhost:1099/exportBillData");
+			importBillData =(ImportBillDataServer)Naming.lookup("rmi://localhost:1099/importBillData");
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -96,6 +102,14 @@ public class RMIHelper {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static ImportBillDataServer getImportBillData() {
+		return importBillData;
+	}
+
+	public static ExportBillDataServer getExportBillData() {
+		return exportBillData;
 	}
 
 	public static BillApproverDataServer getBillApproverData() {

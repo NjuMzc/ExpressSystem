@@ -9,8 +9,10 @@ import data.bankdata.BankDataServerImpl;
 import data.billdata.BillApproverDataServerImpl;
 import data.billdata.ChargeBillDataServerImpl;
 import data.billdata.DeliveryBillDataServerImpl;
+import data.billdata.ExportBillDataServerImpl;
 import data.billdata.HallArrivalBillDataServerImpl;
 import data.billdata.HallEntruckBillDataServerImpl;
+import data.billdata.ImportBillDataServerImpl;
 import data.billdata.OrderBillDataServerImpl;
 import data.billdata.PaymentBillDataServerImpl;
 import data.billdata.ReceiveBillDataServerImpl;
@@ -34,8 +36,10 @@ import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.BillApproverDataServer;
 import dataservice.billsdataservice.ChargeBillDataServer;
 import dataservice.billsdataservice.DeliveryBillDataServer;
+import dataservice.billsdataservice.ExportBillDataServer;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
 import dataservice.billsdataservice.HallEntruckBillDataServer;
+import dataservice.billsdataservice.ImportBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.PaymentBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
@@ -139,6 +143,12 @@ public class RMIHelper {
 			
 			BillApproverDataServer billApproverDataService = new BillApproverDataServerImpl();
 			Naming.rebind("billApproverData", billApproverDataService);
+			
+			ExportBillDataServer exportBillDataService = new ExportBillDataServerImpl();
+			Naming.rebind("exportBillData", exportBillDataService);
+			
+			ImportBillDataServer importBillDataService = new ImportBillDataServerImpl();
+			Naming.rebind("importBillData", importBillDataService);
 			
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {

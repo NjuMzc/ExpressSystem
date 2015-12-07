@@ -11,6 +11,8 @@ public class ExportBill implements Serializable,Remote{
 	private static final long serialVersionUID = 4470680442343129454L;
 	String orderNum;//快递编号
 	String date;//日期
+	
+
 	String destination;//目的地
 	String loader;//装运方式
 	String DeliverNum;//中转单号
@@ -34,6 +36,10 @@ public class ExportBill implements Serializable,Remote{
 		this.id=orderNum;
 	
 		billForApprove=new BillApproverPO();
+	}
+	
+	public String getId() {
+		return id;
 	}
 	
 	public String getNumber() {
