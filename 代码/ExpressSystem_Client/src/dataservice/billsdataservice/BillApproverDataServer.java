@@ -1,8 +1,10 @@
 package dataservice.billsdataservice;
 
+import java.rmi.Remote;
+
 import po.bills.BillApproverList;
 
-public interface BillApproverDataServer {
+public interface BillApproverDataServer extends Remote{
 
 	public BillApproverList get();
 	

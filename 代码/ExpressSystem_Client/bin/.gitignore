@@ -1,7 +1,5 @@
-/po/
-/presentation/
-/vo/
-/dataservice/
 /businesslogic/
 /businesslogicservice/
-/client/
+/dataservice/
+/po/
+/presentation/
