@@ -2,9 +2,11 @@ package businesslogic.informationbl;
 
 import java.util.Iterator;
 
+import client.RMIHelper;
 import dataservice.informationdataservice.Inform_CarDataServer;
 import po.Institution.HallPO;
 import po.Workers.CarPO;
+import po.Workers.DriverPO;
 import po.Workers.HallStaffPO;
 import businesslogic.systembl.SystemHelper;
 import businesslogicservice.informationblservice.WorkerInform.Inform_CarInformServer;
@@ -19,12 +21,13 @@ public class Inform_CarInformServerImpl implements Inform_CarInformServer {
 	Inform_HallInformServerImpl hallServer;
 	
 	public Inform_CarInformServerImpl(){
-		staffServer=new Inform_HallStaffInformServerImpl();
-		hallServer=new Inform_HallInformServerImpl();
-		
-	    staffNow=staffServer.getStaff(SystemHelper.getUserID());
-	    hall=staffNow.getHall();
 		//RMI
+	    dataServer=RMIHelper.getCarData();
+	    
+	    staffServer=new Inform_HallStaffInformServerImpl();
+		hallServer=new Inform_HallInformServerImpl();
+		staffNow=staffServer.getStaff(SystemHelper.getUserID());
+		hall=hallServer.getHall(staffNow.getHall().getID());
 	}
 
 	@Override
@@ -46,8 +49,7 @@ public class Inform_CarInformServerImpl implements Inform_CarInformServer {
 		
 		CarPO car=new CarPO(hall.getID()+flowStr, ChePai, UsingTime, hall);
 		dataServer.addCar(car);
-		hall.addCar(car);
-		hallServer.updateHall(hall);
+		hallServer.addCar(staffNow.getHall().getID(), car);	
 		
 		return car;
 	}
@@ -56,31 +58,49 @@ public class Inform_CarInformServerImpl implements Inform_CarInformServer {
 	public boolean updateCar(String carId, String ChePai, String UsingTime) {
 		// TODO Auto-generated method stub
 	    CarPO car=dataServer.getCar(carId);
-	    if(car==null)
-	    	return false;
+		if(car==null)
+			return false;
+		Iterator<CarPO> it=hall.getAllCar().iterator();
+		{
+			while(it.hasNext()){
+				if(carId.equals(it.next().getId()))
+					it.remove();
+			}
+		}
+
 	    car.setChePai(ChePai);
 	    car.setUsingTime(UsingTime);
 	    
+	    hall.addCar(car);
 	    dataServer.updateCar(car);
-		
+	    hallServer.updateHall(hall);
 		return true;
 	}
 
 	@Override
 	public Iterator<CarPO> getAllCar() {
 		// TODO Auto-generated method stub
+		hall=hallServer.getHall((staffNow.getHall().getID()));
 		return hall.getAllCar().iterator();
 	}
 
 	@Override
 	public boolean removeCar(String carId) {
 		// TODO Auto-generated method stub
+		hall=hallServer.getHall((staffNow.getHall().getID()));
 		CarPO car=dataServer.getCar(carId);
-	    if(car==null)
-	    	return false;
-	    hall.removeCar(car);
-	    dataServer.deleteCar(car);
+		if(car==null)
+			return false;
+		Iterator<CarPO> it=hall.getAllCar().iterator();
+		{
+			while(it.hasNext()){
+				if(carId.equals(it.next().getId()))
+					it.remove();
+			}
+		}
 	    hallServer.updateHall(hall);
+	    dataServer.deleteCar(car);
+
 		return true;
 	}
 

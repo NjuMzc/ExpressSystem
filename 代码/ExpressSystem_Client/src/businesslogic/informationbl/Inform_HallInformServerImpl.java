@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import client.RMIHelper;
+import dataservice.informationdataservice.Inform_CarDataServer;
+import dataservice.informationdataservice.Inform_DriverDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
 import po.SystemUserPO;
 import po.Institution.HallPO;
+import po.Workers.CarPO;
+import po.Workers.DriverPO;
 import po.Workers.HallStaffPO;
 import businesslogic.LocationNumGetter;
 import businesslogic.systembl.SystemBlServerImpl;
@@ -18,6 +22,8 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 
 	Inform_HallDataServer HallDataServer;
 	Inform_HallStaffDataServer StaffDataServer;
+	Inform_DriverDataServer DriverDataServer;
+	Inform_CarDataServer CarDataServer;
 
 	systemServer systemServer;
 
@@ -28,6 +34,8 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 		// RMI实现
 		this.HallDataServer = RMIHelper.getHallData();
 		this.StaffDataServer=RMIHelper.getHallStaffData();
+		this.DriverDataServer=RMIHelper.getDriverData();
+		this.CarDataServer=RMIHelper.getCarData();
 	}
 
 	@Override
@@ -174,6 +182,39 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 		return hall;
 	}
 	
+	public void addDriver(String hallNum,DriverPO driver){
+		HallPO hall=HallDataServer.find(hallNum);
+		System.out.println(hall.getName());
+		hall.addDriver(driver);
+		HallDataServer.updateHall(hall);
+	}
+	
+	public void removeDriver(String hallNum,String DriverId){
+		HallPO hall=HallDataServer.find(hallNum);
+		DriverPO driver=DriverDataServer.getDriver(DriverId);
+		
+		hall.removeDriver(driver);
+		DriverDataServer.deleteDriver(driver);
+		HallDataServer.updateHall(hall);
+		
+	}
+	
+	public void addCar(String hallNum,CarPO Car){
+		HallPO hall=HallDataServer.find(hallNum);
+		System.out.println(hall.getName());
+		hall.addCar(Car);
+		HallDataServer.updateHall(hall);
+	}
+	
+	public void removeCar(String hallNum,String CarId){
+		HallPO hall=HallDataServer.find(hallNum);
+		CarPO Car=CarDataServer.getCar(CarId);
+		
+		hall.removeCar(Car);
+		CarDataServer.deleteCar(Car);
+		HallDataServer.updateHall(hall);
+		
+	}
 	public void updateHall(HallPO hall){
 		HallDataServer.updateHall(hall);
 	}

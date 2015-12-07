@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -17,6 +18,12 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import businesslogic.informationbl.Inform_CarInformServerImpl;
+import businesslogic.informationbl.Inform_DriverInformServerImpl;
+import businesslogicservice.informationblservice.WorkerInform.Inform_CarInformServer;
+import businesslogicservice.informationblservice.WorkerInform.Inform_DriverInformServer;
+import po.Workers.CarPO;
+import po.Workers.DriverPO;
 import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
@@ -24,6 +31,9 @@ import presentation.watcher.Watcher;
 
 public class Ying_manageInfor extends RightAll implements ActionListener {
 
+	Inform_DriverInformServer driverServer;
+	Inform_CarInformServer carServer;
+	
 	int frameWidth;
 	int frameHeight;
 	JLabel remind;
@@ -34,6 +44,9 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Ying_manageInfor(int frameWidth, int frameHeight) {
+		carServer=new Inform_CarInformServerImpl();
+		driverServer=new Inform_DriverInformServerImpl();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 
@@ -186,16 +199,22 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 
 		// 初始化model,@ma
 		private void initThisTableModel() {
-			Vector<String> vec = new Vector<>();
-			vec.add("陈信宏");
-			vec.add("141250079");
-			vec.add("1993.12.12");
-			vec.add("321302199512181111");
-			vec.add("18761681111");
-			vec.add("男");
-			vec.add("2015.1.1—2020.12.31");
+			Iterator<DriverPO> driverList=driverServer.getAllDriver(); 
+			while(driverList.hasNext()){
+				DriverPO driver=driverList.next();
+				
+				Vector<String> vec = new Vector<>();
+				vec.add(driver.getName());
+				vec.add(driver.getId());
+				vec.add(driver.getBirth());
+				vec.add(driver.getShenFenZheng());
+				vec.add(driver.getMobileNum());
+				vec.add(driver.getSex());
+				vec.add(driver.getPortTime());
 
-			tableModel.addRow(vec);
+				tableModel.addRow(vec);
+			}
+			
 		}
 
 		private void addAddPanel() {
@@ -297,6 +316,8 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				// 删
 				int selectedRow = table.getSelectedRow();
 				if (selectedRow >= 0) {
+					String id=(String) table.getValueAt(selectedRow, 1);
+					if(driverServer.removeDriver(id))
 					tableModel.removeRow(selectedRow);
 				}
 
@@ -314,18 +335,18 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				int row = table.getSelectedRow();
 				if (row >= 0) {
 					Vector<String> vec = new Vector<String>();
+					
+						vec.add((String) (table.getValueAt(row, 0)));
+						vec.add((String) (table.getValueAt(row, 1)));
+						vec.add((String) (table.getValueAt(row, 2)));
+						vec.add((String) (table.getValueAt(row, 3)));
+						vec.add((String) (table.getValueAt(row, 4)));
+						vec.add((String) (table.getValueAt(row, 5)));
+						vec.add((String) (table.getValueAt(row, 6)));
 
-					vec.add((String) (table.getValueAt(row, 0)));
-					vec.add((String) (table.getValueAt(row, 1)));
-					vec.add((String) (table.getValueAt(row, 2)));
-					vec.add((String) (table.getValueAt(row, 3)));
-					vec.add((String) (table.getValueAt(row, 4)));
-					vec.add((String) (table.getValueAt(row, 5)));
-					vec.add((String) (table.getValueAt(row, 6)));
-
-					addChangePanel(vec);
-					tableModel.removeRow(row);
-
+						addChangePanel(vec);
+						tableModel.removeRow(row);
+					
 				}
 
 			}
@@ -335,10 +356,18 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				this.remove(addpanel);
 				this.repaint();
 
+				DriverPO driver=driverServer.addDriver(addjtf[0].getText(), addjtf[2].getText(),addjtf[3].getText(),addjtf[4].getText(), addjtf[5].getText(),addjtf[6].getText());
+				
 				Vector<String> vec = new Vector<>();
 				for (int i = 0; i < 7; i++) {
-					vec.add(addjtf[i].getText());
+					if(i==1){
+						vec.add(driver.getId());
+					}else{
+						vec.add(addjtf[i].getText());
+					}
+					
 				}
+				
 				tableModel.addRow(vec);
 			}
 
@@ -346,6 +375,9 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				this.remove(changepanel);
 				this.repaint();
 
+				Boolean OK=driverServer.updateDriver(changejtf[1].getText(),changejtf[0].getText(), changejtf[2].getText(),
+						changejtf[3].getText(), changejtf[4].getText(), changejtf[5].getText(),  changejtf[6].getText());
+				
 				Vector<String> vec = new Vector<>();
 				for (int i = 0; i < 7; i++) {
 					vec.add(changejtf[i].getText());
@@ -440,16 +472,22 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 
 		// 初始化model,@ma
 		private void initThisTableModel() {
-			Vector<String> vec = new Vector<>();
-			vec.add("陈信宏");
-			vec.add("141250079");
-			vec.add("1993.12.12");
-			vec.add("321302199512181111");
-			vec.add("18761681111");
-			vec.add("男");
-			vec.add("2015.1.1—2020.12.31");
+			Iterator<CarPO>  carList=carServer.getAllCar(); 
+			while(carList.hasNext()){
+				CarPO car=carList.next();
+				
+				Vector<String> vec = new Vector<>();
+				vec.add(car.getId());
+				vec.add("奥迪双钻3000型");
+				vec.add(car.getChePai());
+				vec.add("防水抓地米奇伦底盘");
+				vec.add(car.getUsingTime());
+				vec.add(car.getUsingTime());
+				vec.add("这是一辆很牛逼的车");
 
-			tableModel.addRow(vec);
+				tableModel.addRow(vec);
+			}
+
 		}
 
 		private void addAddPanel() {
@@ -551,6 +589,8 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				// 删
 				int selectedRow = table.getSelectedRow();
 				if (selectedRow >= 0) {
+					String id=(String) table.getValueAt(selectedRow, 0);
+					if(carServer.removeCar(id))
 					tableModel.removeRow(selectedRow);
 				}
 
@@ -589,9 +629,16 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				this.remove(addpanel);
 				this.repaint();
 
+                CarPO car=carServer.addCar(addjtf[2].getText(), addjtf[5].getText());
+				
 				Vector<String> vec = new Vector<>();
 				for (int i = 0; i < 7; i++) {
-					vec.add(addjtf[i].getText());
+					if(i==0){
+						vec.add(car.getId());
+					}else{
+						vec.add(addjtf[i].getText());
+					}
+					
 				}
 				tableModel.addRow(vec);
 			}
@@ -600,6 +647,8 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				this.remove(changepanel);
 				this.repaint();
 
+				Boolean OK=carServer.updateCar(changejtf[0].getText(), changejtf[2].getText(),changejtf[5].getText());
+				
 				Vector<String> vec = new Vector<>();
 				for (int i = 0; i < 7; i++) {
 					vec.add(changejtf[i].getText());
