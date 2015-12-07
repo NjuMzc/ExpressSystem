@@ -1,8 +1,10 @@
 package dataservice.informationdataservice;
 
+import java.rmi.Remote;
+
 import po.Workers.CarPO;
 
-public interface Inform_CarDataServer {
+public interface Inform_CarDataServer extends Remote{
 
 	public void addCar(CarPO car);
 	

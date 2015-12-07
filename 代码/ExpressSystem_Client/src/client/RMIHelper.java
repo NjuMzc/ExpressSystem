@@ -16,8 +16,11 @@ import dataservice.billsdataservice.ReceiveBillDataServer;
 import dataservice.billsdataservice.SendingBillDataServer;
 import dataservice.billsdataservice.TransArrivalBillDataServer;
 import dataservice.billsdataservice.TransEntruckBillDataServer;
+import dataservice.constantdataservice.CityDataServer;
 import dataservice.constantdataservice.CityDistanceDataServer;
 import dataservice.constantdataservice.PriceListDataServer;
+import dataservice.informationdataservice.Inform_CarDataServer;
+import dataservice.informationdataservice.Inform_DriverDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
 import dataservice.informationdataservice.Inform_KeeperDataServer;
@@ -49,7 +52,10 @@ public class RMIHelper {
 	private static TransEntruckBillDataServer transEntruckBillData;
 	private static PriceListDataServer priceListData;
 	private static CityDistanceDataServer cityDistanceData;
-
+	private static Inform_CarDataServer carData;
+	private static Inform_DriverDataServer driverData;
+	private static CityDataServer cityData;
+	
 	public static void init() {
 		try {
 			systemData = (SystemDataServer) Naming.lookup("rmi://localhost:1099/systemData");
@@ -75,6 +81,10 @@ public class RMIHelper {
 					.lookup("rmi://localhost:1099/transEntruckBillData");
 			priceListData = (PriceListDataServer) Naming.lookup("rmi://localhost:1099/priceListData");
 			cityDistanceData = (CityDistanceDataServer) Naming.lookup("rmi://localhost:1099/cityDistanceData");
+			carData = (Inform_CarDataServer) Naming.lookup("rmi://localhost:1099/carData");
+			driverData =(Inform_DriverDataServer)Naming.lookup("rmi://localhost:1099/driverData");
+			cityData=(CityDataServer)Naming.lookup("rmi://localhost:1099/cityData");
+			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -83,6 +93,18 @@ public class RMIHelper {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static CityDataServer getCityData() {
+		return cityData;
+	}
+
+	public static Inform_DriverDataServer getDriverData() {
+		return driverData;
+	}
+
+	public static Inform_CarDataServer getCarData() {
+		return carData;
 	}
 
 	public static CityDistanceDataServer getCityDistanceData() {

@@ -1,8 +1,10 @@
 package dataservice.constantdataservice;
 
+import java.rmi.Remote;
+
 import po.CityPO;
 
-public interface CityDataServer {
+public interface CityDataServer extends Remote{
 
 	public void addCity(CityPO city);
 	

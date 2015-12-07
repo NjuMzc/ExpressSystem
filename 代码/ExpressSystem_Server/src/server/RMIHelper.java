@@ -16,8 +16,11 @@ import data.billdata.ReceiveBillDataServerImpl;
 import data.billdata.SendingBillDataServerImpl;
 import data.billdata.TransArrivalBillDataServerImpl;
 import data.billdata.TransEntruckBillDataServerImpl;
+import data.constantdata.CityDataServerImpl;
 import data.constantdata.CityDistanceDataServerImpl;
 import data.constantdata.PriceListDataServerImpl;
+import data.informationdata.Inform_CarDataServerImpl;
+import data.informationdata.Inform_DriverDataServerImpl;
 import data.informationdata.Inform_HallDataServerImpl;
 import data.informationdata.Inform_HallStaffDataServerImpl;
 import data.informationdata.Inform_KeeperDataServerImpl;
@@ -37,8 +40,11 @@ import dataservice.billsdataservice.ReceiveBillDataServer;
 import dataservice.billsdataservice.SendingBillDataServer;
 import dataservice.billsdataservice.TransArrivalBillDataServer;
 import dataservice.billsdataservice.TransEntruckBillDataServer;
+import dataservice.constantdataservice.CityDataServer;
 import dataservice.constantdataservice.CityDistanceDataServer;
 import dataservice.constantdataservice.PriceListDataServer;
+import dataservice.informationdataservice.Inform_CarDataServer;
+import dataservice.informationdataservice.Inform_DriverDataServer;
 import dataservice.informationdataservice.Inform_HallDataServer;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
 import dataservice.informationdataservice.Inform_KeeperDataServer;
@@ -119,6 +125,15 @@ public class RMIHelper {
 			
 			CityDistanceDataServer cityDistanceDataService = new CityDistanceDataServerImpl();
 			Naming.rebind("cityDistanceData", cityDistanceDataService);
+			
+			Inform_CarDataServer carDataService = new Inform_CarDataServerImpl();
+			Naming.rebind("carData", carDataService);
+			
+			Inform_DriverDataServer driverDataService = new Inform_DriverDataServerImpl();
+			Naming.rebind("driverData", driverDataService);
+			
+			CityDataServer cityDataService = new CityDataServerImpl();
+			Naming.rebind("cityData", cityDataService);
 			
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {

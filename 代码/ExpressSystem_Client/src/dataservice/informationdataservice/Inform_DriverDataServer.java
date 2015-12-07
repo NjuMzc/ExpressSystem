@@ -1,8 +1,10 @@
 package dataservice.informationdataservice;
 
+import java.rmi.Remote;
+
 import po.Workers.DriverPO;
 
-public interface Inform_DriverDataServer {
+public interface Inform_DriverDataServer extends Remote{
 
 	public void addDriver(DriverPO driver);
 	
