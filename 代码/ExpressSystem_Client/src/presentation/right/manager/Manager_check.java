@@ -1,24 +1,15 @@
 package presentation.right.manager;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-
+import javax.swing.JCheckBox;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.*;
 
 import presentation.right.RightAll;
 import presentation.watcher.*;
@@ -38,8 +29,7 @@ public class Manager_check extends RightAll implements ActionListener {
 	JButton pass;
 	JButton notpass;
 	private List<Watcher> list;
-	String BillId;
-	String BillType;
+	int currentRow;
 
 	public Manager_check(int frameWidth, int frameHeight) {
 
@@ -77,7 +67,9 @@ public class Manager_check extends RightAll implements ActionListener {
 	}
 
 	private void init() {
-		allpass.setBounds(frameWidth / 3, frameHeight / 10 * 9, 100, 30);
+		allpass.setBounds(frameWidth / 3, frameHeight / 10 * 9,
+				frameWidth / 10, frameHeight / 20);
+		allpass.addActionListener(this);
 		initTable();
 		js.setBounds(frameWidth / 20, frameHeight / 10, frameWidth / 3,
 				frameHeight / 4 * 3);
@@ -136,10 +128,7 @@ public class Manager_check extends RightAll implements ActionListener {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				BillId = (String) ((JTable) e.getSource()).getValueAt(
-						jtable1.getSelectedRow(), 4);
-				BillType = (String) ((JTable) e.getSource()).getValueAt(
-						jtable1.getSelectedRow(), 3);
+				currentRow = jtable1.getSelectedRow();
 				addPanel();
 			}
 		});
@@ -163,8 +152,10 @@ public class Manager_check extends RightAll implements ActionListener {
 		initJta();
 		pass.setBounds(frameWidth / 20, frameHeight / 8 * 5, frameWidth / 10,
 				frameHeight / 20);
+		pass.addActionListener(this);
 		notpass.setBounds(frameWidth / 5, frameHeight / 8 * 5, frameWidth / 10,
 				frameHeight / 20);
+		notpass.addActionListener(this);
 		billPanel.add(billJta);
 		billPanel.add(pass);
 		billPanel.add(notpass);
@@ -191,7 +182,7 @@ public class Manager_check extends RightAll implements ActionListener {
 		vec.add("入库单");
 		vec.add("123456789");
 
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < 10; i++) {
 			model.addRow(vec);
 		}
 	}
@@ -211,15 +202,27 @@ public class Manager_check extends RightAll implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-       if(e.getSource()==pass){
-    	   //单个审批通过
-       }else if(e.getSource()==notpass){
-    	   //单个审批不通过
-       }
-       
-       if(e.getSource()==allpass){
-    	   //批量审批
-       }
+		if (e.getSource() == pass) {
+			// 单个审批通过
+			pass();
+		} else if (e.getSource() == notpass) {
+			// 单个审批不通过
+		}
+
+		if (e.getSource() == allpass) {
+			// 批量审批
+			for (int i = 0; i < model.getRowCount(); i++) {
+				System.out.println(jtable1.getColumnModel().getColumn(0)
+						.getCellEditor().getCellEditorValue());
+			}
+		}
+	}
+
+	private void pass() {
+		if (currentRow >= 0) {
+			model.removeRow(currentRow);
+			currentRow = -1;
+		}
 	}
 
 	// 内部类：各个单据的panel
@@ -271,6 +274,7 @@ public class Manager_check extends RightAll implements ActionListener {
 			return checkBox;
 
 		}
+	 
 	} // end class CheckBoxCellEditor
 
 	private class CWCheckBoxRenderer extends JCheckBox implements

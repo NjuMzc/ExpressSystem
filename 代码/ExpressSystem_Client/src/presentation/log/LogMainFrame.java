@@ -23,7 +23,7 @@ import presentation.watcher.Watcher;
 import businesslogic.systembl.SystemBlServerImpl;
 import businesslogicservice.systemblservice.systemServer;
 
-public class LogMainFrame extends RightAll implements ActionListener  {
+public class LogMainFrame extends RightAll implements ActionListener {
 
 	int frameWidth;
 	int frameHeight;
@@ -48,16 +48,15 @@ public class LogMainFrame extends RightAll implements ActionListener  {
 
 		confirm = new JButton("");
 		cancel = new JButton("");
-		
-		confirm.setContentAreaFilled(false);//设置按钮透明
+
+		confirm.setContentAreaFilled(false);// 设置按钮透明
 		cancel.setContentAreaFilled(false);
-		
-		confirm.setBorderPainted(false);//隐藏边框
+
+		confirm.setBorderPainted(false);// 隐藏边框
 		cancel.setBorderPainted(false);
-		
+
 		jtf = new JTextField(12);
 		jpf = new JPasswordField();
-		
 
 		init();
 
@@ -66,47 +65,46 @@ public class LogMainFrame extends RightAll implements ActionListener  {
 		this.add(jtf);
 		this.add(jpf);
 	}
-	
+
 	@Override
-	//添加背景
+	// 添加背景
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\系统登录界面.png");
-		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0,frameWidth,frameHeight, null);
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth, frameHeight, null);
 	}
 
 	private void init() {
 
-
-		confirm.setBounds(frameWidth *9/ 32, frameHeight * 93 / 128, frameWidth*7 /48,
-				frameWidth / 20);
+		confirm.setBounds(frameWidth * 9 / 32, frameHeight * 93 / 128,
+				frameWidth * 7 / 48, frameWidth / 20);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth *9/16, frameHeight *93/ 128, frameWidth *7/ 48,
-				frameWidth / 20);
+		cancel.setBounds(frameWidth * 9 / 16, frameHeight * 93 / 128,
+				frameWidth * 7 / 48, frameWidth / 20);
 		cancel.addActionListener(this);
 
-//		//左栏按钮贴图
-//		ImageIcon icon0 = new ImageIcon("pictures//确认.png");
-//		Image temp0 = icon0.getImage().getScaledInstance(confirm.getWidth(),
-//				confirm.getHeight(), icon0.getImage().SCALE_DEFAULT);
-//		icon0 = new ImageIcon(temp0);
-//		confirm.setIcon(icon0);
-//		
-//		//左栏按钮贴图
-//		ImageIcon icon1 = new ImageIcon("pictures//取消.png");
-//		Image temp1 = icon1.getImage().getScaledInstance(cancel.getWidth(),
-//				cancel.getHeight(), icon1.getImage().SCALE_DEFAULT);
-//		icon1 = new ImageIcon(temp1);
-//		cancel.setIcon(icon1);
-		
-		jtf.setBounds(frameWidth * 38 /112, frameHeight * 57/128, 300,50);
-		jtf.setFont(new Font("宋体",Font.PLAIN,28));
+		// //左栏按钮贴图
+		// ImageIcon icon0 = new ImageIcon("pictures//确认.png");
+		// Image temp0 = icon0.getImage().getScaledInstance(confirm.getWidth(),
+		// confirm.getHeight(), icon0.getImage().SCALE_DEFAULT);
+		// icon0 = new ImageIcon(temp0);
+		// confirm.setIcon(icon0);
+		//
+		// //左栏按钮贴图
+		// ImageIcon icon1 = new ImageIcon("pictures//取消.png");
+		// Image temp1 = icon1.getImage().getScaledInstance(cancel.getWidth(),
+		// cancel.getHeight(), icon1.getImage().SCALE_DEFAULT);
+		// icon1 = new ImageIcon(temp1);
+		// cancel.setIcon(icon1);
+
+		jtf.setBounds(frameWidth * 38 / 112, frameHeight * 57 / 128, 300, 50);
+		jtf.setFont(new Font("宋体", Font.PLAIN, 28));
 		jtf.setOpaque(false);
 		jtf.setBorder(null);
-		jpf.setBounds(frameWidth * 38 / 112, frameHeight * 77 /128, 300, 50);
-		jpf.setFont(new Font("宋体",Font.PLAIN,20));
+		jpf.setBounds(frameWidth * 38 / 112, frameHeight * 77 / 128, 300, 50);
+		jpf.setFont(new Font("宋体", Font.PLAIN, 20));
 		jpf.setBorder(null);
 		jpf.setOpaque(false);
 		jpf.addKeyListener(new KeyAdapter() {
@@ -118,6 +116,7 @@ public class LogMainFrame extends RightAll implements ActionListener  {
 				}
 			}
 		});
+
 		jtf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER
@@ -126,8 +125,17 @@ public class LogMainFrame extends RightAll implements ActionListener  {
 				}
 			}
 		});
+
+		jtf.addKeyListener(new KeyAdapter() {
+
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 	}
-	
+
 	private void logConfirm() {
 		String input_account = jtf.getText();
 		String input_password = jpf.getText();
@@ -171,7 +179,7 @@ public class LogMainFrame extends RightAll implements ActionListener  {
 			jpf.setText("");
 		}
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirm) {
 
@@ -182,7 +190,7 @@ public class LogMainFrame extends RightAll implements ActionListener  {
 		}
 
 	}
-	 
+
 	public void addWatcher(Watcher watcher) {
 		list.add(watcher);
 
