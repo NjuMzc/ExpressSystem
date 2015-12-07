@@ -43,6 +43,11 @@ public class adminManage extends RightAll implements ActionListener {
 	JLabel addlable[];
 	JButton addover;
 
+	JPanel changepanel;
+	JTextField changejtf[];
+	JLabel changelable[];
+	JButton changeover;
+
 	private List<Watcher> list;
 
 	public adminManage(int frameWidth, int frameHeight) {
@@ -118,7 +123,7 @@ public class adminManage extends RightAll implements ActionListener {
 		table.setBackground(new Color(188, 199, 199));
 		table.getTableHeader().setBackground(new Color(126, 205, 182));
 		table.getTableHeader().setReorderingAllowed(false);
-		table.setEnabled(false);
+
 		model.addColumn("姓名");
 		model.addColumn("账号");
 		model.addColumn("密码");
@@ -129,13 +134,24 @@ public class adminManage extends RightAll implements ActionListener {
 	}
 
 	private void initModel() {
-		Vector<String> vec = new Vector<>();
-		vec.add("刘兴");
-		vec.add("123456789");
-		vec.add("123434");
-		vec.add("总经理");
+		
+        
+	    users=blserver.getAllUsers();
+	    Iterator<SystemUserPO> userList=users.iterator();
+	    
+	    while(userList.hasNext()){
+	    	SystemUserPO user=userList.next();
+	    	Vector<String> vec = new Vector<>();
+	    	
+	    	vec.add(user.getUserName());
+	    	vec.add(user.getID());
+	    	vec.add(user.getKey());
+	    	vec.add(user.getIdentity());
+	    	
+	    	model.addRow(vec);
+	    }
 
-		model.addRow(vec);
+		
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -152,10 +168,49 @@ public class adminManage extends RightAll implements ActionListener {
 		}
 	}
 
+	private void addChangePanel(Vector<String> vec) {
+		changepanel = new JPanel();
+		changepanel.setLayout(null);
+		changepanel.setBounds(0, frameHeight / 30 * 23, frameWidth / 4 * 3,
+				frameHeight / 10);
+		changelable = new JLabel[4];
+		changejtf = new JTextField[4];
+		for (int i = 0; i < 4; i++) {
+			changelable[i] = new JLabel();
+			changejtf[i] = new JTextField();
+		}
+		changeover = new JButton("√");
+		changelable[0].setText("姓名");
+		changelable[1].setText("账号");
+		changelable[2].setText("密码");
+		changelable[3].setText("职位");
+
+		for (int i = 0; i < 4; i++) {
+			changelable[i].setBounds(frameWidth / 6 * i, 0, frameWidth / 6,
+					frameHeight / 20);
+			changejtf[i].setBounds(frameWidth / 6 * i, frameHeight / 20,
+					frameWidth / 6, frameHeight / 20);
+
+			changejtf[i].setText(vec.get(i));
+
+			changepanel.add(changelable[i]);
+			changepanel.add(changejtf[i]);
+		}
+		changejtf[1].setEditable(false);
+		changejtf[3].setEditable(false);
+		changeover.setBounds(frameWidth / 3 * 2, frameHeight / 20,
+				frameWidth / 20, frameHeight / 20);
+		changeover.addActionListener(this);
+
+		changepanel.add(changeover);
+		this.add(changepanel);
+		this.repaint();
+	}
+
 	private void addAddPanel() {
 		addpanel = new JPanel();
 		addpanel.setLayout(null);
-		addpanel.setBounds(0, frameHeight / 6 * 5, frameWidth / 4 * 3,
+		addpanel.setBounds(0, frameHeight / 30 * 23, frameWidth / 4 * 3,
 				frameHeight / 10);
 		addlable = new JLabel[4];
 		addjtf = new JTextField[4];
@@ -170,13 +225,14 @@ public class adminManage extends RightAll implements ActionListener {
 		addlable[3].setText("职位");
 
 		for (int i = 0; i < 4; i++) {
-			addlable[i].setBounds(frameWidth / 10 * i, 0, frameWidth / 6,
+			if(i!=1&&i!=3){
+			addlable[i].setBounds(frameWidth / 6 * i, 0, frameWidth / 6,
 					frameHeight / 20);
-			addjtf[i].setBounds(frameWidth / 10 * i, frameHeight / 20,
+			addjtf[i].setBounds(frameWidth / 6 * i, frameHeight / 20,
 					frameWidth / 6, frameHeight / 20);
 
 			addpanel.add(addlable[i]);
-			addpanel.add(addjtf[i]);
+			addpanel.add(addjtf[i]);}
 		}
 		addover.setBounds(frameWidth / 3 * 2, frameHeight / 20,
 				frameWidth / 20, frameHeight / 20);
@@ -190,8 +246,67 @@ public class adminManage extends RightAll implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == add) {
+			if (changepanel != null) {
+				this.remove(changepanel);
+				this.repaint();
+			}
 			addAddPanel();
 
+
+			table.updateUI();
+		}
+
+		// 修改数据的实现
+		if (e.getSource() == change) {
+			if (addpanel != null) {
+				this.remove(addpanel);
+				this.repaint();
+			}
+			if (changepanel != null) {
+				this.remove(changepanel);
+				this.repaint();
+			}
+
+			// 改
+			int row = table.getSelectedRow();
+			if (row >= 0) {
+				Vector<String> vec = new Vector<String>();
+
+				vec.add((String) (table.getValueAt(row, 0)));
+				vec.add((String) (table.getValueAt(row, 1)));
+				vec.add((String) (table.getValueAt(row, 2)));
+				vec.add((String) (table.getValueAt(row, 3)));
+
+				addChangePanel(vec);
+				model.removeRow(row);
+
+			}
+		}
+
+		// 删除数据的实现
+		if (e.getSource() == delete) {
+			if (addpanel != null) {
+				this.remove(addpanel);
+				this.repaint();
+			}
+			int row = table.getSelectedRow();
+			if (row >= 0) {
+				String id=table.getValueAt(row, 1).toString();
+				if(blserver.removeUser(id)){
+					model.removeRow(row);
+				}else{
+				    System.out.println("Cant find user!");
+				}
+				
+			}
+			
+		}
+
+		// 增加
+		if (e.getSource() == addover) {
+			this.remove(addpanel);
+			this.repaint();
+			
 			SystemUserPO user = null;
 			String currentType = (String) type.getSelectedItem();
 
@@ -216,23 +331,41 @@ public class adminManage extends RightAll implements ActionListener {
 
 			} else if (currentType.equals("中转中心业务员")) {
 				user = blserver.addUser("tstaff");
-
 			}
+			Message msg=new Message();
+			msg.addInform(addjtf[0].getText());
+			msg.addInform(addjtf[2].getText());
+			blserver.changeUser(user.getID(), msg);
 
-			table.updateUI();
+			Vector<String> vec = new Vector<>();
+			vec.add(addjtf[0].getText());
+			vec.add(user.getID());
+			vec.add(addjtf[2].getText());
+			vec.add(user.getIdentity());
+			model.addRow(vec);
 		}
 
-		// 修改数据的实现
-		if (e.getSource() == change) {
+		if (e.getSource() == changeover) {
+			this.remove(changepanel);
+			this.repaint();
 
-		}
-
-		// 删除数据的实现
-		if (e.getSource() == delete) {
-			int row = table.getSelectedRow();
-			if (row >= 0) {
-				model.removeRow(row);
-			}
+			String newName=changejtf[0].getText();
+			String newKey=changejtf[2].getText();
+			
+			Message msg=new Message();
+			msg.addInform(newName);
+			msg.addInform(newKey);
+			
+			blserver.changeUser(changejtf[1].getText(),msg);
+			SystemUserPO user=blserver.inquire(changejtf[1].getText());
+			
+			Vector<String> vec = new Vector<>();
+			vec.add(user.getUserName());
+			vec.add(user.getID());
+			vec.add(user.getKey());
+			vec.add(user.getIdentity());
+			
+			model.addRow(vec);
 		}
 
 	}
