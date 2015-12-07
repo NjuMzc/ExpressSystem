@@ -1,7 +1,14 @@
 package po.bills;
 
-public class ExportBill {
+import java.io.Serializable;
+import java.rmi.Remote;
+
+public class ExportBill implements Serializable,Remote{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4470680442343129454L;
 	String orderNum;//快递编号
 	String date;//日期
 	String destination;//目的地

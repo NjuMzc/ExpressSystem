@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import dataservice.bankdataservice.BankDataServer;
+import dataservice.billsdataservice.BillApproverDataServer;
 import dataservice.billsdataservice.ChargeBillDataServer;
 import dataservice.billsdataservice.DeliveryBillDataServer;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
@@ -55,6 +56,7 @@ public class RMIHelper {
 	private static Inform_CarDataServer carData;
 	private static Inform_DriverDataServer driverData;
 	private static CityDataServer cityData;
+	private static BillApproverDataServer billApproverData;
 	
 	public static void init() {
 		try {
@@ -84,6 +86,7 @@ public class RMIHelper {
 			carData = (Inform_CarDataServer) Naming.lookup("rmi://localhost:1099/carData");
 			driverData =(Inform_DriverDataServer)Naming.lookup("rmi://localhost:1099/driverData");
 			cityData=(CityDataServer)Naming.lookup("rmi://localhost:1099/cityData");
+			billApproverData =(BillApproverDataServer)Naming.lookup("rmi://localhost:1099/billApproverData");
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -93,6 +96,10 @@ public class RMIHelper {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static BillApproverDataServer getBillApproverData() {
+		return billApproverData;
 	}
 
 	public static CityDataServer getCityData() {

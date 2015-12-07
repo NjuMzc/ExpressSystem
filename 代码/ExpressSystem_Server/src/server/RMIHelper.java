@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
 import data.bankdata.BankDataServerImpl;
+import data.billdata.BillApproverDataServerImpl;
 import data.billdata.ChargeBillDataServerImpl;
 import data.billdata.DeliveryBillDataServerImpl;
 import data.billdata.HallArrivalBillDataServerImpl;
@@ -30,6 +31,7 @@ import data.informationdata.Inform_TranStationDataServerImpl;
 import data.systemdata.SystemDataServerImpl;
 import data.transportdata.TransportDataServerImpl;
 import dataservice.bankdataservice.BankDataServer;
+import dataservice.billsdataservice.BillApproverDataServer;
 import dataservice.billsdataservice.ChargeBillDataServer;
 import dataservice.billsdataservice.DeliveryBillDataServer;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
@@ -134,6 +136,9 @@ public class RMIHelper {
 			
 			CityDataServer cityDataService = new CityDataServerImpl();
 			Naming.rebind("cityData", cityDataService);
+			
+			BillApproverDataServer billApproverDataService = new BillApproverDataServerImpl();
+			Naming.rebind("billApproverData", billApproverDataService);
 			
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {
