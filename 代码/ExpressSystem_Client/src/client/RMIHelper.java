@@ -9,8 +9,10 @@ import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.BillApproverDataServer;
 import dataservice.billsdataservice.ChargeBillDataServer;
 import dataservice.billsdataservice.DeliveryBillDataServer;
+import dataservice.billsdataservice.ExportBillDataServer;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
 import dataservice.billsdataservice.HallEntruckBillDataServer;
+import dataservice.billsdataservice.ImportBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.PaymentBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
@@ -28,6 +30,7 @@ import dataservice.informationdataservice.Inform_KeeperDataServer;
 import dataservice.informationdataservice.Inform_StorageDataServer;
 import dataservice.informationdataservice.Inform_TranStaffDataServer;
 import dataservice.informationdataservice.Inform_TranStationDataServer;
+import dataservice.salarydataservice.SalaryDataServer;
 import dataservice.systemdataservice.SystemDataServer;
 import dataservice.transportdataservice.TransportDataServer;
 
@@ -57,7 +60,10 @@ public class RMIHelper {
 	private static Inform_DriverDataServer driverData;
 	private static CityDataServer cityData;
 	private static BillApproverDataServer billApproverData;
-	
+	private static ExportBillDataServer exportBillData;
+	private static ImportBillDataServer importBillData;
+	private static SalaryDataServer salaryData;
+
 	public static void init() {
 		try {
 			systemData = (SystemDataServer) Naming.lookup("rmi://localhost:1099/systemData");
@@ -84,10 +90,13 @@ public class RMIHelper {
 			priceListData = (PriceListDataServer) Naming.lookup("rmi://localhost:1099/priceListData");
 			cityDistanceData = (CityDistanceDataServer) Naming.lookup("rmi://localhost:1099/cityDistanceData");
 			carData = (Inform_CarDataServer) Naming.lookup("rmi://localhost:1099/carData");
-			driverData =(Inform_DriverDataServer)Naming.lookup("rmi://localhost:1099/driverData");
-			cityData=(CityDataServer)Naming.lookup("rmi://localhost:1099/cityData");
-			billApproverData =(BillApproverDataServer)Naming.lookup("rmi://localhost:1099/billApproverData");
-			
+			driverData = (Inform_DriverDataServer) Naming.lookup("rmi://localhost:1099/driverData");
+			cityData = (CityDataServer) Naming.lookup("rmi://localhost:1099/cityData");
+			billApproverData = (BillApproverDataServer) Naming.lookup("rmi://localhost:1099/billApproverData");
+			exportBillData = (ExportBillDataServer) Naming.lookup("rmi://localhost:1099/exportBillData");
+			importBillData = (ImportBillDataServer) Naming.lookup("rmi://localhost:1099/importBillData");
+			salaryData = (SalaryDataServer) Naming.lookup("rmi://localhost:1099/salaryData");
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -96,6 +105,18 @@ public class RMIHelper {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static SalaryDataServer getSalaryData() {
+		return salaryData;
+	}
+
+	public static ImportBillDataServer getImportBillData() {
+		return importBillData;
+	}
+
+	public static ExportBillDataServer getExportBillData() {
+		return exportBillData;
 	}
 
 	public static BillApproverDataServer getBillApproverData() {

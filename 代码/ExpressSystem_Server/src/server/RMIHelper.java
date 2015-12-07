@@ -9,8 +9,10 @@ import data.bankdata.BankDataServerImpl;
 import data.billdata.BillApproverDataServerImpl;
 import data.billdata.ChargeBillDataServerImpl;
 import data.billdata.DeliveryBillDataServerImpl;
+import data.billdata.ExportBillDataServerImpl;
 import data.billdata.HallArrivalBillDataServerImpl;
 import data.billdata.HallEntruckBillDataServerImpl;
+import data.billdata.ImportBillDataServerImpl;
 import data.billdata.OrderBillDataServerImpl;
 import data.billdata.PaymentBillDataServerImpl;
 import data.billdata.ReceiveBillDataServerImpl;
@@ -28,14 +30,17 @@ import data.informationdata.Inform_KeeperDataServerImpl;
 import data.informationdata.Inform_StorageDataServerImpl;
 import data.informationdata.Inform_TranStaffDataServerImpl;
 import data.informationdata.Inform_TranStationDataServerImpl;
+import data.salarydata.SalaryDataServerImpl;
 import data.systemdata.SystemDataServerImpl;
 import data.transportdata.TransportDataServerImpl;
 import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.BillApproverDataServer;
 import dataservice.billsdataservice.ChargeBillDataServer;
 import dataservice.billsdataservice.DeliveryBillDataServer;
+import dataservice.billsdataservice.ExportBillDataServer;
 import dataservice.billsdataservice.HallArrivalBillDataServer;
 import dataservice.billsdataservice.HallEntruckBillDataServer;
+import dataservice.billsdataservice.ImportBillDataServer;
 import dataservice.billsdataservice.OrderBillDataServer;
 import dataservice.billsdataservice.PaymentBillDataServer;
 import dataservice.billsdataservice.ReceiveBillDataServer;
@@ -53,6 +58,7 @@ import dataservice.informationdataservice.Inform_KeeperDataServer;
 import dataservice.informationdataservice.Inform_StorageDataServer;
 import dataservice.informationdataservice.Inform_TranStaffDataServer;
 import dataservice.informationdataservice.Inform_TranStationDataServer;
+import dataservice.salarydataservice.SalaryDataServer;
 import dataservice.systemdataservice.SystemDataServer;
 import dataservice.transportdataservice.TransportDataServer;
 
@@ -139,6 +145,15 @@ public class RMIHelper {
 			
 			BillApproverDataServer billApproverDataService = new BillApproverDataServerImpl();
 			Naming.rebind("billApproverData", billApproverDataService);
+			
+			ExportBillDataServer exportBillDataService = new ExportBillDataServerImpl();
+			Naming.rebind("exportBillData", exportBillDataService);
+			
+			ImportBillDataServer importBillDataService = new ImportBillDataServerImpl();
+			Naming.rebind("importBillData", importBillDataService);
+			
+			SalaryDataServer salaryDataService = new SalaryDataServerImpl();
+			Naming.rebind("salaryData", salaryDataService);
 			
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {
