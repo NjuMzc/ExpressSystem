@@ -2,6 +2,8 @@ package po.bills;
 
 import java.io.Serializable;
 import java.rmi.Remote;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import po.Message;
 
@@ -20,6 +22,8 @@ public class OrderBill implements Remote,Serializable {
 	private double charge;//运费
 	private String time;//预计时间
 	private String id;//自动生成ID
+	
+	private BillApproverPO billForApprove;
 	
 	/*
 	 * 构造器
@@ -85,6 +89,8 @@ public class OrderBill implements Remote,Serializable {
 	    this.id="0";//编号
 	    this.charge=0;//费用
 	    this.time="0";//时间
+	    
+	    this.billForApprove=new  BillApproverPO();
 	}
 	//以下是各种get方法
 	
@@ -216,6 +222,39 @@ public class OrderBill implements Remote,Serializable {
 		this.time=Time;
 	}
 	
+	public BillApproverPO submit(){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		String date=df.format(new Date());// new Date()为获取当前系统时间
+		billForApprove.setEaseInform(date, id, "货物订单");
+		
+		billForApprove.addInform("货物订单编号:"+this.getID());
+	
+		billForApprove.addInform("寄件人姓名:"+this.getSenderName());
+		billForApprove.addInform("寄件人地址:"+this.getSenderLocation());
+		billForApprove.addInform("寄件人单位:"+this.getSenderUnit());
+		billForApprove.addInform("寄件人电话:"+this.getSenderTelephone());
+		billForApprove.addInform("寄件人手机:"+this.getSenderMobile());
+		
+		billForApprove.addInform("收件人姓名:"+this.getReceiverName());
+		billForApprove.addInform("收件人地址:"+this.getReceiverLocation());
+		billForApprove.addInform("收件人单位:"+this.getReceiverUnit());
+		billForApprove.addInform("收件人电话:"+this.getReceiverTelephone());
+		billForApprove.addInform("收件人手机:"+this.getReceiverMobile());
+		
+	    billForApprove.addInform("货物数量:"+this.getGoodNum());
+	    billForApprove.addInform("货物名字:"+this.getGoodName());
+	    billForApprove.addInform("货物尺寸:"+this.getGoodSize());
+	    billForApprove.addInform("货物体积:"+this.getGoodVolume());
+	    billForApprove.addInform("货物重量:"+this.getGoodWeight());
+	    
+	    billForApprove.addInform("快递类型:"+this.getKind());
+	    billForApprove.addInform("包装类型:"+this.getBagging());
+	    billForApprove.addInform("包装费:"+this.getBagFee());
+	    
+	    billForApprove.addInform("运费:"+this.getCharge()+"    "+"预计时间:"+this.getTime());
+	    
+	    return billForApprove;
+	}
 }
 
 class Client implements Serializable{

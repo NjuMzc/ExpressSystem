@@ -1,43 +1,52 @@
 package po.bills;
 
-import po.Message;
-
 public class ImportBill{
 
-    String number;
-	String date;
-	String aim;
-	String[] location;
-	
-	
-	public ImportBill(Message message) {
-		// TODO Auto-generated constructor stub
-		location=new String[4];
-		this.number=message.getInform(0);
-		this.date=message.getInform(1);
-		this.aim=message.getInform(2);
-		for(int i=0;i<4;i++){
-			location[i]=message.getInform(i+3);
-		}
-	}
-	
-	public String getNumber() {
-		return number;
-	}
+	String orderNum;//快递编号
+    String date;//入库日期
+    String destination;//目的地
+    String[] location;//位置信息
+    
+    String id;//该单据的id，同OrderNum
+    
+    BillApproverPO billForApprove;
+    
+    public ImportBill(String orderNum,String date,String destination,String[] location){
+    	this.orderNum=orderNum;
+    	this.date=date;
+    	this.destination=destination;
+    	this.location=new String[4];
+    	this.location=location;
+    	
+    	this.id=orderNum;
+    	this.billForApprove=new BillApproverPO();
+    }
+    
 
+    //Getter
+    public String getOrderNum() {
+		return orderNum;
+	}
 
 	public String getDate() {
 		return date;
 	}
 
-
-	public String getAim() {
-		return aim;
+	public String getDestination() {
+		return destination;
 	}
-
 
 	public String[] getLocation() {
 		return location;
+	}
+
+	public String getId() {
+		return id;
+	}
+	
+	public BillApproverPO submit(){
+		
+		return billForApprove;
 	}
 
 }

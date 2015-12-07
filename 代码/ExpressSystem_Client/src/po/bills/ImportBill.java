@@ -9,6 +9,8 @@ public class ImportBill{
     
     String id;//该单据的id，同OrderNum
     
+    BillApproverPO billForApprove;
+    
     public ImportBill(String orderNum,String date,String destination,String[] location){
     	this.orderNum=orderNum;
     	this.date=date;
@@ -17,6 +19,7 @@ public class ImportBill{
     	this.location=location;
     	
     	this.id=orderNum;
+    	this.billForApprove=new BillApproverPO();
     }
     
 
@@ -39,6 +42,11 @@ public class ImportBill{
 
 	public String getId() {
 		return id;
+	}
+	
+	public BillApproverPO submit(){
+		
+		return billForApprove;
 	}
 
 }
