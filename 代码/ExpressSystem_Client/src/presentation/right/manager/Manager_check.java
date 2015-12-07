@@ -34,6 +34,9 @@ public class Manager_check extends RightAll implements ActionListener {
 	DefaultTableCellRenderer dtc;
 	CWCheckBoxRenderer cw;
 	JPanel billPanel;
+	JTextArea billJta;
+	JButton pass;
+	JButton notpass;
 	private List<Watcher> list;
 	String BillId;
 	String BillType;
@@ -69,10 +72,10 @@ public class Manager_check extends RightAll implements ActionListener {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
-		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
+
 	private void init() {
 		allpass.setBounds(frameWidth / 3, frameHeight / 10 * 9, 100, 30);
 		initTable();
@@ -152,9 +155,32 @@ public class Manager_check extends RightAll implements ActionListener {
 		billPanel = new ChargeBillPanel();
 		billPanel.setBounds(frameWidth / 5 * 2, frameHeight / 10,
 				frameWidth / 3, frameHeight / 4 * 3);
-		billPanel.setBackground(Color.gray);
+		billPanel.setLayout(null);
+		billJta = new JTextArea();
+		pass = new JButton("通过");
+		notpass = new JButton("不通过");
+		billJta.setBounds(0, 0, frameWidth / 3, frameHeight / 2);
+		initJta();
+		pass.setBounds(frameWidth / 20, frameHeight / 8 * 5, frameWidth / 10,
+				frameHeight / 20);
+		notpass.setBounds(frameWidth / 5, frameHeight / 8 * 5, frameWidth / 10,
+				frameHeight / 20);
+		billPanel.add(billJta);
+		billPanel.add(pass);
+		billPanel.add(notpass);
 		this.add(billPanel);
 		this.repaint();
+	}
+
+	private void initJta() {
+		// 单据显示
+
+		billJta.append("收款单\r\n");
+		billJta.append("时间\r\n");
+		billJta.append("金额\r\n");
+		billJta.append("位置\r\n");
+		billJta.append("到达地\r\n");
+		billJta.setEditable(false);
 	}
 
 	private void initTableModel() {
@@ -185,7 +211,15 @@ public class Manager_check extends RightAll implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-
+       if(e.getSource()==pass){
+    	   //单个审批通过
+       }else if(e.getSource()==notpass){
+    	   //单个审批不通过
+       }
+       
+       if(e.getSource()==allpass){
+    	   //批量审批
+       }
 	}
 
 	// 内部类：各个单据的panel

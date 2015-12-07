@@ -32,6 +32,12 @@ public class StockmanChange extends RightAll implements ActionListener {
 	String jia;
 	String wei;
 
+	JPanel jp5;
+	JLabel jl5;
+	JLabel location[];
+	JTextField jtf[];
+	JButton confirm;
+
 	public StockmanChange(int frameWidth, int frameHeight) {
 
 		this.frameWidth = frameWidth;
@@ -119,6 +125,59 @@ public class StockmanChange extends RightAll implements ActionListener {
 				this.repaint();
 				break;
 			}
+		}
+
+		for (int i = 0; i < 30; i++) {
+			if (e.getSource() == jb4[i]) {
+				wei = jb4[i].getText();
+				this.remove(jp4);
+				initJp5();
+				this.add(jp5);
+				this.repaint();
+				break;
+			}
+		}
+		
+		if(e.getSource()==confirm){
+			// 调整@li
+		}
+	}
+
+	private void initJp5() {
+		jp5 = new JPanel();
+		jl5 = new JLabel("请输入调整到的机动区位置：");
+		location = new JLabel[3];
+		for (int i = 0; i < 3; i++) {
+			location[i] = new JLabel();
+		}
+		jtf = new JTextField[3];
+		for (int i = 0; i < 3; i++) {
+			jtf[i] = new JTextField();
+		}
+		confirm = new JButton("确认");
+
+		jp5.setLayout(null);
+		jp5.setBounds(0, 0, frameWidth / 4 * 3, frameHeight);
+		jl5.setBounds(frameWidth / 6, frameHeight / 3, frameWidth / 5,
+				frameHeight / 10);
+		location[0].setText("排");
+		location[1].setText("架");
+		location[2].setText("位");
+		for (int i = 0; i < 3; i++) {
+			location[i].setBounds(frameWidth / 6 + frameWidth / 5 * i,
+					frameHeight / 2, frameWidth / 10, frameHeight / 20);
+			jtf[i].setBounds(frameWidth / 12 + frameWidth / 5 * i,
+					frameHeight / 2, frameWidth / 12, frameHeight / 20);
+		}
+		confirm.setBounds(frameWidth / 4, frameHeight / 5 * 3, frameWidth / 10,
+				frameHeight / 20);
+		confirm.addActionListener(this);
+
+		jp5.add(jl5);
+		jp5.add(confirm);
+		for (int i = 0; i < 3; i++) {
+			jp5.add(jtf[i]);
+			jp5.add(location[i]);
 		}
 	}
 

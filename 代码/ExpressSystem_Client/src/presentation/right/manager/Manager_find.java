@@ -21,9 +21,13 @@ public class Manager_find extends RightAll implements ActionListener {
 	JLabel remindTime;
 	JLabel start;
 	JLabel end;
+	JButton search;
 	JComboBox<String> type;
 	JComboBox<String>[] startTime;
 	JComboBox<String>[] endTime;
+	JLabel calendar1[];
+	JLabel calendar2[];
+	JTextArea jta;
 
 	private List<Watcher> list;
 
@@ -56,6 +60,13 @@ public class Manager_find extends RightAll implements ActionListener {
 		endTime[0] = new JComboBox<String>(year);
 		endTime[1] = new JComboBox<String>(month);
 		endTime[2] = new JComboBox<String>(day);
+		calendar1 = new JLabel[3];
+		calendar2 = new JLabel[3];
+		for (int i = 0; i < 3; i++) {
+			calendar1[i] = new JLabel();
+			calendar2[i] = new JLabel();
+		}
+		search = new JButton("查询");
 
 		init();
 
@@ -67,18 +78,20 @@ public class Manager_find extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			this.add(startTime[i]);
 			this.add(endTime[i]);
+			this.add(calendar1[i]);
+			this.add(calendar2[i]);
 		}
+		this.add(search);
 	}
 
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
-		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
-	
+
 	private void init() {
 
 		type.addItem("成本收益表");
@@ -91,14 +104,27 @@ public class Manager_find extends RightAll implements ActionListener {
 				frameWidth / 8, frameHeight / 20);
 		start.setBounds(frameWidth / 4, frameHeight / 20 * 3, frameWidth / 10,
 				frameHeight / 20);
-		end.setBounds(frameWidth / 2, frameHeight / 20 * 3, frameWidth / 10,
+		end.setBounds(frameWidth / 4, frameHeight / 20 * 5, frameWidth / 10,
 				frameHeight / 20);
+		calendar1[0].setText("年");
+		calendar1[1].setText("月");
+		calendar1[2].setText("日");
+		calendar2[0].setText("年");
+		calendar2[1].setText("月");
+		calendar2[2].setText("日");
 		for (int i = 0; i < 3; i++) {
-			startTime[i].setBounds(frameWidth / 20 * 7 + frameWidth / 20 * i,
+			startTime[i].setBounds(frameWidth / 3 + frameWidth / 8 * i,
+					frameHeight / 20 * 3, frameWidth / 12, frameHeight / 20);
+			endTime[i].setBounds(frameWidth / 3 + frameWidth / 8 * i,
+					frameHeight / 20 * 5, frameWidth / 12, frameHeight / 20);
+			calendar1[i].setBounds(frameWidth / 30 * 13 + frameWidth / 8 * i,
 					frameHeight / 20 * 3, frameWidth / 20, frameHeight / 20);
-			endTime[i].setBounds(frameWidth / 5 * 3 + frameWidth / 20 * i,
-					frameHeight / 20 * 3, frameWidth / 20, frameHeight / 20);
+			calendar2[i].setBounds(frameWidth / 30 * 13 + frameWidth / 8 * i,
+					frameHeight / 20 * 5, frameWidth / 20, frameHeight / 20);
 		}
+		search.setBounds(frameWidth / 2, frameHeight / 20, frameWidth / 8,
+				frameHeight / 20);
+		search.addActionListener(this);
 
 	}
 
@@ -116,7 +142,24 @@ public class Manager_find extends RightAll implements ActionListener {
 		}
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	private void initJTa() {
+		jta = new JTextArea();
+		jta.setBounds(frameWidth / 8, frameHeight / 3, frameWidth / 2,
+				frameHeight / 3 * 2);
 
+		jta.append("成本收益表\r\n");
+		jta.append("成本收益表\r\n");
+		jta.setEditable(false);
+
+		this.add(jta);
+		this.repaint();
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == search) {
+
+			initJTa();
+
+		}
 	}
 }
