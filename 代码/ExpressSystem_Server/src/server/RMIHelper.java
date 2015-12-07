@@ -30,6 +30,7 @@ import data.informationdata.Inform_KeeperDataServerImpl;
 import data.informationdata.Inform_StorageDataServerImpl;
 import data.informationdata.Inform_TranStaffDataServerImpl;
 import data.informationdata.Inform_TranStationDataServerImpl;
+import data.salarydata.SalaryDataServerImpl;
 import data.systemdata.SystemDataServerImpl;
 import data.transportdata.TransportDataServerImpl;
 import dataservice.bankdataservice.BankDataServer;
@@ -57,6 +58,7 @@ import dataservice.informationdataservice.Inform_KeeperDataServer;
 import dataservice.informationdataservice.Inform_StorageDataServer;
 import dataservice.informationdataservice.Inform_TranStaffDataServer;
 import dataservice.informationdataservice.Inform_TranStationDataServer;
+import dataservice.salarydataservice.SalaryDataServer;
 import dataservice.systemdataservice.SystemDataServer;
 import dataservice.transportdataservice.TransportDataServer;
 
@@ -149,6 +151,9 @@ public class RMIHelper {
 			
 			ImportBillDataServer importBillDataService = new ImportBillDataServerImpl();
 			Naming.rebind("importBillData", importBillDataService);
+			
+			SalaryDataServer salaryDataService = new SalaryDataServerImpl();
+			Naming.rebind("salaryData", salaryDataService);
 			
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {
