@@ -1,5 +1,6 @@
 package businesslogic.billsbl.OrderBillServer;
 
+import businesslogicservice.billApprover.BillApproveServer;
 import client.RMIHelper;
 import dataservice.billsdataservice.OrderBillDataServer;
 import po.Message;
@@ -10,6 +11,7 @@ public class OrderBillServer {
 	OrderBillDataServer dataServer;
 	OrderBill_IDMaker idMaker;
 	OrderBill_ChargeCalculator calculator;
+	BillApproveServer approveServer;
 	
 	public OrderBillServer(){
 		this.dataServer=RMIHelper.getOrderBillData();
@@ -29,6 +31,8 @@ public class OrderBillServer {
 		//加入持久化数据中
 		dataServer.addBill(bill);
 		System.out.println("Add "+bill.getID());
+		
+		approveServer.addBill(bill.submit());
 		
 		return bill;
 	}
