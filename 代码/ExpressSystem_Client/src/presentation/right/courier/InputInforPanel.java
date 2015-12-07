@@ -1,6 +1,8 @@
 package presentation.right.courier;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
@@ -82,6 +84,14 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		}
 	}
 
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\收件2right.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+	}
+	
 	private void init() {
 
 		confirm.setBounds(frameWidth / 4, frameHeight / 10 + frameWidth / 2,

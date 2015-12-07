@@ -1,6 +1,8 @@
 package presentation.right.ying_salesman;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -48,7 +50,14 @@ public class Ying_receive extends RightAll implements ActionListener {
 		this.add(confirm);
 		this.add(cancel);
 	}
-
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\货物到达单right.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth/4*3,frameHeight,null);
+	}
+	
 	private void init() {
 		jl[0].setText("货物接收单");
 		jl[1].setText("货物是否接收");

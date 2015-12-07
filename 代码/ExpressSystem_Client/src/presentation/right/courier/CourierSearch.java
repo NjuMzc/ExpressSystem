@@ -2,6 +2,8 @@ package presentation.right.courier;
 
 import javax.swing.*;
 
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.FrameBorderStyle;
+
 import businesslogic.transportbl.courier.Trans_InquireOrderServerImpl;
 import businesslogicservice.transportblservice.courier.Trans_InquireOrderServer;
 import po.bills.OrderBill;
@@ -45,10 +47,11 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		remind = new JLabel("请输入快递单号");
-		confirm = new JButton("确认");
-		cancel = new JButton("取消");
-		wrong = new JLabel("输入的快递单号不存在");
+	   remind = new JLabel("");//请输入快递单号
+		confirm = new JButton("");//确认
+		cancel = new JButton("");//取消
+		wrong = new JLabel("输入的快递单号不存在!");
+		wrong.setFont(new Font("宋体",Font.BOLD,22));
 		wrong.setVisible(false);
 		inputOrder = new JTextField();
 		 
@@ -62,18 +65,40 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		this.add(inputOrder);
 	}
 
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\查询订单right.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+	}
+	
 	private void init() {
 		remind.setBounds(frameWidth / 4, frameHeight / 3, frameWidth / 4, 40);
-		confirm.setBounds(frameWidth / 4, frameHeight / 2, frameWidth / 12,
-				frameWidth / 20);
+		confirm.setBounds(frameWidth / 4-frameWidth/40, frameHeight / 2-frameHeight/20, frameWidth / 9,
+				frameHeight / 16);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth / 2, frameHeight / 2, frameWidth / 12,
-				frameWidth / 20);
+		cancel.setBounds(frameWidth / 2-frameWidth/30, frameHeight / 2-frameHeight/20, frameWidth /9,
+				frameHeight / 16);
 		cancel.addActionListener(this);
-		wrong.setBounds(frameWidth / 2, frameHeight / 4 * 3, 150, 30);
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
+		
+		wrong.setBounds(frameWidth / 3-frameWidth/8, frameHeight / 4 * 1-frameHeight/15, frameWidth/2, frameHeight/7);
 		wrong.setForeground(new Color(227, 23, 13));
-		inputOrder.setBounds(frameWidth / 2, frameHeight / 3, 150, 30);
-
+		inputOrder.setBounds(frameWidth /5+frameWidth/10, frameHeight / 3-frameHeight/55,frameWidth/3, frameHeight/13);
+        inputOrder.setFont(new Font("宋体",Font.BOLD,20));
+		inputOrder.setBorder(null);
+		inputOrder.setOpaque(false);
 	}
 
 	public void addWatcher(Watcher watcher) {

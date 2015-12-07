@@ -48,43 +48,51 @@ public class Manager_make_money extends RightAll implements ActionListener {
 		for (int i = 0; i < 7; i++) {
 			jl[i] = new JLabel();
 		}
-		ok = new JButton("提交");
-		ok.setFont(new Font("宋体",Font.PLAIN,20));
-		cancel = new JButton("取消");
+		ok = new JButton("");//提交
+		ok.setFont(new Font("宋体",Font.PLAIN,18));
+		cancel = new JButton("");//取消
+		cancel.setFont(new Font("宋体",Font.PLAIN,18));
 
 		jradiobutton1 = new JRadioButton[7];
 		jradiobutton2 = new JRadioButton[7];
 		jradiobutton3 = new JRadioButton[3];
 		buttongroup = new ButtonGroup[7];
-		way1 = new JLabel[7];
+		way1 = new JLabel[10];
 		way2 = new JLabel[7];
-		way3 = new JLabel[3];
+		way3 = new JLabel[10];
 		jtf1 = new JTextField[7];
 		jtf2 = new JTextField[7];
 		jtf3 = new JTextField[3];
 		for (int i = 0; i < 7; i++) {
 			jradiobutton1[i] = new JRadioButton("工资：");
 			jradiobutton2[i] = new JRadioButton("提成：");
+			jradiobutton1[i].setBorderPainted(false); //不绘制边界搜索
+			   jradiobutton1[i].setContentAreaFilled(false); //不填充所占的矩形区域
+				jradiobutton2[i].setBorderPainted(false); //不绘制边界搜索
+				   jradiobutton2[i].setContentAreaFilled(false); //不填充所占的矩形区域
 			buttongroup[i] = new ButtonGroup();
 			way1[i] = new JLabel("元/月");
 			way2[i] = new JLabel("%");
 			jtf1[i] = new JTextField();
 			jtf2[i] = new JTextField();
 			
-			jradiobutton1[i].setFont(new Font("宋体",Font.PLAIN,14));
-			jradiobutton2[i].setFont(new Font("宋体",Font.PLAIN,14));
-	    way1[i].setFont(new Font("宋体",Font.PLAIN,14));
+			jradiobutton1[i].setFont(new Font("宋体",Font.PLAIN,15));
+			jradiobutton2[i].setFont(new Font("宋体",Font.PLAIN,15));
+	        way1[i].setFont(new Font("宋体",Font.PLAIN,15));
+	       way2[i].setFont(new Font("宋体",Font.PLAIN,15));
+	       jtf1[i].setFont(new Font("宋体",Font.PLAIN,15));
+	       jtf2[i].setFont(new Font("宋体",Font.PLAIN,15));
 			
 		}
 		for (int i = 0; i < 3; i++) {
 			jradiobutton3[i] = new JRadioButton("计次：");
-			jradiobutton3[i].setFont(new Font("宋体",Font.PLAIN,14));
+			jradiobutton3[i].setFont(new Font("宋体",Font.PLAIN,15));
 			jradiobutton3[i].setBorderPainted(false); //不绘制边界搜索
 		   jradiobutton3[i].setContentAreaFilled(false); //不填充所占的矩形区域
 			way3[i] = new JLabel("元/次 ");
-			way3[i].setFont(new Font("宋体",Font.PLAIN,14));
+			way3[i].setFont(new Font("宋体",Font.PLAIN,15));
 			jtf3[i] = new JTextField();
-			jtf3[i].setFont(new Font("宋体",Font.PLAIN,14));
+			jtf3[i].setFont(new Font("宋体",Font.PLAIN,15));
 		}
 
 		init();
@@ -112,7 +120,7 @@ public class Manager_make_money extends RightAll implements ActionListener {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		ImageIcon background = new ImageIcon("pictures\\制定薪水right.png");
 		Image bg =background.getImage();
 		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
 	}
@@ -130,31 +138,32 @@ public class Manager_make_money extends RightAll implements ActionListener {
 		jl[6].setText("中转中心业务员 ");
 
 		for (int i = 0; i < 7; i++) {
-			jl[i].setBounds(frameWidth / 21, frameHeight / 10 * (i + 1),
-					frameWidth / 8, frameHeight / 20);
-			jradiobutton1[i].setBounds(frameWidth / 40 * 6, frameHeight / 10
-					* (i + 1), frameWidth / 12, frameHeight / 20);
-			jradiobutton2[i].setBounds(frameWidth / 30 * 11, frameHeight / 10
-					* (i + 1), frameWidth / 12, frameHeight / 20);
-			way1[i].setBounds(frameWidth / 40 * 13, frameHeight / 10 * (i + 1),
-					frameHeight / 20, frameHeight / 20);
-			way2[i].setBounds(frameWidth / 2 + frameWidth / 60, frameHeight
-					/ 10 * (i + 1), frameHeight / 20, frameHeight / 20);
+			jl[i].setFont(new Font("宋体",Font.BOLD,15));
+			jl[i].setBounds(frameWidth / 31, frameHeight / 10 * (i + 1),
+					frameWidth / 7, frameHeight / 20);
+			jradiobutton1[i].setBounds(frameWidth / 38 * 6, frameHeight / 10
+					* (i + 1), frameWidth / 10, frameHeight / 20);
+			jradiobutton2[i].setBounds(frameWidth / 29 * 11, frameHeight / 10
+					* (i + 1), frameWidth / 10, frameHeight / 20);
+			way1[i].setBounds(frameWidth / 240* 92, frameHeight / 10 * (i + 1),
+					frameWidth / 13, frameHeight / 20);
+			way2[i].setBounds(frameWidth / 2 + frameWidth / 55, frameHeight
+					/ 10 * (i + 1), frameWidth / 13, frameHeight / 20);
 			jtf1[i].setBounds(frameWidth / 120 * 31,
-					frameHeight / 10 * (i + 1), frameWidth / 15,
+					frameHeight / 10 * (i + 1), frameWidth / 16,
 					frameHeight / 20);
-			jtf2[i].setBounds(frameWidth / 20 * 9, frameHeight / 10 * (i + 1),
-					frameWidth / 15, frameHeight / 20);
+			jtf2[i].setBounds(frameWidth / 100 * 50, frameHeight / 10 * (i + 1),
+					frameWidth / 16, frameHeight / 20);
 		}
 
 		for (int i = 0; i < 3; i++) {
 			jradiobutton3[i].setBounds(frameWidth / 2 + frameWidth / 22,
 					frameHeight / 10 * (i + 5), frameWidth / 11,
 					frameHeight / 20);
-			way3[i].setBounds(frameWidth / 30 * 23, frameHeight / 10 * (i + 5),
-					frameHeight / 20, frameHeight / 20);
-			jtf3[i].setBounds(frameWidth / 32 * 21, frameHeight / 10 * (i + 5),
-					frameWidth / 15, frameHeight / 20);
+			way3[i].setBounds(frameWidth / 256* 203, frameHeight / 10 * (i + 5),
+					frameWidth/13, frameHeight / 20);
+			jtf3[i].setBounds(frameWidth / 124 * 79, frameHeight / 10 * (i + 5),
+					frameWidth / 16, frameHeight / 20);
 		}
 
 		for (int i = 0; i < 4; i++) {
@@ -167,12 +176,23 @@ public class Manager_make_money extends RightAll implements ActionListener {
 			buttongroup[i].add(jradiobutton3[i - 4]);
 		}
 
-		ok.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
-		ok.setBounds(frameWidth / 5, frameHeight / 5 * 4, 90, 40);
+//		ok.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+		ok.setBounds(frameWidth /20*3, frameHeight / 20 *17, frameWidth/10, frameHeight/18);
 		ok.addActionListener(this);
-		cancel.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
-		cancel.setBounds(frameWidth / 5*2, frameHeight / 5 * 4, 90, 40);
+//		cancel.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.lightBlue));
+		cancel.setBounds(frameWidth / 20*9, frameHeight / 20 * 17, frameWidth/10, frameHeight/18);
 		cancel.addActionListener(this);
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//提交.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		ok.setIcon(icon2);
 	}
 
 	public void addWatcher(Watcher watcher) {

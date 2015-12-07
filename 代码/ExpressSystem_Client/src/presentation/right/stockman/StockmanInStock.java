@@ -1,6 +1,9 @@
 package presentation.right.stockman;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -76,6 +79,14 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		}
 
 	}
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\入库单填写right.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth/4*3,frameHeight,null);
+	}
 
 	private void init() {
 
@@ -91,30 +102,36 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		for (int i = 0; i < 4; i++) {
 			jl[i].setBounds(frameWidth / 8, frameHeight / 10 * (i + 1),
 					frameWidth / 10, frameHeight / 20);
+			jl[i].setFont(new Font("宋体",Font.BOLD,15));
 		}
 		for (int i = 4; i < 8; i++) {
 			jl[i].setBounds(frameWidth / 4, frameHeight / 10 * i,
 					frameWidth / 10, frameHeight / 20);
+			jl[i].setFont(new Font("宋体",Font.PLAIN,16));
 		}
 
 		for (int i = 0; i < 3; i++) {
 			if(i!=1)
 			jtf[i].setBounds(frameWidth / 4, frameHeight / 10 * (i + 1),
-					frameWidth / 10, frameHeight / 20);
+					frameWidth / 9, frameHeight / 20);
+			jtf[i].setFont(new Font("宋体",Font.PLAIN,15));
 		}
 		for (int i = 3; i < 7; i++) {
-			jtf[i].setBounds(frameWidth / 3, frameHeight / 10 * (i + 1),
+			jtf[i].setBounds(frameWidth / 3-frameWidth/25, frameHeight / 10 * (i + 1),
 					frameWidth / 10, frameHeight / 20);
+			jtf[i].setFont(new Font("宋体",Font.PLAIN,15));
 		}
 		
 		time[0].setText("年");
 		time[1].setText("月");
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
-			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
+			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 50*6 * i,
+					frameHeight / 5, frameWidth / 11, frameHeight / 20);
+			time[i].setBounds(frameWidth / 3+ frameWidth / 50*6 * i+frameWidth/85,
 					frameHeight / 5, frameWidth / 12, frameHeight / 20);
-			time[i].setBounds(frameWidth / 3+ frameWidth / 10 * i,
-					frameHeight / 5, frameWidth / 12, frameHeight / 20);
+			time[i].setFont(new Font("宋体",Font.PLAIN,15));
+			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
 
 		confirm.setBounds(frameWidth / 4, frameHeight / 10 * 9,

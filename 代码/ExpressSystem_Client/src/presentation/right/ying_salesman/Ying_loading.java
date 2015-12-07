@@ -1,12 +1,16 @@
 package presentation.right.ying_salesman;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -99,6 +103,14 @@ public class Ying_loading extends RightAll implements ActionListener {
 		this.add(js);
 	}
 
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\装车单填写right.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth/4*3,frameHeight,null);
+	}
+	
 	private void init() {
 		jl[0].setText("装车单");
 		jl[1].setText("装车日期");
@@ -111,11 +123,13 @@ public class Ying_loading extends RightAll implements ActionListener {
 		jl[8].setText("订单条形码号");
 		jl[9].setText("运费");
 
-		jl[0].setBounds(frameWidth / 2, frameHeight / 20, frameWidth / 10,
+		jl[0].setBounds(frameWidth / 3, frameHeight / 20+frameHeight/70, frameWidth / 10,
 				frameHeight / 20);
+		jl[0].setFont(new Font("黑体",Font.PLAIN,19));
 		for (int i = 1; i < 10; i++) {
-			jl[i].setBounds(frameWidth / 10, frameHeight / 20 + frameHeight
-					/ 15 * i, frameWidth / 10, frameHeight / 20);
+			jl[i].setBounds(frameWidth / 10, frameHeight / 20 +frameHeight/58+ frameHeight
+					/ 225*23 * i, frameWidth / 7, frameHeight / 20);
+			jl[i].setFont(new Font("宋体",Font.BOLD,14));
 		}
 
 		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10,
@@ -126,8 +140,8 @@ public class Ying_loading extends RightAll implements ActionListener {
 		cancel.addActionListener(this);
 
 		for (int i = 0; i < 8; i++) {
-			jtf[i].setBounds(frameWidth / 4, frameHeight / 20 + frameHeight
-					/ 15 * (i + 2), frameWidth / 10, frameHeight / 20);
+			jtf[i].setBounds(frameWidth / 4, frameHeight / 20 +frameHeight/58+ frameHeight
+					/ 225*23 * (i + 2), frameWidth / 10, frameHeight / 20);
 		}
 
 		time[0].setText("年");
@@ -135,10 +149,10 @@ public class Ying_loading extends RightAll implements ActionListener {
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
 			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
-					frameHeight / 20 + frameHeight / 15, frameWidth / 12,
+					frameHeight / 20 + frameHeight / 15+frameHeight/60, frameWidth / 12,
 					frameHeight / 20);
 			time[i].setBounds(frameWidth / 3 + frameWidth / 10 * i, frameHeight
-					/ 20 + frameHeight / 15, frameWidth / 12, frameHeight / 20);
+					/ 20 + frameHeight / 15+frameHeight/60, frameWidth / 12, frameHeight / 20);
 		}
 		add.setBounds(frameWidth / 12 * 5, frameHeight / 20 + frameHeight / 15
 				* 8, frameWidth / 10, frameHeight / 20);
@@ -146,7 +160,7 @@ public class Ying_loading extends RightAll implements ActionListener {
 
 		initTable();
 
-		js.setBounds(frameWidth / 12 * 5, frameHeight / 20 + frameHeight / 15
+		js.setBounds(frameWidth / 12 * 5, frameHeight / 20 +frameHeight/40+ frameHeight / 15
 				* 2, frameWidth / 5, frameHeight / 3);
 		over.setBounds(frameWidth / 3, frameHeight * 9 / 10, frameWidth / 10,
 				frameHeight / 20);

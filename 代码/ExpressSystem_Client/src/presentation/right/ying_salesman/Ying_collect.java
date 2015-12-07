@@ -1,6 +1,9 @@
 package presentation.right.ying_salesman;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +57,15 @@ public class Ying_collect extends RightAll implements ActionListener {
 			this.add(jtf[i]);
 		}
 	}
-
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\派件单right.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth/4*3,frameHeight,null);
+	}
+	
 	private void init() {
 		jl[0].setText("派件单");
 		jl[1].setText("到达日期");
@@ -62,11 +73,13 @@ public class Ying_collect extends RightAll implements ActionListener {
 		jl[3].setText("快递员编号");
 		jl[4].setText("快递员姓名");
 
-		jl[0].setBounds(frameWidth / 2, frameHeight / 10, frameWidth / 10,
+		jl[0].setBounds(frameWidth /3, frameHeight / 10, frameWidth /5,
 				frameHeight / 20);
+		jl[0].setFont(new Font("黑体",Font.BOLD,22));
 		for (int i = 1; i < 5; i++) {
-			jl[i].setBounds(frameWidth / 10, frameHeight / 6 * i,
-					frameWidth / 10, frameHeight / 20);
+			jl[i].setBounds(frameWidth / 10, frameHeight / 36*5*i + frameHeight/11+frameHeight/80,
+					frameWidth / 8, frameHeight / 20);
+			jl[i].setFont(new Font("宋体",Font.BOLD,17));
 		}
 
 		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10,
@@ -77,8 +90,9 @@ public class Ying_collect extends RightAll implements ActionListener {
 		cancel.addActionListener(this);
 
 		for (int i = 0; i < 4; i++) {
-			jtf[i].setBounds(frameWidth / 4, frameHeight / 6 * (1 + i),
-					frameWidth / 10, frameHeight / 20);
+			jtf[i].setBounds(frameWidth / 4, frameHeight / 36*5* (1 + i)+frameHeight/11+frameHeight/80,
+					frameWidth / 8, frameHeight / 18);
+			jtf[i].setFont(new Font("宋体",Font.PLAIN,15));
 		}
 		over.setBounds(frameWidth / 3, frameHeight * 9 / 10, frameWidth / 10,
 				frameHeight / 20);

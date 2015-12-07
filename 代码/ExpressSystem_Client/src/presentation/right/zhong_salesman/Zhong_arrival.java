@@ -1,6 +1,9 @@
 package presentation.right.zhong_salesman;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -85,6 +88,15 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 			this.add(state[i]);
 		}
 	}
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\到达单填写right.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth/4*3,frameHeight,null);
+	}
+
 
 	private void init() {
 
@@ -100,31 +112,37 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 		remind[5].setText("货物到达状态");
 		for (int i = 0; i < 6; i++) {
 			remind[i].setBounds(frameWidth / 10, frameHeight / 10 * (i + 1),
-					frameWidth / 10, frameHeight / 20);
+					frameWidth / 8, frameHeight / 20);
+			remind[i].setFont(new Font("宋体",Font.BOLD,15));
 		}
 
-		jtf[0].setBounds(frameWidth / 4, frameHeight / 10, frameWidth / 10,
+		jtf[0].setBounds(frameWidth / 4, frameHeight / 10, frameWidth / 9,
 				frameHeight / 20);
-		jtf[1].setBounds(frameWidth / 4, frameHeight / 10 * 3, frameWidth / 10,
+		jtf[1].setBounds(frameWidth / 4, frameHeight / 10 * 3, frameWidth / 9,
 				frameHeight / 20);
-		jtf[2].setBounds(frameWidth / 4, frameHeight / 10 * 4, frameWidth / 10,
+		jtf[2].setBounds(frameWidth / 4, frameHeight / 10 * 4, frameWidth /9,
 				frameHeight / 20);
-		jtf[3].setBounds(frameWidth / 4, frameHeight / 10 * 5, frameWidth / 10,
+		jtf[3].setBounds(frameWidth / 4, frameHeight / 10 * 5, frameWidth /9,
 				frameHeight / 20);
 
 		time[0].setText("年");
 		time[1].setText("月");
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
-			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
+			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 50*6 * i,
+					frameHeight / 5, frameWidth / 11, frameHeight / 20);
+			time[i].setBounds(frameWidth / 3+ frameWidth / 50*6 * i+frameWidth/85,
 					frameHeight / 5, frameWidth / 12, frameHeight / 20);
-			time[i].setBounds(frameWidth / 3 + frameWidth / 10 * i,
-					frameHeight / 5, frameWidth / 12, frameHeight / 20);
+			time[i].setFont(new Font("宋体",Font.PLAIN,15));
+			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
 
 		for (int i = 0; i < 3; i++) {
 			state[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
 					frameHeight / 5 * 3, frameWidth / 10, frameHeight / 20);
+		   state[i].setFont(new Font("宋体",Font.PLAIN,15));
+			state[i].setBorderPainted(false); //不绘制边界搜索
+			  state[i].setContentAreaFilled(false); //不填充所占的矩形区域
 		}
 
 		bg.add(state[0]);

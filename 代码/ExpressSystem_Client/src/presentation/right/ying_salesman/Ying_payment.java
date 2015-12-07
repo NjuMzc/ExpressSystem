@@ -1,12 +1,16 @@
 package presentation.right.ying_salesman;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -92,6 +96,14 @@ public class Ying_payment extends RightAll implements ActionListener {
 		this.add(js);
 		this.add(add);
 	}
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\收款单right.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth/4*3,frameHeight,null);
+	}
 
 	private void init() {
 		jl[0].setText("收款单");
@@ -100,20 +112,24 @@ public class Ying_payment extends RightAll implements ActionListener {
 		jl[2].setText("收款金额");
 		jl[1].setText("收款日期");
 
-		jl[0].setBounds(frameWidth / 3, 0, frameWidth / 10, frameHeight / 20);
+		jl[0].setBounds(frameWidth / 3, frameHeight/10, frameWidth / 10, frameHeight / 20);
+		jl[0].setFont(new Font("黑体",Font.BOLD,20));
 		for (int i = 1; i < 5; i++) {
-			jl[i].setBounds(frameWidth /8, frameHeight / 20 + frameHeight
-					/ 10 * i, frameWidth / 10, frameHeight / 20);
+			jl[i].setBounds(frameWidth /10, frameHeight / 14 + frameHeight
+					/ 10 * i+frameHeight/70, frameWidth /6, frameHeight / 20);
+			jl[i].setFont(new Font("宋体",Font.BOLD,15));
 		}
 		for (int i = 0; i < 3; i++) {
-			jtf[i].setBounds(frameWidth / 4, frameHeight / 20 + frameHeight
-					/ 10 * (i + 2), frameWidth / 10, frameHeight / 20);
+			jtf[i].setBounds(frameWidth / 4, frameHeight / 14 + frameHeight
+					/ 10 * (i + 2)+frameHeight/60, frameWidth / 9, frameHeight / 20);
+			jtf[i].setFont(new Font("宋体",Font.PLAIN,15));
 
 			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
-					frameHeight / 20 + frameHeight / 10, frameWidth / 12,
+					frameHeight / 14 + frameHeight / 10+frameHeight/60, frameWidth / 12,
 					frameHeight / 20);
-			time[i].setBounds(frameWidth / 3 + frameWidth / 10 * i, frameHeight
-					/ 20 + frameHeight / 10, frameWidth / 12, frameHeight / 20);
+			time[i].setBounds(frameWidth /3+ frameWidth / 10 * i, frameHeight
+					/ 14 + frameHeight / 10, frameWidth / 12, frameHeight / 20);
+			time[i].setFont(new Font("宋体",Font.PLAIN,13));
 		}
 
 		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10,
