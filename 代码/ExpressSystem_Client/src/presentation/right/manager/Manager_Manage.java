@@ -2,7 +2,9 @@ package presentation.right.manager;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,6 +17,8 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import businesslogicservice.informationblservice.InstitutionInform.Inform_HallInformServer;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_StorageInformServer;
@@ -50,6 +54,14 @@ public class Manager_Manage extends RightAll {
 	Inform_HallInformServer hallServer;
 	
 	systemServer systemServer;
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+	}
 
 	public Manager_Manage(int frameWidth, int frameHeight) {
 		tranServer=new Inform_TranStationInformServerImpl();
@@ -99,7 +111,23 @@ public class Manager_Manage extends RightAll {
 			gz = new JButton("广州");
 			addCity = new JButton("增加城市");
 			vecButton = new Vector<JButton>();
+      
+			nj=new JButton( ){public void paintComponent(Graphics gs) {
 
+				// 画背景图片
+				ImageIcon im = new ImageIcon("pictures\\城市标签.png");
+				Image im1 =im.getImage();
+
+				gs.drawImage(im1, 0, 0, 40, 20, this);
+
+				Graphics2D g = (Graphics2D) gs;
+
+				super.paintComponent(g);
+
+				}};
+
+
+			
 			initCityPanel();
 
 			this.add(addCity);
@@ -122,6 +150,13 @@ public class Manager_Manage extends RightAll {
 		private void initCityPanel() {
 			city_remind.setBounds(0, 0, frameWidth / 4, frameHeight / 15);
 			nj.setBounds(0, frameHeight / 5, frameWidth / 4, frameHeight / 15);
+			
+			nj.setBackground(Color.orange);
+			nj.setOpaque(true);
+			
+//			JLabel nj1=new JLabel("南京");
+//			nj1.setBounds(0, frameHeight / 5, frameWidth / 4, frameHeight / 15);
+//			this.add(nj);
 			nj.addActionListener(this);
 			nj.setActionCommand("NanJing");
 			bj.setBounds(0, frameHeight / 5 + frameHeight / 15, frameWidth / 4,
@@ -139,6 +174,14 @@ public class Manager_Manage extends RightAll {
 			addCity.setBounds(frameWidth / 16, frameHeight / 10 * 9,
 					frameWidth / 8, frameHeight / 20);
 			addCity.addActionListener(this);
+			
+//			ImageIcon icon1 = new ImageIcon("pictures//城市标签.png");
+//			Image temp1 = icon1.getImage().getScaledInstance(nj.getWidth(),
+//					nj.getHeight(), icon1.getImage().SCALE_DEFAULT);
+//			icon1 = new ImageIcon(temp1);
+//			nj.setIcon(icon1);
+//			
+//			nj.setMargin(new Insets(0, 0, 0, 0));
 
 			vecButton.add(nj);
 			vecButton.add(bj);
@@ -251,6 +294,14 @@ public class Manager_Manage extends RightAll {
 			this.add(orgAdd);
 			this.add(orgDel);
 
+		}
+		
+		protected void paintComponent(Graphics g) {
+			// TODO Auto-generated method stub
+			super.paintComponent(g);
+			ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+			Image bg =background.getImage();
+			g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
 		}
 
 		private void initOrgPanel() {
@@ -460,6 +511,14 @@ public class Manager_Manage extends RightAll {
 			this.add(con_orgDel);
 		}
 
+		protected void paintComponent(Graphics g) {
+			// TODO Auto-generated method stub
+			super.paintComponent(g);
+			ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+			Image bg =background.getImage();
+			g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+		}
+		
 		private void initConcretOrgPanel() {
 			con_tableModel = new DefaultTableModel();
 			con_table = new JTable(con_tableModel);
