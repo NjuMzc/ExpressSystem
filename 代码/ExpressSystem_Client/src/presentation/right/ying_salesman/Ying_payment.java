@@ -79,7 +79,10 @@ public class Ying_payment extends RightAll implements ActionListener {
 		tableModel = new DefaultTableModel();
 		jtable = new JTable(tableModel);
 		js = new JScrollPane(jtable);
-		add = new JButton("添加");
+		add = new JButton("");
+		time[0].setText("年");
+		time[1].setText("月");
+		time[2].setText("日");
 
 		init();
 
@@ -100,7 +103,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\收款单right.png");
+		ImageIcon background = new ImageIcon("pictures\\装车单right.png");//共用背景
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth/4*3,frameHeight,null);
 	}
@@ -112,30 +115,31 @@ public class Ying_payment extends RightAll implements ActionListener {
 		jl[2].setText("收款金额");
 		jl[1].setText("收款日期");
 
-		jl[0].setBounds(frameWidth / 3, frameHeight/10, frameWidth / 10, frameHeight / 20);
+		jl[0].setBounds(frameWidth / 3-frameWidth/30, frameHeight/10-frameHeight/30, frameWidth / 10, frameHeight / 18);
 		jl[0].setFont(new Font("黑体",Font.BOLD,20));
 		for (int i = 1; i < 5; i++) {
-			jl[i].setBounds(frameWidth /10, frameHeight / 14 + frameHeight
-					/ 10 * i+frameHeight/70, frameWidth /6, frameHeight / 20);
-			jl[i].setFont(new Font("宋体",Font.BOLD,15));
+			jl[i].setBounds(frameWidth /10-frameWidth/30, frameHeight / 14 + frameHeight
+					/ 7 * i+frameHeight/70-frameHeight/12, frameWidth /6, frameHeight / 18);
+			jl[i].setFont(new Font("宋体",Font.BOLD,16));
 		}
 		for (int i = 0; i < 3; i++) {
 			jtf[i].setBounds(frameWidth / 4, frameHeight / 14 + frameHeight
-					/ 10 * (i + 2)+frameHeight/60, frameWidth / 9, frameHeight / 20);
+					/7 * (i + 2)+frameHeight/60-frameHeight/12, frameWidth / 9, frameHeight / 20);
 			jtf[i].setFont(new Font("宋体",Font.PLAIN,15));
 
 			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
-					frameHeight / 14 + frameHeight / 10+frameHeight/60, frameWidth / 12,
+					frameHeight / 14 + frameHeight / 10+frameHeight/60-frameHeight/30, frameWidth / 12,
 					frameHeight / 20);
 			time[i].setBounds(frameWidth /3+ frameWidth / 10 * i, frameHeight
-					/ 14 + frameHeight / 10, frameWidth / 12, frameHeight / 20);
-			time[i].setFont(new Font("宋体",Font.PLAIN,13));
+					/ 17 +frameHeight/10, frameWidth / 12, frameHeight / 20);
+			time[i].setFont(new Font("宋体",Font.PLAIN,14));
+			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
 
-		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10,
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10+frameHeight/30,
 				 frameWidth / 9,frameHeight / 16);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10,
+		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10+frameHeight/30,
 				 frameWidth / 9,frameHeight / 16);
 		cancel.addActionListener(this);
 		
@@ -153,10 +157,17 @@ public class Ying_payment extends RightAll implements ActionListener {
 
 		initTable();
 
-		js.setBounds(frameWidth / 4, frameHeight / 10 * 6, frameWidth / 4,
-				frameHeight / 5);
-		add.setBounds(frameWidth / 2, frameHeight / 20 + frameHeight / 10 * 4,
-				frameWidth / 10, frameHeight / 20);
+		js.setBounds(frameWidth / 12 * 5+frameWidth/30, frameHeight / 14 +frameHeight/25+ frameHeight / 15
+				* 2, frameWidth / 5, frameHeight / 2-frameHeight/10);
+		jtable.setFont(new Font("宋体",Font.PLAIN,15));
+		add.setBounds(frameWidth / 12 * 4+frameWidth/20, frameHeight / 10 +frameHeight/2-frameHeight/47
+		         ,frameHeight / 19, frameHeight / 19);
+		
+		ImageIcon icon3 = new ImageIcon("pictures//添加.png");
+		Image temp3 = icon3.getImage().getScaledInstance(add.getWidth(),
+				add.getHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3= new ImageIcon(temp3);
+		add.setIcon(icon3);
 		add.addActionListener(this);
 	}
 

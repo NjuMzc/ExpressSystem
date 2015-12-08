@@ -40,8 +40,8 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		for (int i = 0; i < 8; i++) {
 			jl[i] = new JLabel();
 		}
-		confirm = new JButton("确认");
-		cancel = new JButton("取消");
+		confirm = new JButton("");
+		cancel = new JButton("");
 		jtf = new JTextField[7];
 		for(int i=0;i<7;i++){
 			jtf[i]=new JTextField();
@@ -134,12 +134,24 @@ public class StockmanInStock extends RightAll implements ActionListener {
 			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
 
-		confirm.setBounds(frameWidth / 4, frameHeight / 10 * 9,
-				frameWidth / 10, frameHeight / 20);
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10,
-				frameHeight / 20);
+		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
 		cancel.addActionListener(this);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
 
 	}
 

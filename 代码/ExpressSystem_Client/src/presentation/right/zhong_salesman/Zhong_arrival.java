@@ -63,8 +63,8 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 		timeInput[1] = new JComboBox<String>(month);
 		timeInput[2] = new JComboBox<String>(day);
 
-		confirm = new JButton("确认");
-		cancel = new JButton("取消");
+		confirm = new JButton("");//确认
+		cancel = new JButton("");//取消
 
 		state = new JRadioButton[3];
 		state[0] = new JRadioButton("完好");
@@ -100,9 +100,24 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 
 	private void init() {
 
-		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10, 80, 30);
-		cancel.setBounds(frameWidth * 2 / 5, frameHeight * 9 / 10, 80, 30);
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
+		confirm.addActionListener(this);
+		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
 		cancel.addActionListener(this);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);	
 
 		remind[0].setText("中转中心编号");
 		remind[1].setText("到达日期");

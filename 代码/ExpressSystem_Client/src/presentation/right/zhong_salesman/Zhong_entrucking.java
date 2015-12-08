@@ -47,8 +47,8 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		for (int i = 0; i < 7; i++) {
 			jl[i] = new JLabel();
 		}
-		confirm = new JButton("确认");
-		cancel = new JButton("取消");
+		confirm = new JButton("");
+		cancel = new JButton("");
 		jtf = new JTextField[6];
 		for (int i = 0; i < 6; i++) {
 			jtf[i] = new JTextField();
@@ -75,7 +75,7 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		jtable = new JTable(tableModel);
 		js = new JScrollPane(jtable);
 
-		add = new JButton("添加");
+		add = new JButton("");
 
 		init();
 
@@ -98,7 +98,7 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\装车单填写right.png");
+		ImageIcon background = new ImageIcon("pictures\\装车单right.png");
 		Image bg =background.getImage();
 		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
 	}
@@ -112,17 +112,34 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		jl[5].setText("押运员");
 		jl[6].setText("装车订单号");
 		for (int i = 0; i < 7; i++) {
-			jl[i].setBounds(frameWidth / 10, frameHeight / 12 * i+frameHeight/9,
+			jl[i].setBounds(frameWidth / 10, frameHeight / 11 * i+frameHeight/9,
 					frameWidth / 10, frameHeight / 20);
 			jl[i].setFont(new Font("宋体",Font.BOLD,15));
 		}
-		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10, 80, 30);
-		cancel.setBounds(frameWidth * 2 / 5, frameHeight * 9 / 10, 80, 30);
+		
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
+		confirm.addActionListener(this);
+		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
 		cancel.addActionListener(this);
-		jtf[0].setBounds(frameWidth / 4, frameHeight/9-frameHeight/100, frameWidth / 9, frameHeight / 20);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
+		
+		jtf[0].setBounds(frameWidth / 4-frameWidth/25, frameHeight/9-frameHeight/100, frameWidth / 9, frameHeight / 20);
 		jtf[0].setFont(new Font("宋体",Font.BOLD,15));
 		for (int i = 1; i < 6; i++) {
-			jtf[i].setBounds(frameWidth / 4, frameHeight / 12 * (i + 1)+frameHeight/9,
+			jtf[i].setBounds(frameWidth / 4-frameWidth/25, frameHeight / 11* (i + 1)+frameHeight/9,
 					frameWidth /9, frameHeight / 20);
 			jtf[i].setFont(new Font("宋体",Font.BOLD,15));
 		}
@@ -130,21 +147,28 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		time[1].setText("月");
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
-			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 50*6 * i,
-					frameHeight / 12 * 1+frameHeight/9-frameHeight/100, frameWidth / 11, frameHeight / 20);
-			time[i].setBounds(frameWidth / 3+ frameWidth / 50*6 * i+frameWidth/85,
-					frameHeight / 12 *1+frameHeight/9, frameWidth / 12, frameHeight / 20);
+			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 50*6 * i-frameWidth/25,
+					frameHeight / 11 * 1+frameHeight/9-frameHeight/100, frameWidth / 11, frameHeight / 20);
+			time[i].setBounds(frameWidth / 3+ frameWidth / 50*6 * i+frameWidth/85-frameWidth/25,
+					frameHeight / 11 *1+frameHeight/9, frameWidth / 12, frameHeight / 20);
 			time[i].setFont(new Font("宋体",Font.PLAIN,15));
 			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
-		add.setBounds(frameWidth / 2, frameHeight / 10 * 6, frameWidth / 10,
-				frameHeight / 20);
+		add.setBounds(frameWidth / 3, frameHeight / 10 *7-frameHeight/22, frameHeight /19,
+				frameHeight /19);
 		add.addActionListener(this);
 
+		ImageIcon icon3 = new ImageIcon("pictures//添加.png");
+		Image temp3 = icon3.getImage().getScaledInstance(add.getWidth(),
+				add.getHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3= new ImageIcon(temp3);
+		add.setIcon(icon3);
+		add.addActionListener(this);
+		
 		initTable();
 
-		js.setBounds(frameWidth / 4, frameHeight / 10 * 7, frameWidth / 4,
-				frameHeight / 5);
+		js.setBounds(frameWidth / 2-frameWidth/6+frameWidth/14, frameHeight / 10 * 3-frameHeight/40, frameWidth / 4,
+				frameHeight / 3+frameHeight/8);
 	}
 
 	private void initTable() {

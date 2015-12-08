@@ -107,7 +107,7 @@ public class Ying_arrive extends RightAll implements ActionListener {
 		jl[0].setFont(new Font("黑体",Font.BOLD,20));
 		for (int i = 1; i < 6; i++) {
 			jl[i].setBounds(frameWidth / 10, frameHeight / 14 + frameHeight
-					/ 10 * i, frameWidth / 8, frameHeight / 20);
+					/ 10 * i, frameWidth / 8, frameHeight / 18);
 			jl[i].setFont(new Font("宋体",Font.BOLD,15));
 		}
 		for (int i = 0; i < 3; i++) {

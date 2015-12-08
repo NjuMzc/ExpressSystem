@@ -78,7 +78,7 @@ public class Ying_loading extends RightAll implements ActionListener {
 		timeInput[0] = new JComboBox<String>(year);
 		timeInput[1] = new JComboBox<String>(month);
 		timeInput[2] = new JComboBox<String>(day);
-		add = new JButton("添加");
+		add = new JButton("");
 
 		tableModel = new DefaultTableModel();
 		jtable = new JTable(tableModel);
@@ -169,22 +169,29 @@ public class Ying_loading extends RightAll implements ActionListener {
 			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
 			time[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
-		add.setBounds(frameWidth / 12 * 5, frameHeight / 20 +frameHeight/58+ frameHeight
-				/ 225*25 * 8, frameWidth / 10, frameHeight / 20);
+		add.setBounds(frameWidth / 12 * 4+frameWidth/30, frameHeight / 20 +frameHeight/58+ frameHeight
+				/ 225*25 * 8,  frameHeight / 19, frameHeight / 19);
+		
+		ImageIcon icon3 = new ImageIcon("pictures//添加.png");
+		Image temp3 = icon3.getImage().getScaledInstance(add.getWidth(),
+				add.getHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3= new ImageIcon(temp3);
+		add.setIcon(icon3);
+		
 		add.addActionListener(this);
 
 		initTable();
 
-		js.setBounds(frameWidth / 12 * 5, frameHeight / 20 +frameHeight/40+ frameHeight / 15
+		js.setBounds(frameWidth / 12 * 5+frameWidth/20, frameHeight / 20 +frameHeight/40+ frameHeight / 15
 				* 2, frameWidth / 5, frameHeight / 2);
 		over.setBounds(frameWidth /3, frameHeight * 8 / 10+frameHeight/30,
 				 frameWidth / 9,frameHeight / 16);
 		over.addActionListener(this);
-		ImageIcon icon3 = new ImageIcon("pictures//完成.png");
-		Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
-				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
-		icon3 = new ImageIcon(temp3);
-		over.setIcon(icon3);
+		ImageIcon icon4 = new ImageIcon("pictures//完成.png");
+		Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
+				icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
+		icon4 = new ImageIcon(temp4);
+		over.setIcon(icon4);
 
 
 	}
