@@ -1,26 +1,30 @@
 package presentation.right.accountant;
 
-import java.awt.Color;
-import java.awt.Insets;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
- 
-
 
 import javax.swing.*;
 
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
-
-public class AccountantCost extends RightAll implements  ActionListener{
+public class AccountantCost extends RightAll implements ActionListener {
 	int frameWidth;
 	int frameHeight;
 	JLabel[] jl;
 	JButton back;
 	private List<Watcher> list;
+
+	JLabel time[];
+	JComboBox<String>[] timeInput;
+	JLabel timeover[];
+	JComboBox<String>[] timeInputover;
+	JButton search;
+
+	JTextField jtf[];
 
 	public AccountantCost(int frameWidth, int frameHeight) {
 
@@ -30,23 +34,56 @@ public class AccountantCost extends RightAll implements  ActionListener{
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		jl = new JLabel[5];
 		for (int i = 0; i < 5; i++) {
 			jl[i] = new JLabel();
 		}
-		back= new JButton("返回");
-		back.addActionListener(this);
-		 
+		back = new JButton("返回");
+
+		time = new JLabel[3];
+		timeInput = new JComboBox[3];
+		timeover = new JLabel[3];
+		timeInputover = new JComboBox[3];
+		for (int i = 0; i < 3; i++) {
+			time[i] = new JLabel();
+			timeover[i] = new JLabel();
+		}
+		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
+		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+				"11", "12" };
+		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+				"31" };
+		timeInput[0] = new JComboBox<String>(year);
+		timeInput[1] = new JComboBox<String>(month);
+		timeInput[2] = new JComboBox<String>(day);
+		timeInputover[0] = new JComboBox<String>(year);
+		timeInputover[1] = new JComboBox<String>(month);
+		timeInputover[2] = new JComboBox<String>(day);
+		search = new JButton("查询");
+
+		jtf = new JTextField[3];
+		for (int i = 0; i < 3; i++) {
+			jtf[i] = new JTextField();
+		}
+
 		init();
 
 		for (int i = 0; i < 5; i++) {
 			this.add(jl[i]);
 		}
 		this.add(back);
-
+		for (int i = 0; i < 3; i++) {
+			this.add(time[i]);
+			this.add(timeInput[i]);
+			this.add(timeover[i]);
+			this.add(timeInputover[i]);
+			this.add(jtf[i]);
+		}
+		this.add(search);
 	}
 
 	private void init() {
@@ -58,13 +95,45 @@ public class AccountantCost extends RightAll implements  ActionListener{
 		jl[4].setText("总利润");
 
 		for (int i = 0; i < 5; i++) {
-			jl[i].setBounds(frameWidth / 9, frameHeight / 15 + frameHeight / 8
-					* i, 100, 65);
+			jl[i].setBounds(frameWidth / 10, frameHeight / 15 + frameHeight / 8
+					* i, frameWidth / 10, frameHeight / 20);
 		}
 
-		back.setMargin(new Insets(0, 0, 0, 0));
-		back.setBounds(150, frameHeight - 100, frameWidth / 12,
-				frameWidth / 20);
+		back.setBounds(frameWidth / 40 * 11, frameHeight / 10 * 9,
+				frameWidth / 10, frameHeight / 20);
+		back.addActionListener(this);
+
+		time[0].setText("年");
+		time[1].setText("月");
+		time[2].setText("日");
+		timeover[0].setText("年");
+		timeover[1].setText("月");
+		timeover[2].setText("日");
+		for (int i = 0; i < 3; i++) {
+			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
+					frameHeight / 15, frameWidth / 12, frameHeight / 20);
+			time[i].setBounds(frameWidth / 3 + frameWidth / 10 * i,
+					frameHeight / 15, frameWidth / 12, frameHeight / 20);
+			time[i].setFont(new Font("宋体", Font.PLAIN, 14));
+
+			timeInputover[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
+					frameHeight / 15 + frameHeight / 8, frameWidth / 12,
+					frameHeight / 20);
+			timeover[i].setBounds(frameWidth / 3 + frameWidth / 10 * i,
+					frameHeight / 15 + frameHeight / 8, frameWidth / 12,
+					frameHeight / 20);
+			timeover[i].setFont(new Font("宋体", Font.PLAIN, 14));
+		}
+
+		search.setBounds(frameWidth / 8 * 5,
+				frameHeight / 15 + frameHeight / 8, frameWidth / 10,
+				frameHeight / 20);
+		search.addActionListener(this);
+
+		for (int i = 0; i < 3; i++) {
+			jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight / 8
+					* (i + 2), frameWidth / 10, frameHeight / 20);
+		}
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -86,7 +155,10 @@ public class AccountantCost extends RightAll implements  ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == back) {
 			this.notifyWatchers(State.ACCOUNTANTSTART);
-		} 
+		}
 
+		if(e.getSource()==search){
+			//设置总支出，收入，利润，将jtf设为不可编辑
+		}
 	}
 }
