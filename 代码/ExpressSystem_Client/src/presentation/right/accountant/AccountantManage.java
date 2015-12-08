@@ -34,12 +34,13 @@ public class AccountantManage extends RightAll implements ActionListener {
 	JTextField changejtf[];
 	JLabel changelable[];
 	JButton changeover;
-	
-	//修改界面待完成
+
+	// 修改界面待完成
 	JPanel searchpanel;
 	JTextField searchjtf[];
 	JLabel searchlable[];
 	JButton searchover;
+	JButton search;
 
 	public AccountantManage(int frameWidth, int frameHeight) {
 
@@ -63,6 +64,44 @@ public class AccountantManage extends RightAll implements ActionListener {
 		for (int i = 0; i < 4; i++) {
 			this.add(jb[i]);
 		}
+	}
+
+	private void addSearchPanel() {
+		searchpanel = new JPanel();
+		searchpanel.setLayout(null);
+		searchpanel.setBounds(frameWidth / 16, frameHeight / 5 * 3,
+				frameWidth / 5 * 3, frameHeight / 10);
+		searchlable = new JLabel[2];
+		searchjtf = new JTextField[2];
+		for (int i = 0; i < 2; i++) {
+			searchlable[i] = new JLabel();
+			searchjtf[i] = new JTextField();
+		}
+		searchover = new JButton("√");
+		searchlable[0].setText("名称");
+		searchlable[1].setText("金额");
+		search = new JButton("查询");
+		search.addActionListener(this);
+		search.setBounds(frameWidth / 3, frameHeight / 20, frameWidth / 10,
+				frameHeight / 20);
+
+		for (int i = 0; i < 2; i++) {
+			searchlable[i].setBounds(frameWidth / 10 * i, 0,
+					frameWidth / 28 * 3, frameHeight / 20);
+			searchjtf[i].setBounds(frameWidth / 10 * i, frameHeight / 20,
+					frameWidth / 28 * 3, frameHeight / 20);
+		}
+
+		searchpanel.add(searchlable[0]);
+		searchpanel.add(searchjtf[0]);
+		searchover.setBounds(frameWidth / 2, frameHeight / 20, frameWidth / 10,
+				frameHeight / 20);
+		searchover.addActionListener(this);
+
+		searchpanel.add(search);
+		this.add(searchpanel);
+		this.repaint();
+
 	}
 
 	private void addAddPanel() {
@@ -186,13 +225,17 @@ public class AccountantManage extends RightAll implements ActionListener {
 		if (e.getSource() == jb[0]) {
 			if (changepanel != null) {
 				this.remove(changepanel);
-				this.repaint();
+			}
+			if (searchpanel != null) {
+				this.remove(searchpanel);
 			}
 			addAddPanel();
 		} else if (e.getSource() == jb[1]) {
 			if (addpanel != null) {
 				this.remove(addpanel);
-				this.repaint();
+			}
+			if (searchpanel != null) {
+				this.remove(searchpanel);
 			}
 			int selectedRow = table.getSelectedRow();
 			if (selectedRow >= 0) {
@@ -201,11 +244,12 @@ public class AccountantManage extends RightAll implements ActionListener {
 		} else if (e.getSource() == jb[2]) {
 			if (addpanel != null) {
 				this.remove(addpanel);
-				this.repaint();
 			}
 			if (changepanel != null) {
 				this.remove(changepanel);
-				this.repaint();
+			}
+			if (searchpanel != null) {
+				this.remove(searchpanel);
 			}
 			// 改
 			int row = table.getSelectedRow();
@@ -216,31 +260,48 @@ public class AccountantManage extends RightAll implements ActionListener {
 				addChangePanel(vec);
 				model.removeRow(row);
 			}
+		} else if (e.getSource() == jb[3]) {
+			if (addpanel != null) {
+				this.remove(addpanel);
+			}
+			if (changepanel != null) {
+				this.remove(changepanel);
+			}
 
+			addSearchPanel();
+			this.repaint();
 		}
 
 		// 增加成功
-		if (e.getSource() == addover) {		 
+		if (e.getSource() == addover) {
 			Vector<String> vec = new Vector<>();
 			vec.add(addjtf[0].getText());
 			vec.add(addjtf[1].getText());
 
 			model.addRow(vec);
-			
+
 			this.remove(addpanel);
 			this.repaint();
-		}
-
-		if (e.getSource() == changeover) {
+		} else if (e.getSource() == changeover) {
 			Vector<String> vec = new Vector<>();
 			vec.add(changejtf[0].getText());
 			vec.add(changejtf[1].getText());
 
 			model.addRow(vec);
-			
+
 			this.remove(changepanel);
 			this.repaint();
 
+		}else if(e.getSource()==searchover){
+			this.remove(searchpanel);
+			this.repaint();
+		}
+
+		if (e.getSource() == search) {
+			searchpanel.add(searchjtf[1]);
+			searchpanel.add(searchlable[1]);
+			searchpanel.add(searchover);
+			this.repaint();
 		}
 
 	}
