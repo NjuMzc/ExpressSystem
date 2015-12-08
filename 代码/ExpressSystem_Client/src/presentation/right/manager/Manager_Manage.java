@@ -111,20 +111,6 @@ public class Manager_Manage extends RightAll {
 			gz = new JButton("广州");
 			addCity = new JButton("增加城市");
 			vecButton = new Vector<JButton>();
-      
-			nj=new JButton( ){public void paintComponent(Graphics gs) {
-
-				// 画背景图片
-				ImageIcon im = new ImageIcon("pictures\\城市标签.png");
-				Image im1 =im.getImage();
-
-				gs.drawImage(im1, 0, 0, 40, 20, this);
-
-				Graphics2D g = (Graphics2D) gs;
-
-				super.paintComponent(g);
-
-				}};
 
 
 			

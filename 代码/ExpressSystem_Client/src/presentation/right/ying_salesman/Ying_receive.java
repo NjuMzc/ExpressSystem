@@ -39,8 +39,8 @@ public class Ying_receive extends RightAll implements ActionListener {
 		for (int i = 0; i < 4; i++) {
 			jl[i] = new JLabel();
 		}
-		confirm = new JButton("确认");
-		cancel = new JButton("取消");
+		confirm = new JButton("");//确认
+		cancel = new JButton("");//取消
 
 		init();
 
@@ -69,10 +69,26 @@ public class Ying_receive extends RightAll implements ActionListener {
 			jl[i].setBounds(frameWidth / 9, frameHeight / 15 + frameHeight / 8
 					* i, 100, 65);
 		}
-
-		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10, 80, 30);
-		cancel.setBounds(frameWidth * 2 / 5, frameHeight * 9 / 10, 80, 30);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
+		
+		confirm.setBounds(frameWidth / 6, frameHeight * 5 / 10,  frameWidth / 9,
+				frameHeight / 16);
+		cancel.setBounds(frameWidth * 2 / 5+frameWidth/10, frameHeight *5 / 10, frameWidth / 9,
+				frameHeight / 16);
 		cancel.addActionListener(this);
+		
+
 	}
 
 	public void addWatcher(Watcher watcher) {

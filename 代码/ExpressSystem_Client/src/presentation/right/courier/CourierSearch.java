@@ -93,7 +93,7 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		icon2 = new ImageIcon(temp2);
 		confirm.setIcon(icon2);
 		
-		wrong.setBounds(frameWidth / 3-frameWidth/8, frameHeight / 4 * 1-frameHeight/15, frameWidth/2, frameHeight/7);
+		wrong.setBounds(frameWidth / 3-frameWidth/8+frameWidth/30, frameHeight / 4 * 1-frameHeight/15, frameWidth/2, frameHeight/7);
 		wrong.setForeground(new Color(227, 23, 13));
 		inputOrder.setBounds(frameWidth /5+frameWidth/10, frameHeight / 3-frameHeight/55,frameWidth/3, frameHeight/13);
         inputOrder.setFont(new Font("宋体",Font.BOLD,20));

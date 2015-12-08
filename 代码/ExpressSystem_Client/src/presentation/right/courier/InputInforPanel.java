@@ -1,6 +1,7 @@
 package presentation.right.courier;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.*;
@@ -68,7 +69,7 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		jtfNum = new JTextField();
 		jtfName = new JTextField();
 
-		wrong = new JLabel("输入的订单不存在");
+		wrong = new JLabel("输入的订单不存在!");
 
 		init();
 
@@ -94,41 +95,59 @@ public class InputInforPanel extends RightAll implements ActionListener {
 	
 	private void init() {
 
-		confirm.setBounds(frameWidth / 4, frameHeight / 10 + frameWidth / 2,
-				frameWidth / 10, frameWidth / 20);
-		confirm.setText("确认");
+		confirm.setBounds(frameWidth / 4-frameWidth/25, frameHeight / 10 + frameWidth / 2,
+				frameWidth / 10+frameWidth/70, frameWidth / 21);
+		confirm.setText("");//确认
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth * 2 / 5, frameHeight / 10 + frameWidth / 2,
-				frameWidth / 10, frameWidth / 20);
-		cancel.setText("取消");
+		cancel.setBounds(frameWidth * 2 / 5+frameWidth/25, frameHeight / 10 + frameWidth / 2,
+				frameWidth / 10+frameWidth/70, frameWidth / 21);
+		cancel.setText("");//取消
 		cancel.addActionListener(this);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
 
 		for (int i = 0; i < 3; i++) {
-			jl[i].setBounds(frameWidth / 6, frameHeight / 10 + frameHeight / 5
-					* i, frameWidth / 10, frameWidth / 20);
+			jl[i].setBounds(frameWidth / 6-frameWidth/35, frameHeight / 10+frameHeight/30 + frameHeight / 5
+					* i, frameWidth / 7, frameHeight / 18);
+			jl[i].setFont(new Font("宋体",Font.BOLD,18));
 		}
 		jl[0].setText("快递单号");
 		jl[1].setText("收件人姓名");
 		jl[2].setText("收件日期");
 
-		jtfNum.setBounds(frameWidth / 4, frameHeight / 10, frameWidth / 10,
-				frameWidth / 20);
-		jtfName.setBounds(frameWidth / 4, frameHeight / 10 * 3,
-				frameWidth / 10, frameWidth / 20);
+		jtfNum.setBounds(frameWidth / 4+frameWidth/35, frameHeight / 10+frameHeight/30, frameWidth / 8,
+				frameHeight/16);
+		jtfName.setBounds(frameWidth / 4+frameWidth/35, frameHeight / 10 * 3+frameHeight/30,
+				frameWidth / 8, frameHeight/ 16);
+		jtfNum.setFont(new Font("宋体",Font.PLAIN,16));
+		jtfName.setFont(new Font("宋体",Font.PLAIN,16));
 
-		wrong.setBounds(frameWidth * 2 / 5, frameHeight / 10 + frameWidth / 2
-				+ 30, frameWidth / 8, frameWidth / 20);
+		wrong.setBounds(frameWidth /3-frameWidth/15, frameHeight /5*3 
+			, frameWidth / 3, frameHeight/10);
 		wrong.setVisible(false);
 		wrong.setForeground(Color.red);
+		wrong.setFont(new Font("宋体",Font.BOLD,20));
 
 		time[0].setText("年");
 		time[1].setText("月");
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
-			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
-					frameHeight / 2, frameWidth / 12, frameHeight / 20);
-			time[i].setBounds(frameWidth / 3 + frameWidth / 10 * i,
-					frameHeight / 2, frameWidth / 10, frameHeight / 20);
+			timeInput[i].setBounds(frameWidth / 4 +frameWidth/35+ frameWidth / 10 * i+frameWidth/60*i,
+					frameHeight / 2+frameHeight/25, frameWidth / 12+frameWidth/60, frameHeight / 18);
+			time[i].setBounds(frameWidth / 3+frameWidth/35 +frameWidth/60*(i+1)+ frameWidth / 10 * i,
+					frameHeight / 2+frameHeight/25, frameWidth / 10, frameHeight / 18);
+			time[i].setFont(new Font("宋体",Font.PLAIN,14));
+			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
 	}
 

@@ -59,8 +59,8 @@ public class Ying_payment extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			jtf[i] = new JTextField();
 		}
-		confirm = new JButton("确认");
-		cancel = new JButton("取消");
+		confirm = new JButton("");
+		cancel = new JButton("");
 		time = new JLabel[3];
 		timeInput = new JComboBox[3];
 		for (int i = 0; i < 3; i++) {
@@ -132,12 +132,24 @@ public class Ying_payment extends RightAll implements ActionListener {
 			time[i].setFont(new Font("宋体",Font.PLAIN,13));
 		}
 
-		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10,
-				frameWidth / 10, frameHeight / 20);
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10,
+				 frameWidth / 9,frameHeight / 16);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth * 2 / 5, frameHeight * 9 / 10,
-				frameWidth / 10, frameHeight / 20);
+		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10,
+				 frameWidth / 9,frameHeight / 16);
 		cancel.addActionListener(this);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
 
 		initTable();
 

@@ -56,8 +56,8 @@ public class Ying_loading extends RightAll implements ActionListener {
 		for (int i = 0; i < 10; i++) {
 			jl[i] = new JLabel();
 		}
-		confirm = new JButton("确认");
-		cancel = new JButton("取消");
+		confirm = new JButton("");
+		cancel = new JButton("");
 		jtf = new JTextField[8];
 		for (int i = 0; i < 8; i++) {
 			jtf[i] = new JTextField();
@@ -83,7 +83,7 @@ public class Ying_loading extends RightAll implements ActionListener {
 		tableModel = new DefaultTableModel();
 		jtable = new JTable(tableModel);
 		js = new JScrollPane(jtable);
-		over = new JButton("完成");
+		over = new JButton("");//完成
 
 		init();
 
@@ -106,7 +106,7 @@ public class Ying_loading extends RightAll implements ActionListener {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\装车单填写right.png");
+		ImageIcon background = new ImageIcon("pictures\\装车单right.png");
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth/4*3,frameHeight,null);
 	}
@@ -128,20 +128,33 @@ public class Ying_loading extends RightAll implements ActionListener {
 		jl[0].setFont(new Font("黑体",Font.PLAIN,19));
 		for (int i = 1; i < 10; i++) {
 			jl[i].setBounds(frameWidth / 10, frameHeight / 20 +frameHeight/58+ frameHeight
-					/ 225*23 * i, frameWidth / 7, frameHeight / 20);
-			jl[i].setFont(new Font("宋体",Font.BOLD,14));
+					/ 225*25 * i, frameWidth / 7, frameHeight / 20);
+			jl[i].setFont(new Font("宋体",Font.BOLD,15));
 		}
 
-		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10,
-				frameWidth / 10, frameHeight / 20);
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth * 2 / 5, frameHeight * 9 / 10,
-				frameWidth / 10, frameHeight / 20);
+		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
 		cancel.addActionListener(this);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
 
 		for (int i = 0; i < 8; i++) {
 			jtf[i].setBounds(frameWidth / 4, frameHeight / 20 +frameHeight/58+ frameHeight
-					/ 225*23 * (i + 2), frameWidth / 10, frameHeight / 20);
+					/ 225*25 * (i + 2), frameWidth / 10, frameHeight / 20);
+			jtf[i].setFont(new Font("宋体",Font.PLAIN,15));
 		}
 
 		time[0].setText("年");
@@ -153,23 +166,32 @@ public class Ying_loading extends RightAll implements ActionListener {
 					frameHeight / 20);
 			time[i].setBounds(frameWidth / 3 + frameWidth / 10 * i, frameHeight
 					/ 20 + frameHeight / 15+frameHeight/60, frameWidth / 12, frameHeight / 20);
+			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
+			time[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
-		add.setBounds(frameWidth / 12 * 5, frameHeight / 20 + frameHeight / 15
-				* 8, frameWidth / 10, frameHeight / 20);
+		add.setBounds(frameWidth / 12 * 5, frameHeight / 20 +frameHeight/58+ frameHeight
+				/ 225*25 * 8, frameWidth / 10, frameHeight / 20);
 		add.addActionListener(this);
 
 		initTable();
 
 		js.setBounds(frameWidth / 12 * 5, frameHeight / 20 +frameHeight/40+ frameHeight / 15
-				* 2, frameWidth / 5, frameHeight / 3);
-		over.setBounds(frameWidth / 3, frameHeight * 9 / 10, frameWidth / 10,
-				frameHeight / 20);
+				* 2, frameWidth / 5, frameHeight / 2);
+		over.setBounds(frameWidth /3, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
 		over.addActionListener(this);
+		ImageIcon icon3 = new ImageIcon("pictures//完成.png");
+		Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3 = new ImageIcon(temp3);
+		over.setIcon(icon3);
+
 
 	}
 
 	private void initTable() {
 		tableModel.addColumn("已有单号列表");
+		jtable.setFont(new Font("宋体",Font.PLAIN,15));
 		jtable.getTableHeader().setReorderingAllowed(false);
 		jtable.getTableHeader().setResizingAllowed(false);
 		initTableModel();

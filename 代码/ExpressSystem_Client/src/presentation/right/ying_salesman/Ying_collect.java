@@ -38,13 +38,13 @@ public class Ying_collect extends RightAll implements ActionListener {
 		for (int i = 0; i < 5; i++) {
 			jl[i] = new JLabel();
 		}
-		confirm = new JButton("确认");
-		cancel = new JButton("取消");
+		confirm = new JButton("");//确认
+		cancel = new JButton("");//取消
 		jtf = new JTextField[4];
 		for (int i = 0; i < 4; i++) {
 			jtf[i] = new JTextField();
 		}
-		over = new JButton("完成");
+		over = new JButton("");
 
 		init();
 
@@ -82,21 +82,39 @@ public class Ying_collect extends RightAll implements ActionListener {
 			jl[i].setFont(new Font("宋体",Font.BOLD,17));
 		}
 
-		confirm.setBounds(frameWidth / 6, frameHeight * 9 / 10,
-				frameWidth / 10, frameHeight / 20);
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10,
+				 frameWidth / 9,frameHeight / 16);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth * 2 / 5, frameHeight * 9 / 10,
-				frameWidth / 10, frameHeight / 20);
+		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10,
+				 frameWidth / 9,frameHeight / 16);
 		cancel.addActionListener(this);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
 
 		for (int i = 0; i < 4; i++) {
 			jtf[i].setBounds(frameWidth / 4, frameHeight / 36*5* (1 + i)+frameHeight/11+frameHeight/80,
 					frameWidth / 8, frameHeight / 18);
 			jtf[i].setFont(new Font("宋体",Font.PLAIN,15));
 		}
-		over.setBounds(frameWidth / 3, frameHeight * 9 / 10, frameWidth / 10,
-				frameHeight / 20);
+
+		over.setBounds(frameWidth /3, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
 		over.addActionListener(this);
+		ImageIcon icon3 = new ImageIcon("pictures//完成.png");
+		Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3 = new ImageIcon(temp3);
+		over.setIcon(icon3);
 	}
 
 	public void addWatcher(Watcher watcher) {
