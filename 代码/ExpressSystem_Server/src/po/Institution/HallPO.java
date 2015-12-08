@@ -29,6 +29,8 @@ public class HallPO implements Remote, Serializable {
 	public HallPO(String id) {
 		this.id = id;
 		this.HallStaffList = new ArrayList<HallStaffPO>();
+		this.DriverList=new ArrayList<>();
+		this.CarList=new ArrayList<>();
 		this.name="默认营业厅";
 	}
 
