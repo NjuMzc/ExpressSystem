@@ -1,6 +1,8 @@
 package presentation.right.stockman;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Year;
@@ -65,6 +67,15 @@ public class StockmanCheck extends RightAll implements ActionListener {
 		this.add(export);
 	}
 
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
+	}
+	
+	
 	private void init() {
 		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10,
 				frameHeight / 20);

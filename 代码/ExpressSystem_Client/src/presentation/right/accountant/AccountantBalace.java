@@ -2,6 +2,8 @@ package presentation.right.accountant;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		for (int i = 0; i < 2; i++) {
 			jl[i] = new JLabel();
 		}
-		confirm = new JButton("确认");
+		confirm = new JButton("");//确认
 		time = new JLabel[3];
 		timeInput = new JComboBox[3];
 		for (int i = 0; i < 3; i++) {
@@ -66,8 +68,9 @@ public class AccountantBalace extends RightAll implements ActionListener {
 
 		inputNum = new JTextField();
 		sum = new JLabel("金额合计");
+		sum.setFont(new Font("宋体",Font.BOLD,16));
 		jtfSum = new JTextField();
-		back = new JButton("返回");
+		back = new JButton("");//返回
 
 		init();
 
@@ -82,35 +85,59 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		this.add(inputNum);
 	}
 
-	private void init() {
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
+	}
+	
+  	private void init() {
 		jl[0].setText("查询日期");
 		jl[1].setText("营业厅编号");
 		for (int i = 0; i < 2; i++) {
-			jl[i].setBounds(frameWidth / 10, frameHeight / 10 * i,
+			jl[i].setBounds(frameWidth / 10, frameHeight / 11 * i+frameHeight/30,
 					frameWidth / 10, frameHeight / 20);
+			jl[i].setFont(new Font("宋体",Font.BOLD,16));
 		}
-		confirm.setBounds(frameWidth / 12 * 5, frameHeight / 10,
-				frameWidth / 10, frameHeight / 20);
+		confirm.setBounds(frameWidth / 12 * 5, frameHeight / 10+frameHeight/40,
+				frameWidth / 10, frameHeight / 19);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
+		
 		confirm.addActionListener(this);
 		time[0].setText("年");
 		time[1].setText("月");
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
-			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i, 0,
-					frameWidth / 12, frameHeight / 20);
-			time[i].setBounds(frameWidth / 3 + frameWidth / 10 * i, 0,
+			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i+frameWidth/60*i, frameHeight/30,
+					frameWidth / 12+frameWidth/60, frameHeight / 20);
+			time[i].setBounds(frameWidth / 3 + frameWidth / 10 * i+frameWidth/60*(i+1),frameHeight/30,
 					frameWidth / 12, frameHeight / 20);
 			time[i].setFont(new Font("宋体", Font.PLAIN, 14));
-			timeInput[i].setFont(new Font("宋体", Font.PLAIN, 14));
+			timeInput[i].setFont(new Font("宋体", Font.PLAIN, 13));
 		}
-		inputNum.setBounds(frameWidth / 4, frameHeight / 10, frameWidth / 10,
+		inputNum.setBounds(frameWidth / 4, frameHeight / 10+frameHeight/46, frameWidth / 10,
 				frameHeight / 20);
 		sum.setBounds(frameWidth / 10, frameHeight / 5 * 4, frameWidth / 10,
 				frameHeight / 20);
 		jtfSum.setBounds(frameWidth / 4, frameHeight / 5 * 4, frameWidth / 10,
 				frameHeight / 20);
+		
 		back.setBounds(frameWidth / 4, frameHeight / 10 * 9, frameWidth / 10,
-				frameHeight / 20);
+				frameHeight / 19);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//返回小.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		back.setIcon(icon1);
+		
 		back.addActionListener(this);
 
 		initTable();
@@ -124,10 +151,9 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		model.addColumn("快递员姓名");
 		model.addColumn("快递员编号");
 		model.addColumn("快递订单号");
-
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
-
+        table.setFont(new Font("宋体", Font.PLAIN, 14));
 		initTableModel();
 	}
 

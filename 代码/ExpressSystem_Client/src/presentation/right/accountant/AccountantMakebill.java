@@ -1,6 +1,8 @@
 package presentation.right.accountant;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class AccountantMakebill extends RightAll implements ActionListener {
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
+		this.setBackground(new Color(197, 223, 183));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		up = new JPanel();
@@ -51,10 +53,18 @@ public class AccountantMakebill extends RightAll implements ActionListener {
 		this.add(up);
 	}
 
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
+	}
+	
 	private void init() {
 		up.setLayout(null);
 		up.setBounds(0, 0, frameWidth / 4 * 3, frameHeight / 3);
-		up.setBackground(Color.cyan);
+		up.setBackground(new Color(197, 223, 183));
 		accountantInfor.setBounds(frameWidth / 10, frameHeight / 30, 100, 50);
 		jb[0].setText("机构信息");
 		jb[1].setText("人员信息");
@@ -123,7 +133,7 @@ public class AccountantMakebill extends RightAll implements ActionListener {
 			jl[i] = new JLabel();
 		}
 
-		bankPanel.setBackground(Color.gray);
+		bankPanel.setBackground(new Color(139, 174, 150));
 		bankPanel.setBounds(0, frameHeight / 3, frameWidth / 4 * 3,
 				frameHeight / 3 * 2);
 

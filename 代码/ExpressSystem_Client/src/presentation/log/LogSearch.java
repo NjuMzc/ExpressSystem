@@ -1,6 +1,7 @@
 package presentation.log;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -35,8 +36,8 @@ public class LogSearch extends RightAll implements ActionListener {
 		this.setBounds(0, 0, frameWidth, frameHeight);
 
 		remind = new JLabel("请输入快递单号");
-		confirm = new JButton("确认");
-		back = new JButton("返回");
+		confirm = new JButton("");//确认
+		back = new JButton("");//返回
 		jtf = new JTextField();
 
 		init();
@@ -56,16 +57,31 @@ public class LogSearch extends RightAll implements ActionListener {
 	}
 
 	private void init() {
-		remind.setBounds(frameWidth / 3, frameHeight / 5, frameWidth / 10,
+		remind.setBounds(frameWidth / 3-frameWidth/40, frameHeight / 5, frameWidth / 4,
 				frameHeight / 20);
-		confirm.setBounds(frameWidth / 3 * 2, frameHeight / 5, frameWidth / 10,
-				frameWidth / 20);
+		remind.setFont(new Font("宋体",Font.BOLD,20));
+		confirm.setBounds(frameWidth / 3 * 2+frameWidth/50, frameHeight / 5, frameWidth / 10,
+				frameHeight /19);
 		confirm.addActionListener(this);
 		back.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10,
-				frameHeight / 20);
+				frameHeight / 19);
 		back.addActionListener(this);
-		jtf.setBounds(frameWidth / 2, frameHeight / 5, frameWidth / 10,
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//返回小.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		back.setIcon(icon1);
+		
+		jtf.setBounds(frameWidth / 2, frameHeight / 5, frameWidth /7,
 				frameHeight / 20);
+		jtf.setFont(new Font("宋体",Font.PLAIN,16));
 
 	}
 
@@ -74,9 +90,13 @@ public class LogSearch extends RightAll implements ActionListener {
 			this.remove(addPanel);
 		}
 		addPanel = new JPanel();
+		addPanel.setBackground(new Color(221, 232, 216));
 		JLabel stateGoods = new JLabel("货物状态");
 		JLabel traceGoods = new JLabel("货物轨迹");
 		JLabel state = new JLabel();
+		
+		stateGoods.setFont(new Font("宋体",Font.BOLD,16));
+		traceGoods.setFont(new Font("宋体",Font.BOLD,16));
 
 		JLabel trace[];
 		trace = new JLabel[num];

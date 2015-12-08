@@ -66,7 +66,7 @@ public class adminManage extends RightAll implements ActionListener {
 		table = new JTable(model);
 		js = new JScrollPane(table);
 		type = new JComboBox<String>();
-		add = new JButton(" ");// 增加
+		add = new JButton("");// 增加
 		change = new JButton("");// 修改
 		delete = new JButton("");// 删除
 
@@ -83,7 +83,7 @@ public class adminManage extends RightAll implements ActionListener {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\系统管理right.png");
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
@@ -103,19 +103,40 @@ public class adminManage extends RightAll implements ActionListener {
 		type.addItem("中转中心业务员");
 		type.setBounds(frameWidth * 29 / 128, frameHeight / 30, 150, 40);
 		type.setFont(new Font("宋体", Font.PLAIN, 18));
-		add.setBounds(frameWidth * 34 / 64, frameHeight / 33, 105, 45);
+		add.setBounds(frameWidth * 28 / 64, frameHeight / 32, frameHeight/14, frameHeight/14);
 		add.addActionListener(this);
-		change.setBounds(frameWidth / 64 * 21, frameHeight / 10 * 9, 105, 45);
+		change.setBounds(frameWidth / 64 * 31, frameHeight / 10 * 9, frameHeight/14, frameHeight/14);
 		change.addActionListener(this);
-		delete.setBounds(frameWidth / 128 * 10, frameHeight / 10 * 9, 105, 45);
+		delete.setBounds(frameWidth / 128 * 23, frameHeight / 10 * 9, frameHeight/14, frameHeight/14);
 		delete.addActionListener(this);
+		
+		
+		ImageIcon icon1 = new ImageIcon("pictures//添加.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+			icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		add.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//修改图标.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		change.setIcon(icon2);
+		
+		ImageIcon icon3 = new ImageIcon("pictures//叉.png");
+		Image temp3 = icon3.getImage().getScaledInstance(delete.getWidth(),
+				delete.getHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3 = new ImageIcon(temp3);
+		delete.setIcon(icon3);
+		
+		
 
-		delete.setContentAreaFilled(false);
-		delete.setBorderPainted(false);
-		change.setContentAreaFilled(false);
-		change.setBorderPainted(false);
-		add.setContentAreaFilled(false);
-		add.setBorderPainted(false);
+//		delete.setContentAreaFilled(false);
+//		delete.setBorderPainted(false);
+//		change.setContentAreaFilled(false);
+//		change.setBorderPainted(false);
+//		add.setContentAreaFilled(false);
+//		add.setBorderPainted(false);
 
 	}
 
@@ -123,7 +144,7 @@ public class adminManage extends RightAll implements ActionListener {
 		table.setBackground(new Color(188, 199, 199));
 		table.getTableHeader().setBackground(new Color(126, 205, 182));
 		table.getTableHeader().setReorderingAllowed(false);
-
+		table.setFont(new Font("宋体",Font.PLAIN,14));
 		model.addColumn("姓名");
 		model.addColumn("账号");
 		model.addColumn("密码");
@@ -177,30 +198,41 @@ public class adminManage extends RightAll implements ActionListener {
 		changejtf = new JTextField[4];
 		for (int i = 0; i < 4; i++) {
 			changelable[i] = new JLabel();
+			changelable[i].setFont(new Font("宋体",Font.PLAIN,15));
 			changejtf[i] = new JTextField();
+			changejtf[i].setFont(new Font("宋体",Font.PLAIN,15));
 		}
-		changeover = new JButton("√");
+		changeover = new JButton("");//gou
+		
+	    
 		changelable[0].setText("姓名");
 		changelable[1].setText("账号");
 		changelable[2].setText("密码");
 		changelable[3].setText("职位");
 
 		for (int i = 0; i < 4; i++) {
-			changelable[i].setBounds(frameWidth / 6 * i, 0, frameWidth / 6,
+			changelable[i].setBounds(frameWidth / 6 * i+frameWidth/20, 0, frameWidth / 6,
 					frameHeight / 20);
 			changejtf[i].setBounds(frameWidth / 6 * i, frameHeight / 20,
 					frameWidth / 6, frameHeight / 20);
-
+			changelable[i].setFont(new Font("宋体",Font.PLAIN,15));
 			changejtf[i].setText(vec.get(i));
-
+          
 			changepanel.add(changelable[i]);
 			changepanel.add(changejtf[i]);
 		}
 		changejtf[1].setEditable(false);
 		changejtf[3].setEditable(false);
-		changeover.setBounds(frameWidth / 3 * 2, frameHeight / 20,
-				frameWidth / 20, frameHeight / 20);
+		changeover.setBounds(frameWidth / 3 * 2, frameHeight / 21,
+				frameHeight / 18, frameHeight / 18);
 		changeover.addActionListener(this);
+		
+		ImageIcon icon4 = new ImageIcon("pictures//勾.png");
+		Image temp4 = icon4.getImage().getScaledInstance(changeover.getWidth(),
+				changeover.getHeight(), icon4.getImage().SCALE_DEFAULT);
+		icon4= new ImageIcon(temp4);
+	    changeover.setIcon(icon4);
+	    
 
 		changepanel.add(changeover);
 		this.add(changepanel);
@@ -218,7 +250,7 @@ public class adminManage extends RightAll implements ActionListener {
 			addlable[i] = new JLabel();
 			addjtf[i] = new JTextField();
 		}
-		addover = new JButton("√");
+		addover = new JButton("");//√
 		addlable[0].setText("姓名");
 		addlable[1].setText("账号");
 		addlable[2].setText("密码");
@@ -230,12 +262,20 @@ public class adminManage extends RightAll implements ActionListener {
 					frameHeight / 20);
 			addjtf[i].setBounds(frameWidth / 6 * i, frameHeight / 20,
 					frameWidth / 6, frameHeight / 20);
-
+			addlable[i].setFont(new Font("宋体",Font.PLAIN,15));
+			addjtf[i].setFont(new Font("宋体",Font.PLAIN,15));
 			addpanel.add(addlable[i]);
 			addpanel.add(addjtf[i]);}
 		}
-		addover.setBounds(frameWidth / 3 * 2, frameHeight / 20,
-				frameWidth / 20, frameHeight / 20);
+		addover.setBounds(frameWidth / 3 * 2, frameHeight / 25,
+				frameHeight / 19, frameHeight / 19);
+		
+		ImageIcon icon4 = new ImageIcon("pictures//勾.png");
+		Image temp4 = icon4.getImage().getScaledInstance(addover.getWidth(),
+				addover.getHeight(), icon4.getImage().SCALE_DEFAULT);
+		icon4= new ImageIcon(temp4);
+		addover.setIcon(icon4);
+		
 		addover.addActionListener(this);
 
 		addpanel.add(addover);

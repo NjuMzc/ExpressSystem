@@ -1,6 +1,8 @@
 package presentation.right.accountant;
 
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -86,6 +88,15 @@ public class AccountantCost extends RightAll implements ActionListener {
 		this.add(search);
 	}
 
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\成本管理right.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
+	}
+	
+	
 	private void init() {
 
 		jl[0].setText("开始时间");
@@ -96,7 +107,8 @@ public class AccountantCost extends RightAll implements ActionListener {
 
 		for (int i = 0; i < 5; i++) {
 			jl[i].setBounds(frameWidth / 10, frameHeight / 15 + frameHeight / 8
-					* i, frameWidth / 10, frameHeight / 20);
+					* i, frameWidth / 9, frameHeight / 20);
+			jl[i].setFont(new Font("宋体",Font.BOLD,16));
 		}
 
 		back.setBounds(frameWidth / 40 * 11, frameHeight / 10 * 9,

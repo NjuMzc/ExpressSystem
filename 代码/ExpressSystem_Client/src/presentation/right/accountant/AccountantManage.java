@@ -1,6 +1,8 @@
 package presentation.right.accountant;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,6 +67,15 @@ public class AccountantManage extends RightAll implements ActionListener {
 			this.add(jb[i]);
 		}
 	}
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
+	}
+	
 
 	private void addSearchPanel() {
 		searchpanel = new JPanel();
@@ -77,13 +88,18 @@ public class AccountantManage extends RightAll implements ActionListener {
 			searchlable[i] = new JLabel();
 			searchjtf[i] = new JTextField();
 		}
-		searchover = new JButton("√");
+		searchover = new JButton("");//√
 		searchlable[0].setText("名称");
 		searchlable[1].setText("金额");
-		search = new JButton("查询");
+		search = new JButton("");//查询
 		search.addActionListener(this);
-		search.setBounds(frameWidth / 3, frameHeight / 20, frameWidth / 10,
-				frameHeight / 20);
+		search.setBounds(frameWidth / 3, frameHeight / 22, frameWidth / 10,
+				frameHeight / 19);
+		ImageIcon icon4 = new ImageIcon("pictures//查询.png");
+		Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
+				icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
+		icon4= new ImageIcon(temp4);
+		search.setIcon(icon4);
 
 		for (int i = 0; i < 2; i++) {
 			searchlable[i].setBounds(frameWidth / 10 * i, 0,
@@ -94,8 +110,13 @@ public class AccountantManage extends RightAll implements ActionListener {
 
 		searchpanel.add(searchlable[0]);
 		searchpanel.add(searchjtf[0]);
-		searchover.setBounds(frameWidth / 2, frameHeight / 20, frameWidth / 10,
-				frameHeight / 20);
+		searchover.setBounds(frameWidth / 2, frameHeight / 22, frameHeight / 19,
+				frameHeight / 19);
+		ImageIcon icon5 = new ImageIcon("pictures//勾.png");
+		Image temp5 = icon5.getImage().getScaledInstance(searchover.getWidth(),
+				searchover.getHeight(), icon5.getImage().SCALE_DEFAULT);
+		icon5= new ImageIcon(temp5);
+		searchover.setIcon(icon5);
 		searchover.addActionListener(this);
 
 		searchpanel.add(search);
@@ -115,7 +136,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 			addlable[i] = new JLabel();
 			addjtf[i] = new JTextField();
 		}
-		addover = new JButton("√");
+		addover = new JButton("");//√
 		addlable[0].setText("名称");
 		addlable[1].setText("金额");
 
@@ -128,9 +149,14 @@ public class AccountantManage extends RightAll implements ActionListener {
 			addpanel.add(addlable[i]);
 			addpanel.add(addjtf[i]);
 		}
-		addover.setBounds(frameWidth / 2, frameHeight / 20, frameWidth / 20,
-				frameHeight / 20);
+		addover.setBounds(frameWidth / 2, frameHeight / 22, frameHeight / 19,
+				frameHeight / 19);
 		addover.addActionListener(this);
+		ImageIcon icon6 = new ImageIcon("pictures//勾.png");
+		Image temp6 = icon6.getImage().getScaledInstance(addover.getWidth(),
+				addover.getHeight(), icon6.getImage().SCALE_DEFAULT);
+		icon6= new ImageIcon(temp6);
+		addover.setIcon(icon6);
 
 		addpanel.add(addover);
 		this.add(addpanel);
@@ -149,7 +175,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 			changelable[i] = new JLabel();
 			changejtf[i] = new JTextField();
 		}
-		changeover = new JButton("√");
+		changeover = new JButton("");//√
 		changelable[0].setText("名称");
 		changelable[1].setText("金额");
 
@@ -164,8 +190,15 @@ public class AccountantManage extends RightAll implements ActionListener {
 			changepanel.add(changelable[i]);
 			changepanel.add(changejtf[i]);
 		}
-		changeover.setBounds(frameWidth / 2, frameHeight / 20, frameWidth / 20,
-				frameHeight / 20);
+		changeover.setBounds(frameWidth / 2, frameHeight / 22,frameHeight / 19,
+				frameHeight / 19);
+		
+		ImageIcon icon7 = new ImageIcon("pictures//勾.png");
+		Image temp7 = icon7.getImage().getScaledInstance(changeover.getWidth(),
+				changeover.getHeight(), icon7.getImage().SCALE_DEFAULT);
+		icon7= new ImageIcon(temp7);
+		changeover.setIcon(icon7);
+		
 		changeover.addActionListener(this);
 
 		changepanel.add(changeover);
@@ -177,16 +210,43 @@ public class AccountantManage extends RightAll implements ActionListener {
 		js.setBounds(frameWidth / 16, frameHeight / 10, frameWidth / 8 * 5,
 				frameHeight / 2);
 		initTable();
-		jb[0].setText("增加");
-		jb[1].setText("删除");
-		jb[2].setText("修改");
-		jb[3].setText("查询");
+		jb[0].setText("增加");//
+		jb[1].setText("删除");//
+		jb[2].setText("修改");//
+		jb[3].setText("查询");//
 		for (int i = 0; i < 4; i++) {
 			jb[i].setBounds(frameWidth / 10 + frameWidth / 20 * 3 * i,
-					frameHeight / 10 * 9, frameWidth / 10, frameHeight / 20);
-			jb[i].addActionListener(this);
+					frameHeight / 10 * 9, frameWidth / 10, frameHeight / 19);
+			jb[i].addActionListener(this);	
+			
+			
+//    ImageIcon icon3 = new ImageIcon("pictures//查询.png");
+//	Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+//			icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+//	       icon3= new ImageIcon(temp3);
+//	       jb[3].setIcon(icon3);
+//	       
+//			ImageIcon icon0 = new ImageIcon("pictures//增加.png");
+//			Image temp0 = icon0.getImage().getScaledInstance(icon0.getIconWidth(),
+//					icon0.getIconHeight(), icon0.getImage().SCALE_DEFAULT);
+//			icon0= new ImageIcon(temp0);
+//			jb[0].setIcon(icon0);
+//			
+//			ImageIcon icon1 = new ImageIcon("pictures//删除.png");
+//			Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+//					icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+//			icon1= new ImageIcon(temp1);
+//			jb[1].setIcon(icon1);
+//			
+//			ImageIcon icon2 = new ImageIcon("pictures//修改.png");
+//			Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+//					icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+//			icon2= new ImageIcon(temp2);
+//			jb[2].setIcon(icon2);
 		}
 	}
+	
+
 
 	private void initTable() {
 

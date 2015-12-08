@@ -323,9 +323,9 @@ public class Manager_check extends RightAll implements ActionListener {
 				Object value, boolean isSelected, boolean hasFocus, int row,
 				int column) {
 			if (row % 2 == 0)
-				setBackground(new Color(64, 224, 208));
+				setBackground(new Color(221, 232, 216));
 			else
-				setBackground(new Color(0, 191, 255));
+				setBackground(new Color(193, 213, 182));
 			return super.getTableCellRendererComponent(table, value,
 					isSelected, hasFocus, row, column);
 		}
