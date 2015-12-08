@@ -464,13 +464,24 @@ public class CourierMakebill extends RightAll implements ActionListener {
 
 			OrderBill bill = blServer.makeOrder(message);
 
-			jtf[0].setText(bill.getID());
-			jtf[1].setText(bill.getCharge());
-			jtf[2].setText(bill.getTime());
+			if(bill!=null){
+				jtf[0].setText(bill.getID());
+				jtf[1].setText(bill.getCharge());
+				jtf[2].setText(bill.getTime());
 
-			for (int i = 0; i < 3; i++) {
-				jtf[i].setEditable(false);
+				for (int i = 0; i < 3; i++) {
+					jtf[i].setEditable(false);
+				}
+			}else{
+				jtf[0].setText("您输入的信息");
+				jtf[1].setText("似乎有些不对");
+				jtf[2].setText("请检查一下信息格式");
+
+				for (int i = 0; i < 3; i++) {
+					jtf[i].setEditable(false);
+				}
 			}
+			
 
 		}
 

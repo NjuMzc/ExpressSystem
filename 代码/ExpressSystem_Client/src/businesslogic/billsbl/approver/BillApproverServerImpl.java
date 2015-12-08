@@ -2,6 +2,7 @@ package businesslogic.billsbl.approver;
 
 import java.util.Iterator;
 
+import client.RMIHelper;
 import dataservice.billsdataservice.BillApproverDataServer;
 import po.bills.BillApproverList;
 import po.bills.BillApproverPO;
@@ -14,7 +15,7 @@ public class BillApproverServerImpl implements BillApproveServer {
 	
 	public BillApproverServerImpl(){
 		//RMI
-		
+		dataServer=RMIHelper.getBillApproverData();
 		list=dataServer.get();
 	}
 

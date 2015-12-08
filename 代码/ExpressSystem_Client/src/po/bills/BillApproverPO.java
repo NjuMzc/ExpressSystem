@@ -18,6 +18,7 @@ public class BillApproverPO implements Serializable{
 	public BillApproverPO(){
 		this.state=state.Draft;
 		this.billInform=new ArrayList<String>();
+		this.billEaseInform=new ArrayList<>();
 		
 	}
 	

@@ -23,6 +23,9 @@ public class Trans_MakingOrderServerImpl implements Trans_MakingOrderServer{
 	public OrderBill makeOrder(Message msg) {
 		// TODO Auto-generated method stub
 	    OrderBill bill=billServer.makeBill(msg);
+	    if(bill==null){
+	    	return null;
+	    }
 	    //还需要计算预计时间
 	    {
 	    	
