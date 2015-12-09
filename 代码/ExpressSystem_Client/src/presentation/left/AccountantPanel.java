@@ -22,12 +22,18 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 	JLabel name;
 	JLabel num;
 	JLabel photo;
+
 	boolean isSamll = true;
 	JButton addjb1;
 	JButton addjb2;
 
 	JTextField jtf_num;
 	JTextField jtf_name;
+
+	JButton jb_add1;
+	JButton jb_add2;
+	JButton jb_add3;
+	boolean is_Small = true;
 
 	public AccountantPanel(int frameWidth, int frameHeight) {
 
@@ -39,9 +45,9 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 		this.setBounds(0, 0, frameWidth / 4, frameHeight);
 
 		jb = new JButton[5];
-		// for (int i = 0; i < 5; i++) {
-		// jb[i] = new JButton();
-		// // }
+		for (int i = 0; i < 5; i++) {
+			jb[i] = new JButton();
+		}
 		logout = new JButton("");// 登出账户
 		close = new JButton("");// 关闭系统
 		logout.setContentAreaFilled(false);
@@ -74,10 +80,8 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 
 	private void init() {
 		for (int i = 0; i < 5; i++) {
-			jb[i] = new JButton();
 			jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i,
 					frameWidth / 4, frameHeight / 13);
-			// jb[i].setContentAreaFilled(true);
 			jb[i].addActionListener(this);
 		}
 
@@ -135,57 +139,50 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == jb[0]) {
-			this.notifyWatchers(State.ACCOUNTANTMAKEBILL);
+			if (!isSamll) {
+				handleIsNotSmall();
+			}
+
+			if (is_Small) {
+				handle_IsSmall();
+			} else {
+				handle_IsNotSmall();
+			}
+
 		} else if (e.getSource() == jb[1]) {
+			if (!isSamll) {
+				handleIsNotSmall();
+			}
+			if (!is_Small) {
+				handle_IsNotSmall();
+			}
 			this.notifyWatchers(State.ACCOUNTANTMAKESHEET);
 		} else if (e.getSource() == jb[2]) {
+			if (!is_Small) {
+				handle_IsNotSmall();
+			}
 
 			if (isSamll) {
-
-				addjb1 = new JButton("");// 生成付款单
-				addjb1.addActionListener(this);
-				addjb2 = new JButton("");// 查看成本收益表
-				addjb2.addActionListener(this);
-				addjb1.setBounds(0, frameHeight / 3 + frameHeight / 13 * 3,
-						frameWidth / 4, frameHeight / 23);
-				addjb2.setBounds(0, frameHeight / 3 + frameHeight / 13 * 3
-						+ frameHeight / 23, frameWidth / 4, frameHeight / 23);
-
-				ImageIcon icon8 = new ImageIcon("pictures//查看成本收益表.png");
-				Image temp8 = icon8.getImage().getScaledInstance(
-						frameWidth / 4, frameHeight / 23,
-						icon8.getImage().SCALE_DEFAULT);
-				icon8 = new ImageIcon(temp8);
-				addjb1.setIcon(icon8);
-
-				ImageIcon icon9 = new ImageIcon("pictures//生成付款单.png");
-				Image temp9 = icon9.getImage().getScaledInstance(
-						addjb2.getWidth(), addjb2.getHeight(),
-						icon9.getImage().SCALE_DEFAULT);
-				icon9 = new ImageIcon(temp9);
-				addjb2.setIcon(icon9);
-
-				this.add(addjb1);
-				this.add(addjb2);
-				for (int i = 3; i < 5; i++) {
-					jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i
-							+ frameHeight / 23 * 2, frameWidth / 4,
-							frameHeight / 13);
-				}
-				this.isSamll = false;
+				handIsSmall();
 			} else {
-				this.remove(addjb1);
-				this.remove(addjb2);
-				for (int i = 3; i < 5; i++) {
-					jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i,
-							frameWidth / 4, frameHeight / 13);
-				}
-				this.isSamll = true;
+				handleIsNotSmall();
 			}
 
 		} else if (e.getSource() == jb[3]) {
+			if (!isSamll) {
+				handleIsNotSmall();
+			}
+			if (!is_Small) {
+				handle_IsNotSmall();
+			}
 			this.notifyWatchers(State.ACCOUNTANTMANAGE);
 		} else if (e.getSource() == jb[4]) {
+			if (!isSamll) {
+				handleIsNotSmall();
+			}
+			if (!is_Small) {
+				handle_IsNotSmall();
+			}
 			this.notifyWatchers(State.ACCOUNTANTBALACE);
 		}
 
@@ -201,6 +198,91 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 		} else if (e.getSource() == addjb2) {
 			this.notifyWatchers(State.ACCOUNTANTPAYMENT);
 		}
+
+		if (e.getSource() == jb_add1) {
+			this.notifyWatchers(State.ACCOUNTANTMAKEBILL_ONE);
+		} else if (e.getSource() == jb_add2) {
+			this.notifyWatchers(State.ACCOUNTANTMAKEBILL_TWO);
+		} else if (e.getSource() == jb_add3) {
+			this.notifyWatchers(State.ACCOUNTANTMAKEBILL_THREE);
+		}
+	}
+
+	private void handIsSmall() {
+		addjb1 = new JButton("");// 生成付款单
+		addjb1.addActionListener(this);
+		addjb2 = new JButton("");// 查看成本收益表
+		addjb2.addActionListener(this);
+		addjb1.setBounds(0, frameHeight / 3 + frameHeight / 13 * 3,
+				frameWidth / 4, frameHeight / 23);
+		addjb2.setBounds(0, frameHeight / 3 + frameHeight / 13 * 3
+				+ frameHeight / 23, frameWidth / 4, frameHeight / 23);
+
+		ImageIcon icon8 = new ImageIcon("pictures//查看成本收益表.png");
+		Image temp8 = icon8.getImage().getScaledInstance(frameWidth / 4,
+				frameHeight / 23, icon8.getImage().SCALE_DEFAULT);
+		icon8 = new ImageIcon(temp8);
+		addjb1.setIcon(icon8);
+
+		ImageIcon icon9 = new ImageIcon("pictures//生成付款单.png");
+		Image temp9 = icon9.getImage().getScaledInstance(addjb2.getWidth(),
+				addjb2.getHeight(), icon9.getImage().SCALE_DEFAULT);
+		icon9 = new ImageIcon(temp9);
+		addjb2.setIcon(icon9);
+
+		this.add(addjb1);
+		this.add(addjb2);
+		for (int i = 3; i < 5; i++) {
+			jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i
+					+ frameHeight / 23 * 2, frameWidth / 4, frameHeight / 13);
+		}
+		this.isSamll = false;
+	}
+
+	private void handle_IsSmall() {
+		jb_add1 = new JButton("库存");// 库存
+		jb_add1.addActionListener(this);
+		jb_add2 = new JButton("账户");// 账户
+		jb_add2.addActionListener(this);
+		jb_add3 = new JButton("机构");// 机构
+		jb_add3.addActionListener(this);
+
+		jb_add1.setBounds(0, frameHeight / 3 + frameHeight / 13,
+				frameWidth / 4, frameHeight / 23);
+		jb_add2.setBounds(0, frameHeight / 3 + frameHeight / 13 + frameHeight
+				/ 23, frameWidth / 4, frameHeight / 23);
+		jb_add3.setBounds(0, frameHeight / 3 + frameHeight / 13 + frameHeight
+				/ 23 * 2, frameWidth / 4, frameHeight / 23);
+
+		this.add(jb_add1);
+		this.add(jb_add2);
+		this.add(jb_add3);
+		for (int i = 1; i < 5; i++) {
+			jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i
+					+ frameHeight / 23 * 3, frameWidth / 4, frameHeight / 13);
+		}
+		this.is_Small = false;
+	}
+
+	private void handleIsNotSmall() {
+		this.remove(addjb1);
+		this.remove(addjb2);
+		for (int i = 3; i < 5; i++) {
+			jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i,
+					frameWidth / 4, frameHeight / 13);
+		}
+		this.isSamll = true;
+	}
+
+	private void handle_IsNotSmall() {
+		this.remove(jb_add1);
+		this.remove(jb_add2);
+		this.remove(jb_add3);
+		for (int i = 1; i < 5; i++) {
+			jb[i].setBounds(0, frameHeight / 3 + frameHeight / 13 * i,
+					frameWidth / 4, frameHeight / 13);
+		}
+		this.is_Small = true;
 	}
 
 	public void addWatcher(Watcher watcher) {
