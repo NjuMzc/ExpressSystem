@@ -22,6 +22,8 @@ public class ChargeBill implements Remote, Serializable {
 	
 	private String id;//单据编号,格式为日期8位+4位流水号
 	
+	private BillApproverPO approveBill;
+	
 
 	public ChargeBill(String date,String money,String senderNum,Iterator<String> orderNumbers) {
 		// TODO Auto-generated constructor stub
@@ -35,6 +37,8 @@ public class ChargeBill implements Remote, Serializable {
         }
         
         this.id=date+"0000";
+        
+        this.approveBill=new BillApproverPO();
 	}
 
      //Getters
@@ -64,5 +68,25 @@ public class ChargeBill implements Remote, Serializable {
 
 	public void setId(String id){
 		this.id=id;
+	}
+	
+	public BillApproverPO submit(){
+		approveBill.setState("Submit");
+		
+		approveBill.setEaseInform(date, id, "收款单");
+		
+		approveBill.addInform("收款单编号:"+id);
+		approveBill.addInform("收款日期:"+date);
+		approveBill.addInform("收款金额:"+money);
+		approveBill.addInform("快递员编号:"+senderNum);
+		approveBill.addInform("全部托运单条形码号：");
+		
+		Iterator<String> it=orderNumbers.iterator();
+		while(it.hasNext()){
+			approveBill.addInform("托运单编号:"+it.next());
+		}
+		
+		return approveBill;
+		
 	}
 }
