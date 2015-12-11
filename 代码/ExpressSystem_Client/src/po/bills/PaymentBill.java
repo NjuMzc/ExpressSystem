@@ -3,6 +3,8 @@ package po.bills;
 import java.io.Serializable;
 import java.rmi.Remote;
 
+import vo.paymentbl.PayVO;
+
 public class PaymentBill implements  Serializable,Remote{	
 	/**
 	 * 
@@ -19,18 +21,20 @@ public class PaymentBill implements  Serializable,Remote{
 	private String beiZhu;//备注
 	
 	private String id;//该单据id，付款日期8位+4位流水号
+	private BillApproverPO billForApprover;
 
 	
-	public PaymentBill(String date,String payer,String account,String tiaoMu,String money,String beiZhu) {
+	public PaymentBill(PayVO payInform) {
 		// TODO Auto-generated constructor stub
-        this.date=date;
-        this.payer=payer;
-        this.account=account;
-        this.tiaoMu=tiaoMu;
-        this.money=Double.valueOf(money);
-        this.beiZhu=beiZhu;
+        this.date=payInform.getDate();
+        this.payer=payInform.getPayer();
+        this.account=payInform.getAccount();
+        this.tiaoMu=payInform.getTiaoMu();
+        this.money=Double.valueOf(payInform.getMoney());
+        this.beiZhu=payInform.getBeiZhu();
         
         this.id=date+"000";
+        billForApprover=new BillApproverPO();
 	}
 
 	public String getDate() {
@@ -70,4 +74,7 @@ public class PaymentBill implements  Serializable,Remote{
 		return id;
 	}
     
+	public BillApproverPO submit(){
+		return billForApprover;
+	}
 }

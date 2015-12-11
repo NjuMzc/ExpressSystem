@@ -6,21 +6,28 @@ import businesslogicservice.billApprover.BillApproveServer;
 import dataservice.billsdataservice.PaymentBillDataServer;
 import po.bills.BillApproverPO;
 import po.bills.PaymentBill;
+import vo.paymentbl.PayVO;
 
 public class PaymentBillServer {
 	PaymentBillDataServer dataServer;
 	BillApproveServer approver;
+	PaymentBillIdMaker idMaker;
 	
 	public PaymentBillServer(){
 		this.dataServer=RMIHelper.getPaymentBillData();
 		this.approver=new BillApproverServerImpl();
+		this.idMaker=new PaymentBillIdMaker();
 		
 	}
 	
-	public PaymentBill makeBill(String date,String payer,String account,String tiaoMu,String money,String beiZhu){
-		PaymentBill bill=new PaymentBill(date, payer, account, tiaoMu, money, beiZhu);
+	public PaymentBill makeBill(PayVO payInform){
+		PaymentBill bill=new PaymentBill(payInform);
+		if(idMaker.giveId(bill)==null){
+			return null;
+		}
+		bill.setId(idMaker.giveId(bill));
 		dataServer.addBill(bill);
-//		approver.addBill(BillApproverPO.submit());
+		approver.addBill(bill.submit());
 		return bill;
 	}
 	
