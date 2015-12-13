@@ -1,6 +1,7 @@
 package businesslogic.transportbl.client;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import businesslogic.transportbl.GoodController;
 import businesslogicservice.transportblservice.client.Trans_InquireGoodStateServer;
@@ -22,10 +23,10 @@ public class Trans_InquireGoodStateServerImpl implements
 	}
 
 	@Override
-	public ArrayList<String> getTrace(String id) {
+	public Iterator<String> getTrace(String id) {
 		// TODO Auto-generated method stub
-		ArrayList trace=goodController.getGoodTrace(id);
-		return trace;
+		ArrayList<String> trace=goodController.getGoodTrace(id);
+		return trace.iterator();
 	}
 
 }

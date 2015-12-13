@@ -7,14 +7,20 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.*;
 
+import businesslogic.transportbl.client.Trans_InquireGoodStateServerImpl;
+import businesslogicservice.transportblservice.client.Trans_InquireGoodStateServer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
 public class LogSearch extends RightAll implements ActionListener {
+	Trans_InquireGoodStateServer blServer;
+	String goodState;
+	ArrayList<String> traceRecord;
 
 	int frameWidth;
 	int frameHeight;
@@ -26,6 +32,7 @@ public class LogSearch extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public LogSearch(int frameWidth, int frameHeight) {
+		blServer=new Trans_InquireGoodStateServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -102,11 +109,11 @@ public class LogSearch extends RightAll implements ActionListener {
 		trace = new JLabel[num];
 		for (int i = 0; i < num; i++) {
 			trace[i] = new JLabel();
-			trace[i].setText("南京到北京");
+			trace[i].setText(traceRecord.get(i));
 		}
 		
 		//根据货物状态设置文字
-		state.setText("即将到达");
+		state.setText(goodState);
 
 		addPanel.setBounds(frameWidth / 3, frameHeight / 3, frameWidth / 2,
 				frameHeight / 2);
@@ -149,7 +156,20 @@ public class LogSearch extends RightAll implements ActionListener {
 		if (e.getSource() == back) {
 			this.notifyWatchers(State.COVER);
 		} else if (e.getSource() == confirm) {
-			initAddPanel(5);
+			String id=jtf.getText();
+			
+			goodState=blServer.getGoodState(id);
+			Iterator<String> trace=blServer.getTrace(id);
+			
+			traceRecord=new ArrayList<String>();
+			int counter=0;
+			while(trace.hasNext()){
+				traceRecord.add(trace.next());
+				counter++;
+			}
+			initAddPanel(counter);
+			
+			
 		}
 
 	}

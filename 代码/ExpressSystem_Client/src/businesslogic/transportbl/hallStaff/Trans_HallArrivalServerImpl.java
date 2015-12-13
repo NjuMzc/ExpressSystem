@@ -4,6 +4,7 @@
  * 营业厅到达单功能的实现
  * 尚未完成！！
  */
+import client.RMIHelper;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
 import po.GoodPO;
 import po.SystemUserPO;
@@ -31,6 +32,8 @@ public class Trans_HallArrivalServerImpl implements Trans_HallArrivalServer {
 		goodController=new GoodController();
 		hallServer=new Inform_HallInformServerImpl();
 		//RMI
+		
+		staffServer=RMIHelper.getHallStaffData();
 	}
 
 	@Override
@@ -42,6 +45,7 @@ public class Trans_HallArrivalServerImpl implements Trans_HallArrivalServer {
 		
 		HallPO hall=staffNow.getHall();
 
+		
 		//增加新的货物轨迹
 		goodController.addTrace(GoodID, "于"+date+"到达了"+hall.getName());
 		

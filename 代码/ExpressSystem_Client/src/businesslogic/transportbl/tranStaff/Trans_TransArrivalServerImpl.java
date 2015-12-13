@@ -1,5 +1,6 @@
 package businesslogic.transportbl.tranStaff;
 
+import client.RMIHelper;
 import dataservice.informationdataservice.Inform_TranStaffDataServer;
 import po.GoodPO;
 import po.Institution.TranStationPO;
@@ -19,10 +20,18 @@ public class Trans_TransArrivalServerImpl implements Trans_TransArrivalServer {
 	Inform_TranStationInformServer stationServer;
 	Inform_TranStaffDataServer staffServer;
 	TranStaffPO staffNow;
+	
+	public Trans_TransArrivalServerImpl(){
+		billServer=new TransArrivalBillServer();
+		goodController=new GoodController();
+		staffServer=RMIHelper.getTranStaffData();
+		staffNow=staffServer.find(SystemHelper.getUserID());
+		
+	}
 
 	@Override
 	public TransArrivalBill makeBill(String tranStationID, String GoodID,
-			String hallID, String date, String transOrderNum, String departure,
+			String date, String transOrderNum, String departure,
 			String state) {
 		// TODO Auto-generated method stub
         TransArrivalBill bill = billServer.makeBill(tranStationID,GoodID, date, transOrderNum, departure, state);
