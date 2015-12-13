@@ -24,10 +24,10 @@ public class StockmanChange extends RightAll implements ActionListener {
 	JLabel jl2;
 	JLabel jl3;
 	JLabel jl4;
-	JButton jb1[];
-	JButton jb2[];
-	JButton jb3[];
-	JButton jb4[];
+	JButton jb1[]=null;
+	JButton jb2[]=null;
+	JButton jb3[]=null;
+	JButton jb4[]=null;
 	private List<Watcher> list;
 	String qu;
 	String pai;
@@ -118,7 +118,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 8; i++) {
-			if (e.getSource() == jb2[i]) {
+			if (jb2!=null&&e.getSource() == jb2[i]) {
 				pai = jb2[i].getText();
 				this.remove(jp2);
 				initJp3();
@@ -129,7 +129,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 10; i++) {
-			if (e.getSource() == jb3[i]) {
+			if (jb3!=null&&e.getSource() == jb3[i]) {
 				jia = jb3[i].getText();
 				this.remove(jp3);
 				initJp4();
@@ -140,7 +140,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 30; i++) {
-			if (e.getSource() == jb4[i]) {
+			if (jb4!=null&&e.getSource() == jb4[i]) {
 				wei = jb4[i].getText();
 				this.remove(jp4);
 				initJp5();

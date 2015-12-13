@@ -477,7 +477,6 @@ public class Manager_Manage extends RightAll {
 		JTextField jtf;
 		JLabel addLabel;
 		JButton overButton;
-
 		JButton con_orgAdd;
 		JButton con_orgDel;
 
