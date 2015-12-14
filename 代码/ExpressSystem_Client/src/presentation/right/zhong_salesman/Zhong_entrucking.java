@@ -13,12 +13,18 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.transportbl.tranStaff.Trans_TransEntruckServerImpl;
+import businesslogicservice.transportblservice.tranStaff.Trans_TransEntruckServer;
+import po.Message;
+import po.bills.HallEntruckBill;
+import po.bills.TransEntruckBill;
 import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
 public class Zhong_entrucking extends RightAll implements ActionListener {
+	Trans_TransEntruckServer blServer;
 
 	int frameWidth;
 	int frameHeight;
@@ -35,6 +41,8 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 	JScrollPane js;
 
 	public Zhong_entrucking(int frameWidth, int frameHeight) {
+		blServer=new Trans_TransEntruckServerImpl();
+		
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 
@@ -214,6 +222,33 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 				tableModel.addRow(vec);
 				jtf[5].setText("");
 			}
+		}else if(e.getSource()==confirm){
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			String transNum=jtf[0].getText();
+			String carId=jtf[2].getText();
+			String destination=jtf[1].getText();
+			String  supervisor=jtf[3].getText();
+			String  transportor=jtf[4].getText();
+			
+			Message message=new Message();
+			message.addInform(date);
+			message.addInform(transNum);
+			message.addInform(destination);
+			message.addInform(carId);
+			message.addInform(supervisor);
+			message.addInform(transportor);
+			
+			int row=tableModel.getRowCount();
+			ArrayList<String> orderList=new ArrayList<String>();
+			
+			for(int i=0;i<row;i++){
+				orderList.add(tableModel.getValueAt(i, 0).toString());
+			}
+			TransEntruckBill bill=blServer.makeBill(message, orderList.iterator());
 		}
 	}
 }

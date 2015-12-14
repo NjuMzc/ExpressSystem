@@ -20,13 +20,18 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.transportbl.hallStaff.Trans_HallEntruckServerImpl;
+import businesslogicservice.transportblservice.hallStaff.Trans_HallEntruckServer;
+import po.Message;
+import po.bills.HallEntruckBill;
 import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
 public class Ying_loading extends RightAll implements ActionListener {
-
+    Trans_HallEntruckServer blServer;
+	
 	int frameWidth;
 	int frameHeight;
 	JLabel jl[];
@@ -44,6 +49,8 @@ public class Ying_loading extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Ying_loading(int frameWidth, int frameHeight) {
+		blServer=new Trans_HallEntruckServerImpl();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 
@@ -230,6 +237,37 @@ public class Ying_loading extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.YING_START);
 		} else if (e.getSource() == confirm) {
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			
+			String hallId=jtf[0].getText();
+			String transNum=jtf[1].getText();
+			String carId=jtf[2].getText();
+			String destination=jtf[3].getText();
+			String  supervisor=jtf[4].getText();
+			String  transportor=jtf[5].getText();
+			
+			Message message=new Message();
+			message.addInform(date);
+			message.addInform(hallId);
+			message.addInform(transNum);
+			message.addInform(destination);
+			message.addInform(carId);
+			message.addInform(supervisor);
+			message.addInform(transportor);
+			
+			int row=tableModel.getRowCount();
+			ArrayList<String> orderList=new ArrayList<String>();
+			
+			for(int i=0;i<row;i++){
+				orderList.add(tableModel.getValueAt(i, 0).toString());
+			}
+			HallEntruckBill bill=blServer.makeBill(message, orderList.iterator());
+			
+			jtf[8].setText(String.valueOf(bill.getPayment()));
 
 			this.add(jl[9]);
 			this.add(jtf[7]);
