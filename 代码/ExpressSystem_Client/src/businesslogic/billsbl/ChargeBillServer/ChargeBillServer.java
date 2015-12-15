@@ -11,6 +11,7 @@ import dataservice.billsdataservice.ChargeBillDataServer;
 public class ChargeBillServer {
 	ChargeBillDataServer dataServer;
 	BillApproveServer approver;
+	ChargeBillIDMaker idMaker;
 	
 	public ChargeBillServer(){
 		this.dataServer=RMIHelper.getChargeBillData();
@@ -19,6 +20,7 @@ public class ChargeBillServer {
 	
 	public ChargeBill makeBill(String date,String money,String senderNum,Iterator<String> orderNumbers){
 		ChargeBill bill=new ChargeBill(date, money, senderNum, orderNumbers);
+		bill.setId(idMaker.giveId(bill));
 		dataServer.addBill(bill);
 		approver.addBill(bill.submit());
 		

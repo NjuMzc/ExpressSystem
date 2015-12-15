@@ -2,6 +2,7 @@ package po.bills;
 
 import java.io.Serializable;
 import java.rmi.Remote;
+import java.util.Iterator;
 
 import vo.paymentbl.PayVO;
 
@@ -75,6 +76,17 @@ public class PaymentBill implements  Serializable,Remote{
 	}
     
 	public BillApproverPO submit(){
+		billForApprover.setState("Submit");
+		
+		billForApprover.setEaseInform(date, id, "收款单");
+		
+		billForApprover.addInform("付款单编号:"+id);
+		billForApprover.addInform("付款日期:"+date);
+		billForApprover.addInform("付款金额:"+money);
+		billForApprover.addInform("付款账户:"+account);
+		billForApprover.addInform("付款条目:"+tiaoMu);
+		billForApprover.addInform("备注:"+beiZhu);
+
 		return billForApprover;
 	}
 }

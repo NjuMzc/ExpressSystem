@@ -5,8 +5,6 @@ import java.rmi.Remote;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import po.Message;
-
 public class ChargeBill implements Remote, Serializable {
 
 	/**
@@ -57,8 +55,8 @@ public class ChargeBill implements Remote, Serializable {
 	}
 
 
-	public Iterator<String> getOrderNumbers() {
-		return orderNumbers.iterator();
+	public ArrayList<String> getOrderNumbers() {
+		return orderNumbers;
 	}
 
 
