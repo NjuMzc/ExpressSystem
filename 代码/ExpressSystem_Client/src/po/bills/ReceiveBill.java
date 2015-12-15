@@ -18,6 +18,7 @@ public class ReceiveBill implements Remote,Serializable{
 		this.orderNum=id;
 		this.time=time;
 		this.receiver=name;
+
 	}
 
 	//以下是各种get方法
