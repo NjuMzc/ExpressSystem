@@ -1,17 +1,26 @@
 package businesslogic.paymentServer;
 
+import po.SystemUserPO;
+import po.Workers.HallStaffPO;
 import po.bills.ChargeBill;
 import vo.exception.ExceptionMessage;
 import vo.paymentbl.ChargeVO;
 import vo.paymentbl.PayVO;
 import businesslogic.billsbl.ChargeBillServer.ChargeBillServer;
+import businesslogic.informationbl.Inform_HallStaffInformServerImpl;
+import businesslogic.systembl.SystemBlServerImpl;
+import businesslogic.systembl.SystemHelper;
 import businesslogicservice.paymentblservice.ChargeServer;
 
 public class ChargeServerImpl implements ChargeServer {
 	ChargeBillServer billServer;
+	SystemBlServerImpl systemServer;
+
 	
 	public ChargeServerImpl(){
 		billServer=new ChargeBillServer();
+		systemServer=new SystemBlServerImpl();
+
 	}
 
 	@Override
@@ -41,7 +50,17 @@ public class ChargeServerImpl implements ChargeServer {
 			return chargeInform;
 		}
 		
-		ChargeBill bill=billServer.makeBill(charge.getDate(), String.valueOf(charge.getMoney()), charge.getSenderNum(), charge.getOrderNumbers().iterator());
+		SystemUserPO courier;
+		try{
+			courier=systemServer.inquire(charge.getSenderNum());
+		}catch(NullPointerException e){
+			ExceptionMessage exMessage=new ExceptionMessage("输入的快递员编号错误！");
+			chargeInform=new ChargeVO(exMessage);
+			return chargeInform;
+		}
+		
+
+		ChargeBill bill=billServer.makeBill(charge.getDate(), String.valueOf(charge.getMoney()), charge.getSenderNum(), courier.getUserName(),charge.getOrderNumbers().iterator());
 		
 		chargeInform=new ChargeVO(bill);
 		return chargeInform;

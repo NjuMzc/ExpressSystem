@@ -8,7 +8,8 @@ import vo.exception.ExceptionMessage;
 public class ChargeVO {
 	private String date;//收款日期
 	private double money;//收款金额
-	private String sender;// 快递员编号
+	private String senderNum;// 快递员编号
+	private String senderName;//快递员姓名
 	private ArrayList<String> orderNumbers;// 托运订单条形码号
 	
 	private String id;//单据编号,格式为日期8位+4位流水号
@@ -22,9 +23,10 @@ public class ChargeVO {
 	public ChargeVO(ChargeBill bill){
 	    this.date=bill.getDate();
 	    this.money=bill.getMoney();
-	    this.sender=bill.getSenderNum();
+	    this.senderNum=bill.getSenderNum();
 	    this.orderNumbers=bill.getOrderNumbers();
 	    this.id=bill.getId();
+	    this.senderName=bill.getSenderName();
 	    
 	    this.exMessage=new ExceptionMessage();
 	}
@@ -51,11 +53,11 @@ public class ChargeVO {
 	}
 
 	public String getSenderNum() {
-		return sender;
+		return senderNum;
 	}
 
 	public void setSenderNum(String senderNum) {
-		this.sender = senderNum;
+		this.senderNum = senderNum;
 	}
 
 	public ArrayList<String> getOrderNumbers() {
@@ -72,6 +74,14 @@ public class ChargeVO {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getSenderName(){
+		return senderName;
+	}
+	
+	public void setSenderName(String senderName){
+		this.senderName=senderName;
 	}
 
 	//用于传递错误信息

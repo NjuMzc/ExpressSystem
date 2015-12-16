@@ -58,6 +58,17 @@ public class ChargeBillDataServerImpl extends UnicastRemoteObject implements Cha
 		}
 		return null;
 	}
+	
+	@Override
+	public ArrayList<ChargeBill> findBill(String date, String hallId)
+			throws RemoteException {
+		ArrayList<ChargeBill> list = new ArrayList<ChargeBill>();
+		for (ChargeBill chargeBill : chargeBills) {
+			if(chargeBill.getDate().equals(date)&&chargeBill.getHallId().equals(hallId))
+				list.add(chargeBill);
+		}
+		return list;
+	}
 
 	private void save() {
 		File list = new File(path);
@@ -109,5 +120,7 @@ public class ChargeBillDataServerImpl extends UnicastRemoteObject implements Cha
 		}
 
 	}
+
+
 
 }
