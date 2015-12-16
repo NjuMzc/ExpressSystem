@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.*;
 
@@ -156,34 +158,37 @@ public class LogSearch extends RightAll implements ActionListener {
 		if (e.getSource() == back) {
 			this.notifyWatchers(State.COVER);
 		} else if (e.getSource() == confirm) {
-			
-		
-			
+
 			String id = jtf.getText();
 
-			
 			goodState = blServer.getGoodState(id);
 			// 错误信息提示
-			if(goodState=="0"){
+			if (goodState == "0") {
 				System.out.println("Cant find");
-//				JLabel remindWrong = new JLabel();
-//				remindWrong.setBounds(frameWidth / 3 - frameWidth / 40, frameHeight
-//						/ 5 - frameHeight / 20, frameWidth / 4, frameHeight / 20);
-//				remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-//				remindWrong.setForeground(Color.red);
-//				remindWrong.setText("输入的快递单号不存在"); 
-//				this.add(remindWrong);
-//				this.repaint();
-//				
-//				try {
-//					Thread.sleep(2000);
-//				} catch (Exception e2) {
-//					// TODO: handle exception
-//				}
-//				this.remove(remindWrong);
-//				this.repaint();
-				
-			}else{
+				final JLabel remindWrong = new JLabel();
+				remindWrong.setBounds(frameWidth / 3 - frameWidth / 40,
+						frameHeight / 5 - frameHeight / 20, frameWidth / 4,
+						frameHeight / 20);
+				remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+				remindWrong.setForeground(Color.red);
+				this.add(remindWrong);
+				this.repaint();
+
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						remindWrong.setText("输入的快递单号不存在");
+						try {
+							Thread.sleep(800);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						remindWrong.setText("");
+					}
+				});
+				t.start();
+
+			} else {
 				Iterator<String> trace = blServer.getTrace(id);
 
 				traceRecord = new ArrayList<String>();
@@ -194,9 +199,7 @@ public class LogSearch extends RightAll implements ActionListener {
 				}
 				initAddPanel(counter);
 			}
-			
 
-		 
 		}
 
 	}
