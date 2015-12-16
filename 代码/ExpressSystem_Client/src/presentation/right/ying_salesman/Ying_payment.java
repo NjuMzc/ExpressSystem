@@ -77,7 +77,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 		timeInput[1] = new JComboBox<String>(month);
 		timeInput[2] = new JComboBox<String>(day);
 		tableModel = new DefaultTableModel();
-		jtable = new JTable(tableModel);
+		jtable = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js = new JScrollPane(jtable);
 		add = new JButton("");
 		time[0].setText("年");

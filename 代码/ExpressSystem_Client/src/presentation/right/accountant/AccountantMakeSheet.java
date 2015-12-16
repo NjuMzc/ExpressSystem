@@ -60,7 +60,7 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		startbox = new JComboBox[3];
 		endbox = new JComboBox[3];
 
-		model = new DefaultTableModel();
+		model = new DefaultTableModel(){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		table = new JTable(model);
 		js = new JScrollPane(table);
 		search = new JButton("查询");

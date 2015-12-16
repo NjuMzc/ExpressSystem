@@ -75,7 +75,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 
 		jp1 = new JPanel();
 		model1 = new DefaultTableModel();
-		table1 = new JTable(model1);
+		table1 = new JTable(model1){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js1 = new JScrollPane(table1);
 
 		initJp1();
@@ -105,7 +105,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 		jp2.setLayout(null);
 
 		model2 = new DefaultTableModel();
-		table2 = new JTable(model2);
+		table2 = new JTable(model2){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js2 = new JScrollPane(table2);
 
 		initTable2();
@@ -137,7 +137,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 		jp3.setLayout(null);
 
 		con_tableModel = new DefaultTableModel();
-		con_table = new JTable(con_tableModel);
+		con_table = new JTable(con_tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		con_tableModel.addColumn("姓名");
 		con_tableModel.addColumn("编号");
 		con_table.getTableHeader().setReorderingAllowed(false);
@@ -171,7 +171,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 		jp4.setLayout(null);
 
 		car_tableModel = new DefaultTableModel();
-		car_table = new JTable(car_tableModel);
+		car_table = new JTable(car_tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		car_js = new JScrollPane(car_table);
 
 		initCarModel();

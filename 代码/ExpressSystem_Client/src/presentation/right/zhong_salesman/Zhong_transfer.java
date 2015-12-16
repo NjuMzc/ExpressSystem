@@ -56,7 +56,7 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 			jtf[i] = new JTextField();
 		}
 		tableModel = new DefaultTableModel();
-		jtable = new JTable(tableModel);
+		jtable = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js = new JScrollPane(jtable);
 		time = new JLabel[3];
 		timeInput = new JComboBox[3];

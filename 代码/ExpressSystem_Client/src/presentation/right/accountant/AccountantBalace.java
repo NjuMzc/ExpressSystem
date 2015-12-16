@@ -63,7 +63,7 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		timeInput[2] = new JComboBox<String>(day);
 
 		model = new DefaultTableModel();
-		table = new JTable(model);
+		table = new JTable(model){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js = new JScrollPane(table);
 
 		inputNum = new JTextField();
