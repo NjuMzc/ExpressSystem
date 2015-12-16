@@ -60,8 +60,9 @@ public class AccountantMakebill_THREE extends RightAll implements
 	DefaultTableModel car_tableModel;
 	JTable car_table;
 	JScrollPane car_js;
-	JTextField jtf_car;
-	JLabel addLabel_car;
+	// JTextField jtf_car;
+	JTextField jtf_car[];
+	JLabel addLabel_car[];
 	JButton overButton_car;
 	JButton car_orgAdd;
 	JButton car_orgDel;
@@ -75,7 +76,11 @@ public class AccountantMakebill_THREE extends RightAll implements
 
 		jp1 = new JPanel();
 		model1 = new DefaultTableModel();
-		table1 = new JTable(model1);
+		table1 = new JTable(model1) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		js1 = new JScrollPane(table1);
 
 		initJp1();
@@ -105,7 +110,11 @@ public class AccountantMakebill_THREE extends RightAll implements
 		jp2.setLayout(null);
 
 		model2 = new DefaultTableModel();
-		table2 = new JTable(model2);
+		table2 = new JTable(model2) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		js2 = new JScrollPane(table2);
 
 		initTable2();
@@ -137,7 +146,11 @@ public class AccountantMakebill_THREE extends RightAll implements
 		jp3.setLayout(null);
 
 		con_tableModel = new DefaultTableModel();
-		con_table = new JTable(con_tableModel);
+		con_table = new JTable(con_tableModel) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		con_tableModel.addColumn("姓名");
 		con_tableModel.addColumn("编号");
 		con_table.getTableHeader().setReorderingAllowed(false);
@@ -171,7 +184,11 @@ public class AccountantMakebill_THREE extends RightAll implements
 		jp4.setLayout(null);
 
 		car_tableModel = new DefaultTableModel();
-		car_table = new JTable(car_tableModel);
+		car_table = new JTable(car_tableModel) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		car_js = new JScrollPane(car_table);
 
 		initCarModel();
@@ -367,8 +384,8 @@ public class AccountantMakebill_THREE extends RightAll implements
 				con_tableModel.removeRow(row);
 			}
 		}
-		
-		//车辆
+
+		// 车辆
 		if (e.getSource() == car_orgAdd) {
 			addPanel_Car();
 		} else if (e.getSource() == car_orgDel) {
@@ -382,40 +399,62 @@ public class AccountantMakebill_THREE extends RightAll implements
 	private void addPanel_Car() {
 		if (jtf_car == null) {
 			this.repaint();
-			this.jtf_car = new JTextField();
-			this.addLabel_car = new JLabel("请输入员工编号:");
+			this.jtf_car = new JTextField[7];
+			for (int i = 0; i < 7; i++) {
+				jtf_car[i] = new JTextField();
+			}
+			this.addLabel_car = new JLabel[7];
+			for (int i = 0; i < 7; i++) {
+				addLabel_car[i] = new JLabel();
+			}
+			addLabel_car[0].setText("车辆代号");
+			addLabel_car[1].setText("发动机号");
+			addLabel_car[2].setText("车辆号");
+			addLabel_car[3].setText("底盘号");
+			addLabel_car[4].setText("购买时间");
+			addLabel_car[5].setText("服役时间");
+			addLabel_car[6].setText("车辆描述");
 			this.overButton_car = new JButton("完成");
-			jtf_car.setBounds(frameWidth / 6,
-					frameHeight / 2 + frameHeight / 4, frameWidth / 6,
-					frameHeight / 20);
-			addLabel_car.setBounds(frameWidth / 6, frameHeight / 2
-					+ frameHeight / 5, frameWidth / 6, frameHeight / 20);
+			for (int i = 0; i < 7; i++) {
+				jtf_car[i].setBounds(frameWidth / 14 * i, frameHeight / 2
+						+ frameHeight / 4, frameWidth / 14, frameHeight / 20);
+			}
+			for (int i = 0; i < 7; i++) {
+				addLabel_car[i].setBounds(frameWidth / 14 * i, frameHeight / 2
+						+ frameHeight / 5, frameWidth / 14, frameHeight / 20);
+			}
 			overButton_car.setBounds(frameWidth / 16 * 3,
 					frameHeight / 20 * 17, frameWidth / 8, frameHeight / 20);
 			overButton_car.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					String input = jtf_car.getText();
 					Vector<String> vec = new Vector<>();
-					vec.add(input);
-					vec.add("123");
+					for (int i = 0; i < 7; i++) {
+						vec.add(jtf_car[i].getText());
+					}
 					car_tableModel.addRow(vec);
 					removeAddPanel_Car();
 
 				}
 			});
 
-			jp4.add(jtf_car);
-			jp4.add(addLabel_car);
+			for (int i = 0; i < 7; i++) {
+				jp4.add(addLabel_car[i]);
+				jp4.add(jtf_car[i]);
+			}
 			jp4.add(overButton_car);
 			this.repaint();
 		}
 	}
 
 	private void removeAddPanel_Car() {
-		jp4.remove(jtf_car);
-		jp4.remove(addLabel_car);
+		for(int i=0;i<7;i++){
+			jp4.remove(jtf_car[i]);
+		}
+		for (int i = 0; i < 7; i++) {
+			jp4.remove(addLabel_car[i]);
+		}
 		jp4.remove(overButton_car);
 
 		jtf_car = null;

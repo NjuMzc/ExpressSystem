@@ -88,7 +88,7 @@ public class Ying_loading extends RightAll implements ActionListener {
 		add = new JButton("");
 
 		tableModel = new DefaultTableModel();
-		jtable = new JTable(tableModel);
+		jtable = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js = new JScrollPane(jtable);
 		over = new JButton("");//完成
 

@@ -80,7 +80,7 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		timeInput[2] = new JComboBox<String>(day);
 
 		tableModel = new DefaultTableModel();
-		jtable = new JTable(tableModel);
+		jtable = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js = new JScrollPane(jtable);
 
 		add = new JButton("");

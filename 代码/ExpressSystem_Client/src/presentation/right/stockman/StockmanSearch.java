@@ -142,7 +142,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 				frameHeight / 3 * 2);
 
 		tableModel = new DefaultTableModel();
-		table = new JTable(tableModel);
+		table = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js = new JScrollPane(table);
 		inStock = new JLabel("入库合计");
 		outStock = new JLabel("出库合计");
