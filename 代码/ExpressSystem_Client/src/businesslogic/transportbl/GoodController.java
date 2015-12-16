@@ -56,7 +56,7 @@ public class GoodController {
 	public String getGoodTransState(String id){
 		GoodPO good=dataServer.find(id);
 		if(good==null){
-			return "Can't Find this Good!";
+			return "0";
 		}else
 		    return good.getTransState();
 	}

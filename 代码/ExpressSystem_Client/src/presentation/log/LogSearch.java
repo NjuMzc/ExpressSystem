@@ -157,36 +157,44 @@ public class LogSearch extends RightAll implements ActionListener {
 			this.notifyWatchers(State.COVER);
 		} else if (e.getSource() == confirm) {
 			
-			// 错误信息提示
-			JLabel remindWrong = new JLabel();
-			remindWrong.setBounds(frameWidth / 3 - frameWidth / 40, frameHeight
-					/ 5 - frameHeight / 20, frameWidth / 4, frameHeight / 20);
-			remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-			remindWrong.setForeground(Color.red);
-			remindWrong.setText("输入的快递单号不存在"); 
-			this.add(remindWrong);
-			this.repaint();
-			
-			try {
-				Thread.sleep(2000);
-			} catch (Exception e2) {
-				// TODO: handle exception
-			}
-			this.remove(remindWrong);
-			this.repaint();
+		
 			
 			String id = jtf.getText();
 
+			
 			goodState = blServer.getGoodState(id);
-			Iterator<String> trace = blServer.getTrace(id);
+			// 错误信息提示
+			if(goodState=="0"){
+				System.out.println("Cant find");
+//				JLabel remindWrong = new JLabel();
+//				remindWrong.setBounds(frameWidth / 3 - frameWidth / 40, frameHeight
+//						/ 5 - frameHeight / 20, frameWidth / 4, frameHeight / 20);
+//				remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+//				remindWrong.setForeground(Color.red);
+//				remindWrong.setText("输入的快递单号不存在"); 
+//				this.add(remindWrong);
+//				this.repaint();
+//				
+//				try {
+//					Thread.sleep(2000);
+//				} catch (Exception e2) {
+//					// TODO: handle exception
+//				}
+//				this.remove(remindWrong);
+//				this.repaint();
+				
+			}else{
+				Iterator<String> trace = blServer.getTrace(id);
 
-			traceRecord = new ArrayList<String>();
-			int counter = 0;
-			while (trace.hasNext()) {
-				traceRecord.add(trace.next());
-				counter++;
+				traceRecord = new ArrayList<String>();
+				int counter = 0;
+				while (trace.hasNext()) {
+					traceRecord.add(trace.next());
+					counter++;
+				}
+				initAddPanel(counter);
 			}
-			initAddPanel(counter);
+			
 
 		 
 		}

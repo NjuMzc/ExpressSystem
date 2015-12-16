@@ -7,7 +7,7 @@ import vo.exception.ExceptionMessage;
 
 public class ChargeVO {
 	private String date;//收款日期
-	private double money;//收款金额
+	private String money;//收款金额
 	private String senderNum;// 快递员编号
 	private String senderName;//快递员姓名
 	private ArrayList<String> orderNumbers;// 托运订单条形码号
@@ -22,7 +22,7 @@ public class ChargeVO {
 	
 	public ChargeVO(ChargeBill bill){
 	    this.date=bill.getDate();
-	    this.money=bill.getMoney();
+	    this.money=String.valueOf(bill.getMoney());
 	    this.senderNum=bill.getSenderNum();
 	    this.orderNumbers=bill.getOrderNumbers();
 	    this.id=bill.getId();
@@ -44,12 +44,12 @@ public class ChargeVO {
 		this.date = date;
 	}
 
-	public double getMoney() {
+	public String getMoney() {
 		return money;
 	}
 
-	public void setMoney(double money) {
-		this.money = money;
+	public void setMoney(String money) {
+		this.money =money;
 	}
 
 	public String getSenderNum() {

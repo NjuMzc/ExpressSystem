@@ -20,13 +20,18 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.paymentServer.ChargeServerImpl;
+import businesslogicservice.paymentblservice.ChargeServer;
 import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
+import vo.paymentbl.ChargeVO;
 
 public class Ying_payment extends RightAll implements ActionListener {
-
+	ChargeServer blServer;
+    ChargeVO charge;
+	
 	int frameWidth;
 	int frameHeight;
 	JLabel jl[];
@@ -43,6 +48,9 @@ public class Ying_payment extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Ying_payment(int frameWidth, int frameHeight) {
+		blServer=new ChargeServerImpl();
+		charge=new ChargeVO();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 
@@ -175,16 +183,8 @@ public class Ying_payment extends RightAll implements ActionListener {
 		tableModel.addColumn("已有单号列表");
 		jtable.getTableHeader().setReorderingAllowed(false);
 		jtable.getTableHeader().setResizingAllowed(false);
-		initTableModel();
 	}
 
-	private void initTableModel() {
-		Vector<String> vec = new Vector<>();
-		vec.add("12345666");
-
-		// 初始化已有单号列表
-		tableModel.addRow(vec);
-	}
 
 	public void addWatcher(Watcher watcher) {
 		list.add(watcher);
@@ -204,7 +204,37 @@ public class Ying_payment extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.YING_START);
 		} else if (e.getSource() == confirm) {
-			this.notifyWatchers(State.YING_PAYMENT);
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			
+			String money=jtf[0].getText();
+			
+			String senderNum=jtf[1].getText();
+			
+			int row=tableModel.getRowCount();
+			ArrayList<String> billList=new ArrayList<String>();
+			
+			for(int i=0;i<row;i++){
+				billList.add(tableModel.getValueAt(i, 0).toString());
+			}
+			
+			charge.setDate(date);
+			charge.setMoney(money);
+			charge.setSenderNum(senderNum);
+			charge.setOrderNumbers(billList);
+			
+			ChargeVO result=blServer.makeBill(charge);
+			if(result.isWrong()){
+				//错误信息处理
+				
+			}else{
+
+				this.notifyWatchers(State.YING_PAYMENT);
+			}
+			
 		}
 
 		if (e.getSource() == add) {
