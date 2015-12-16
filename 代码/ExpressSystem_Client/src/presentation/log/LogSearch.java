@@ -32,7 +32,7 @@ public class LogSearch extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public LogSearch(int frameWidth, int frameHeight) {
-		blServer=new Trans_InquireGoodStateServerImpl();
+		blServer = new Trans_InquireGoodStateServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -43,8 +43,8 @@ public class LogSearch extends RightAll implements ActionListener {
 		this.setBounds(0, 0, frameWidth, frameHeight);
 
 		remind = new JLabel("请输入快递单号");
-		confirm = new JButton("");//确认
-		back = new JButton("");//返回
+		confirm = new JButton("");// 确认
+		back = new JButton("");// 返回
 		jtf = new JTextField();
 
 		init();
@@ -64,31 +64,31 @@ public class LogSearch extends RightAll implements ActionListener {
 	}
 
 	private void init() {
-		remind.setBounds(frameWidth / 3-frameWidth/40, frameHeight / 5, frameWidth / 4,
-				frameHeight / 20);
-		remind.setFont(new Font("宋体",Font.BOLD,20));
-		confirm.setBounds(frameWidth / 3 * 2+frameWidth/50, frameHeight / 5, frameWidth / 10,
-				frameHeight /19);
+		remind.setBounds(frameWidth / 3 - frameWidth / 40, frameHeight / 5,
+				frameWidth / 4, frameHeight / 20);
+		remind.setFont(new Font("宋体", Font.BOLD, 20));
+		confirm.setBounds(frameWidth / 3 * 2 + frameWidth / 50,
+				frameHeight / 5, frameWidth / 10, frameHeight / 19);
 		confirm.addActionListener(this);
 		back.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10,
 				frameHeight / 19);
 		back.addActionListener(this);
-		
+
 		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
 		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
 				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
 		icon2 = new ImageIcon(temp2);
 		confirm.setIcon(icon2);
-		
+
 		ImageIcon icon1 = new ImageIcon("pictures//返回小.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		back.setIcon(icon1);
-		
-		jtf.setBounds(frameWidth / 2, frameHeight / 5, frameWidth /7,
+
+		jtf.setBounds(frameWidth / 2, frameHeight / 5, frameWidth / 7,
 				frameHeight / 20);
-		jtf.setFont(new Font("宋体",Font.PLAIN,16));
+		jtf.setFont(new Font("宋体", Font.PLAIN, 16));
 
 	}
 
@@ -101,9 +101,9 @@ public class LogSearch extends RightAll implements ActionListener {
 		JLabel stateGoods = new JLabel("货物状态");
 		JLabel traceGoods = new JLabel("货物轨迹");
 		JLabel state = new JLabel();
-		
-		stateGoods.setFont(new Font("宋体",Font.BOLD,16));
-		traceGoods.setFont(new Font("宋体",Font.BOLD,16));
+
+		stateGoods.setFont(new Font("宋体", Font.BOLD, 16));
+		traceGoods.setFont(new Font("宋体", Font.BOLD, 16));
 
 		JLabel trace[];
 		trace = new JLabel[num];
@@ -111,8 +111,8 @@ public class LogSearch extends RightAll implements ActionListener {
 			trace[i] = new JLabel();
 			trace[i].setText(traceRecord.get(i));
 		}
-		
-		//根据货物状态设置文字
+
+		// 根据货物状态设置文字
 		state.setText(goodState);
 
 		addPanel.setBounds(frameWidth / 3, frameHeight / 3, frameWidth / 2,
@@ -156,20 +156,39 @@ public class LogSearch extends RightAll implements ActionListener {
 		if (e.getSource() == back) {
 			this.notifyWatchers(State.COVER);
 		} else if (e.getSource() == confirm) {
-			String id=jtf.getText();
 			
-			goodState=blServer.getGoodState(id);
-			Iterator<String> trace=blServer.getTrace(id);
+			// 错误信息提示
+			JLabel remindWrong = new JLabel();
+			remindWrong.setBounds(frameWidth / 3 - frameWidth / 40, frameHeight
+					/ 5 - frameHeight / 20, frameWidth / 4, frameHeight / 20);
+			remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+			remindWrong.setForeground(Color.red);
+			remindWrong.setText("输入的快递单号不存在"); 
+			this.add(remindWrong);
+			this.repaint();
 			
-			traceRecord=new ArrayList<String>();
-			int counter=0;
-			while(trace.hasNext()){
+			try {
+				Thread.sleep(2000);
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			this.remove(remindWrong);
+			this.repaint();
+			
+			String id = jtf.getText();
+
+			goodState = blServer.getGoodState(id);
+			Iterator<String> trace = blServer.getTrace(id);
+
+			traceRecord = new ArrayList<String>();
+			int counter = 0;
+			while (trace.hasNext()) {
 				traceRecord.add(trace.next());
 				counter++;
 			}
 			initAddPanel(counter);
-			
-			
+
+		 
 		}
 
 	}
