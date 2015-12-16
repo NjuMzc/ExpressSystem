@@ -147,26 +147,26 @@ public class LogMainFrame extends RightAll implements ActionListener {
 		if (!input_account.equals("") && !input_password.equals("")) {
 			SystemUserPO user = s.login(input_account, input_password);
 			if (user != null) {
-				if (user.getIdentity().equals("manager")) {
+				if (user.getIdentity().equals("总经理")) {
 					this.notifyWatchers(State.MANAGERSTART);
 					this.notifyWatchers(State.LEFTMANAGER);
 
-				} else if (user.getIdentity().equals("account")) {
+				} else if (user.getIdentity().equals("财务人员")) {
 					this.notifyWatchers(State.ACCOUNTANTSTART);
 					this.notifyWatchers(State.LEFTACCOUNTANT);
-				} else if (user.getIdentity().equals("courier")) {
+				} else if (user.getIdentity().equals("快递员")) {
 					this.notifyWatchers(State.COURIERSTART);
 					this.notifyWatchers(State.LEFTCOURIER);
-				} else if (user.getIdentity().equals("hstaff")) {
+				} else if (user.getIdentity().equals("营业厅业务员")) {
 					this.notifyWatchers(State.YING_START);
 					this.notifyWatchers(State.LEFTYING);
-				} else if (user.getIdentity().equals("tstaff")) {
+				} else if (user.getIdentity().equals("中转中心业务员")) {
 					this.notifyWatchers(State.ZHONG_START);
 					this.notifyWatchers(State.LEFTZHONG);
-				} else if (user.getIdentity().equals("keeper")) {
+				} else if (user.getIdentity().equals("中转中心仓库管理员")) {
 					this.notifyWatchers(State.STOCKMANSTART);
 					this.notifyWatchers(State.LEFTSTOCKMAN);
-				} else if (user.getIdentity().equals("admin")) {
+				} else if (user.getIdentity().equals("系统管理员")) {
 
 					this.notifyWatchers(State.ADMINSTART);
 					this.notifyWatchers(State.LEFTADMIN);

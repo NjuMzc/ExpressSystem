@@ -20,6 +20,13 @@ public class SystemBlServerImpl implements systemServer {
 
 	public SystemBlServerImpl()  {
 		dataServer=RMIHelper.getSystemData();
+		
+		//保证初始化的时候有一个admin用户
+		if(dataServer.find("2015070000")==null){
+			SystemUserPO admin=new SystemUserPO("2015070000","nova123321","系统管理员", "系统管理员爸爸");
+			dataServer.insert(admin);
+		}
+		
 	}
 
 	/*
@@ -70,25 +77,25 @@ public class SystemBlServerImpl implements systemServer {
 		
 		//自动分配id
 		switch(identity){
-		case "manager":
+		case "总经理":
 			mark="1";
 			break;
-		case "account":
+		case "财务人员":
 			mark="2";
 			break;
-		case "courier":
+		case "快递员":
 			mark="3";
 			break;
-		case "hstaff":
+		case "营业厅业务员":
 			mark="4";
 			break;
-		case "tstaff":
+		case "中转中心业务员":
 			mark="5";
 			break;
-		case "keeper":
+		case "中转中心仓库管理员":
 			mark="6";
 			break;
-		case "admin":
+		case "系统管理员":
 			mark="7";
 			break;
 		}
@@ -157,8 +164,11 @@ public class SystemBlServerImpl implements systemServer {
 		// TODO Auto-generated method stub
 		SystemUserPO user =dataServer.find(id);
 
-		if (user == null)
+		if (user == null){
+			System.out.println("Can't find user");
 			return null;
+		}
+			
 		else {
 		    return user;
 		}

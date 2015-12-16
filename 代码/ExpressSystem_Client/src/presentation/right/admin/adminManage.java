@@ -352,25 +352,25 @@ public class adminManage extends RightAll implements ActionListener {
 
 			// 各个类型人员的增加
 			if (currentType.equals("快递员")) {
-				user = blserver.addUser("courier");
+				user = blserver.addUser("快递员");
 
 			} else if (currentType.equals("管理员")) {
-				user = blserver.addUser("admin");
+				user = blserver.addUser("系统管理员");
 
 			} else if (currentType.equals("总经理")) {
-				user = blserver.addUser("manager");
+				user = blserver.addUser("总经理");
 
 			} else if (currentType.equals("财务人员")) {
-				user = blserver.addUser("account");
+				user = blserver.addUser("财务人员");
 
 			} else if (currentType.equals("仓库管理人员")) {
-				user = blserver.addUser("keeper");
+				user = blserver.addUser("中转中心仓库管理员");
 
 			} else if (currentType.equals("营业厅业务员")) {
-				user = blserver.addUser("hstaff");
+				user = blserver.addUser("营业厅业务员");
 
 			} else if (currentType.equals("中转中心业务员")) {
-				user = blserver.addUser("tstaff");
+				user = blserver.addUser("中转中心业务员");
 			}
 			Message msg=new Message();
 			msg.addInform(addjtf[0].getText());
