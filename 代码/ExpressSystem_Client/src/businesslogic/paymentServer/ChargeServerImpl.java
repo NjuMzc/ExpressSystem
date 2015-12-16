@@ -60,7 +60,7 @@ public class ChargeServerImpl implements ChargeServer {
 		}
 		
 
-		ChargeBill bill=billServer.makeBill(charge.getDate(), String.valueOf(charge.getMoney()), charge.getSenderNum(), courier.getUserName(),charge.getOrderNumbers().iterator());
+		ChargeBill bill=billServer.makeBill(charge.getDate(), charge.getMoney(), charge.getSenderNum(), courier.getUserName(),charge.getOrderNumbers().iterator());
 		
 		chargeInform=new ChargeVO(bill);
 		return chargeInform;
