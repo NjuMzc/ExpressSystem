@@ -37,14 +37,14 @@ public class YearMonthDay {
 	private void jbInit() {
 
 		// 年的下拉选择框
-		cboYear.setFont(new java.awt.Font("Dialog", Font.BOLD, 15));
+		cboYear.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
 		cboYear.setBounds(new Rectangle(0, 0, 55, 18));
 		// 月的下拉选择框
-		cboMonth.setFont(new java.awt.Font("Dialog", Font.BOLD, 15));
+		cboMonth.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
 		cboMonth.setBounds(new Rectangle(80, 0, 45, 18));
 		cboMonth.addItemListener(new DateItemAdapter(this));
 		// 日的下拉选择框
-		cboDay.setFont(new java.awt.Font("Dialog", Font.BOLD, 15));
+		cboDay.setFont(new java.awt.Font("Dialog", Font.BOLD, 10));
 		cboDay.setBounds(new Rectangle(150, 0, 45, 18));
 
 		// 添加初始值

@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,9 +60,9 @@ public class AccountantCost extends RightAll implements ActionListener {
 		timeInput[1] = time1.getCboMonth();
 		timeInput[2] = time1.getCboDay();
 		YearMonthDay time2=new YearMonthDay();
-		timeInput[0] = time2.getCboYear();
-		timeInput[1] = time2.getCboMonth();
-		timeInput[2] = time2.getCboDay();
+		timeInputover[0] = time2.getCboYear();
+		timeInputover[1] = time2.getCboMonth();
+		timeInputover[2] = time2.getCboDay();
 		search = new JButton("查询");
 
 		jtf = new JTextField[3];
@@ -142,6 +144,37 @@ public class AccountantCost extends RightAll implements ActionListener {
 			jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight / 8
 					* (i + 2), frameWidth / 10, frameHeight / 20);
 		}
+		 
+		jtf[0].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[1].requestFocus();
+				}
+			}
+		});
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[2].requestFocus();
+				}
+			}
+		});
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (  e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[0].requestFocus();
+				}
+			}
+		});
+		jtf[2].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (  e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[1].requestFocus();
+				}
+			}
+		});
 	}
 
 	public void addWatcher(Watcher watcher) {

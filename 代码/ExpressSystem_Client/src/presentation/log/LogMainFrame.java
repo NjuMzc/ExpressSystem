@@ -127,7 +127,6 @@ public class LogMainFrame extends RightAll implements ActionListener {
 		});
 
 		jtf.addKeyListener(new KeyAdapter() {
-
 			public void keyTyped(KeyEvent e) {
 				if (!Character.isDigit(e.getKeyChar())) {
 					e.consume();
