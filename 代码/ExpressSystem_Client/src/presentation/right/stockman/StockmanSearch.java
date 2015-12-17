@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import presentation.right.RightAll;
+import presentation.right.YearMonthDay;
 import presentation.watcher.*;
 
 public class StockmanSearch extends RightAll implements ActionListener {
@@ -61,19 +62,14 @@ public class StockmanSearch extends RightAll implements ActionListener {
 			time[i] = new JLabel();
 			timeover[i] = new JLabel();
 		}
-		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
-		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12" };
-		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
-				"31" };
-		timeInput[0] = new JComboBox<String>(year);
-		timeInput[1] = new JComboBox<String>(month);
-		timeInput[2] = new JComboBox<String>(day);
-		timeInputover[0] = new JComboBox<String>(year);
-		timeInputover[1] = new JComboBox<String>(month);
-		timeInputover[2] = new JComboBox<String>(day);
+		YearMonthDay time1=new YearMonthDay();
+		timeInput[0] = time1.getCboYear();
+		timeInput[1] = time1.getCboMonth();
+		timeInput[2] = time1.getCboDay();
+		YearMonthDay time2=new YearMonthDay();
+		timeInputover[0] = time2.getCboYear();
+		timeInputover[1] = time2.getCboMonth();
+		timeInputover[2] = time2.getCboDay();
 
 		init();
 

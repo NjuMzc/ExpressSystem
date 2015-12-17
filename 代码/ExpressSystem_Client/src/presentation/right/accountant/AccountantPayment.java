@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import presentation.right.RightAll;
+import presentation.right.YearMonthDay;
 import presentation.watcher.*;
 
 public class AccountantPayment extends RightAll implements ActionListener {
@@ -58,16 +61,11 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 		}
-		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
-		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12" };
-		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
-				"31" };
-		timeInput[0] = new JComboBox<String>(year);
-		timeInput[1] = new JComboBox<String>(month);
-		timeInput[2] = new JComboBox<String>(day);
+
+		YearMonthDay time1=new YearMonthDay();
+		timeInput[0] = time1.getCboYear();
+		timeInput[1] = time1.getCboMonth();
+		timeInput[2] = time1.getCboDay();
 
 		jtf = new JTextField[5];
 		for (int i = 0; i < 5; i++) {
@@ -102,7 +100,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
+
 	private void init() {
 
 		jl[0].setText("付款日期");
@@ -114,7 +112,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		for (int i = 0; i < 6; i++) {
 			jl[i].setBounds(frameWidth / 10, frameHeight / 15 + frameHeight / 8
 					* i, frameWidth / 8, frameHeight / 20);
-			jl[i].setFont(new Font("宋体",Font.BOLD,16));
+			jl[i].setFont(new Font("宋体", Font.BOLD, 16));
 		}
 		confirm.setBounds(frameWidth / 4, frameHeight / 10 * 9,
 				frameWidth / 10, frameWidth / 20);
@@ -138,7 +136,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		}
 		yuan.setBounds(frameWidth / 5 * 2, frameHeight / 15 + frameHeight / 2,
 				frameWidth / 10, frameHeight / 20);
-		yuan.setFont(new Font("宋体",Font.BOLD,16));
+		yuan.setFont(new Font("宋体", Font.BOLD, 16));
 		search.setBounds(frameWidth / 8 * 5, frameHeight / 15, frameWidth / 12,
 				frameHeight / 20);
 
@@ -168,4 +166,5 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		}
 
 	}
+
 }

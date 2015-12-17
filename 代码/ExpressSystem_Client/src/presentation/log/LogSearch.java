@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -91,7 +93,19 @@ public class LogSearch extends RightAll implements ActionListener {
 		jtf.setBounds(frameWidth / 2, frameHeight / 5, frameWidth / 7,
 				frameHeight / 20);
 		jtf.setFont(new Font("宋体", Font.PLAIN, 16));
+		jtf.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					confirmButton();
+				}
+			}
 
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 	}
 
 	private void initAddPanel(int num) {
@@ -113,6 +127,15 @@ public class LogSearch extends RightAll implements ActionListener {
 			trace[i] = new JLabel();
 			trace[i].setText(traceRecord.get(i));
 		}
+		for (int i = 0; i < num; i++) {
+			if (i < 5) {
+				trace[i].setBounds(frameWidth / 8, frameHeight / 10
+						+ frameWidth / 20 * i, frameWidth / 5, frameHeight / 20);
+			} else {
+				trace[i].setBounds(frameWidth * 13 / 40, frameHeight / 10
+						+ frameWidth / 20 * i, frameWidth / 5, frameHeight / 20);
+			}
+		}
 
 		// 根据货物状态设置文字
 		state.setText(goodState);
@@ -124,10 +147,6 @@ public class LogSearch extends RightAll implements ActionListener {
 		stateGoods.setBounds(0, 0, frameWidth / 10, frameHeight / 20);
 		traceGoods.setBounds(0, frameHeight / 10, frameWidth / 10,
 				frameHeight / 20);
-		for (int i = 0; i < num; i++) {
-			trace[i].setBounds(frameWidth / 8, frameHeight / 10 + frameWidth
-					/ 20 * i, frameWidth / 5, frameHeight / 20);
-		}
 		state.setBounds(frameWidth / 8, 0, frameWidth / 10, frameHeight / 20);
 
 		addPanel.add(stateGoods);
@@ -154,51 +173,53 @@ public class LogSearch extends RightAll implements ActionListener {
 		}
 	}
 
+	private void confirmButton() {
+		String id = jtf.getText();
+
+		goodState = blServer.getGoodState(id);
+		// 错误信息提示
+		if (goodState == "0") {
+			final JLabel remindWrong = new JLabel();
+			remindWrong.setBounds(frameWidth / 3 - frameWidth / 40, frameHeight
+					/ 5 - frameHeight / 20, frameWidth / 4, frameHeight / 20);
+			remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+			remindWrong.setForeground(Color.red);
+			this.add(remindWrong);
+			this.repaint();
+
+			Thread t = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					remindWrong.setText("输入的快递单号不存在");
+					try {
+						Thread.sleep(800);
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+					remindWrong.setText("");
+				}
+			});
+			t.start();
+
+		} else {
+			Iterator<String> trace = blServer.getTrace(id);
+
+			traceRecord = new ArrayList<String>();
+			int counter = 0;
+			while (trace.hasNext()) {
+				traceRecord.add(trace.next());
+				counter++;
+			}
+			initAddPanel(counter);
+		}
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == back) {
 			this.notifyWatchers(State.COVER);
 		} else if (e.getSource() == confirm) {
 
-			String id = jtf.getText();
-
-			goodState = blServer.getGoodState(id);
-			// 错误信息提示
-			if (goodState == "0") {
-				System.out.println("Cant find");
-				final JLabel remindWrong = new JLabel();
-				remindWrong.setBounds(frameWidth / 3 - frameWidth / 40,
-						frameHeight / 5 - frameHeight / 20, frameWidth / 4,
-						frameHeight / 20);
-				remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-				remindWrong.setForeground(Color.red);
-				this.add(remindWrong);
-				this.repaint();
-
-				Thread t = new Thread(new Runnable() {
-					@Override
-					public void run() {
-						remindWrong.setText("输入的快递单号不存在");
-						try {
-							Thread.sleep(800);
-						} catch (Exception e2) {
-							// TODO: handle exception
-						}
-						remindWrong.setText("");
-					}
-				});
-				t.start();
-
-			} else {
-				Iterator<String> trace = blServer.getTrace(id);
-
-				traceRecord = new ArrayList<String>();
-				int counter = 0;
-				while (trace.hasNext()) {
-					traceRecord.add(trace.next());
-					counter++;
-				}
-				initAddPanel(counter);
-			}
+			confirmButton();
 
 		}
 

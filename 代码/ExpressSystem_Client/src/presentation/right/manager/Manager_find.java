@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.*;
 
 import presentation.right.RightAll;
+import presentation.right.YearMonthDay;
 import presentation.watcher.*;
 
 public class Manager_find extends RightAll implements ActionListener {
@@ -47,19 +48,14 @@ public class Manager_find extends RightAll implements ActionListener {
 		end = new JLabel("结束时间");
 		startTime = new JComboBox[3];
 		endTime = new JComboBox[3];
-		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
-		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12" };
-		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
-				"31" };
-		startTime[0] = new JComboBox<String>(year);
-		startTime[1] = new JComboBox<String>(month);
-		startTime[2] = new JComboBox<String>(day);
-		endTime[0] = new JComboBox<String>(year);
-		endTime[1] = new JComboBox<String>(month);
-		endTime[2] = new JComboBox<String>(day);
+		YearMonthDay time1=new YearMonthDay();
+		startTime[0] = time1.getCboYear();
+		startTime[1] = time1.getCboMonth();
+		startTime[2] = time1.getCboDay();
+		YearMonthDay time2=new YearMonthDay();
+		endTime[0] = time2.getCboYear();
+		endTime[1] = time2.getCboMonth();
+		endTime[2] = time2.getCboDay();
 		calendar1 = new JLabel[3];
 		calendar2 = new JLabel[3];
 		for (int i = 0; i < 3; i++) {

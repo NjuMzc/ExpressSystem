@@ -173,6 +173,30 @@ public class LogMainFrame extends RightAll implements ActionListener {
 				}
 			} else {
 				System.out.println("Fail login!");
+				// 错误处理
+				final JLabel remindWrong = new JLabel();
+				remindWrong.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
+						frameWidth / 4, frameHeight / 20);
+				remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+				remindWrong.setForeground(Color.red);
+				this.add(remindWrong);
+				this.repaint();
+
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						// 以下根据错误类型设置文字
+						remindWrong.setText("输入的快递单号不存在");
+						try {
+							Thread.sleep(2000);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						remindWrong.setText("");
+					}
+				});
+				t.start();
+				// 错误处理结束
 			}
 
 			jtf.setText("");
