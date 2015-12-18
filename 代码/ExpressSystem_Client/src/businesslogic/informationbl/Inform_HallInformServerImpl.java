@@ -70,7 +70,7 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 		if (hall == null)
 			return false;
 		else {
-			Iterator staffList=hall.getAllStaff().iterator();
+			Iterator<HallStaffPO> staffList=hall.getAllStaff().iterator();
 			while(staffList.hasNext()){
 				HallStaffPO staff=(HallStaffPO) staffList.next();
 				staff.setHall(null);
@@ -127,7 +127,7 @@ public class Inform_HallInformServerImpl implements Inform_HallInformServer {
 			return false;
 
 		
-		Iterator it=hall.getAllStaff().iterator();
+		Iterator<HallStaffPO> it=hall.getAllStaff().iterator();
 		while(it.hasNext()){
 			HallStaffPO staff2=(HallStaffPO) it.next();
 			if(staff2.getId().equals(staff.getId())){

@@ -2,8 +2,12 @@ package businesslogic.storagebl;
 
 import java.util.Iterator;
 
-import businesslogicservice.storageblservice.storageServer;
+import businesslogic.billsbl.ExportBillServer.ExportBillServer;
+import businesslogic.billsbl.ImportBillServer.ImportBillServer;
+import businesslogic.systembl.SystemHelper;
+import businesslogicservice.storageblservice.StorageManager;
 import client.RMIHelper;
+import dataservice.informationdataservice.Inform_KeeperDataServer;
 import dataservice.informationdataservice.Inform_StorageDataServer;
 import dataservice.transportdataservice.TransportDataServer;
 import po.GoodPO;
@@ -16,18 +20,30 @@ import po.Institution.storageAssist.StorageInfo;
  * @author nick
  *
  */
-public class StorageServerImpl implements storageServer {
+public class StorageServerImpl implements StorageManager {
 	Inform_StorageDataServer storageServer;
 	TransportDataServer goodServer;
+    
+	Inform_KeeperDataServer keeperServer;
+	
+	ImportBillServer importBillServer;
+	ExportBillServer exportBillServer;
 
+	String storageID;
 	public StorageServerImpl() {
 		// RMI
 		storageServer = RMIHelper.getStorageData();
 		goodServer = RMIHelper.getTransportData();
+		keeperServer=RMIHelper.getKeeperData();
+		
+		storageID=keeperServer.find(SystemHelper.getUserID()).getStorage().getID();//一个可怕的级联调用
+		
+		importBillServer=new ImportBillServer();
+		exportBillServer=new ExportBillServer();
 	}
 
 	@Override
-	public boolean ImportGood(String storageID, String goodID, String location, String date) {
+	public boolean ImportGood( String goodID, String location, String date) {
 		StoragePO storage = storageServer.find(storageID);
 		GoodPO good = goodServer.find(goodID);
 		try {
@@ -47,7 +63,7 @@ public class StorageServerImpl implements storageServer {
 	}
 
 	@Override
-	public boolean ExportGood(String storageID, String goodID, String location, String date) {
+	public boolean ExportGood(String goodID, String location, String date) {
 		StoragePO storage = storageServer.find(storageID);
 		GoodPO good = goodServer.find(goodID);
 		try {
@@ -66,19 +82,19 @@ public class StorageServerImpl implements storageServer {
 	}
 
 	@Override
-	public StorageInfo[] getGoodsList(String storageID, int area, int row, int shelf) {
+	public StorageInfo[] getGoodsList(int area, int row, int shelf) {
 		StoragePO storage = storageServer.find(storageID);
 		return storage.getStorageInfo(area, row, shelf);
 	}
 
 	@Override
-	public Iterator<Record> getStorageHistory(String storageID, String startTime, String endTime) {
+	public Iterator<Record> getStorageHistory(String startTime, String endTime) {
 		StoragePO storage = storageServer.find(storageID);
 		return storage.getIORecord(startTime, endTime).iterator();
 	}
 
 	@Override
-	public boolean changeStorage(String storageID, String oldLocation, String newLocation) {
+	public boolean changeStorage( String oldLocation, String newLocation) {
 		StoragePO storage = storageServer.find(storageID);
 		if (storage.change(oldLocation, newLocation)) {
 			storageServer.update(storage);

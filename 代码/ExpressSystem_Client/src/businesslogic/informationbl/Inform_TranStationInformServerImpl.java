@@ -8,7 +8,6 @@ import dataservice.informationdataservice.Inform_TranStaffDataServer;
 import dataservice.informationdataservice.Inform_TranStationDataServer;
 import po.SystemUserPO;
 import po.Institution.TranStationPO;
-import po.Workers.StorageKeeperPO;
 import po.Workers.TranStaffPO;
 import businesslogic.LocationNumGetter;
 import businesslogic.systembl.SystemBlServerImpl;
@@ -75,7 +74,7 @@ public class Inform_TranStationInformServerImpl implements Inform_TranStationInf
 		if(station==null||staff==null)
 			return false;
 		
-		Iterator it=station.getAllStaff().iterator();
+		Iterator<TranStaffPO> it=station.getAllStaff().iterator();
 		while(it.hasNext()){
 			TranStaffPO staff2=(TranStaffPO) it.next();
 			if(staff2.getId().equals(staff.getId())){
