@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import po.BankPO;
 
-public interface BankDataServer extends Remote{
+public interface BankDataServer extends Remote {
 	public BankPO find(String id);
 
 	public void insert(BankPO po);
@@ -17,4 +17,3 @@ public interface BankDataServer extends Remote{
 	public ArrayList getAllBank();
 
 }
- 
