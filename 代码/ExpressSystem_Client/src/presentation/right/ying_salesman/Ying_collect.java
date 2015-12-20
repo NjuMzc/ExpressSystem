@@ -121,6 +121,37 @@ public class Ying_collect extends RightAll implements ActionListener {
 				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
 		icon3 = new ImageIcon(temp3);
 		over.setIcon(icon3);
+		
+		jtf[0].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[1].requestFocus();
+				}
+			}
+		});
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[2].requestFocus();
+				}
+			}
+		});
+		jtf[2].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[1].requestFocus();
+				}
+			}
+		});
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[0].requestFocus();
+				}
+			}
+		});
 	}
 
 	public void addWatcher(Watcher watcher) {

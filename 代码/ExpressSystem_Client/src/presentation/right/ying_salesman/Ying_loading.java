@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -195,7 +197,96 @@ public class Ying_loading extends RightAll implements ActionListener {
 		icon4 = new ImageIcon(temp4);
 		over.setIcon(icon4);
 
-
+		jtf[0].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[1].requestFocus();
+				}
+			}
+		});
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[2].requestFocus();
+				}
+			}
+		});
+		jtf[2].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[3].requestFocus();
+				}
+			}
+		});
+		jtf[3].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[4].requestFocus();
+				}
+			}
+		});
+		jtf[4].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[5].requestFocus();
+				}
+			}
+		});
+		jtf[5].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[6].requestFocus();
+				}
+			}
+		});
+		jtf[6].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[5].requestFocus();
+				}
+			}
+		});
+		jtf[5].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[4].requestFocus();
+				}
+			}
+		});
+		jtf[4].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[3].requestFocus();
+				}
+			}
+		});
+		jtf[3].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[2].requestFocus();
+				}
+			}
+		});
+		jtf[2].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[1].requestFocus();
+				}
+			}
+		});
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[0].requestFocus();
+				}
+			}
+		});
 	}
 
 	private void initTable() {

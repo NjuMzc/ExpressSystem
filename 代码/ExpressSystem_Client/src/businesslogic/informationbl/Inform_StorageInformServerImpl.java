@@ -8,7 +8,6 @@ import dataservice.informationdataservice.Inform_KeeperDataServer;
 import dataservice.informationdataservice.Inform_StorageDataServer;
 import po.SystemUserPO;
 import po.Institution.StoragePO;
-import po.Workers.HallStaffPO;
 import po.Workers.StorageKeeperPO;
 import businesslogic.LocationNumGetter;
 import businesslogic.systembl.SystemBlServerImpl;
@@ -72,7 +71,7 @@ public class Inform_StorageInformServerImpl implements Inform_StorageInformServe
 		if(storage==null||staff==null)
 			return false;
 		
-		Iterator it=storage.getAllKeeper().iterator();
+		Iterator<StorageKeeperPO> it=storage.getAllKeeper().iterator();
 		while(it.hasNext()){
 			StorageKeeperPO staff2=(StorageKeeperPO) it.next();
 			if(staff2.getID().equals(staff.getID())){

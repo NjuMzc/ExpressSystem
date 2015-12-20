@@ -24,9 +24,8 @@ public class Trans_HallSendingServerImpl implements Trans_HallSendingServer{
 		    good.setTransState("Delivering");
 		    return bill;
 	    }catch(NullPointerException e){
-	    	
-	    	System.out.println("目标货物不存在！");
-	    	return bill;
+	  
+	    	return null;
 	    }
 	}
      

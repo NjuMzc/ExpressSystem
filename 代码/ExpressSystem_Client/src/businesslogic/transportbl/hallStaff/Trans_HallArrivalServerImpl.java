@@ -7,7 +7,6 @@
 import client.RMIHelper;
 import dataservice.informationdataservice.Inform_HallStaffDataServer;
 import po.GoodPO;
-import po.SystemUserPO;
 import po.Institution.HallPO;
 import po.Workers.HallStaffPO;
 import po.bills.HallArrivalBill;

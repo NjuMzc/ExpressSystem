@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -40,6 +42,7 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 	DefaultTableModel tableModel;
 	JTable jtable;
 	JScrollPane js;
+	JButton over;
 
 	public Zhong_entrucking(int frameWidth, int frameHeight) {
 		blServer=new Trans_TransEntruckServerImpl();
@@ -52,14 +55,14 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		jl = new JLabel[7];
-		for (int i = 0; i < 7; i++) {
+		jl = new JLabel[8];
+		for (int i = 0; i < 8; i++) {
 			jl[i] = new JLabel();
 		}
 		confirm = new JButton("");
 		cancel = new JButton("");
-		jtf = new JTextField[6];
-		for (int i = 0; i < 6; i++) {
+		jtf = new JTextField[7];
+		for (int i = 0; i < 7; i++) {
 			jtf[i] = new JTextField();
 
 		}
@@ -114,7 +117,8 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		jl[4].setText("监运员");
 		jl[5].setText("押运员");
 		jl[6].setText("装车订单号");
-		for (int i = 0; i < 7; i++) {
+		jl[7].setText("运费");
+		for (int i = 0; i < 8; i++) {
 			jl[i].setBounds(frameWidth / 10, frameHeight / 11 * i+frameHeight/9,
 					frameWidth / 10, frameHeight / 20);
 			jl[i].setFont(new Font("宋体",Font.BOLD,15));
@@ -141,7 +145,7 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		
 		jtf[0].setBounds(frameWidth / 4-frameWidth/25, frameHeight/9-frameHeight/100, frameWidth / 9, frameHeight / 20);
 		jtf[0].setFont(new Font("宋体",Font.BOLD,15));
-		for (int i = 1; i < 6; i++) {
+		for (int i = 1; i < 7; i++) {
 			jtf[i].setBounds(frameWidth / 4-frameWidth/25, frameHeight / 11* (i + 1)+frameHeight/9,
 					frameWidth /9, frameHeight / 20);
 			jtf[i].setFont(new Font("宋体",Font.BOLD,15));
@@ -172,6 +176,83 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 
 		js.setBounds(frameWidth / 2-frameWidth/6+frameWidth/14, frameHeight / 10 * 3-frameHeight/40, frameWidth / 4,
 				frameHeight / 3+frameHeight/8);
+		
+		jtf[0].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[1].requestFocus();
+				}
+			}
+		});
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[2].requestFocus();
+				}
+			}
+		});
+		jtf[2].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[3].requestFocus();
+				}
+			}
+		});
+		jtf[3].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[4].requestFocus();
+				}
+			}
+		});
+		jtf[4].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[5].requestFocus();
+				}
+			}
+		});
+		jtf[5].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[4].requestFocus();
+				}
+			}
+		});
+		jtf[4].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[3].requestFocus();
+				}
+			}
+		});
+		jtf[3].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[2].requestFocus();
+				}
+			}
+		});
+		jtf[2].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[1].requestFocus();
+				}
+			}
+		});
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[0].requestFocus();
+				}
+			}
+		});
+		
 	}
 
 	private void initTable() {
@@ -206,18 +287,19 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.ZHONG_START);
-		}
-
-		if (e.getSource() == add) {
-			// 添加单号列表
-			String input = jtf[5].getText();
-			if (!input.equals("")) {
-				Vector<String> vec = new Vector<>();
-				vec.add(input);
-				tableModel.addRow(vec);
-				jtf[5].setText("");
-			}
 		}else if(e.getSource()==confirm){
+			
+			this.add(jl[7]);
+			this.add(jtf[6]);
+			this.remove(confirm);
+			this.remove(cancel);
+			over=new JButton("完成");
+			over.setBounds(frameWidth / 72 * 23, frameHeight * 8 / 10
+					+ frameHeight / 30, frameWidth / 9, frameHeight / 16);
+			over.addActionListener(this);
+			this.add(over);
+			this.repaint();
+			
 			String year=timeInput[0].getSelectedItem().toString();
 			String month=timeInput[1].getSelectedItem().toString();
 			String day=timeInput[2].getSelectedItem().toString();
@@ -244,6 +326,21 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 				orderList.add(tableModel.getValueAt(i, 0).toString());
 			}
 			TransEntruckBill bill=blServer.makeBill(message, orderList.iterator());
+		}
+
+		if (e.getSource() == add) {
+			// 添加单号列表
+			String input = jtf[5].getText();
+			if (!input.equals("")) {
+				Vector<String> vec = new Vector<>();
+				vec.add(input);
+				tableModel.addRow(vec);
+				jtf[5].setText("");
+			}
+		} 
+		
+		if(e.getSource()==over){
+			this.notifyWatchers(State.ZHONG_ENTRUCKING);
 		}
 	}
 }

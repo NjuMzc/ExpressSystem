@@ -104,12 +104,12 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		endbox[2] = time2.getCboDay();
 
 		for (int i = 0; i < 3; i++) {
-			startbox[i].setBounds(frameWidth / 15 * (i + 2), frameHeight / 20,
-					frameWidth / 15, frameHeight / 20);
+			startbox[i].setBounds(frameWidth / 12 * (i + 2), frameHeight / 20,
+					frameWidth / 12, frameHeight / 20);
 		}
 		for (int i = 0; i < 3; i++) {
-			endbox[i].setBounds(frameWidth / 15 * (i + 2), frameHeight / 10,
-					frameWidth / 15, frameHeight / 20);
+			endbox[i].setBounds(frameWidth / 12 * (i + 2), frameHeight / 10,
+					frameWidth / 12, frameHeight / 20);
 		}
 
 		input.setLayout(null);
@@ -119,7 +119,7 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		end.setBounds(frameWidth / 20, frameHeight / 10, frameWidth / 12,
 				frameHeight / 20);
 		js.setBounds(0, frameHeight / 5, frameWidth / 2, frameHeight);
-		search.setBounds(frameWidth / 8 * 3, frameHeight / 10, frameWidth / 10,
+		search.setBounds(frameWidth / 12 * 5, frameHeight / 10, frameWidth / 12,
 				frameHeight / 20);
 		search.addActionListener(this);
 

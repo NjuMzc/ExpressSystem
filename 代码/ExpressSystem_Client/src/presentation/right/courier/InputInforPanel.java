@@ -144,6 +144,22 @@ public class InputInforPanel extends RightAll implements ActionListener {
 			time[i].setFont(new Font("宋体",Font.PLAIN,14));
 			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
+		
+		jtfName.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtfNum.requestFocus();
+				}
+			}
+		});
+		jtfNum.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtfName.requestFocus();
+				}
+			}
+		});
 	}
 
 	public void save(Message msg) {

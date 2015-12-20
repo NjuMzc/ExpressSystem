@@ -3,9 +3,13 @@ package businesslogic.systembl;
 import java.util.ArrayList;
 
 
+
+
 import client.RMIHelper;
 import po.Message;
 import po.SystemUserPO;
+import vo.SystemUserVO;
+import vo.exception.ExceptionMessage;
 import businesslogicservice.systemblservice.systemServer;
 import dataservice.systemdataservice.SystemDataServer;
 
@@ -38,22 +42,26 @@ public class SystemBlServerImpl implements systemServer {
 	 * 
 	 * @see
 	 */
-	public SystemUserPO login(String id, String key) {
+	public SystemUserVO login(String id, String key) {
 		// TODO Auto-generated method stub
 		SystemUserPO user =dataServer.find(id);
+		
 
 		if (user == null){
-			System.out.println("该用户名不存在！");
-			return null;
+			ExceptionMessage exMessage=new ExceptionMessage("输入的账户不存在！");
+			SystemUserVO userVO=new SystemUserVO(exMessage);
+			return userVO;
 		}
 		else {
 			if (user.getKey().equals(key)){
 				SystemHelper.setUser(user);
-				return user;
+				SystemUserVO userVO=new SystemUserVO(user);
+				return userVO;
 			}
 			else{
-				System.out.println("密码错误！");
-				return null;
+				ExceptionMessage exMessage=new ExceptionMessage("密码错误！");
+				SystemUserVO userVO=new SystemUserVO(exMessage);
+				return userVO;
 			}
 				
 		}

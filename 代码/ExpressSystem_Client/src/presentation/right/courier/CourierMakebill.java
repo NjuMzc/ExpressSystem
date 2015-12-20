@@ -174,7 +174,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		inputText[14].setBounds(x * 2 + frameWidth / 17, (y+frameHeight/100) *  2+frameHeight/19, width, height);
 		inputText[15].setBounds(x * 2 + frameWidth / 17, (y+frameHeight/100) * 5+frameHeight/31, width, height);
 		for (int i = 0; i < 16; i++) {
-			inputText[i].setText("（必填）");
+			//inputText[i].setText(i+"");
 			inputText[i].setFont(new Font("宋体",Font.PLAIN,13));
 		}
 

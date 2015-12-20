@@ -14,16 +14,16 @@ import java.util.List;
 
 import javax.swing.*;
 
-import po.Message;
-import po.SystemUserPO;
 import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
+import vo.SystemUserVO;
 import businesslogic.systembl.SystemBlServerImpl;
 import businesslogicservice.systemblservice.systemServer;
 
 public class LogMainFrame extends RightAll implements ActionListener {
+	SystemUserVO user;
 
 	int frameWidth;
 	int frameHeight;
@@ -127,7 +127,6 @@ public class LogMainFrame extends RightAll implements ActionListener {
 		});
 
 		jtf.addKeyListener(new KeyAdapter() {
-
 			public void keyTyped(KeyEvent e) {
 				if (!Character.isDigit(e.getKeyChar())) {
 					e.consume();
@@ -145,8 +144,8 @@ public class LogMainFrame extends RightAll implements ActionListener {
 		systemServer s = new SystemBlServerImpl();
 
 		if (!input_account.equals("") && !input_password.equals("")) {
-			SystemUserPO user = s.login(input_account, input_password);
-			if (user != null) {
+			user = s.login(input_account, input_password);
+			if (!user.isWrong()) {
 				if (user.getIdentity().equals("总经理")) {
 					this.notifyWatchers(State.MANAGERSTART);
 					this.notifyWatchers(State.LEFTMANAGER);
@@ -186,7 +185,7 @@ public class LogMainFrame extends RightAll implements ActionListener {
 					@Override
 					public void run() {
 						// 以下根据错误类型设置文字
-						remindWrong.setText("输入的快递单号不存在");
+						remindWrong.setText(user.getWrongMessage());
 						try {
 							Thread.sleep(2000);
 						} catch (Exception e2) {

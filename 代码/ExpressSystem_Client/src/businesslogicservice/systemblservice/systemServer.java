@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import po.Message;
 import po.SystemUserPO;
+import vo.SystemUserVO;
 
 /**
  * 系统管理员相关功能的接口
@@ -14,7 +15,7 @@ import po.SystemUserPO;
  */
 public interface systemServer {
 	
-	public SystemUserPO login(String id,String key) ;//处理登录
+	public SystemUserVO login(String id,String key) ;//处理登录
 	
 	public SystemUserPO addUser(String identity);
 	
