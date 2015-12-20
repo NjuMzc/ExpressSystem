@@ -7,9 +7,9 @@ import vo.storagebl.PanDianVO;
 
 public interface StorageServer {
 
-	public ImportVO Import(String goodID,String date,String destination,String[] locatino);
+	public ImportVO Import(ImportVO importMessage);
 
-	public ExportVO Export(String goodID,String date,String destination,String loader,String transNum);
+	public ExportVO Export(ExportVO exportMessage);
 	
 	public ChaKanVO chaKan(String date1,String date2);
 	
