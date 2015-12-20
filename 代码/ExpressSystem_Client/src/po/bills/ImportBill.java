@@ -9,7 +9,7 @@ public class ImportBill implements Serializable, Remote {
 	 * 
 	 */
 	private static final long serialVersionUID = -4699251393596331823L;
-	
+
 	String orderNum;// 快递编号
 	String date;// 入库日期
 	String destination;// 目的地
@@ -17,7 +17,7 @@ public class ImportBill implements Serializable, Remote {
 
 	String id;// 该单据的id，同OrderNum
 
-	BillApproverPO billForApprove;
+	BillApproverPO approveBill;
 
 	public ImportBill(String orderNum, String date, String destination, String[] location) {
 		this.orderNum = orderNum;
@@ -27,7 +27,7 @@ public class ImportBill implements Serializable, Remote {
 		this.location = location;
 
 		this.id = orderNum;
-		this.billForApprove = new BillApproverPO();
+		this.approveBill = new BillApproverPO();
 	}
 
 	// Getter
@@ -52,8 +52,15 @@ public class ImportBill implements Serializable, Remote {
 	}
 
 	public BillApproverPO submit() {
+		approveBill.setState("Submit");
 
-		return billForApprove;
+		approveBill.setEaseInform(date, id, "入库单");
+
+		approveBill.addInform("入库单编号:" + id);
+		approveBill.addInform("入库日期:" + date);
+		approveBill.addInform("目的地：" + destination);
+		approveBill.addInform("位置信息：" + location[0] + "区" + location[1] + "排" + location[2] + "架" + location[3] + "号");
+		return approveBill;
 	}
 
 }
