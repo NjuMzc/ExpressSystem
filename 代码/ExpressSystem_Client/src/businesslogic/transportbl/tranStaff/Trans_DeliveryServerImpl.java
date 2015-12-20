@@ -21,11 +21,13 @@ public class Trans_DeliveryServerImpl implements Trans_DeliveryServer{
 	@Override
 	public DeliveryBill makeBill(Message message, Iterator<String> billList) {
 		// TODO Auto-generated method stub
+        
 	    DeliveryBill bill=billServer.makeBill(message, billList);
-	    while(billList.hasNext()){
+	    Iterator<String> list=bill.getBillNumList();
+	    while(list.hasNext()){
 			try{
-				GoodPO good=goodController.getGood(billList.next());
-				good.setTransState("Delivering");
+				GoodPO good=goodController.getGood(list.next());
+				goodController.setGoodTransState(good.getID(),"Delivering");
 				
 			}catch(NullPointerException  e){
 				System.out.println("目标货物不存在！");

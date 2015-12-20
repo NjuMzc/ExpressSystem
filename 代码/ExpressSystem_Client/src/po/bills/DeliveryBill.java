@@ -33,8 +33,8 @@ public class DeliveryBill implements Serializable,Remote{
 		this.transNum=message.getInform(3);
 		this.departure=message.getInform(4);
 		this.destination=message.getInform(5);
-		this.containerNum=message.getInform(6);
-		this.supervisor=message.getInform(7);
+		this.supervisor=message.getInform(6);
+        this.containerNum="";
 		
 		this.billNumList=new ArrayList<String>();
 		while(billList.hasNext()){

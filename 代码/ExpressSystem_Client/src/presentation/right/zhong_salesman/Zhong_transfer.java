@@ -1,6 +1,5 @@
 package presentation.right.zhong_salesman;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -14,15 +13,18 @@ import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
+import businesslogic.transportbl.tranStaff.Trans_DeliveryServerImpl;
+import businesslogicservice.transportblservice.tranStaff.Trans_DeliveryServer;
+import po.Message;
+import po.bills.DeliveryBill;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.State;
-import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
 public class Zhong_transfer extends RightAll implements ActionListener {
+	Trans_DeliveryServer blServer;
 
 	int frameWidth;
 	int frameHeight;
@@ -41,6 +43,8 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Zhong_transfer(int frameWidth, int frameHeight) {
+		blServer=new Trans_DeliveryServerImpl();
+		
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 
@@ -256,16 +260,9 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 		tableModel.addColumn("已有单号列表");
 		jtable.getTableHeader().setReorderingAllowed(false);
 		jtable.getTableHeader().setResizingAllowed(false);
-		initTableModel();
 	}
 
-	private void initTableModel() {
-		Vector<String> vec = new Vector<>();
-		vec.add("12345666");
 
-		// 初始化已有单号列表
-		tableModel.addRow(vec);
-	}
 
 	public void addWatcher(Watcher watcher) {
 		list.add(watcher);
@@ -285,6 +282,40 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.ZHONG_START);
 		} else if (e.getSource() == confirm) {
+			String kind=type.getSelectedItem().toString();
+			
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			
+			String deliveryNum=jtf[0].getText();
+			String transNum=jtf[6].getText();
+			String departure=jtf[1].getText();
+			String destination=jtf[2].getText();
+			String supervisor=jtf[3].getText();
+			
+			Message message=new Message();
+			message.addInform(kind);
+			message.addInform(date);
+			message.addInform(deliveryNum);
+			message.addInform(transNum);
+			message.addInform(departure);
+			message.addInform(destination);
+			message.addInform(supervisor);
+			
+			int row=tableModel.getRowCount();
+			ArrayList<String> orderList=new ArrayList<String>();
+			
+			for(int i=0;i<row;i++){
+				orderList.add(tableModel.getValueAt(i, 0).toString());
+			}
+			
+			DeliveryBill bill=blServer.makeBill(message, orderList.iterator());
+			
+			
+			
 			this.add(jl[8]);
 			this.add(jtf[6]);
 			this.remove(confirm);
@@ -295,6 +326,11 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 			over.addActionListener(this);
 			this.add(over);
 			this.repaint();
+			
+			jtf[5].setText(bill.getFee());
+			for(int i=0;i<7;i++){
+				jtf[i].setEditable(false);
+			}
 		}
 
 		if (e.getSource() == add) {
@@ -309,7 +345,8 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 		}
 		
 		if(e.getSource()==over){
-			this.notifyWatchers(State.ZHONG_ENTRUCKING);
+			this.notifyWatchers(State.ZHONG_TRANSFER);
 		}
+		
 	}
 }
