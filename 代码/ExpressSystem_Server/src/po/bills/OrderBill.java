@@ -225,6 +225,7 @@ public class OrderBill implements Remote,Serializable {
 	public BillApproverPO submit(){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String date=df.format(new Date());// new Date()为获取当前系统时间
+		System.out.println(date);
 		billForApprove.setEaseInform(date, id, "货物订单");
 		
 		billForApprove.addInform("货物订单编号:"+this.getID());

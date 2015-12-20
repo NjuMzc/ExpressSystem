@@ -147,32 +147,56 @@ public class LogMainFrame extends RightAll implements ActionListener {
 		if (!input_account.equals("") && !input_password.equals("")) {
 			SystemUserPO user = s.login(input_account, input_password);
 			if (user != null) {
-				if (user.getIdentity().equals("manager")) {
+				if (user.getIdentity().equals("总经理")) {
 					this.notifyWatchers(State.MANAGERSTART);
 					this.notifyWatchers(State.LEFTMANAGER);
 
-				} else if (user.getIdentity().equals("account")) {
+				} else if (user.getIdentity().equals("财务人员")) {
 					this.notifyWatchers(State.ACCOUNTANTSTART);
 					this.notifyWatchers(State.LEFTACCOUNTANT);
-				} else if (user.getIdentity().equals("courier")) {
+				} else if (user.getIdentity().equals("快递员")) {
 					this.notifyWatchers(State.COURIERSTART);
 					this.notifyWatchers(State.LEFTCOURIER);
-				} else if (user.getIdentity().equals("hstaff")) {
+				} else if (user.getIdentity().equals("营业厅业务员")) {
 					this.notifyWatchers(State.YING_START);
 					this.notifyWatchers(State.LEFTYING);
-				} else if (user.getIdentity().equals("tstaff")) {
+				} else if (user.getIdentity().equals("中转中心业务员")) {
 					this.notifyWatchers(State.ZHONG_START);
 					this.notifyWatchers(State.LEFTZHONG);
-				} else if (user.getIdentity().equals("keeper")) {
+				} else if (user.getIdentity().equals("中转中心仓库管理员")) {
 					this.notifyWatchers(State.STOCKMANSTART);
 					this.notifyWatchers(State.LEFTSTOCKMAN);
-				} else if (user.getIdentity().equals("admin")) {
+				} else if (user.getIdentity().equals("系统管理员")) {
 
 					this.notifyWatchers(State.ADMINSTART);
 					this.notifyWatchers(State.LEFTADMIN);
 				}
 			} else {
 				System.out.println("Fail login!");
+				// 错误处理
+				final JLabel remindWrong = new JLabel();
+				remindWrong.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
+						frameWidth / 4, frameHeight / 20);
+				remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+				remindWrong.setForeground(Color.red);
+				this.add(remindWrong);
+				this.repaint();
+
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						// 以下根据错误类型设置文字
+						remindWrong.setText("输入的快递单号不存在");
+						try {
+							Thread.sleep(2000);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						remindWrong.setText("");
+					}
+				});
+				t.start();
+				// 错误处理结束
 			}
 
 			jtf.setText("");

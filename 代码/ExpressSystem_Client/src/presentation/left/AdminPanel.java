@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import businesslogic.systembl.SystemHelper;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
@@ -95,11 +96,15 @@ public class AdminPanel extends LeftAll implements Watched, ActionListener {
 		icon0 = new ImageIcon(temp0);
 		manage.setIcon(icon0);
 		
-		jtf_num.setBounds(frameWidth / 10, frameHeight / 64*15, frameWidth / 10,
+		jtf_name.setBounds(frameWidth / 10, frameHeight / 64*15, frameWidth / 10,
 				frameHeight / 30);
-		jtf_name.setBounds(frameWidth / 10, frameHeight / 64*18,
+		jtf_num.setBounds(frameWidth / 10, frameHeight / 64*18,
 				frameWidth / 10, frameHeight / 30);
 			
+		jtf_name.setText(SystemHelper.getUserName());
+		jtf_name.setEditable(false);
+		jtf_num.setText(SystemHelper.getUserID());
+		jtf_num.setEditable(false);
 		}
 
 

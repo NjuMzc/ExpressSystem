@@ -27,16 +27,22 @@ public class GoodController {
 	//新建货物对象
 	public GoodPO makeGood(OrderBill bill){
         GoodPO good=new GoodPO(bill.getID(), bill.getDepature(),bill.getDestination());
-        System.out.println(good.getID());
         dataServer.insert(good);
 		return good;
 	}
 	
 	//增加新的货物轨迹
 	public void addTrace(String id,String inform){
-		GoodPO good=dataServer.find(id);
-		good.addTrace(inform);
-		dataServer.update(good);
+		System.out.println("查询的id是"+id);
+		try{
+			GoodPO good=dataServer.find(id);
+			System.out.println(good==null);
+			good.addTrace(inform);
+			dataServer.update(good);
+		}catch(NullPointerException e){
+			System.out.println("目标商品不存在！");
+		}
+		
 	}
 	
 	//修改货物的运输状态
@@ -50,7 +56,7 @@ public class GoodController {
 	public String getGoodTransState(String id){
 		GoodPO good=dataServer.find(id);
 		if(good==null){
-			return "Can't Find this Good!";
+			return "0";
 		}else
 		    return good.getTransState();
 	}

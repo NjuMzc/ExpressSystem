@@ -16,4 +16,8 @@ public class SystemHelper {
 	public static String getUserID() {
 		return UserNow.getID();
 	}
+	
+	public static String getUserName(){
+		return UserNow.getUserName();
+	}
 }

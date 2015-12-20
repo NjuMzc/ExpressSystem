@@ -139,7 +139,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			this.setBackground(Color.gray);
 
 			tableModel = new DefaultTableModel();
-			table = new JTable(tableModel);
+			table = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 			js = new JScrollPane(table);
 
 			jb = new JButton[3];
@@ -412,7 +412,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			this.setBackground(Color.gray);
 
 			tableModel = new DefaultTableModel();
-			table = new JTable(tableModel);
+			table = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 			js = new JScrollPane(table);
 
 			jb = new JButton[3];

@@ -10,10 +10,14 @@ import java.util.List;
 
 import javax.swing.*;
 
+import businesslogic.transportbl.hallStaff.Trans_HallSendingServerImpl;
+import businesslogicservice.transportblservice.hallStaff.Trans_HallSendingServer;
+import po.bills.SendingBill;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
 public class Ying_collect extends RightAll implements ActionListener {
+	Trans_HallSendingServer blServer;
 
 	int frameWidth;
 	int frameHeight;
@@ -26,6 +30,8 @@ public class Ying_collect extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Ying_collect(int frameWidth, int frameHeight) {
+		blServer=new Trans_HallSendingServerImpl();
+		
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 
@@ -135,6 +141,17 @@ public class Ying_collect extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.ZHONG_START);
 		} else if (e.getSource() == confirm) {
+			String date="";
+//			String year=timeInput[0].getSelectedItem().toString();
+//			String month=timeInput[1].getSelectedItem().toString();
+//			String day=timeInput[2].getSelectedItem().toString();
+//			
+//			date=year+"-"+month+"-"+day;
+			String orderId=jtf[1].getText();
+			String sender=jtf[2].getText();
+			
+			SendingBill bill=blServer.makeBill(date, orderId, sender);
+			
 			this.remove(confirm);
 			this.remove(cancel);
 			this.add(over);

@@ -1,5 +1,6 @@
 package businesslogic.constantbl;
 
+import client.RMIHelper;
 import dataservice.constantdataservice.CityDataServer;
 import po.CityPO;
 import businesslogicservice.constantblservice.CityServer;
@@ -11,6 +12,16 @@ public class CityServerImpl implements CityServer {
 	
 	public CityServerImpl(){
 		//RMI
+		dataServer=RMIHelper.getCityData();
+		
+		//初始化四个城市
+		if(dataServer.getById("025")==null){
+			addCity("025", "南京");
+			addCity("010", "北京");
+			addCity("021","广州");
+			addCity("020", "上海");
+		}
+
 	}
 	
 	@Override

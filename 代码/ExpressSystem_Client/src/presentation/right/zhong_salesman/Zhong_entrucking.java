@@ -13,12 +13,19 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.transportbl.tranStaff.Trans_TransEntruckServerImpl;
+import businesslogicservice.transportblservice.tranStaff.Trans_TransEntruckServer;
+import po.Message;
+import po.bills.HallEntruckBill;
+import po.bills.TransEntruckBill;
 import presentation.right.RightAll;
+import presentation.right.YearMonthDay;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
 public class Zhong_entrucking extends RightAll implements ActionListener {
+	Trans_TransEntruckServer blServer;
 
 	int frameWidth;
 	int frameHeight;
@@ -35,6 +42,8 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 	JScrollPane js;
 
 	public Zhong_entrucking(int frameWidth, int frameHeight) {
+		blServer=new Trans_TransEntruckServerImpl();
+		
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 
@@ -60,19 +69,13 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 		}
-		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
-		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12" };
-		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
-				"31" };
-		timeInput[0] = new JComboBox<String>(year);
-		timeInput[1] = new JComboBox<String>(month);
-		timeInput[2] = new JComboBox<String>(day);
+		YearMonthDay time1=new YearMonthDay();
+		timeInput[0] = time1.getCboYear();
+		timeInput[1] = time1.getCboMonth();
+		timeInput[2] = time1.getCboDay();
 
 		tableModel = new DefaultTableModel();
-		jtable = new JTable(tableModel);
+		jtable = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js = new JScrollPane(jtable);
 
 		add = new JButton("");
@@ -214,6 +217,33 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 				tableModel.addRow(vec);
 				jtf[5].setText("");
 			}
+		}else if(e.getSource()==confirm){
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			String transNum=jtf[0].getText();
+			String carId=jtf[2].getText();
+			String destination=jtf[1].getText();
+			String  supervisor=jtf[3].getText();
+			String  transportor=jtf[4].getText();
+			
+			Message message=new Message();
+			message.addInform(date);
+			message.addInform(transNum);
+			message.addInform(destination);
+			message.addInform(carId);
+			message.addInform(supervisor);
+			message.addInform(transportor);
+			
+			int row=tableModel.getRowCount();
+			ArrayList<String> orderList=new ArrayList<String>();
+			
+			for(int i=0;i<row;i++){
+				orderList.add(tableModel.getValueAt(i, 0).toString());
+			}
+			TransEntruckBill bill=blServer.makeBill(message, orderList.iterator());
 		}
 	}
 }

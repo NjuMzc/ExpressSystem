@@ -17,15 +17,16 @@ public class OrderBillServer {
 	public OrderBillServer(){
 		this.dataServer=RMIHelper.getOrderBillData();
 		
+		idMaker=new OrderBill_IDMaker(dataServer);
+		calculator=new OrderBill_ChargeCalculator();
+		approveServer=new BillApproverServerImpl();
+		
 	}
 
 	public OrderBill makeBill(Message msg) {
 		// TODO Auto-generated method stub
 		try{
 			OrderBill bill=new OrderBill(msg);
-			idMaker=new OrderBill_IDMaker(dataServer);
-			calculator=new OrderBill_ChargeCalculator();
-			approveServer=new BillApproverServerImpl();
 			
 			//设置ID以及计算运费
 			bill.setID(idMaker.giveID(bill));

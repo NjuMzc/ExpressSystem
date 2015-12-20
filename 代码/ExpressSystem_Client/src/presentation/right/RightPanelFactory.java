@@ -58,9 +58,13 @@ public class RightPanelFactory {
 			right = new LogSearch(frameWidth, frameHeight);
 		} else if (state == State.ACCOUNTANTSTART) {
 			right = new AccountantStart(frameWidth, frameHeight);
-		} else if (state == State.ACCOUNTANTMAKEBILL) {
-			right = new AccountantMakebill(frameWidth, frameHeight);
-		} else if (state == State.ACCOUNTANTMAKESHEET) {
+		} else if (state == State.ACCOUNTANTMAKEBILL_ONE) {
+			right = new AccountantMakebill_ONE(frameWidth, frameHeight);
+		}  else if (state == State.ACCOUNTANTMAKEBILL_TWO) {
+			right = new AccountantMakebill_TWO(frameWidth, frameHeight);
+		} else if (state == State.ACCOUNTANTMAKEBILL_THREE) {
+			right = new AccountantMakebill_THREE(frameWidth, frameHeight);
+		}else if (state == State.ACCOUNTANTMAKESHEET) {
 			right = new AccountantMakeSheet(frameWidth, frameHeight);
 		} else if (state == State.ACCOUNTANTPAYMENT) {
 			right = new AccountantPayment(frameWidth, frameHeight);

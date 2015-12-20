@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import businesslogic.systembl.SystemHelper;
 import presentation.Data;
 import presentation.watcher.*;
 
@@ -113,10 +114,15 @@ public class CourierPanel extends LeftAll implements  ActionListener {
 		close.setBounds(frameWidth*13/80, frameHeight *63/72,frameWidth/17, frameWidth/17);
 		close.addActionListener(this);
 
-		jtf_num.setBounds(frameWidth / 10, frameHeight / 64*15, frameWidth / 10,
+		jtf_name.setBounds(frameWidth / 10, frameHeight / 64*15, frameWidth / 10,
 				frameHeight / 30);
-		jtf_name.setBounds(frameWidth / 10, frameHeight / 64*18,
+		jtf_num.setBounds(frameWidth / 10, frameHeight / 64*18,
 				frameWidth / 10, frameHeight / 30);
+		
+		jtf_name.setText(SystemHelper.getUserName());
+		jtf_name.setEditable(false);
+		jtf_num.setText(SystemHelper.getUserID());
+		jtf_num.setEditable(false);
 	}
 
 	public void addWatcher(Watcher watcher) {

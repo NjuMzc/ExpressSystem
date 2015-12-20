@@ -36,6 +36,7 @@ public class GoodPO implements Remote,Serializable{
     	this.depature=depature;
     	this.ArriveState=arriveState.OK;
     	this.tranState=transState.Delivering;
+    	trace=new ArrayList<String>();
     }
     
     public void addTrace(String inform){

@@ -20,13 +20,19 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.transportbl.hallStaff.Trans_HallEntruckServerImpl;
+import businesslogicservice.transportblservice.hallStaff.Trans_HallEntruckServer;
+import po.Message;
+import po.bills.HallEntruckBill;
 import presentation.right.RightAll;
+import presentation.right.YearMonthDay;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
 public class Ying_loading extends RightAll implements ActionListener {
-
+    Trans_HallEntruckServer blServer;
+	
 	int frameWidth;
 	int frameHeight;
 	JLabel jl[];
@@ -44,6 +50,8 @@ public class Ying_loading extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Ying_loading(int frameWidth, int frameHeight) {
+		blServer=new Trans_HallEntruckServerImpl();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 
@@ -68,20 +76,14 @@ public class Ying_loading extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 		}
-		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
-		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12" };
-		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
-				"31" };
-		timeInput[0] = new JComboBox<String>(year);
-		timeInput[1] = new JComboBox<String>(month);
-		timeInput[2] = new JComboBox<String>(day);
+		YearMonthDay time1=new YearMonthDay();
+		timeInput[0] = time1.getCboYear();
+		timeInput[1] = time1.getCboMonth();
+		timeInput[2] = time1.getCboDay();
 		add = new JButton("");
 
 		tableModel = new DefaultTableModel();
-		jtable = new JTable(tableModel);
+		jtable = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js = new JScrollPane(jtable);
 		over = new JButton("");//完成
 
@@ -230,6 +232,37 @@ public class Ying_loading extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.YING_START);
 		} else if (e.getSource() == confirm) {
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			
+			String hallId=jtf[0].getText();
+			String transNum=jtf[1].getText();
+			String carId=jtf[2].getText();
+			String destination=jtf[3].getText();
+			String  supervisor=jtf[4].getText();
+			String  transportor=jtf[5].getText();
+			
+			Message message=new Message();
+			message.addInform(date);
+			message.addInform(hallId);
+			message.addInform(transNum);
+			message.addInform(destination);
+			message.addInform(carId);
+			message.addInform(supervisor);
+			message.addInform(transportor);
+			
+			int row=tableModel.getRowCount();
+			ArrayList<String> orderList=new ArrayList<String>();
+			
+			for(int i=0;i<row;i++){
+				orderList.add(tableModel.getValueAt(i, 0).toString());
+			}
+			HallEntruckBill bill=blServer.makeBill(message, orderList.iterator());
+			
+			jtf[8].setText(String.valueOf(bill.getPayment()));
 
 			this.add(jl[9]);
 			this.add(jtf[7]);

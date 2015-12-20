@@ -20,13 +20,19 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.paymentServer.ChargeServerImpl;
+import businesslogicservice.paymentblservice.ChargeServer;
 import presentation.right.RightAll;
+import presentation.right.YearMonthDay;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
+import vo.paymentbl.ChargeVO;
 
 public class Ying_payment extends RightAll implements ActionListener {
-
+	ChargeServer blServer;
+    ChargeVO charge;
+	
 	int frameWidth;
 	int frameHeight;
 	JLabel jl[];
@@ -43,6 +49,9 @@ public class Ying_payment extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Ying_payment(int frameWidth, int frameHeight) {
+		blServer=new ChargeServerImpl();
+		charge=new ChargeVO();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 
@@ -66,18 +75,12 @@ public class Ying_payment extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 		}
-		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
-		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12" };
-		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
-				"31" };
-		timeInput[0] = new JComboBox<String>(year);
-		timeInput[1] = new JComboBox<String>(month);
-		timeInput[2] = new JComboBox<String>(day);
+		YearMonthDay time1=new YearMonthDay();
+		timeInput[0] = time1.getCboYear();
+		timeInput[1] = time1.getCboMonth();
+		timeInput[2] = time1.getCboDay();
 		tableModel = new DefaultTableModel();
-		jtable = new JTable(tableModel);
+		jtable = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js = new JScrollPane(jtable);
 		add = new JButton("");
 		time[0].setText("年");
@@ -175,16 +178,8 @@ public class Ying_payment extends RightAll implements ActionListener {
 		tableModel.addColumn("已有单号列表");
 		jtable.getTableHeader().setReorderingAllowed(false);
 		jtable.getTableHeader().setResizingAllowed(false);
-		initTableModel();
 	}
 
-	private void initTableModel() {
-		Vector<String> vec = new Vector<>();
-		vec.add("12345666");
-
-		// 初始化已有单号列表
-		tableModel.addRow(vec);
-	}
 
 	public void addWatcher(Watcher watcher) {
 		list.add(watcher);
@@ -204,7 +199,37 @@ public class Ying_payment extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.YING_START);
 		} else if (e.getSource() == confirm) {
-			this.notifyWatchers(State.YING_PAYMENT);
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			
+			String money=jtf[0].getText();
+			
+			String senderNum=jtf[1].getText();
+			
+			int row=tableModel.getRowCount();
+			ArrayList<String> billList=new ArrayList<String>();
+			
+			for(int i=0;i<row;i++){
+				billList.add(tableModel.getValueAt(i, 0).toString());
+			}
+			
+			charge.setDate(date);
+			charge.setMoney(money);
+			charge.setSenderNum(senderNum);
+			charge.setOrderNumbers(billList);
+			
+			ChargeVO result=blServer.makeBill(charge);
+			if(result.isWrong()){
+				//错误信息处理
+				
+			}else{
+
+				this.notifyWatchers(State.YING_PAYMENT);
+			}
+			
 		}
 
 		if (e.getSource() == add) {

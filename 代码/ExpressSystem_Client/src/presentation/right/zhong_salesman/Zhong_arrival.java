@@ -11,12 +11,18 @@ import java.util.List;
 
 import javax.swing.*;
 
+import businesslogic.billsbl.TransArrivalBillServer.TransArrivalBillServer;
+import businesslogic.transportbl.tranStaff.Trans_TransArrivalServerImpl;
+import businesslogicservice.transportblservice.tranStaff.Trans_TransArrivalServer;
+import po.bills.TransArrivalBill;
 import presentation.right.RightAll;
+import presentation.right.YearMonthDay;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
 public class Zhong_arrival extends RightAll implements ActionListener {
+	Trans_TransArrivalServer blServer;
 
 	int frameWidth;
 	int frameHeight;
@@ -31,6 +37,8 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Zhong_arrival(int frameWidth, int frameHeight) {
+		blServer=new Trans_TransArrivalServerImpl();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 
@@ -52,16 +60,10 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 		}
-		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
-		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12" };
-		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
-				"31" };
-		timeInput[0] = new JComboBox<String>(year);
-		timeInput[1] = new JComboBox<String>(month);
-		timeInput[2] = new JComboBox<String>(day);
+		YearMonthDay time1=new YearMonthDay();
+		timeInput[0] = time1.getCboYear();
+		timeInput[1] = time1.getCboMonth();
+		timeInput[2] = time1.getCboDay();
 
 		confirm = new JButton("");//确认
 		cancel = new JButton("");//取消
@@ -184,6 +186,27 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.ZHONG_START);
+		}else if(e.getSource()==confirm){
+			String tranStationID=jtf[0].getText();
+			String GoodID=jtf[1].getText();
+
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			
+			String transOrderNum=jtf[2].getText();
+			String departure=jtf[3].getText();
+			
+			String goodState="完好";
+			for(int i=0;i<3;i++){
+				if(state[i].isSelected()){
+					goodState=state[i].getText();
+				}
+			}
+			
+			TransArrivalBill bill=blServer.makeBill(tranStationID, GoodID, date, transOrderNum, departure, goodState);
 		}
 
 	}

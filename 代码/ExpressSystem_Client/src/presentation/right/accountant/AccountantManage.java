@@ -53,7 +53,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		model = new DefaultTableModel();
-		table = new JTable(model);
+		table = new JTable(model){ public boolean isCellEditable(int row, int column) { return false; }}; 
 		js = new JScrollPane(table);
 		jb = new JButton[4];
 		for (int i = 0; i < 4; i++) {

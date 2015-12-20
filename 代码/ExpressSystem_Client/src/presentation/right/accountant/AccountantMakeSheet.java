@@ -16,6 +16,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import presentation.right.RightAll;
+import presentation.right.YearMonthDay;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
@@ -54,13 +55,17 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 
 		input = new JPanel();
 		start = new JLabel("开始时间");
-		start.setFont(new Font("宋体",Font.PLAIN,15));
+		start.setFont(new Font("宋体", Font.PLAIN, 15));
 		end = new JLabel("结束时间");
-		end.setFont(new Font("宋体",Font.PLAIN,15));
+		end.setFont(new Font("宋体", Font.PLAIN, 15));
 		startbox = new JComboBox[3];
 		endbox = new JComboBox[3];
 
-		model = new DefaultTableModel();
+		model = new DefaultTableModel() {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		table = new JTable(model);
 		js = new JScrollPane(table);
 		search = new JButton("查询");
@@ -79,7 +84,7 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		input.add(end);
 		this.add(input);
 	}
-	
+
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
@@ -89,25 +94,15 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 	}
 
 	private void init() {
-		String[] modelYear = { "2015", "2016", "2017", "2018", "2019", "2020" };
-		String[] modelMonth = { "1", "2", "3", "4", "5", "6", "7", "8", "9",
-				"10", "11", "12" };
-		String[] modelDay = { "1", "2", "3", "4", "5", "6", "7", "8", "9",
-				"10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
-				"20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
-				"30", "31" };
-		for (int i = 0; i < 3; i++) {
-			if (i == 0) {
-				startbox[i] = new JComboBox<String>(modelYear);
-				endbox[i] = new JComboBox<String>(modelYear);
-			} else if (i == 1) {
-				startbox[i] = new JComboBox<String>(modelMonth);
-				endbox[i] = new JComboBox<String>(modelMonth);
-			} else {
-				startbox[i] = new JComboBox<String>(modelDay);
-				endbox[i] = new JComboBox<String>(modelDay);
-			}
-		}
+		YearMonthDay time1 = new YearMonthDay();
+		startbox[0] = time1.getCboYear();
+		startbox[1] = time1.getCboMonth();
+		startbox[2] = time1.getCboDay();
+		YearMonthDay time2 = new YearMonthDay();
+		endbox[0] = time2.getCboYear();
+		endbox[1] = time2.getCboMonth();
+		endbox[2] = time2.getCboDay();
+
 		for (int i = 0; i < 3; i++) {
 			startbox[i].setBounds(frameWidth / 15 * (i + 2), frameHeight / 20,
 					frameWidth / 15, frameHeight / 20);
@@ -176,8 +171,8 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		jta = new JTextArea();
 		export = new JButton("导出报表");
 		addPanel.setLayout(null);
-		addPanel.setBounds(frameWidth/2, 0, frameWidth / 4, frameHeight);
-		jta.setBounds(0, 0, frameWidth / 2, frameHeight/4*3);
+		addPanel.setBounds(frameWidth / 2, 0, frameWidth / 4, frameHeight);
+		jta.setBounds(0, 0, frameWidth / 2, frameHeight / 4 * 3);
 		export.setBounds(frameWidth / 40 * 3, frameHeight / 8 * 7,
 				frameWidth / 10, frameHeight / 20);
 

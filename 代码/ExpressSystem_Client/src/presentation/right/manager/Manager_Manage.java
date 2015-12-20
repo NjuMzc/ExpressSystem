@@ -477,7 +477,6 @@ public class Manager_Manage extends RightAll {
 		JTextField jtf;
 		JLabel addLabel;
 		JButton overButton;
-
 		JButton con_orgAdd;
 		JButton con_orgDel;
 
@@ -507,7 +506,7 @@ public class Manager_Manage extends RightAll {
 		
 		private void initConcretOrgPanel() {
 			con_tableModel = new DefaultTableModel();
-			con_table = new JTable(con_tableModel);
+			con_table = new JTable(con_tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
 			con_table.setRowSelectionAllowed(true);
 			con_table.setEditingRow(-1);
 			initTableModel();

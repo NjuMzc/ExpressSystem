@@ -13,6 +13,7 @@ public class ImportBillServer {
 	
 	public ImportBillServer(){
 	   //RMIHelper
+		dataServer=RMIHelper.getImportBillData();
 		
 		approver=new BillApproverServerImpl();
 		

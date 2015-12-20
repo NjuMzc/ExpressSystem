@@ -11,14 +11,29 @@ public class CityDistanceServerImpl implements CityDistanceServer{
     public CityDistanceServerImpl(){
     	//RMI实现
     	dataServer=RMIHelper.getCityDistanceData();
+    	
+    	//初始化默认城市
+    	if(dataServer.get("北京", "上海")==null){
+    	  	addDistance("北京", "上海", "1064.7");
+        	addDistance("北京", "广州", "1888.8");
+        	addDistance("北京", "南京", "900");
+        	addDistance("上海", "广州", "1213");
+        	addDistance("上海", "南京", "266");
+        	addDistance("广州", "南京", "1132");
+    	}
     }
 	
 	@Override
 	public double getDistance(String city1, String city2) {
 		// TODO Auto-generated method stub
 		CityDistancePO distance=dataServer.get(city1, city2);
-		double result=distance.getDistance();
-		return result;
+		if(distance!=null){
+			double result=distance.getDistance();
+			return result;
+		}else{
+			return 0;
+		}
+		
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.*;
 
 import presentation.right.RightAll;
+import presentation.right.YearMonthDay;
 import presentation.watcher.*;
 
 public class StockmanOutStock extends RightAll implements ActionListener {
@@ -54,16 +55,10 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 		}
-		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
-		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12" };
-		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
-				"31" };
-		timeInput[0] = new JComboBox<String>(year);
-		timeInput[1] = new JComboBox<String>(month);
-		timeInput[2] = new JComboBox<String>(day);
+		YearMonthDay time1=new YearMonthDay();
+		timeInput[0] = time1.getCboYear();
+		timeInput[1] = time1.getCboMonth();
+		timeInput[2] = time1.getCboDay();
 
 		String transportType[] = { "飞机", "火车", "汽车" };
 		type = new JComboBox<String>(transportType);

@@ -3,7 +3,6 @@ package client;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 
-import java.lang.reflect.InvocationTargetException;
 import presentation.MainFrame;
 
 public class Client {
@@ -33,5 +32,6 @@ public class Client {
 		});
 
 	}
+	
 
 }

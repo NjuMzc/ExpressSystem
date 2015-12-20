@@ -11,13 +11,21 @@ import java.util.List;
 
 import javax.swing.*;
 
+import businesslogic.transportbl.hallStaff.Trans_HallArrivalServerImpl;
+import businesslogicservice.transportblservice.hallStaff.Trans_HallArrivalServer;
+import po.bills.HallArrivalBill;
+import po.bills.TransArrivalBill;
 import presentation.right.RightAll;
+import presentation.right.YearMonthDay;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
+import vo.paymentbl.ChargeVO;
 
 public class Ying_arrive extends RightAll implements ActionListener {
 
+	Trans_HallArrivalServer blServer;
+	
 	int frameWidth;
 	int frameHeight;
 	JLabel jl[];
@@ -32,6 +40,8 @@ public class Ying_arrive extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Ying_arrive(int frameWidth, int frameHeight) {
+		blServer=new Trans_HallArrivalServerImpl();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 
@@ -55,16 +65,10 @@ public class Ying_arrive extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 		}
-		String[] year = { "2015", "2016", "2017", "2018", "2019", "2020" };
-		String[] month = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12" };
-		String[] day = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
-				"31" };
-		timeInput[0] = new JComboBox<String>(year);
-		timeInput[1] = new JComboBox<String>(month);
-		timeInput[2] = new JComboBox<String>(day);
+		YearMonthDay time1=new YearMonthDay();
+		timeInput[0] = time1.getCboYear();
+		timeInput[1] = time1.getCboMonth();
+		timeInput[2] = time1.getCboDay();
 		jrb = new JRadioButton[3];
 		for (int i = 0; i < 3; i++) {
 			jrb[i] = new JRadioButton();
@@ -179,6 +183,27 @@ public class Ying_arrive extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.YING_START);
 		} else if (e.getSource() == confirm) {
+			String GoodID=jtf[0].getText();
+			
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			String transOrderNum=jtf[1].getText();
+			String departure=jtf[2].getText();
+			
+			String state="完好 ";
+			for(int i=0;i<3;i++){
+				if(jrb[i].isSelected()){
+					state=jrb[i].getText().toString();
+				}
+			}
+			
+			HallArrivalBill bill=blServer.makeBill(GoodID, date, transOrderNum, departure, state);
+			
+			
+			
 			this.notifyWatchers(State.YING_ARRIVE);
 		}
 	}
