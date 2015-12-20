@@ -25,14 +25,14 @@ public class PaymentBill implements  Serializable,Remote{
 	private BillApproverPO billForApprover;
 
 	
-	public PaymentBill(PayVO payInform) {
+	public PaymentBill(String date,String payer,String account,String tiaoMu,String money,String beiZhu) {
 		// TODO Auto-generated constructor stub
-        this.date=payInform.getDate();
-        this.payer=payInform.getPayer();
-        this.account=payInform.getAccount();
-        this.tiaoMu=payInform.getTiaoMu();
-        this.money=Double.valueOf(payInform.getMoney());
-        this.beiZhu=payInform.getBeiZhu();
+        this.date=date;
+        this.payer=payer;
+        this.account=account;
+        this.tiaoMu=tiaoMu;
+        this.money=Double.valueOf(money);
+        this.beiZhu=beiZhu;
         
         this.id=date+"000";
         billForApprover=new BillApproverPO();

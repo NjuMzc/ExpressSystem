@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Wed Dec 09 20:17:34 CST 2015
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=ExpressSystem_Server_fat.jar
+manifest.mergeall=true
+manifest.mainclass=server.Server
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=

@@ -5,6 +5,7 @@ package po.bills;
 
 import java.io.Serializable;
 import java.rmi.Remote;
+import java.util.Iterator;
 
 import po.Message;
   
@@ -21,6 +22,7 @@ public class HallArrivalBill implements Serializable,Remote{
 	private String goodID;//货物编号
 	
 	private String id;//单据编号
+	private BillApproverPO approveBill;
 	
 	public HallArrivalBill(String GoodID,String date, String transOrderNum, String departure, String state) {
 		// TODO Auto-generated constructor stub
@@ -40,6 +42,7 @@ public class HallArrivalBill implements Serializable,Remote{
 		//单据编号和中转单编号相同
 		this.id=transOrderNum+goodID;
 		this.goodID=GoodID;
+		approveBill = new BillApproverPO();
 	}
 	
 	public String getDate(){
@@ -64,5 +67,20 @@ public class HallArrivalBill implements Serializable,Remote{
 	
 	public String getGoodID(){
 		return goodID;
+	}
+	
+	public BillApproverPO submit(){
+		approveBill.setState("Submit");
+		
+		approveBill.setEaseInform(date, id, "营业厅到达单");
+		
+		approveBill.addInform("营业厅到达单编号:"+id);
+		approveBill.addInform("到达日期:"+date);
+		approveBill.addInform("出发地："+departure);
+		approveBill.addInform("到达状态："+state);
+		approveBill.addInform("中转单编号："+transOrderNum);
+		
+		return approveBill;
+		
 	}
 }

@@ -3,6 +3,7 @@ package po.bills;
 import java.io.Serializable;
 import java.rmi.Remote;
 
+
 public class PaymentBill implements  Serializable,Remote{	
 	/**
 	 * 
@@ -19,6 +20,7 @@ public class PaymentBill implements  Serializable,Remote{
 	private String beiZhu;//备注
 	
 	private String id;//该单据id，付款日期8位+4位流水号
+	private BillApproverPO billForApprover;
 
 	
 	public PaymentBill(String date,String payer,String account,String tiaoMu,String money,String beiZhu) {
@@ -29,6 +31,9 @@ public class PaymentBill implements  Serializable,Remote{
         this.tiaoMu=tiaoMu;
         this.money=Double.valueOf(money);
         this.beiZhu=beiZhu;
+        
+        this.id=date+"000";
+        billForApprover=new BillApproverPO();
 	}
 
 	public String getDate() {
@@ -68,4 +73,18 @@ public class PaymentBill implements  Serializable,Remote{
 		return id;
 	}
     
+	public BillApproverPO submit(){
+		billForApprover.setState("Submit");
+		
+		billForApprover.setEaseInform(date, id, "收款单");
+		
+		billForApprover.addInform("付款单编号:"+id);
+		billForApprover.addInform("付款日期:"+date);
+		billForApprover.addInform("付款金额:"+money);
+		billForApprover.addInform("付款账户:"+account);
+		billForApprover.addInform("付款条目:"+tiaoMu);
+		billForApprover.addInform("备注:"+beiZhu);
+
+		return billForApprover;
+	}
 }
