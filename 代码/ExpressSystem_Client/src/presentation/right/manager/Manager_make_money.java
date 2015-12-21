@@ -13,10 +13,23 @@ import javax.swing.*;
 
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
+import businesslogic.salarybl.SalaryServerImpl;
+import businesslogicservice.salaryblservice.SalaryServer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
+import vo.SalaryVO;
 
 public class Manager_make_money extends RightAll implements ActionListener {
+	SalaryServer blServer;
+
+	SalaryVO manager;
+	SalaryVO transman;
+	SalaryVO courier;
+	SalaryVO systemManager;
+	SalaryVO storageManager;
+	SalaryVO accountant;
+	SalaryVO businessman;
+
 	int frameWidth;
 	int frameHeight;
 	JLabel[] jl;
@@ -35,6 +48,7 @@ public class Manager_make_money extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Manager_make_money(int frameWidth, int frameHeight) {
+		blServer = new SalaryServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -48,10 +62,10 @@ public class Manager_make_money extends RightAll implements ActionListener {
 		for (int i = 0; i < 7; i++) {
 			jl[i] = new JLabel();
 		}
-		ok = new JButton("");//提交
-		ok.setFont(new Font("宋体",Font.PLAIN,18));
-		cancel = new JButton("");//取消
-		cancel.setFont(new Font("宋体",Font.PLAIN,18));
+		ok = new JButton("");// 提交
+		ok.setFont(new Font("宋体", Font.PLAIN, 18));
+		cancel = new JButton("");// 取消
+		cancel.setFont(new Font("宋体", Font.PLAIN, 18));
 
 		jradiobutton1 = new JRadioButton[7];
 		jradiobutton2 = new JRadioButton[7];
@@ -66,33 +80,33 @@ public class Manager_make_money extends RightAll implements ActionListener {
 		for (int i = 0; i < 7; i++) {
 			jradiobutton1[i] = new JRadioButton("工资：");
 			jradiobutton2[i] = new JRadioButton("提成：");
-			jradiobutton1[i].setBorderPainted(false); //不绘制边界搜索
-			   jradiobutton1[i].setContentAreaFilled(false); //不填充所占的矩形区域
-				jradiobutton2[i].setBorderPainted(false); //不绘制边界搜索
-				   jradiobutton2[i].setContentAreaFilled(false); //不填充所占的矩形区域
+			jradiobutton1[i].setBorderPainted(false); // 不绘制边界搜索
+			jradiobutton1[i].setContentAreaFilled(false); // 不填充所占的矩形区域
+			jradiobutton2[i].setBorderPainted(false); // 不绘制边界搜索
+			jradiobutton2[i].setContentAreaFilled(false); // 不填充所占的矩形区域
 			buttongroup[i] = new ButtonGroup();
 			way1[i] = new JLabel("元/月");
 			way2[i] = new JLabel("%");
 			jtf1[i] = new JTextField();
 			jtf2[i] = new JTextField();
-			
-			jradiobutton1[i].setFont(new Font("宋体",Font.PLAIN,15));
-			jradiobutton2[i].setFont(new Font("宋体",Font.PLAIN,15));
-	        way1[i].setFont(new Font("宋体",Font.PLAIN,15));
-	       way2[i].setFont(new Font("宋体",Font.PLAIN,15));
-	       jtf1[i].setFont(new Font("宋体",Font.PLAIN,15));
-	       jtf2[i].setFont(new Font("宋体",Font.PLAIN,15));
-			
+
+			jradiobutton1[i].setFont(new Font("宋体", Font.PLAIN, 15));
+			jradiobutton2[i].setFont(new Font("宋体", Font.PLAIN, 15));
+			way1[i].setFont(new Font("宋体", Font.PLAIN, 15));
+			way2[i].setFont(new Font("宋体", Font.PLAIN, 15));
+			jtf1[i].setFont(new Font("宋体", Font.PLAIN, 15));
+			jtf2[i].setFont(new Font("宋体", Font.PLAIN, 15));
+
 		}
 		for (int i = 0; i < 3; i++) {
 			jradiobutton3[i] = new JRadioButton("计次：");
-			jradiobutton3[i].setFont(new Font("宋体",Font.PLAIN,15));
-			jradiobutton3[i].setBorderPainted(false); //不绘制边界搜索
-		   jradiobutton3[i].setContentAreaFilled(false); //不填充所占的矩形区域
+			jradiobutton3[i].setFont(new Font("宋体", Font.PLAIN, 15));
+			jradiobutton3[i].setBorderPainted(false); // 不绘制边界搜索
+			jradiobutton3[i].setContentAreaFilled(false); // 不填充所占的矩形区域
 			way3[i] = new JLabel("元/次 ");
-			way3[i].setFont(new Font("宋体",Font.PLAIN,15));
+			way3[i].setFont(new Font("宋体", Font.PLAIN, 15));
 			jtf3[i] = new JTextField();
-			jtf3[i].setFont(new Font("宋体",Font.PLAIN,15));
+			jtf3[i].setFont(new Font("宋体", Font.PLAIN, 15));
 		}
 
 		init();
@@ -116,16 +130,14 @@ public class Manager_make_money extends RightAll implements ActionListener {
 		this.add(cancel);
 
 	}
-	
+
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\制定薪水right.png");
-		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
-	
 
 	private void init() {
 
@@ -138,32 +150,38 @@ public class Manager_make_money extends RightAll implements ActionListener {
 		jl[6].setText("中转中心业务员 ");
 
 		for (int i = 0; i < 7; i++) {
-			jl[i].setFont(new Font("宋体",Font.BOLD,15));
+			jl[i].setFont(new Font("宋体", Font.BOLD, 15));
 			jl[i].setBounds(frameWidth / 31, frameHeight / 10 * (i + 1),
 					frameWidth / 7, frameHeight / 20);
 			jradiobutton1[i].setBounds(frameWidth / 38 * 6, frameHeight / 10
 					* (i + 1), frameWidth / 10, frameHeight / 20);
 			jradiobutton2[i].setBounds(frameWidth / 29 * 11, frameHeight / 10
 					* (i + 1), frameWidth / 10, frameHeight / 20);
-			way1[i].setBounds(frameWidth / 240* 92, frameHeight / 10 * (i + 1),
-					frameWidth / 13, frameHeight / 20);
+			jradiobutton1[i].addActionListener(this);
+			jradiobutton2[i].addActionListener(this);
+			way1[i].setBounds(frameWidth / 240 * 92,
+					frameHeight / 10 * (i + 1), frameWidth / 13,
+					frameHeight / 20);
 			way2[i].setBounds(frameWidth / 2 + frameWidth / 55, frameHeight
 					/ 10 * (i + 1), frameWidth / 13, frameHeight / 20);
 			jtf1[i].setBounds(frameWidth / 120 * 31,
 					frameHeight / 10 * (i + 1), frameWidth / 16,
 					frameHeight / 20);
-			jtf2[i].setBounds(frameWidth / 100 * 50, frameHeight / 10 * (i + 1),
-					frameWidth / 16, frameHeight / 20);
+			jtf2[i].setBounds(frameWidth / 100 * 50,
+					frameHeight / 10 * (i + 1), frameWidth / 16,
+					frameHeight / 20);
 		}
 
 		for (int i = 0; i < 3; i++) {
 			jradiobutton3[i].setBounds(frameWidth / 2 + frameWidth / 22,
 					frameHeight / 10 * (i + 5), frameWidth / 11,
 					frameHeight / 20);
-			way3[i].setBounds(frameWidth / 256* 203, frameHeight / 10 * (i + 5),
-					frameWidth/13, frameHeight / 20);
-			jtf3[i].setBounds(frameWidth / 124 * 79, frameHeight / 10 * (i + 5),
-					frameWidth / 16, frameHeight / 20);
+			jradiobutton3[i].addActionListener(this);
+			way3[i].setBounds(frameWidth / 256 * 203, frameHeight / 10
+					* (i + 5), frameWidth / 13, frameHeight / 20);
+			jtf3[i].setBounds(frameWidth / 124 * 79,
+					frameHeight / 10 * (i + 5), frameWidth / 16,
+					frameHeight / 20);
 		}
 
 		for (int i = 0; i < 4; i++) {
@@ -176,18 +194,22 @@ public class Manager_make_money extends RightAll implements ActionListener {
 			buttongroup[i].add(jradiobutton3[i - 4]);
 		}
 
-//		ok.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
-		ok.setBounds(frameWidth /20*3, frameHeight / 20 *17, frameWidth/10, frameHeight/18);
+		// ok.setUI(new
+		// BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+		ok.setBounds(frameWidth / 20 * 3, frameHeight / 20 * 17,
+				frameWidth / 10, frameHeight / 18);
 		ok.addActionListener(this);
-//		cancel.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.lightBlue));
-		cancel.setBounds(frameWidth / 20*9, frameHeight / 20 * 17, frameWidth/10, frameHeight/18);
+		// cancel.setUI(new
+		// BEButtonUI().setNormalColor(BEButtonUI.NormalColor.lightBlue));
+		cancel.setBounds(frameWidth / 20 * 9, frameHeight / 20 * 17,
+				frameWidth / 10, frameHeight / 18);
 		cancel.addActionListener(this);
 		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		cancel.setIcon(icon1);
-		
+
 		ImageIcon icon2 = new ImageIcon("pictures//提交.png");
 		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
 				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
@@ -212,6 +234,56 @@ public class Manager_make_money extends RightAll implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.MANAGERSTART);
+		} else if (e.getSource() == ok) {
+			String[] salary;
+			String[] choice;
+
+			salary = new String[7];
+			choice = new String[7];
+
+			for (int i = 0; i < 7; i++) {
+				if (jradiobutton1[i].isSelected()) {
+					choice[i] = "工资";
+					salary[i] = jtf1[i].getText();
+				}
+			}
+			for (int i = 0; i < 7; i++) {
+				if (jradiobutton2[i].isSelected()) {
+					choice[i] = "提成";
+					salary[i] = jtf2[i].getText();
+				}
+			}
+			for (int i = 0; i < 3; i++) {
+				if (jradiobutton3[i].isSelected()) {
+					choice[i + 4] = "计次";
+					salary[i + 4] = jtf3[i].getText();
+				}
+			}
+
+			for (int i = 0; i < 7; i++) {
+				System.out.println(salary[i] + " " + choice[i]);
+			}
+
+		}
+	 
+		for (int i = 0; i < 7; i++) {
+			if (e.getSource() == jradiobutton1[i]) {
+				jtf2[i].setText("");
+				if(i<7&&i>3)
+				jtf3[i-4].setText("");
+			}
+
+			if (e.getSource() == jradiobutton2[i]) {
+				jtf1[i].setText("");
+				if(i<7&&i>3)
+				jtf3[i-4].setText("");
+			}
+		}
+		for (int i = 0; i < 3; i++) {
+			if (e.getSource() == jradiobutton3[i]) {
+				jtf1[i + 4].setText("");
+				jtf2[i + 4].setText("");
+			}
 		}
 	}
 }
