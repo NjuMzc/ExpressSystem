@@ -13,12 +13,14 @@ import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.systembl.SystemBlServerImpl;
 import businesslogicservice.systemblservice.systemServer;
 import po.Message;
 import po.SystemUserPO;
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -30,6 +32,7 @@ public class adminManage extends RightAll implements ActionListener {
 	int frameHeight;
 
 	DefaultTableModel model;
+	DefaultTableCellRenderer dtc;
 	JTable table;
 	JScrollPane js;
 	JLabel remind;
@@ -59,7 +62,6 @@ public class adminManage extends RightAll implements ActionListener {
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
-		this.setBackground(new Color(254, 67, 101));
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		model = new DefaultTableModel();
@@ -74,6 +76,8 @@ public class adminManage extends RightAll implements ActionListener {
 		change = new JButton("");// 修改
 		delete = new JButton("");// 删除
 
+		dtc=new ColorRenderer();
+		
 		init();
 
 		this.add(js);
@@ -144,15 +148,18 @@ public class adminManage extends RightAll implements ActionListener {
 
 	}
 
-	private void initTable() {
-		table.setBackground(new Color(188, 199, 199));
-		table.getTableHeader().setBackground(new Color(126, 205, 182));
+	private void initTable() { 
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setFont(new Font("宋体", Font.PLAIN, 14));
 		model.addColumn("姓名");
 		model.addColumn("账号");
 		model.addColumn("密码");
 		model.addColumn("职位");
+		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(2).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(3).setCellRenderer(dtc);
+		
 
 		initModel();
 

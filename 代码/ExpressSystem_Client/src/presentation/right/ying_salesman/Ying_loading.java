@@ -20,12 +20,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.transportbl.hallStaff.Trans_HallEntruckServerImpl;
 import businesslogicservice.transportblservice.hallStaff.Trans_HallEntruckServer;
 import po.Message;
 import po.bills.HallEntruckBill;
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.State;
@@ -48,6 +50,7 @@ public class Ying_loading extends RightAll implements ActionListener {
 	JTable jtable;
 	JScrollPane js;
 	JButton over;
+	DefaultTableCellRenderer dtc;
 
 	private List<Watcher> list;
 
@@ -89,6 +92,8 @@ public class Ying_loading extends RightAll implements ActionListener {
 		js = new JScrollPane(jtable);
 		over = new JButton("");//完成
 
+		dtc=new ColorRenderer();
+		
 		init();
 
 		for (int i = 0; i < 9; i++) {
@@ -294,6 +299,7 @@ public class Ying_loading extends RightAll implements ActionListener {
 		jtable.setFont(new Font("宋体",Font.PLAIN,15));
 		jtable.getTableHeader().setReorderingAllowed(false);
 		jtable.getTableHeader().setResizingAllowed(false);
+		jtable.getColumnModel().getColumn(0).setCellRenderer(dtc);
 		initTableModel();
 	}
 

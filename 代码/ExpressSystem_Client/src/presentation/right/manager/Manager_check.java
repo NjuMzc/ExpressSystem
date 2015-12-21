@@ -5,12 +5,13 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-import javax.swing.JCheckBox;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.*;
 
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -316,18 +317,18 @@ public class Manager_check extends RightAll implements ActionListener {
 			return this;
 		}
 	}
-
-	private class ColorRenderer extends DefaultTableCellRenderer {
-
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			if (row % 2 == 0)
-				setBackground(new Color(221, 232, 216));
-			else
-				setBackground(new Color(193, 213, 182));
-			return super.getTableCellRendererComponent(table, value,
-					isSelected, hasFocus, row, column);
-		}
-	}
+//
+//	private class ColorRenderer extends DefaultTableCellRenderer {
+//
+//		public Component getTableCellRendererComponent(JTable table,
+//				Object value, boolean isSelected, boolean hasFocus, int row,
+//				int column) {
+//			if (row % 2 == 0)
+//				setBackground(new Color(221, 232, 216));
+//			else
+//				setBackground(new Color(193, 213, 182));
+//			return super.getTableCellRendererComponent(table, value,
+//					isSelected, hasFocus, row, column);
+//		}
+//	}
 }

@@ -11,8 +11,10 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -32,6 +34,7 @@ public class AccountantBalace extends RightAll implements ActionListener {
 	DefaultTableModel model;
 	JTable table;
 	JScrollPane js;
+	DefaultTableCellRenderer dtc;
 
 	public AccountantBalace(int frameWidth, int frameHeight) {
 		this.frameHeight = frameHeight;
@@ -66,6 +69,8 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		sum.setFont(new Font("宋体",Font.BOLD,16));
 		jtfSum = new JTextField();
 		back = new JButton("");//返回
+		
+		dtc=new ColorRenderer();
 
 		init();
 
@@ -149,7 +154,12 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
         table.setFont(new Font("宋体", Font.PLAIN, 14));
-		initTableModel();
+        table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(2).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(3).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(4).setCellRenderer(dtc);
+        initTableModel();
 	}
 
 	private void initTableModel() {

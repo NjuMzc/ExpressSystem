@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.transportbl.tranStaff.Trans_TransEntruckServerImpl;
@@ -20,6 +21,7 @@ import businesslogicservice.transportblservice.tranStaff.Trans_TransEntruckServe
 import po.Message;
 import po.bills.HallEntruckBill;
 import po.bills.TransEntruckBill;
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.State;
@@ -43,7 +45,8 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 	JTable jtable;
 	JScrollPane js;
 	JButton over;
-
+	DefaultTableCellRenderer dtc;
+	
 	public Zhong_entrucking(int frameWidth, int frameHeight) {
 		blServer=new Trans_TransEntruckServerImpl();
 		
@@ -82,6 +85,8 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		js = new JScrollPane(jtable);
 
 		add = new JButton("");
+		
+		dtc=new ColorRenderer();
 
 		init();
 
@@ -259,6 +264,7 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		tableModel.addColumn("已有单号列表");
 		jtable.getTableHeader().setReorderingAllowed(false);
 		jtable.getTableHeader().setResizingAllowed(false);
+		jtable.getColumnModel().getColumn(0).setCellRenderer(dtc);
 		initTableModel();
 	}
 

@@ -20,10 +20,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.paymentServer.ChargeServerImpl;
 import businesslogicservice.paymentblservice.ChargeServer;
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.State;
@@ -47,6 +49,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 	JTable jtable;
 	JScrollPane js;
 	JButton add;
+	DefaultTableCellRenderer dtc;
 
 	private List<Watcher> list;
 
@@ -89,6 +92,8 @@ public class Ying_payment extends RightAll implements ActionListener {
 		time[1].setText("月");
 		time[2].setText("日");
 
+		dtc=new ColorRenderer();
+		
 		init();
 
 		for (int i = 0; i < 5; i++) {
@@ -211,6 +216,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 		tableModel.addColumn("已有单号列表");
 		jtable.getTableHeader().setReorderingAllowed(false);
 		jtable.getTableHeader().setResizingAllowed(false);
+		jtable.getColumnModel().getColumn(0).setCellRenderer(dtc);
 	}
 
 

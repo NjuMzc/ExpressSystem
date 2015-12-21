@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import po.Workers.DriverPO;
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -20,6 +22,7 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 
 	JButton jb[];
 	JButton allover;
+	DefaultTableCellRenderer dtc;
 
 	DefaultTableModel model;
 	JTable table;
@@ -43,7 +46,11 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		model = new DefaultTableModel();
-		table = new JTable(model){ public boolean isCellEditable(int row, int column) { return false; }}; 
+		table = new JTable(model) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		js = new JScrollPane(table);
 
 		jb = new JButton[3];
@@ -51,6 +58,7 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 			jb[i] = new JButton();
 		}
 		allover = new JButton("建账完成");
+		dtc = new ColorRenderer();
 
 		init();
 
@@ -88,7 +96,13 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 		model.addColumn("位号");
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
-
+		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(2).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(3).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(4).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(5).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(6).setCellRenderer(dtc);
 	}
 
 	public void addWatcher(Watcher watcher) {

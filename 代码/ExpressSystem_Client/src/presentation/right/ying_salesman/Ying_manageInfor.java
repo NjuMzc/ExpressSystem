@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -24,6 +25,7 @@ import businesslogicservice.informationblservice.WorkerInform.Inform_CarInformSe
 import businesslogicservice.informationblservice.WorkerInform.Inform_DriverInformServer;
 import po.Workers.CarPO;
 import po.Workers.DriverPO;
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
@@ -41,6 +43,8 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 	JButton manage;
 	JPanel addpanel;
 
+	DefaultTableCellRenderer dtc;
+	
 	private List<Watcher> list;
 
 	public Ying_manageInfor(int frameWidth, int frameHeight) {
@@ -59,6 +63,8 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 		type = new JComboBox<String>();
 		remind = new JLabel("请选择管理类型：");
 
+		dtc=new ColorRenderer();
+		
 		init();
 
 		this.add(manage);
@@ -178,6 +184,15 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			tableModel.addColumn("手机号");
 			tableModel.addColumn("性别");
 			tableModel.addColumn("行驶证限期");
+			table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(2).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(3).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(4).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(5).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(6).setCellRenderer(dtc);
+			
+			
 			table.getColumnModel().getColumn(0)
 					.setPreferredWidth(frameWidth / 30);
 			table.getColumnModel().getColumn(1)
@@ -466,6 +481,14 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			table.getTableHeader().setReorderingAllowed(false);
 			table.getTableHeader().setResizingAllowed(false);
 
+			table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(2).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(3).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(4).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(5).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(6).setCellRenderer(dtc);
+			
 			initThisTableModel();
 
 		}

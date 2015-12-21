@@ -12,12 +12,14 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.transportbl.tranStaff.Trans_DeliveryServerImpl;
 import businesslogicservice.transportblservice.tranStaff.Trans_DeliveryServer;
 import po.Message;
 import po.bills.DeliveryBill;
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.State;
@@ -35,6 +37,7 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 	JButton cancel;
 	DefaultTableModel tableModel;
 	JTable jtable;
+	DefaultTableCellRenderer dtc;
 	JScrollPane js;
 	JLabel time[];
 	JComboBox<String>[] timeInput;
@@ -81,6 +84,7 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 		timeInput[1] = time1.getCboMonth();
 		timeInput[2] = time1.getCboDay();
 		type = new JComboBox<String>();
+		dtc=new ColorRenderer();
 
 		init();
 
@@ -260,6 +264,7 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 		tableModel.addColumn("已有单号列表");
 		jtable.getTableHeader().setReorderingAllowed(false);
 		jtable.getTableHeader().setResizingAllowed(false);
+		jtable.getColumnModel().getColumn(0).setCellRenderer(dtc);
 	}
 
 

@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import po.Workers.CarPO;
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -26,6 +28,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 	JTable table;
 	JScrollPane js;
 	JButton jb[];
+	DefaultTableCellRenderer dtc;
 
 	JPanel addpanel;
 	JTextField addjtf[];
@@ -53,12 +56,18 @@ public class AccountantManage extends RightAll implements ActionListener {
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		model = new DefaultTableModel();
-		table = new JTable(model){ public boolean isCellEditable(int row, int column) { return false; }}; 
+		table = new JTable(model) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		js = new JScrollPane(table);
 		jb = new JButton[4];
 		for (int i = 0; i < 4; i++) {
 			jb[i] = new JButton();
 		}
+
+		dtc = new ColorRenderer();
 
 		init();
 
@@ -67,7 +76,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 			this.add(jb[i]);
 		}
 	}
-	
+
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
@@ -75,7 +84,6 @@ public class AccountantManage extends RightAll implements ActionListener {
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
 
 	private void addSearchPanel() {
 		searchpanel = new JPanel();
@@ -88,17 +96,17 @@ public class AccountantManage extends RightAll implements ActionListener {
 			searchlable[i] = new JLabel();
 			searchjtf[i] = new JTextField();
 		}
-		searchover = new JButton("");//√
+		searchover = new JButton("");// √
 		searchlable[0].setText("名称");
 		searchlable[1].setText("金额");
-		search = new JButton("");//查询
+		search = new JButton("");// 查询
 		search.addActionListener(this);
 		search.setBounds(frameWidth / 3, frameHeight / 22, frameWidth / 10,
 				frameHeight / 19);
 		ImageIcon icon4 = new ImageIcon("pictures//查询.png");
 		Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
 				icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
-		icon4= new ImageIcon(temp4);
+		icon4 = new ImageIcon(temp4);
 		search.setIcon(icon4);
 
 		for (int i = 0; i < 2; i++) {
@@ -110,12 +118,12 @@ public class AccountantManage extends RightAll implements ActionListener {
 
 		searchpanel.add(searchlable[0]);
 		searchpanel.add(searchjtf[0]);
-		searchover.setBounds(frameWidth / 2, frameHeight / 22, frameHeight / 19,
-				frameHeight / 19);
+		searchover.setBounds(frameWidth / 2, frameHeight / 22,
+				frameHeight / 19, frameHeight / 19);
 		ImageIcon icon5 = new ImageIcon("pictures//勾.png");
 		Image temp5 = icon5.getImage().getScaledInstance(searchover.getWidth(),
 				searchover.getHeight(), icon5.getImage().SCALE_DEFAULT);
-		icon5= new ImageIcon(temp5);
+		icon5 = new ImageIcon(temp5);
 		searchover.setIcon(icon5);
 		searchover.addActionListener(this);
 
@@ -136,7 +144,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 			addlable[i] = new JLabel();
 			addjtf[i] = new JTextField();
 		}
-		addover = new JButton("");//√
+		addover = new JButton("");// √
 		addlable[0].setText("名称");
 		addlable[1].setText("金额");
 
@@ -155,7 +163,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 		ImageIcon icon6 = new ImageIcon("pictures//勾.png");
 		Image temp6 = icon6.getImage().getScaledInstance(addover.getWidth(),
 				addover.getHeight(), icon6.getImage().SCALE_DEFAULT);
-		icon6= new ImageIcon(temp6);
+		icon6 = new ImageIcon(temp6);
 		addover.setIcon(icon6);
 
 		addpanel.add(addover);
@@ -175,7 +183,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 			changelable[i] = new JLabel();
 			changejtf[i] = new JTextField();
 		}
-		changeover = new JButton("");//√
+		changeover = new JButton("");// √
 		changelable[0].setText("名称");
 		changelable[1].setText("金额");
 
@@ -190,15 +198,15 @@ public class AccountantManage extends RightAll implements ActionListener {
 			changepanel.add(changelable[i]);
 			changepanel.add(changejtf[i]);
 		}
-		changeover.setBounds(frameWidth / 2, frameHeight / 22,frameHeight / 19,
-				frameHeight / 19);
-		
+		changeover.setBounds(frameWidth / 2, frameHeight / 22,
+				frameHeight / 19, frameHeight / 19);
+
 		ImageIcon icon7 = new ImageIcon("pictures//勾.png");
 		Image temp7 = icon7.getImage().getScaledInstance(changeover.getWidth(),
 				changeover.getHeight(), icon7.getImage().SCALE_DEFAULT);
-		icon7= new ImageIcon(temp7);
+		icon7 = new ImageIcon(temp7);
 		changeover.setIcon(icon7);
-		
+
 		changeover.addActionListener(this);
 
 		changepanel.add(changeover);
@@ -217,36 +225,37 @@ public class AccountantManage extends RightAll implements ActionListener {
 		for (int i = 0; i < 4; i++) {
 			jb[i].setBounds(frameWidth / 10 + frameWidth / 20 * 3 * i,
 					frameHeight / 10 * 9, frameWidth / 10, frameHeight / 19);
-			jb[i].addActionListener(this);	
-			
-			
-//    ImageIcon icon3 = new ImageIcon("pictures//查询.png");
-//	Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
-//			icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
-//	       icon3= new ImageIcon(temp3);
-//	       jb[3].setIcon(icon3);
-//	       
-//			ImageIcon icon0 = new ImageIcon("pictures//增加.png");
-//			Image temp0 = icon0.getImage().getScaledInstance(icon0.getIconWidth(),
-//					icon0.getIconHeight(), icon0.getImage().SCALE_DEFAULT);
-//			icon0= new ImageIcon(temp0);
-//			jb[0].setIcon(icon0);
-//			
-//			ImageIcon icon1 = new ImageIcon("pictures//删除.png");
-//			Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
-//					icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
-//			icon1= new ImageIcon(temp1);
-//			jb[1].setIcon(icon1);
-//			
-//			ImageIcon icon2 = new ImageIcon("pictures//修改.png");
-//			Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
-//					icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
-//			icon2= new ImageIcon(temp2);
-//			jb[2].setIcon(icon2);
+			jb[i].addActionListener(this);
+
+			// ImageIcon icon3 = new ImageIcon("pictures//查询.png");
+			// Image temp3 =
+			// icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+			// icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+			// icon3= new ImageIcon(temp3);
+			// jb[3].setIcon(icon3);
+			//
+			// ImageIcon icon0 = new ImageIcon("pictures//增加.png");
+			// Image temp0 =
+			// icon0.getImage().getScaledInstance(icon0.getIconWidth(),
+			// icon0.getIconHeight(), icon0.getImage().SCALE_DEFAULT);
+			// icon0= new ImageIcon(temp0);
+			// jb[0].setIcon(icon0);
+			//
+			// ImageIcon icon1 = new ImageIcon("pictures//删除.png");
+			// Image temp1 =
+			// icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+			// icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+			// icon1= new ImageIcon(temp1);
+			// jb[1].setIcon(icon1);
+			//
+			// ImageIcon icon2 = new ImageIcon("pictures//修改.png");
+			// Image temp2 =
+			// icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+			// icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+			// icon2= new ImageIcon(temp2);
+			// jb[2].setIcon(icon2);
 		}
 	}
-	
-
 
 	private void initTable() {
 
@@ -254,6 +263,9 @@ public class AccountantManage extends RightAll implements ActionListener {
 		model.addColumn("金额");
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
+		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+
 		initTableModel();
 	}
 
@@ -352,7 +364,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 			this.remove(changepanel);
 			this.repaint();
 
-		}else if(e.getSource()==searchover){
+		} else if (e.getSource() == searchover) {
 			this.remove(searchpanel);
 			this.repaint();
 		}

@@ -13,8 +13,10 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.State;
@@ -33,6 +35,7 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 	JComboBox<String>[] endbox;
 	JLabel inmoney;
 	JButton search;
+	DefaultTableCellRenderer dtc;
 
 	DefaultTableModel model;
 	JTable table;
@@ -69,6 +72,7 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		table = new JTable(model);
 		js = new JScrollPane(table);
 		search = new JButton("查询");
+		dtc = new ColorRenderer();
 
 		init();
 
@@ -119,8 +123,8 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		end.setBounds(frameWidth / 20, frameHeight / 10, frameWidth / 12,
 				frameHeight / 20);
 		js.setBounds(0, frameHeight / 5, frameWidth / 2, frameHeight);
-		search.setBounds(frameWidth / 12 * 5, frameHeight / 10, frameWidth / 12,
-				frameHeight / 20);
+		search.setBounds(frameWidth / 12 * 5, frameHeight / 10,
+				frameWidth / 12, frameHeight / 20);
 		search.addActionListener(this);
 
 		initTable();
@@ -162,6 +166,10 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		model.addColumn("日期");
 		model.addColumn("类型");
 		model.addColumn("单据号");
+		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(2).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(3).setCellRenderer(dtc);
 
 		initTableModel();
 	}

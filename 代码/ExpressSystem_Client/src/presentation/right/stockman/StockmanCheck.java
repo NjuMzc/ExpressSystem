@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import java.util.Calendar;
 
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -31,6 +33,7 @@ public class StockmanCheck extends RightAll implements ActionListener {
 	DefaultTableModel tableModel;
 	JTable table;
 	JScrollPane js;
+	DefaultTableCellRenderer dtc;
 
 	public StockmanCheck(int frameWidth, int frameHeight) {
 
@@ -54,6 +57,7 @@ public class StockmanCheck extends RightAll implements ActionListener {
 			timeInput[i] = new JTextField();
 		}
 		export = new JButton("导出报表");
+		dtc=new ColorRenderer();
 
 		init();
 
@@ -131,7 +135,15 @@ public class StockmanCheck extends RightAll implements ActionListener {
 		tableModel.addColumn("位号");
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
-
+		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(2).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(3).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(4).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(5).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(6).setCellRenderer(dtc);
+	
+		
 		initTableModel();
 	}
 

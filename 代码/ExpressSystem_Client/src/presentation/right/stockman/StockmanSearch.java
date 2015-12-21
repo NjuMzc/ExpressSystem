@@ -11,8 +11,10 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -37,7 +39,8 @@ public class StockmanSearch extends RightAll implements ActionListener {
 	JLabel outStock;
 	JTextField jtfIn;
 	JTextField jtfOut;
-
+	DefaultTableCellRenderer dtc;
+	
 	public StockmanSearch(int frameWidth, int frameHeight) {
 
 		this.frameWidth = frameWidth;
@@ -70,6 +73,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		timeInputover[0] = time2.getCboYear();
 		timeInputover[1] = time2.getCboMonth();
 		timeInputover[2] = time2.getCboDay();
+		dtc=new ColorRenderer();
 
 		init();
 
@@ -172,7 +176,11 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		tableModel.addColumn("库存位置");
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
-
+		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(2).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(3).setCellRenderer(dtc);
+		
 		initTableModel();
 	}
 

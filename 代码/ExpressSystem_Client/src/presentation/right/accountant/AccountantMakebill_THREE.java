@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import po.SystemUserPO;
@@ -18,6 +19,7 @@ import po.Institution.HallPO;
 import po.Workers.HallStaffPO;
 import po.Workers.StorageKeeperPO;
 import po.Workers.TranStaffPO;
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -26,6 +28,8 @@ public class AccountantMakebill_THREE extends RightAll implements
 	int frameWidth;
 	int frameHeight;
 	private List<Watcher> list;
+	
+	DefaultTableCellRenderer dtc;
 
 	JPanel jp1;
 	JPanel jp2;
@@ -82,6 +86,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 			}
 		};
 		js1 = new JScrollPane(table1);
+		dtc=new ColorRenderer();
 
 		initJp1();
 
@@ -155,6 +160,8 @@ public class AccountantMakebill_THREE extends RightAll implements
 		con_tableModel.addColumn("编号");
 		con_table.getTableHeader().setReorderingAllowed(false);
 		con_table.getTableHeader().setResizingAllowed(false);
+		con_table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		con_table.getColumnModel().getColumn(1).setCellRenderer(dtc);
 		con_table.setFont(new Font("宋体", Font.PLAIN, 14));
 		initTableModel();
 		con_js = new JScrollPane(con_table);
@@ -214,6 +221,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 		model1.addColumn("城市");
 		table1.getTableHeader().setReorderingAllowed(false);
 		table1.getTableHeader().setResizingAllowed(false);
+		table1.getColumnModel().getColumn(0).setCellRenderer(dtc);
 		table1.setFont(new Font("宋体", Font.PLAIN, 14));
 		table1.addMouseListener(new MouseListener() {
 
@@ -254,6 +262,8 @@ public class AccountantMakebill_THREE extends RightAll implements
 		model2.addColumn("编号");
 		table2.getTableHeader().setReorderingAllowed(false);
 		table2.getTableHeader().setResizingAllowed(false);
+		table2.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		table2.getColumnModel().getColumn(1).setCellRenderer(dtc);
 		table2.setFont(new Font("宋体", Font.PLAIN, 14));
 		table2.addMouseListener(new MouseListener() {
 
@@ -298,6 +308,13 @@ public class AccountantMakebill_THREE extends RightAll implements
 		car_tableModel.addColumn("车辆描述");
 		car_table.getTableHeader().setReorderingAllowed(false);
 		car_table.getTableHeader().setResizingAllowed(false);
+		car_table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		car_table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+		car_table.getColumnModel().getColumn(2).setCellRenderer(dtc);
+		car_table.getColumnModel().getColumn(3).setCellRenderer(dtc);
+		car_table.getColumnModel().getColumn(4).setCellRenderer(dtc);
+		car_table.getColumnModel().getColumn(5).setCellRenderer(dtc);
+		car_table.getColumnModel().getColumn(6).setCellRenderer(dtc);
 		car_table.setFont(new Font("宋体", Font.PLAIN, 14));
 		car_table.addMouseListener(new MouseListener() {
 

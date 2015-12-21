@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -16,6 +18,8 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 	int frameWidth;
 	int frameHeight;
 	private List<Watcher> list;
+	
+	DefaultTableCellRenderer dtc;
 
 	JButton jb[];
 	JButton allover;
@@ -50,6 +54,8 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 			jb[i] = new JButton();
 		}
 		allover = new JButton("建账完成");
+		
+		dtc=new ColorRenderer();
 
 		init();
 
@@ -79,9 +85,10 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 	private void initTable() {
 		model.addColumn("名称");
 		model.addColumn("金额");
-
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
+		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
 
 	}
 
