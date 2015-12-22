@@ -17,13 +17,21 @@ public class SalaryVO {
 	
 	private ExceptionMessage exMessage;
 
-	public SalaryVO(String num,String salaryType,String staffType) {
+	public SalaryVO(String num,int salaryType,int staffType) {
+		this.num = num;
+		this.staffType = Staff_Type.values()[staffType];
+		this.salaryType=Salary_Type.values()[salaryType];
+		
+		exMessage=new ExceptionMessage();
+		
+	}
+	
+	public SalaryVO(String num,String staffType,String salaryType){
 		this.num = num;
 		this.staffType = Staff_Type.valueOf(staffType);
 		this.salaryType=Salary_Type.valueOf(salaryType);
 		
 		exMessage=new ExceptionMessage();
-		
 	}
 	
 	public SalaryVO(String exMessage){

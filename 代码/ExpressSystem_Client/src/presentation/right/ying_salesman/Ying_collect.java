@@ -1,6 +1,5 @@
 package presentation.right.ying_salesman;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -180,11 +179,11 @@ public class Ying_collect extends RightAll implements ActionListener {
 			this.notifyWatchers(State.ZHONG_START);
 		} else if (e.getSource() == confirm) {
 			String date = "";
-			// String year=timeInput[0].getSelectedItem().toString();
-			// String month=timeInput[1].getSelectedItem().toString();
-			// String day=timeInput[2].getSelectedItem().toString();
-			//
-			// date=year+"-"+month+"-"+day;
+			 String year=timeInput[0].getSelectedItem().toString();
+			 String month=timeInput[1].getSelectedItem().toString();
+			 String day=timeInput[2].getSelectedItem().toString();
+			
+			 date=year+"-"+month+"-"+day;
 			String orderId = jtf[0].getText();
 			String sender = jtf[1].getText();
 

@@ -26,8 +26,9 @@ public class SalaryServerImpl implements SalaryServer{
 			return salaryv;
 		}
 		else{
-			SalaryVO salaryv=new SalaryVO(salaryp.getNum(), salaryp.getSalaryType().toString(),
-					salaryp.getStaffType().toString());
+			SalaryVO salaryv=new SalaryVO(salaryp.getNum(),salaryp.getStaffType().toString(),
+					salaryp.getSalaryType().toString()
+					);
 			return salaryv;
 		}
 		

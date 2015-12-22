@@ -236,34 +236,38 @@ public class Manager_make_money extends RightAll implements ActionListener {
 			this.notifyWatchers(State.MANAGERSTART);
 		} else if (e.getSource() == ok) {
 			String[] salary;
-			String[] choice;
+			int[] choice;
 
 			salary = new String[7];
-			choice = new String[7];
+			choice = new int[7];
+			
 
 			for (int i = 0; i < 7; i++) {
 				if (jradiobutton1[i].isSelected()) {
-					choice[i] = "工资";
+					choice[i] = 0;
 					salary[i] = jtf1[i].getText();
 				}
 			}
 			for (int i = 0; i < 7; i++) {
 				if (jradiobutton2[i].isSelected()) {
-					choice[i] = "提成";
+					choice[i] = 1;
 					salary[i] = jtf2[i].getText();
 				}
 			}
 			for (int i = 0; i < 3; i++) {
 				if (jradiobutton3[i].isSelected()) {
-					choice[i + 4] = "计次";
+					choice[i + 4] = 2;
 					salary[i + 4] = jtf3[i].getText();
 				}
 			}
-
-			for (int i = 0; i < 7; i++) {
-				System.out.println(salary[i] + " " + choice[i]);
+		
+			for(int i=0;i<7;i++){
+				SalaryVO salaryVO=new SalaryVO(salary[i],  choice[i],i);
+				blServer.setSalary(salaryVO);
 			}
-
+			
+			SalaryVO ss=blServer.getSalary("MANAGER");
+			System.out.println(ss.getStaffType()+" "+ss.getNum());
 		}
 	 
 		for (int i = 0; i < 7; i++) {
@@ -285,5 +289,7 @@ public class Manager_make_money extends RightAll implements ActionListener {
 				jtf2[i + 4].setText("");
 			}
 		}
+		
+		
 	}
 }

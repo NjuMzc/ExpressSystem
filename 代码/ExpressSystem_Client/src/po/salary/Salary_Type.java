@@ -6,5 +6,5 @@ package po.salary;
  *
  */
 public enum Salary_Type {
-	MONTH,COUNT,PERCENTAGE
+	MONTH,PERCENTAGE,COUNT
 }
