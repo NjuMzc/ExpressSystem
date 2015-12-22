@@ -25,7 +25,6 @@ public class Ying_collect extends RightAll implements ActionListener {
 	JTextField jtf[];
 	JButton confirm;
 	JButton cancel;
-	JButton over;
 
 	private List<Watcher> list;
 
@@ -40,17 +39,17 @@ public class Ying_collect extends RightAll implements ActionListener {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		jl = new JLabel[5];
-		for (int i = 0; i < 5; i++) {
+		jl = new JLabel[4];
+		for (int i = 0; i < 4; i++) {
 			jl[i] = new JLabel();
 		}
 		confirm = new JButton("");//确认
 		cancel = new JButton("");//取消
-		jtf = new JTextField[4];
-		for (int i = 0; i < 4; i++) {
+		jtf = new JTextField[3];
+		for (int i = 0; i < 3; i++) {
 			jtf[i] = new JTextField();
 		}
-		over = new JButton("");
+  
 
 		init();
 
@@ -76,13 +75,12 @@ public class Ying_collect extends RightAll implements ActionListener {
 		jl[0].setText("派件单");
 		jl[1].setText("到达日期");
 		jl[2].setText("托运单条形码");
-		jl[3].setText("快递员编号");
-		jl[4].setText("快递员姓名");
+		jl[3].setText("快递员");
 
 		jl[0].setBounds(frameWidth /3, frameHeight / 10, frameWidth /5,
 				frameHeight / 20);
 		jl[0].setFont(new Font("黑体",Font.BOLD,22));
-		for (int i = 1; i < 5; i++) {
+		for (int i = 1; i < 4; i++) {
 			jl[i].setBounds(frameWidth / 10, frameHeight / 36*5*i + frameHeight/11+frameHeight/80,
 					frameWidth / 8, frameHeight / 20);
 			jl[i].setFont(new Font("宋体",Font.BOLD,17));
@@ -107,20 +105,11 @@ public class Ying_collect extends RightAll implements ActionListener {
 		icon2 = new ImageIcon(temp2);
 		confirm.setIcon(icon2);
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			jtf[i].setBounds(frameWidth / 4, frameHeight / 36*5* (1 + i)+frameHeight/11+frameHeight/80,
 					frameWidth / 8, frameHeight / 18);
 			jtf[i].setFont(new Font("宋体",Font.PLAIN,15));
 		}
-
-		over.setBounds(frameWidth /3, frameHeight * 8 / 10+frameHeight/30,
-				 frameWidth / 9,frameHeight / 16);
-		over.addActionListener(this);
-		ImageIcon icon3 = new ImageIcon("pictures//完成.png");
-		Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
-				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
-		icon3 = new ImageIcon(temp3);
-		over.setIcon(icon3);
 		
 		jtf[0].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
@@ -183,19 +172,8 @@ public class Ying_collect extends RightAll implements ActionListener {
 			
 			SendingBill bill=blServer.makeBill(date, orderId, sender);
 			
-			this.remove(confirm);
-			this.remove(cancel);
-			this.add(over);
-			this.add(jtf[3]);
-			this.add(jl[4]);
-			for (int i = 0; i < 4; i++) {
-				jtf[i].setEditable(false);
-			}
-			this.repaint();
+		 
 		}
-
-		if (e.getSource() == over) {
-			this.notifyWatchers(State.YING_START);
-		}
+ 
 	}
 }

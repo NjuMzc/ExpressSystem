@@ -38,7 +38,6 @@ public class AccountantPayment extends RightAll implements ActionListener {
 	JComboBox<String>[] timeInput;
 	JTextField jtf[];
 	JLabel yuan;
-	JButton search;
 
 	public AccountantPayment(int frameWidth, int frameHeight) {
 
@@ -75,7 +74,6 @@ public class AccountantPayment extends RightAll implements ActionListener {
 			jtf[i] = new JTextField();
 		}
 		yuan = new JLabel("元");
-		search = new JButton("查询");
 
 		init();
 
@@ -92,8 +90,6 @@ public class AccountantPayment extends RightAll implements ActionListener {
 			this.add(jtf[i]);
 		}
 		this.add(yuan);
-		this.add(search);
-
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -140,8 +136,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		yuan.setBounds(frameWidth / 5 * 2, frameHeight / 15 + frameHeight / 2,
 				frameWidth / 10, frameHeight / 20);
 		yuan.setFont(new Font("宋体", Font.BOLD, 16));
-		search.setBounds(frameWidth / 8 * 5, frameHeight / 15, frameWidth / 12,
-				frameHeight / 20);
+
 
 		jtf[0].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
