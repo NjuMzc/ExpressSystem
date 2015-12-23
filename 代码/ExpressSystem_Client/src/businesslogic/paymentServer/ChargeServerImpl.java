@@ -47,9 +47,9 @@ public class ChargeServerImpl implements ChargeServer {
 		}
 		
 		SystemUserPO courier;
-		try{
+		
 			courier=systemServer.inquire(charge.getSenderNum());
-		}catch(NullPointerException e){
+		if(courier==null){
 			ExceptionMessage exMessage=new ExceptionMessage("输入的快递员编号错误！");
 			chargeInform=new ChargeVO(exMessage);
 			return chargeInform;
