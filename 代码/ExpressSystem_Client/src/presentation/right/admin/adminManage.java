@@ -40,7 +40,7 @@ public class adminManage extends RightAll implements ActionListener {
 	JButton add;
 	JButton change;
 	JButton delete;
-
+    JLabel  infor;
 	JPanel addpanel;
 	JTextField addjtf[];
 	JLabel addlable[];
@@ -75,7 +75,7 @@ public class adminManage extends RightAll implements ActionListener {
 		add = new JButton("");// 增加
 		change = new JButton("");// 修改
 		delete = new JButton("");// 删除
-
+         infor=new JLabel("选择账户类型：");
 		dtc=new ColorRenderer();
 		
 		init();
@@ -85,6 +85,7 @@ public class adminManage extends RightAll implements ActionListener {
 		this.add(add);
 		this.add(change);
 		this.add(delete);
+		this.add(infor);
 
 	}
 
@@ -109,10 +110,10 @@ public class adminManage extends RightAll implements ActionListener {
 		type.addItem("仓库管理人员");
 		type.addItem("营业厅业务员");
 		type.addItem("中转中心业务员");
-		type.setBounds(frameWidth * 29 / 128, frameHeight / 30, 150, 40);
+		type.setBounds(frameWidth * 31 / 128, frameHeight / 30, 150, 40);
 		type.setFont(new Font("宋体", Font.PLAIN, 18));
-		add.setBounds(frameWidth * 28 / 64, frameHeight / 32, frameHeight / 14,
-				frameHeight / 14);
+		add.setBounds(frameWidth * 28 / 64, frameHeight / 31, frameHeight / 16,
+				frameHeight / 16);
 		add.addActionListener(this);
 		change.setBounds(frameWidth / 64 * 31, frameHeight / 10 * 9,
 				frameHeight / 14, frameHeight / 14);
@@ -120,10 +121,12 @@ public class adminManage extends RightAll implements ActionListener {
 		delete.setBounds(frameWidth / 128 * 23, frameHeight / 10 * 9,
 				frameHeight / 14, frameHeight / 14);
 		delete.addActionListener(this);
-
+        
+		 infor.setBounds(frameWidth * 4 / 64, frameHeight /81, frameWidth/4, frameHeight/10);
+		 infor.setFont(new Font("宋体",Font.BOLD,22));
 		ImageIcon icon1 = new ImageIcon("pictures//添加.png");
-		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
-				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		Image temp1 = icon1.getImage().getScaledInstance(add.getWidth(),
+				add.getHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		add.setIcon(icon1);
 

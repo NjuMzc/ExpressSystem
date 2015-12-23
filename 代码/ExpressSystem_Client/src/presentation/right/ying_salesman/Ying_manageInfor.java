@@ -1,6 +1,9 @@
 package presentation.right.ying_salesman;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -8,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -59,7 +63,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		manage = new JButton("确认");
+		manage = new JButton("");//确认
 		type = new JComboBox<String>();
 		remind = new JLabel("请选择管理类型：");
 
@@ -72,17 +76,33 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 		this.add(remind);
 	}
 
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+	}
+	
 	private void init() {
 
 		manage.setBounds(frameWidth / 2, frameHeight / 10, frameWidth / 10,
-				frameHeight / 20);
+				frameHeight / 18);
+		ImageIcon icon1 = new ImageIcon("pictures//确认小.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		manage.setIcon(icon1);
+		
 		manage.addActionListener(this);
 		type.addItem("司机");
 		type.addItem("车辆");
-		type.setBounds(frameWidth / 4, frameHeight / 10, frameWidth / 10,
+		type.setBounds(frameWidth / 4+frameWidth/16, frameHeight / 10, frameWidth / 9,
 				frameHeight / 20);
-		remind.setBounds(frameWidth / 10, frameHeight / 10, frameWidth / 8,
+		type.setFont(new Font("宋体",Font.PLAIN,16));
+		remind.setBounds(frameWidth / 9, frameHeight / 10, frameWidth / 4,
 				frameHeight / 20);
+		remind.setFont(new Font("宋体",Font.BOLD,20) );
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -142,7 +162,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			this.setBounds(0, frameHeight / 5, frameWidth / 4 * 3,
 					frameHeight / 5 * 4);
 			this.setLayout(null);
-			this.setBackground(Color.gray);
+			this.setBackground(new Color(124, 141, 117));
 
 			tableModel = new DefaultTableModel();
 			table = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
@@ -165,14 +185,33 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			js.setBounds(0, 0, frameWidth / 4 * 3, frameHeight / 5 * 3);
 			initThisTable();
 
-			jb[0].setText("增加");
-			jb[1].setText("删除");
-			jb[2].setText("修改");
+			jb[0].setText("");//增加
+			jb[1].setText("");//删除
+			jb[2].setText("");//修改
 			for (int i = 0; i < 3; i++) {
 				jb[i].setBounds(frameWidth / 8 + frameWidth / 5 * i,
-						frameHeight / 4 * 3, frameWidth / 10, frameHeight / 20);
+						frameHeight / 4 * 3-frameHeight/40, frameWidth / 10, frameHeight / 18);
 				jb[i].addActionListener(this);
 			}
+			
+			ImageIcon icon2 = new ImageIcon("pictures//增加黄.png");
+			Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+					icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+			icon2 = new ImageIcon(temp2);
+			jb[0].setIcon(icon2);
+			
+			ImageIcon icon3 = new ImageIcon("pictures//删除.png");
+			Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+					icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+			icon3= new ImageIcon(temp3);
+			jb[1].setIcon(icon3);
+			
+			ImageIcon icon4 = new ImageIcon("pictures//修改.png");
+			Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
+					icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
+			icon4 = new ImageIcon(temp4);
+			jb[2].setIcon(icon4);
+			
 		}
 
 		// 初始化table
