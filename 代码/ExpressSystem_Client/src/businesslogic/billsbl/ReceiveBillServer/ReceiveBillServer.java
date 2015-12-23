@@ -4,16 +4,20 @@ import client.RMIHelper;
 import dataservice.billsdataservice.ReceiveBillDataServer;
 import po.bills.ReceiveBill;
 import businesslogic.billsbl.OrderBillServer.OrderBillServer;
+import businesslogic.billsbl.approver.BillApproverServerImpl;
+import businesslogicservice.billApprover.BillApproveServer;
 
 public class ReceiveBillServer  {
 	
 	ReceiveBillDataServer dataServer;
 	OrderBillServer orderBillServer;
+	BillApproveServer approver;
 	
 	public ReceiveBillServer(){
 		orderBillServer=new OrderBillServer();
 		//RMI实现赋值
 		dataServer=RMIHelper.getReceiBillData();
+		approver=new BillApproverServerImpl();
 	}
 
 	public ReceiveBill makeBill(String id, String name, String time) {
@@ -24,6 +28,7 @@ public class ReceiveBillServer  {
 		}else{
 			ReceiveBill bill=new ReceiveBill(id, name, time);
 			dataServer.addBill(bill);
+			approver.addBill(bill.submit());
 			return bill;
 		}
 	}

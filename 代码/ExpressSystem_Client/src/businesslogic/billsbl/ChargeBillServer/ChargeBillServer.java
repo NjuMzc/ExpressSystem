@@ -50,5 +50,9 @@ public class ChargeBillServer {
 	public ArrayList<ChargeBill> getBill(String date,String hallId){
 		return dataServer.findBill(date, hallId);
 	}
+	
+	public Iterator<ChargeBill> getAll(){
+		return dataServer.getAll().iterator();
+	}
 
 }

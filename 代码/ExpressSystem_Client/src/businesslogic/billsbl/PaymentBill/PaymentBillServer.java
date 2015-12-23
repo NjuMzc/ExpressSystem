@@ -1,5 +1,7 @@
 package businesslogic.billsbl.PaymentBill;
 
+import java.util.Iterator;
+
 import client.RMIHelper;
 import businesslogic.billsbl.approver.BillApproverServerImpl;
 import businesslogicservice.billApprover.BillApproveServer;
@@ -41,4 +43,7 @@ public class PaymentBillServer {
 		return bill;
 	}
 
+	public Iterator<PaymentBill> getAll(){
+		return dataServer.getAll().iterator();
+	}
 }

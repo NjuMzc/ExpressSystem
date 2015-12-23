@@ -70,6 +70,13 @@ public class ChargeBillDataServerImpl extends UnicastRemoteObject implements Cha
 		return list;
 	}
 
+	@Override
+	public ArrayList<ChargeBill> getAll() throws RemoteException {
+		return chargeBills;
+	}
+
+
+	
 	private void save() {
 		File list = new File(path);
 		if (!list.exists())

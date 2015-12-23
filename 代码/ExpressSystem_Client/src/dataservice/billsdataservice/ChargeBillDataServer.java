@@ -2,8 +2,6 @@ package dataservice.billsdataservice;
 
 import java.rmi.Remote;
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import po.bills.ChargeBill;
 
 public interface ChargeBillDataServer extends Remote {
@@ -15,5 +13,7 @@ public interface ChargeBillDataServer extends Remote {
 	public ChargeBill findBill(String id);
 	
 	public ArrayList<ChargeBill> findBill(String date,String hallId);
+	
+	public ArrayList<ChargeBill> getAll();
 
 }

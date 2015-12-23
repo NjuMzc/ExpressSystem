@@ -55,6 +55,12 @@ public class PaymentBillDataServerImpl extends UnicastRemoteObject implements Pa
 		}
 		return null;
 	}
+	
+	@Override
+	public ArrayList<PaymentBill> getAll() throws RemoteException {
+		return paymentBills;
+	}
+
 
 	private void save() {
 		File list = new File(path);
@@ -106,5 +112,6 @@ public class PaymentBillDataServerImpl extends UnicastRemoteObject implements Pa
 		}
 
 	}
+
 
 }

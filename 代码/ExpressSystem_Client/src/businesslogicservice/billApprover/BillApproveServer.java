@@ -15,4 +15,6 @@ public interface BillApproveServer {
 	public void refuse(int n);
 	
 	public void addBill(BillApproverPO bill);
+	
+	public void approveAll();
 }

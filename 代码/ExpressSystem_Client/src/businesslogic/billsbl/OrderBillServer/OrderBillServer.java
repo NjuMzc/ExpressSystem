@@ -34,14 +34,12 @@ public class OrderBillServer {
 
 			//加入持久化数据中
 			dataServer.addBill(bill);
-			System.out.println("Add "+bill.getID());
 			
 			approveServer.addBill(bill.submit());
 			
 			return bill;
 			
 		}catch(NumberFormatException e){
-			System.out.println("信息输入有误！");
 			return null;
 		}
 		
