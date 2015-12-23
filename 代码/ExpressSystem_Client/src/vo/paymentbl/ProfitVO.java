@@ -1,5 +1,7 @@
 package vo.paymentbl;
 
+import vo.exception.ExceptionMessage;
+
 public class ProfitVO {
 
 	private double input;//收益
@@ -8,10 +10,18 @@ public class ProfitVO {
 	
 	private double profit;//利润
 	
+	ExceptionMessage exMessage;
+	
 	public ProfitVO(double input,double output){
 		this.input=input;
 		this.output=output;
 		this.profit=input-output;
+		
+		this.exMessage=new ExceptionMessage();
+	}
+	
+	public ProfitVO(String exMessage){
+		this.exMessage=new ExceptionMessage(exMessage);
 	}
 	
 	//Setters and Getters
@@ -38,5 +48,14 @@ public class ProfitVO {
 
 	public void setProfit(double profit) {
 		this.profit = profit;
+	}
+	
+	//用于传递错误信息
+	public boolean isWrong(){
+		return exMessage.isWrong();
+	}
+	
+	public String getWrongMessage(){
+		return exMessage.getMessage();
 	}
 }

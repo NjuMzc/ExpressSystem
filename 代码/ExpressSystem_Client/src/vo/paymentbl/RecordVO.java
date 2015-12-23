@@ -22,6 +22,10 @@ public class RecordVO {
 		exMessage=new ExceptionMessage();
 	}
 	
+	public RecordVO(String exMessage){
+		this.exMessage=new ExceptionMessage(exMessage);
+	}
+	
 	public Iterator<PaymentBill> getPayments(){
 		return paymentbills.iterator();
 	}

@@ -1,5 +1,6 @@
 package businesslogic.billsbl.PaymentBill;
 
+import businesslogic.DateHelper;
 import po.bills.PaymentBill;
 import client.RMIHelper;
 import dataservice.billsdataservice.PaymentBillDataServer;
@@ -15,8 +16,9 @@ public class PaymentBillIdMaker {
 		String result="";
 		result+=bill.getDate();
 		String FlowNum="000";
+		String date=DateHelper.changeFormat(bill.getDate());
 		
-		result=bill.getDate()+FlowNum;
+		result=date+FlowNum;
 		while(dataServer.findBill(result)!=null){
 			
 			int flow=Integer.valueOf(FlowNum);
@@ -31,7 +33,7 @@ public class PaymentBillIdMaker {
 				return null;
 			}
 				
-			result=bill.getDate()+FlowNum;
+			result=date+FlowNum;
 		}
 		return result;		
 	}

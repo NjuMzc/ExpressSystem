@@ -24,6 +24,10 @@ public class SettleVO {
 	public SettleVO(){
 		this.exMessage=new ExceptionMessage();
 	}
+	
+	public SettleVO(String exMessage){
+		this.exMessage=new ExceptionMessage(exMessage);
+	}
 
 	public Iterator<ChargeBill> getList(){
 		
