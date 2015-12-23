@@ -221,6 +221,7 @@ public class AccountantCost extends RightAll implements ActionListener {
 			
 		    result=blServer.getProfit(start, end);
 		    
+	 
 		    jtf[0].setText(String.valueOf(result.getInput())+" 元");
 		    jtf[1].setText(String.valueOf(result.getOutput())+" 元");
 		    jtf[2].setText(String.valueOf(result.getProfit())+" 元");

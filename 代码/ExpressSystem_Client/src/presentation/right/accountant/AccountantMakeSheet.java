@@ -64,10 +64,10 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public AccountantMakeSheet(int frameWidth, int frameheight) {
-		blServer=new GetRecordServerImpl();
-		chargeServer=new ChargeBillServer();
-		paymentServer=new PaymentBillServer();
-		
+		blServer = new GetRecordServerImpl();
+		chargeServer = new ChargeBillServer();
+		paymentServer = new PaymentBillServer();
+
 		this.frameHeight = frameheight;
 		this.frameWidth = frameWidth;
 
@@ -208,36 +208,32 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		addPanel.setBounds(frameWidth / 2, 0, frameWidth / 4, frameHeight);
 		jta.setBounds(0, 0, frameWidth / 2, frameHeight / 4 * 3);
 
-//		jta.append("收款单\r\n");
-//		jta.append("金額\r\n");
-//		jta.append("日期 \r\n");
-		
-		int row=table.getSelectedRow();
-		String type=model.getValueAt(row, 2).toString();
-		String id=model.getValueAt(row, 3).toString();
-		if(type.equals("收款单")){
-			ChargeBill bill=chargeServer.getBill(id);
-			
-			jta.append("收款单编号:"+bill.getId()+"\r\n");
-			jta.append("收款金额:"+bill.getMoney()+"\r\n");
-			jta.append("收款日期 :"+bill.getDate()+"\r\n");
-			jta.append("收款快递员 :"+bill.getSenderName()+"\r\n");
-			jta.append("托运订单号列表 :"+"\r\n");
-			
-			Iterator<String> it=bill.getOrderNumbers().iterator();
-			while(it.hasNext()){
-				jta.append(it.next()+"\r\n");
+		int row = table.getSelectedRow();
+		String type = model.getValueAt(row, 2).toString();
+		String id = model.getValueAt(row, 3).toString();
+		if (type.equals("收款单")) {
+			ChargeBill bill = chargeServer.getBill(id);
+
+			jta.append("收款单编号:" + bill.getId() + "\r\n");
+			jta.append("收款金额:" + bill.getMoney() + "\r\n");
+			jta.append("收款日期 :" + bill.getDate() + "\r\n");
+			jta.append("收款快递员 :" + bill.getSenderName() + "\r\n");
+			jta.append("托运订单号列表 :" + "\r\n");
+
+			Iterator<String> it = bill.getOrderNumbers().iterator();
+			while (it.hasNext()) {
+				jta.append(it.next() + "\r\n");
 			}
-		}else if(type.equals("付款单")){
-			PaymentBill bill=paymentServer.getBill(id);
-			
-			jta.append("付款单编号:"+bill.getId()+"\r\n");
-			jta.append("付款金额:"+bill.getMoney()+"\r\n");
-			jta.append("付款日期 :"+bill.getDate()+"\r\n");
-			jta.append("付款账号 :"+bill.getAccount()+"\r\n");
-			jta.append("付款条目 :"+bill.getTiaoMu()+"\r\n");
-			jta.append("付款备注 :"+bill.getBeiZhu()+"\r\n");
-			
+		} else if (type.equals("付款单")) {
+			PaymentBill bill = paymentServer.getBill(id);
+
+			jta.append("付款单编号:" + bill.getId() + "\r\n");
+			jta.append("付款金额:" + bill.getMoney() + "\r\n");
+			jta.append("付款日期 :" + bill.getDate() + "\r\n");
+			jta.append("付款账号 :" + bill.getAccount() + "\r\n");
+			jta.append("付款条目 :" + bill.getTiaoMu() + "\r\n");
+			jta.append("付款备注 :" + bill.getBeiZhu() + "\r\n");
+
 		}
 
 		addPanel.add(jta);
@@ -247,40 +243,69 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 
 	}
 
+	private void wrongShow() {
+		// 错误处理
+		final JLabel remindWrong = new JLabel();
+		remindWrong.setBounds(frameWidth / 4, frameHeight * 19 / 20,
+				frameWidth / 4, frameHeight / 20);
+		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+		remindWrong.setForeground(Color.red);
+		input.add(remindWrong);
+		input.repaint();
+		this.repaint();
+
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// 以下根据错误类型设置文字
+				remindWrong.setText(result.getWrongMessage());
+				remindWrong.setText("wrong");
+				try {
+					Thread.sleep(2000);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				remindWrong.setText("");
+			}
+		});
+		t.start();
+		// 错误处理结束
+	}
+
 	private void initTableModel() {
-		
-		Iterator<ChargeBill> charges=result.getCharges();
-		Iterator<PaymentBill> payments=result.getPayments();
-		int counter=1;
-		
-		while(charges.hasNext()){
-			ChargeBill bill=charges.next();
+
+		Iterator<ChargeBill> charges = result.getCharges();
+		Iterator<PaymentBill> payments = result.getPayments();
+		int counter = 1;
+
+		while (charges.hasNext()) {
+			ChargeBill bill = charges.next();
 			Vector<String> vec = new Vector<>();
 
 			vec.add(String.valueOf(counter));
 			vec.add(bill.getDate());
 			vec.add("收款单");
 			vec.add(bill.getId());
-			
+
 			counter++;
 
 			model.addRow(vec);
 		}
-		
-		while(payments.hasNext()){
-			PaymentBill bill=payments.next();
+
+		while (payments.hasNext()) {
+			PaymentBill bill = payments.next();
 			Vector<String> vec = new Vector<>();
 
 			vec.add(String.valueOf(counter));
 			vec.add(bill.getDate());
 			vec.add("付款单");
 			vec.add(bill.getId());
-			
+
 			counter++;
 
 			model.addRow(vec);
 		}
-		
+
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -313,31 +338,31 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 			excel.export();
 
 		}
-		
-		if(e.getSource()== search){
-			String year=startbox[0].getSelectedItem().toString();
-			String month=startbox[1].getSelectedItem().toString();
-			String day=startbox[2].getSelectedItem().toString();
-			
-			String date1=year+"-"+month+"-"+day;
-			
-			String year2=endbox[0].getSelectedItem().toString();
-			String month2=endbox[1].getSelectedItem().toString();
-			String day2=endbox[2].getSelectedItem().toString();
-			
-			String date2=year2+"-"+month2+"-"+day2;
-			
-			result=blServer.getRecord(date1, date2);
-			
-			if(result.isWrong()){
-				//错误信息处理
+
+		if (e.getSource() == search) {
+			String year = startbox[0].getSelectedItem().toString();
+			String month = startbox[1].getSelectedItem().toString();
+			String day = startbox[2].getSelectedItem().toString();
+
+			String date1 = year + "-" + month + "-" + day;
+
+			String year2 = endbox[0].getSelectedItem().toString();
+			String month2 = endbox[1].getSelectedItem().toString();
+			String day2 = endbox[2].getSelectedItem().toString();
+
+			String date2 = year2 + "-" + month2 + "-" + day2;
+
+			result = blServer.getRecord(date1, date2);
+
+			if (result.isWrong()) {
+				// 错误信息处理
+				wrongShow();
 			}
-			
-			else{
+
+			else {
 				initTableModel();
-				
 			}
-			
+
 		}
 
 	}
