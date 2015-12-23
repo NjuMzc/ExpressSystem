@@ -54,8 +54,8 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		for (int i = 0; i < 21; i++) {
 			input[i] = new JLabel();
 		}
-		confirm = new JButton("");//确认
-		cancel = new JButton("");//取消
+		confirm = new JButton("");// 确认
+		cancel = new JButton("");// 取消
 
 		inputText = new JTextField[16];
 		for (int i = 0; i < 16; i++) {
@@ -66,8 +66,6 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		String[] items = { "纸箱", "木箱", "包装袋", "其他" };
 		type_decorate = new JComboBox<String>(items);
 
-
-		
 		init();
 
 		for (int i = 0; i < 21; i++) {
@@ -91,35 +89,35 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\makebillafter.png");
-		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
+
 	private void init() {
 
 		int x = frameWidth / 4;
 		int y = frameHeight / 15;
-//		input[0].setText("寄件人信息");
-//		input[1].setText("姓名");
-//		input[2].setText("单位");
-//		input[3].setText("收件人信息");
-//		input[4].setText("姓名");
-//		input[5].setText("单位");
-//		input[6].setText("托运货物信息");
-//		input[7].setText("原件数");
-//		input[8].setText("尺寸");
-//		input[9].setText("包装费");
-//		input[10].setText("住址");
-//		input[11].setText("电话");
-//		input[12].setText("住址");
-//		input[13].setText("电话");
-//		input[14].setText("重量");
-//		input[15].setText("内件品名");
-//		input[16].setText("快递类型");
-//		input[17].setText("手机");
-//		input[18].setText("手机");
-//		input[19].setText("快递类型");
-//		input[20].setText("包装类型");
+		// input[0].setText("寄件人信息");
+		// input[1].setText("姓名");
+		// input[2].setText("单位");
+		// input[3].setText("收件人信息");
+		// input[4].setText("姓名");
+		// input[5].setText("单位");
+		// input[6].setText("托运货物信息");
+		// input[7].setText("原件数");
+		// input[8].setText("尺寸");
+		// input[9].setText("包装费");
+		// input[10].setText("住址");
+		// input[11].setText("电话");
+		// input[12].setText("住址");
+		// input[13].setText("电话");
+		// input[14].setText("重量");
+		// input[15].setText("内件品名");
+		// input[16].setText("快递类型");
+		// input[17].setText("手机");
+		// input[18].setText("手机");
+		// input[19].setText("快递类型");
+		// input[20].setText("包装类型");
 		for (int i = 0; i < 10; i++) {
 			input[i].setBounds(0, frameHeight / 15 * i, frameWidth / 10,
 					frameHeight / 20);
@@ -138,16 +136,19 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		input[19].setBounds(x * 2, y * 7, width, height);
 		input[20].setBounds(x * 2, y * 8, width, height);
 
-		confirm.setBounds(frameWidth / 4-frameWidth/10, frameHeight / 10 * 9, width-frameWidth/50, height+frameHeight/70);
+		confirm.setBounds(frameWidth / 4 - frameWidth / 10,
+				frameHeight / 10 * 9, width - frameWidth / 50, height
+						+ frameHeight / 70);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9,width-frameWidth/50, height+frameHeight/70);
+		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, width
+				- frameWidth / 50, height + frameHeight / 70);
 		cancel.addActionListener(this);
 		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		cancel.setIcon(icon1);
-		
+
 		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
 		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
 				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
@@ -155,27 +156,43 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		confirm.setIcon(icon2);
 
 		for (int i = 0; i < 2; i++) {
-			inputText[i].setBounds(x / 3+frameWidth/25, (y+frameHeight/100) * (i + 1)+frameHeight/19, width, height);
+			inputText[i].setBounds(x / 3 + frameWidth / 25,
+					(y + frameHeight / 100) * (i + 1) + frameHeight / 19,
+					width, height);
 		}
 		for (int i = 2; i < 4; i++) {
-			inputText[i].setBounds(x / 3+frameWidth/25, (y+frameHeight/96) * (i + 2)+frameHeight/31, width, height);
+			inputText[i].setBounds(x / 3 + frameWidth / 25,
+					(y + frameHeight / 96) * (i + 2) + frameHeight / 31, width,
+					height);
 		}
 		for (int i = 4; i < 6; i++) {
-			inputText[i].setBounds(x / 3+frameWidth/25,  (y+frameHeight/95) * (i + 2)+frameHeight/10, width, height);
+			inputText[i].setBounds(x / 3 + frameWidth / 25,
+					(y + frameHeight / 95) * (i + 2) + frameHeight / 10, width,
+					height);
 		}
-		inputText[6].setBounds(x / 3+frameWidth/25,  (y+frameHeight/95) * 8-frameHeight/70+frameHeight/10, width, height);
-		inputText[7].setBounds(x + frameWidth / 10+frameWidth/50, (y+frameHeight/100) *  1+frameHeight/19, width, height);
-		inputText[8].setBounds(x + frameWidth / 10+frameWidth/50, (y+frameHeight/100) * 2+frameHeight/19, width, height);
-		inputText[9].setBounds(x + frameWidth / 10+frameWidth/50,  (y+frameHeight/96) *4+frameHeight/31, width, height);
-		inputText[10].setBounds(x + frameWidth / 10+frameWidth/50,  (y+frameHeight/96) * 5+frameHeight/31, width, height);
-		inputText[11].setBounds(x +frameWidth / 10+frameWidth/50,(y+frameHeight/95) *6+frameHeight/10, width, height);
-		inputText[12].setBounds(x +frameWidth / 10+frameWidth/50,(y+frameHeight/95) *7+frameHeight/10, width, height);
-		inputText[13].setBounds(x +frameWidth / 10+frameWidth/50,(y+frameHeight/95) *8+frameHeight/10,  width, height);
-		inputText[14].setBounds(x * 2 + frameWidth / 17, (y+frameHeight/100) *  2+frameHeight/19, width, height);
-		inputText[15].setBounds(x * 2 + frameWidth / 17, (y+frameHeight/100) * 5+frameHeight/31, width, height);
+		inputText[6].setBounds(x / 3 + frameWidth / 25, (y + frameHeight / 95)
+				* 8 - frameHeight / 70 + frameHeight / 10, width, height);
+		inputText[7].setBounds(x + frameWidth / 10 + frameWidth / 50,
+				(y + frameHeight / 100) * 1 + frameHeight / 19, width, height);
+		inputText[8].setBounds(x + frameWidth / 10 + frameWidth / 50,
+				(y + frameHeight / 100) * 2 + frameHeight / 19, width, height);
+		inputText[9].setBounds(x + frameWidth / 10 + frameWidth / 50,
+				(y + frameHeight / 96) * 4 + frameHeight / 31, width, height);
+		inputText[10].setBounds(x + frameWidth / 10 + frameWidth / 50,
+				(y + frameHeight / 96) * 5 + frameHeight / 31, width, height);
+		inputText[11].setBounds(x + frameWidth / 10 + frameWidth / 50,
+				(y + frameHeight / 95) * 6 + frameHeight / 10, width, height);
+		inputText[12].setBounds(x + frameWidth / 10 + frameWidth / 50,
+				(y + frameHeight / 95) * 7 + frameHeight / 10, width, height);
+		inputText[13].setBounds(x + frameWidth / 10 + frameWidth / 50,
+				(y + frameHeight / 95) * 8 + frameHeight / 10, width, height);
+		inputText[14].setBounds(x * 2 + frameWidth / 17,
+				(y + frameHeight / 100) * 2 + frameHeight / 19, width, height);
+		inputText[15].setBounds(x * 2 + frameWidth / 17,
+				(y + frameHeight / 100) * 5 + frameHeight / 31, width, height);
 		for (int i = 0; i < 16; i++) {
-			//inputText[i].setText(i+"");
-			inputText[i].setFont(new Font("宋体",Font.PLAIN,13));
+			// inputText[i].setText(i+"");
+			inputText[i].setFont(new Font("宋体", Font.PLAIN, 13));
 		}
 
 		// 输入栏焦点转移
@@ -361,10 +378,12 @@ public class CourierMakebill extends RightAll implements ActionListener {
 			}
 		});
 
-		type.setBounds(x * 2 + frameWidth / 11, (y+frameHeight/95) *6+frameHeight/10, width, height);
-		type_decorate.setBounds(x * 2 + frameWidth / 11, (y+frameHeight/95) *7+frameHeight/10,width, height);
-		type_decorate.setFont(new Font("宋体",Font.PLAIN,13));
-		type.setFont(new Font("宋体",Font.PLAIN,13));
+		type.setBounds(x * 2 + frameWidth / 11, (y + frameHeight / 95) * 6
+				+ frameHeight / 10, width, height);
+		type_decorate.setBounds(x * 2 + frameWidth / 11, (y + frameHeight / 95)
+				* 7 + frameHeight / 10, width, height);
+		type_decorate.setFont(new Font("宋体", Font.PLAIN, 13));
+		type.setFont(new Font("宋体", Font.PLAIN, 13));
 
 	}
 
@@ -383,29 +402,38 @@ public class CourierMakebill extends RightAll implements ActionListener {
 	}
 
 	private void addOver() {
-		orderFee = new JLabel("");//快递费用
-		orderNum = new JLabel("");//快递编号
-		orderTime = new JLabel("");//预计到达时间
-		bg2=new JLabel();
+		orderFee = new JLabel("");// 快递费用
+		orderNum = new JLabel("");// 快递编号
+		orderTime = new JLabel("");// 预计到达时间
+		bg2 = new JLabel();
 		bg2.setIcon(new ImageIcon("pictures\\makebillafter.png"));
 		jtf = new JTextField[3];
 		for (int i = 0; i < 3; i++) {
 			jtf[i] = new JTextField();
 		}
-       bg2.setBounds(0, 0, frameWidth/4*3, frameHeight);
+		bg2.setBounds(0, 0, frameWidth / 4 * 3, frameHeight);
 		orderNum.setBounds(0, frameHeight / 15 * 10, frameWidth / 10,
 				frameHeight / 20);
 		orderFee.setBounds(0, frameHeight / 15 * 11, frameWidth / 10,
 				frameHeight / 20);
 		orderTime.setBounds(0, frameHeight / 15 * 12, frameWidth / 10,
 				frameHeight / 20);
-		jtf[0].setBounds(frameWidth/ 12+frameWidth/25+frameWidth/35,  (frameHeight/15+frameHeight/95) * 9+frameHeight/10-frameHeight/35, frameWidth/8-frameWidth/35, frameHeight/20);
-		jtf[1].setBounds(frameWidth/4 +frameWidth / 10+frameWidth/30,(frameHeight/15+frameHeight/95) *9+frameHeight/10-frameHeight/35,  frameWidth/8-frameWidth/35, frameHeight/20);
-		jtf[2].setBounds(frameWidth/2  + frameWidth / 11+frameWidth/35, (frameHeight/15+frameHeight/95) *9+frameHeight/10-frameHeight/35,frameWidth/8-frameWidth/35, frameHeight/20);
-//		for (int i = 0; i < 3; i++) {
-//			jtf[i].setBounds(frameWidth / 12, frameHeight / 15 * (i + 10),
-//					frameWidth / 10, frameHeight / 20);
-//		}
+		jtf[0].setBounds(frameWidth / 12 + frameWidth / 25 + frameWidth / 35,
+				(frameHeight / 15 + frameHeight / 95) * 9 + frameHeight / 10
+						- frameHeight / 35, frameWidth / 8 - frameWidth / 35,
+				frameHeight / 20);
+		jtf[1].setBounds(frameWidth / 4 + frameWidth / 10 + frameWidth / 30,
+				(frameHeight / 15 + frameHeight / 95) * 9 + frameHeight / 10
+						- frameHeight / 35, frameWidth / 8 - frameWidth / 35,
+				frameHeight / 20);
+		jtf[2].setBounds(frameWidth / 2 + frameWidth / 11 + frameWidth / 35,
+				(frameHeight / 15 + frameHeight / 95) * 9 + frameHeight / 10
+						- frameHeight / 35, frameWidth / 8 - frameWidth / 35,
+				frameHeight / 20);
+		// for (int i = 0; i < 3; i++) {
+		// jtf[i].setBounds(frameWidth / 12, frameHeight / 15 * (i + 10),
+		// frameWidth / 10, frameHeight / 20);
+		// }
 
 		this.add(orderFee);
 		this.add(orderNum);
@@ -417,7 +445,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		for (int i = 0; i < 16; i++) {
 			inputText[i].setEditable(false);
 		}
-		over = new JButton("");//完成
+		over = new JButton("");// 完成
 		over.setBounds(frameWidth / 3, frameHeight / 10 * 9, frameWidth / 10,
 				frameHeight / 18);
 		ImageIcon icon3 = new ImageIcon("pictures//完成.png");
@@ -433,6 +461,61 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		this.repaint();
 	}
 
+	private void wrongShow() {
+		// 错误处理
+		final JLabel remindWrong = new JLabel();
+		remindWrong.setBounds(frameWidth / 4, frameHeight * 17 / 20,
+				frameWidth / 4, frameHeight / 20);
+		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+		remindWrong.setForeground(Color.red);
+		this.add(remindWrong);
+		this.repaint();
+
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// 以下根据错误类型设置文字
+				remindWrong.setText("信息未填写完整 ");
+				try {
+					Thread.sleep(2000);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				remindWrong.setText("");
+			}
+		});
+		t.start();
+		// 错误处理结束
+	}
+
+	private void solveInfor() {
+		Message message = new Message();
+		for (int i = 0; i < 16; i++) {
+			if (i != 13) {
+				message.addInform(inputText[i].getText());
+			} else {
+				message.addInform("");
+			}
+		}
+		message.addInform((String) type.getSelectedItem());
+		message.addInform((String) type_decorate.getSelectedItem());
+
+		OrderBill bill = blServer.makeOrder(message);
+
+		if (bill != null) {
+			jtf[0].setText(bill.getID());
+			jtf[1].setText(bill.getCharge());
+			jtf[2].setText(bill.getTime());
+		} else {
+			jtf[0].setText("您输入的信息");
+			jtf[1].setText("似乎有些不对");
+			jtf[2].setText("请检查一下信息格式");
+		}
+		for (int i = 0; i < 3; i++) {
+			jtf[i].setEditable(false);
+		}
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			System.out.println("cancel!!!");
@@ -442,46 +525,18 @@ public class CourierMakebill extends RightAll implements ActionListener {
 			// save the data
 			boolean isFull = true;
 			for (int i = 0; i < 16; i++) {
-				if (inputText[i].getText().equals("（必填）")) {
+				if (i != 13 && inputText[i].getText().equals("")) {
 					isFull = false;
 					break;
 				}
 			}
 
-			addOver();
-
-			Message message = new Message();
-			for (int i = 0; i < 16; i++) {
-				if (i != 13) {
-					message.addInform(inputText[i].getText());
-				} else {
-					message.addInform("");
-				}
-
+			if (isFull) {
+				addOver();
+				solveInfor();
+			} else {
+				wrongShow();
 			}
-			message.addInform((String) type.getSelectedItem());
-			message.addInform((String) type_decorate.getSelectedItem());
-
-			OrderBill bill = blServer.makeOrder(message);
-
-			if(bill!=null){
-				jtf[0].setText(bill.getID());
-				jtf[1].setText(bill.getCharge());
-				jtf[2].setText(bill.getTime());
-
-				for (int i = 0; i < 3; i++) {
-					jtf[i].setEditable(false);
-				}
-			}else{
-				jtf[0].setText("您输入的信息");
-				jtf[1].setText("似乎有些不对");
-				jtf[2].setText("请检查一下信息格式");
-
-				for (int i = 0; i < 3; i++) {
-					jtf[i].setEditable(false);
-				}
-			}
-			
 
 		}
 

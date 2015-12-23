@@ -23,13 +23,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourierSearch extends RightAll implements   ActionListener {
+public class CourierSearch extends RightAll implements ActionListener {
 	Trans_InquireOrderServer blServer;
 
 	int frameWidth;
 	int frameHeight;
 	JLabel remind;
-	JLabel wrong;
 	JButton confirm;
 	JButton cancel;
 	JTextField inputOrder;
@@ -37,7 +36,7 @@ public class CourierSearch extends RightAll implements   ActionListener {
 	private List<Watcher> list;
 
 	public CourierSearch(int frameWidth, int frameHeight) {
-		blServer=new Trans_InquireOrderServerImpl();
+		blServer = new Trans_InquireOrderServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -47,21 +46,16 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-	   remind = new JLabel("");//请输入快递单号
-		confirm = new JButton("");//确认
-		cancel = new JButton("");//取消
-		wrong = new JLabel("输入的快递单号不存在!");
-		wrong.setFont(new Font("宋体",Font.BOLD,22));
-		wrong.setVisible(false);
+		remind = new JLabel("");// 请输入快递单号
+		confirm = new JButton("");// 确认
+		cancel = new JButton("");// 取消
 		inputOrder = new JTextField();
-		 
 
 		init();
 
 		this.add(remind);
 		this.add(confirm);
 		this.add(cancel);
-		this.add(wrong);
 		this.add(inputOrder);
 	}
 
@@ -69,36 +63,42 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\查询订单right.png");
-		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
+
 	private void init() {
 		remind.setBounds(frameWidth / 4, frameHeight / 3, frameWidth / 4, 40);
-		confirm.setBounds(frameWidth / 4-frameWidth/40, frameHeight / 2-frameHeight/20, frameWidth / 9,
-				frameHeight / 16);
+		confirm.setBounds(frameWidth / 4 - frameWidth / 40, frameHeight / 2
+				- frameHeight / 20, frameWidth / 9, frameHeight / 16);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth / 2-frameWidth/30, frameHeight / 2-frameHeight/20, frameWidth /9,
-				frameHeight / 16);
+		cancel.setBounds(frameWidth / 2 - frameWidth / 30, frameHeight / 2
+				- frameHeight / 20, frameWidth / 9, frameHeight / 16);
 		cancel.addActionListener(this);
 		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		cancel.setIcon(icon1);
-		
+
 		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
 		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
 				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
 		icon2 = new ImageIcon(temp2);
 		confirm.setIcon(icon2);
-		
-		wrong.setBounds(frameWidth / 3-frameWidth/8+frameWidth/30, frameHeight / 4 * 1-frameHeight/15, frameWidth/2, frameHeight/7);
-		wrong.setForeground(new Color(227, 23, 13));
-		inputOrder.setBounds(frameWidth /5+frameWidth/10, frameHeight / 3-frameHeight/55,frameWidth/3, frameHeight/13);
-        inputOrder.setFont(new Font("宋体",Font.BOLD,20));
+
+		inputOrder.setBounds(frameWidth / 5 + frameWidth / 10, frameHeight / 3
+				- frameHeight / 55, frameWidth / 3, frameHeight / 13);
+		inputOrder.setFont(new Font("宋体", Font.BOLD, 20));
 		inputOrder.setBorder(null);
 		inputOrder.setOpaque(false);
+		inputOrder.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -119,15 +119,41 @@ public class CourierSearch extends RightAll implements   ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COURIERSTART);
 		} else if (e.getSource() == confirm) {
-            OrderBill bill=blServer.inquire(inputOrder.getText());
-            System.out.println(inputOrder.getText());
-			if(bill==null){
-				wrong.setVisible(true);
-			}else{
+			OrderBill bill = blServer.inquire(inputOrder.getText());
+			System.out.println(inputOrder.getText());
+			if (bill == null) {
+				// 错误处理
+				final JLabel remindWrong = new JLabel();
+				remindWrong.setBounds(frameWidth / 3 - frameWidth / 8
+						+ frameWidth / 30, frameHeight / 4 * 1 - frameHeight
+						/ 15, frameWidth / 2, frameHeight / 7);
+				remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+				remindWrong.setForeground(Color.red);
+				this.add(remindWrong);
+				this.repaint();
+
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						// 以下根据错误类型设置文字
+						remindWrong.setFont(new Font("宋体", Font.BOLD, 22));
+						remindWrong.setText("输入的快递单号不存在!");
+						remindWrong.setForeground(new Color(227, 23, 13));
+						try {
+							Thread.sleep(2000);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						remindWrong.setText("");
+					}
+				});
+				t.start();
+				// 错误处理结束
+			} else {
 				BillNow.setBill(bill);
 				this.notifyWatchers(State.COURIERSEARCHAFTER);
 			}
-	
+
 		}
 
 	}

@@ -24,7 +24,7 @@ public class InputInforPanel extends RightAll implements ActionListener {
 	JButton confirm;
 	JButton cancel;
 	JLabel jl[];
-	JLabel wrong;
+	//JLabel wrong;
 	JTextField jtfNum;
 	JTextField jtfName;
 	private List<Watcher> list;
@@ -63,12 +63,9 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		cancel = new JButton();
 		jtfNum = new JTextField();
 		jtfName = new JTextField();
-
-		wrong = new JLabel("输入的订单不存在!");
-
+ 
 		init();
-
-		this.add(wrong);
+ 
 		this.add(confirm);
 		this.add(cancel);
 		this.add(jtfName);
@@ -126,12 +123,13 @@ public class InputInforPanel extends RightAll implements ActionListener {
 				frameWidth / 8, frameHeight/ 16);
 		jtfNum.setFont(new Font("宋体",Font.PLAIN,16));
 		jtfName.setFont(new Font("宋体",Font.PLAIN,16));
-
-		wrong.setBounds(frameWidth /3-frameWidth/15, frameHeight /5*3 
-			, frameWidth / 3, frameHeight/10);
-		wrong.setVisible(false);
-		wrong.setForeground(Color.red);
-		wrong.setFont(new Font("宋体",Font.BOLD,20));
+		jtfNum.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 
 		time[0].setText("年");
 		time[1].setText("月");
@@ -160,6 +158,33 @@ public class InputInforPanel extends RightAll implements ActionListener {
 				}
 			}
 		});
+	}
+	
+	private void wrongShow(){
+		// 错误处理
+		final JLabel remindWrong = new JLabel();
+		remindWrong.setBounds(frameWidth /3-frameWidth/15, frameHeight /5*3 
+				, frameWidth / 3, frameHeight/10);
+		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+		remindWrong.setForeground(Color.red);
+		this.add(remindWrong);
+		this.repaint();
+
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// 以下根据错误类型设置文字
+				remindWrong.setText("输入的订单不存在!" );
+				try {
+					Thread.sleep(2000);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				remindWrong.setText("");
+			}
+		});
+		t.start();
+		// 错误处理结束
 	}
 
 	public void save(Message msg) {
@@ -204,7 +229,7 @@ public class InputInforPanel extends RightAll implements ActionListener {
 			}
 
 			if (isWrongShow) {
-				wrong.setVisible(true);
+				wrongShow();
 			}
 
 		}

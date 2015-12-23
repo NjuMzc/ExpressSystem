@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.time.Year;
 import java.util.ArrayList;
@@ -36,6 +37,9 @@ public class StockmanCheck extends RightAll implements ActionListener {
 	JTable table;
 	JScrollPane js;
 	DefaultTableCellRenderer dtc;
+
+	ExportExcel excel;
+	JFileChooser jfc;
 
 	public StockmanCheck(int frameWidth, int frameHeight) {
 
@@ -82,9 +86,11 @@ public class StockmanCheck extends RightAll implements ActionListener {
 	}
 
 	private void init() {
-		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10, frameHeight / 20);
+		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10,
+				frameHeight / 20);
 		cancel.addActionListener(this);
-		export.setBounds(frameWidth / 5, frameHeight / 10 * 9, frameWidth / 10, frameHeight / 20);
+		export.setBounds(frameWidth / 5, frameHeight / 10 * 9, frameWidth / 10,
+				frameHeight / 20);
 		export.addActionListener(this);
 		currenttime.setBounds(0, 0, frameWidth / 10, frameHeight / 10);
 
@@ -92,15 +98,17 @@ public class StockmanCheck extends RightAll implements ActionListener {
 		time[1].setText("月");
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
-			timeInput[i].setBounds(frameWidth / 10 * (i + 1), frameHeight / 40, frameWidth / 12, frameHeight / 20);
-			time[i].setBounds(frameWidth / 12 + frameWidth / 10 * (i + 1), frameHeight / 40, frameWidth / 12,
-					frameHeight / 20);
+			timeInput[i].setBounds(frameWidth / 10 * (i + 1), frameHeight / 40,
+					frameWidth / 12, frameHeight / 20);
+			time[i].setBounds(frameWidth / 12 + frameWidth / 10 * (i + 1),
+					frameHeight / 40, frameWidth / 12, frameHeight / 20);
 		}
 
 		initTime();
 		initTable();
 
-		js.setBounds(0, frameHeight / 10, frameWidth / 4 * 3, frameHeight / 5 * 4);
+		js.setBounds(0, frameHeight / 10, frameWidth / 4 * 3,
+				frameHeight / 5 * 4);
 	}
 
 	private void initTime() {
@@ -172,11 +180,23 @@ public class StockmanCheck extends RightAll implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		int result = -1;
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.STOCKMANSTART);
 		} else if (e.getSource() == export) {
 			// 导出报表
+			jfc = new JFileChooser();
+			result = jfc.showSaveDialog(this);
+			jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		}
 
+		if (result == JFileChooser.APPROVE_OPTION) {
+			String path = jfc.getCurrentDirectory().toString().trim();
+			String name = jfc.getSelectedFile().getName();
+			System.out.println("path:"+path);
+			System.out.println("name:"+name);
+			excel = new ExportExcel(table, path, name);
+			excel.export();
 		}
 	}
 }
