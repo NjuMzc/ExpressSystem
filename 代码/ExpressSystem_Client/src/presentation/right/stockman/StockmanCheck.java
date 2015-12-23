@@ -180,23 +180,22 @@ public class StockmanCheck extends RightAll implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		int result = -1;
+
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.STOCKMANSTART);
 		} else if (e.getSource() == export) {
 			// 导出报表
 			jfc = new JFileChooser();
-			result = jfc.showSaveDialog(this);
+			jfc.showSaveDialog(this);
 			jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		}
 
-		if (result == JFileChooser.APPROVE_OPTION) {
 			String path = jfc.getCurrentDirectory().toString().trim();
 			String name = jfc.getSelectedFile().getName();
-			System.out.println("path:"+path);
-			System.out.println("name:"+name);
+			System.out.println("path:" + path);
+			System.out.println("name:" + name);
 			excel = new ExportExcel(table, path, name);
 			excel.export();
 		}
+
 	}
 }

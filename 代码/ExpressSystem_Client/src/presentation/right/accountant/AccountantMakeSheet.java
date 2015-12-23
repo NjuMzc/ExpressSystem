@@ -16,6 +16,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import presentation.ExportExcel;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
@@ -44,6 +45,9 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 	JPanel addPanel;
 	JTextArea jta;
 	JButton export;
+
+	ExportExcel excel;
+	JFileChooser jfc;
 
 	private List<Watcher> list;
 
@@ -74,6 +78,8 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		search = new JButton("查询");
 		dtc = new ColorRenderer();
 
+		export = new JButton("导出报表");
+
 		init();
 
 		for (int i = 0; i < 3; i++) {
@@ -86,7 +92,9 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		input.add(js);
 		input.add(start);
 		input.add(end);
+		input.add(export);
 		this.add(input);
+
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -122,10 +130,14 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 				frameHeight / 20);
 		end.setBounds(frameWidth / 20, frameHeight / 10, frameWidth / 12,
 				frameHeight / 20);
-		js.setBounds(0, frameHeight / 5, frameWidth / 2, frameHeight);
+		js.setBounds(0, frameHeight / 5, frameWidth / 2, frameHeight / 10 * 7);
 		search.setBounds(frameWidth / 12 * 5, frameHeight / 10,
 				frameWidth / 12, frameHeight / 20);
 		search.addActionListener(this);
+
+		export.setBounds(frameWidth / 20 * 3, frameHeight / 16 * 15,
+				frameWidth / 10, frameHeight / 20);
+		export.addActionListener(this);
 
 		initTable();
 	}
@@ -177,19 +189,15 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 	private void addAddPanel() {
 		addPanel = new JPanel();
 		jta = new JTextArea();
-		export = new JButton("导出报表");
 		addPanel.setLayout(null);
 		addPanel.setBounds(frameWidth / 2, 0, frameWidth / 4, frameHeight);
 		jta.setBounds(0, 0, frameWidth / 2, frameHeight / 4 * 3);
-		export.setBounds(frameWidth / 40 * 3, frameHeight / 8 * 7,
-				frameWidth / 10, frameHeight / 20);
 
 		jta.append("收款单\r\n");
 		jta.append("金額\r\n");
 		jta.append("日期 \r\n");
 
 		addPanel.add(jta);
-		addPanel.add(export);
 
 		this.add(addPanel);
 		this.repaint();
@@ -223,7 +231,20 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getSource() == export) {
+			// 导出报表
+			jfc = new JFileChooser();
+			jfc.showSaveDialog(this);
+			jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+			String path = jfc.getCurrentDirectory().toString().trim();
+			String name = jfc.getSelectedFile().getName();
+			System.out.println("path:" + path);
+			System.out.println("name:" + name);
+			excel = new ExportExcel(table, path, name);
+			excel.export();
+
+		}
 
 	}
 }
