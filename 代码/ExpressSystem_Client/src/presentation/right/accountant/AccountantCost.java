@@ -12,11 +12,17 @@ import java.util.List;
 
 import javax.swing.*;
 
+import businesslogic.paymentServer.GetProfitServerImpl;
+import businesslogicservice.paymentblservice.GetProfitServer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
+import vo.paymentbl.ProfitVO;
 
 public class AccountantCost extends RightAll implements ActionListener {
+	GetProfitServer blServer;
+	ProfitVO result;
+	
 	int frameWidth;
 	int frameHeight;
 	JLabel[] jl;
@@ -32,6 +38,7 @@ public class AccountantCost extends RightAll implements ActionListener {
 	JTextField jtf[];
 
 	public AccountantCost(int frameWidth, int frameHeight) {
+		blServer=new GetProfitServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -200,6 +207,29 @@ public class AccountantCost extends RightAll implements ActionListener {
 
 		if(e.getSource()==search){
 			//设置总支出，收入，利润，将jtf设为不可编辑
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String start=year+"-"+month+"-"+day;
+			
+			String year2=timeInputover[0].getSelectedItem().toString();
+			String month2=timeInputover[1].getSelectedItem().toString();
+			String day2=timeInputover[2].getSelectedItem().toString();
+			
+			String end=year2+"-"+month2+"-"+day2;
+			
+		    result=blServer.getProfit(start, end);
+		    
+		    jtf[0].setText(String.valueOf(result.getInput())+" 元");
+		    jtf[1].setText(String.valueOf(result.getOutput())+" 元");
+		    jtf[2].setText(String.valueOf(result.getProfit())+" 元");
+		    
+		    for(int i=0;i<3;i++){
+		    	jtf[i].setEditable(false);
+		    }
+		    
+			
 		}
 	}
 }

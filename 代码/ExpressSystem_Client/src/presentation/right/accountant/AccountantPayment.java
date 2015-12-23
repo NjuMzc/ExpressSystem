@@ -4,14 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +15,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import businesslogic.paymentServer.PayServerImpl;
+import businesslogicservice.paymentblservice.PayServer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
+import vo.paymentbl.PayVO;
 
 public class AccountantPayment extends RightAll implements ActionListener {
+	PayServer blServer;
+	PayVO inputMessage;
+	PayVO result;
+	
 	int frameWidth;
 	int frameHeight;
 	JLabel[] jl;
@@ -40,6 +42,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 	JLabel yuan;
 
 	public AccountantPayment(int frameWidth, int frameHeight) {
+		blServer=new PayServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -215,12 +218,68 @@ public class AccountantPayment extends RightAll implements ActionListener {
 			watcher.update(state);
 		}
 	}
+	
+	private void wrongShow(){
+		// 错误处理
+		final JLabel remindWrong = new JLabel();
+		remindWrong.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
+				frameWidth / 4, frameHeight / 20);
+		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+		remindWrong.setForeground(Color.red);
+		this.add(remindWrong);
+		this.repaint();
+
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// 以下根据错误类型设置文字
+				remindWrong.setText(result.getWrongMessage());
+				try {
+					Thread.sleep(2000);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				remindWrong.setText("");
+			}
+		});
+		t.start();
+		// 错误处理结束
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.ACCOUNTANTSTART);
 		} else if (e.getSource() == confirm) {
-
+			inputMessage=new PayVO();
+			
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			inputMessage.setDate(date);
+			
+			String payer=jtf[0].getText();
+			String account=jtf[1].getText();
+			String tiaoMu=jtf[2].getText();
+			String money=jtf[3].getText();
+			String beiZhu=jtf[4].getText();
+			
+			inputMessage.setPayer(payer);
+			inputMessage.setAccount(account);
+			inputMessage.setTiaoMu(tiaoMu);
+			inputMessage.setMoney(money);
+			inputMessage.setBeiZhu(beiZhu);
+			
+			result=blServer.makeBill(inputMessage);
+			
+			if(result.isWrong()){
+				//錯誤處理
+				wrongShow();
+			}else{
+				this.notifyWatchers(State.ACCOUNTANTPAYMENT);
+			}
+			
 		}
 
 	}

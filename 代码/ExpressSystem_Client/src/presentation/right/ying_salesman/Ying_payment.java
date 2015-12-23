@@ -36,6 +36,7 @@ import vo.paymentbl.ChargeVO;
 public class Ying_payment extends RightAll implements ActionListener {
 	ChargeServer blServer;
 	ChargeVO charge;
+	ChargeVO result;
 
 	int frameWidth;
 	int frameHeight;
@@ -249,7 +250,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 		final JLabel remindWrong = new JLabel();
 		remindWrong.setBounds(frameWidth / 10 - frameWidth / 30, frameHeight
 				/ 14 + frameHeight / 7 * 5 + frameHeight / 70 - frameHeight
-				/ 12, frameWidth / 6, frameHeight / 18);
+				/ 12, frameWidth / 2, frameHeight / 18);
 		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
 		remindWrong.setForeground(Color.red);
 		this.add(remindWrong);
@@ -259,7 +260,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 			@Override
 			public void run() {
 				// 以下根据错误类型设置文字
-				remindWrong.setText("wrong");
+				remindWrong.setText(result.getWrongMessage());
 				try {
 					Thread.sleep(2000);
 				} catch (Exception e2) {
@@ -298,7 +299,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 			charge.setSenderNum(senderNum);
 			charge.setOrderNumbers(billList);
 
-			ChargeVO result = blServer.makeBill(charge);
+			result = blServer.makeBill(charge);
 			if (result.isWrong()) {
 				// 错误信息处理
 				wrongsolve();

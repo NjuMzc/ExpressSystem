@@ -1,12 +1,12 @@
 package presentation.right.accountant;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -14,12 +14,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.paymentServer.SettleServerImpl;
+import businesslogicservice.paymentblservice.SettleServer;
+import po.bills.ChargeBill;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
+import vo.paymentbl.SettleVO;
 
 public class AccountantBalace extends RightAll implements ActionListener {
+	SettleServer blServer;
+	SettleVO result;
+	double money;
+	
 	int frameWidth;
 	int frameHeight;
 	JLabel jl[];
@@ -37,6 +45,8 @@ public class AccountantBalace extends RightAll implements ActionListener {
 	DefaultTableCellRenderer dtc;
 
 	public AccountantBalace(int frameWidth, int frameHeight) {
+		blServer=new SettleServerImpl();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 
@@ -150,7 +160,7 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		model.addColumn("金额");
 		model.addColumn("快递员姓名");
 		model.addColumn("快递员编号");
-		model.addColumn("快递订单号");
+		model.addColumn("收款单编号");
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
         table.setFont(new Font("宋体", Font.PLAIN, 14));
@@ -159,17 +169,24 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		table.getColumnModel().getColumn(2).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(3).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(4).setCellRenderer(dtc);
-        initTableModel();
 	}
 
 	private void initTableModel() {
-		Vector<String> vec = new Vector<>();
-		vec.add("2015.12.12");
-		vec.add("2000");
-		vec.add("陈信宏");
-		vec.add("110");
-		vec.add("123456");
-		model.addRow(vec);
+		Iterator<ChargeBill> bills=result.getList();
+		while(bills.hasNext()){
+			ChargeBill bill=bills.next();
+			
+			Vector<String> vec = new Vector<>();
+			vec.add(bill.getDate());
+			vec.add(String.valueOf(bill.getMoney()));
+			vec.add(bill.getSenderName());
+			vec.add(bill.getSenderNum());
+			vec.add(bill.getId());
+	
+			money+=bill.getMoney();
+			model.addRow(vec);
+		}
+		
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -188,12 +205,31 @@ public class AccountantBalace extends RightAll implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirm) {
-			this.add(js);
-			this.remove(confirm);
-			this.add(jtfSum);
-			this.add(sum);
-			this.add(back);
-			this.repaint();
+			String year=timeInput[0].getSelectedItem().toString();
+			String month=timeInput[1].getSelectedItem().toString();
+			String day=timeInput[2].getSelectedItem().toString();
+			
+			String date=year+"-"+month+"-"+day;
+			
+			String hallNum=inputNum.getText();
+			
+			result=blServer.Settle(date, hallNum);
+			
+			if(result.isWrong()){
+				//錯誤信息處理
+				System.out.println(result.getWrongMessage());
+			}else{
+				initTableModel();
+				
+				this.jtfSum.setText(String.valueOf(money));
+				this.add(js);
+				this.remove(confirm);
+				this.add(jtfSum);
+				this.add(sum);
+				this.add(back);
+				this.repaint();
+			}
+
 		}
 
 		if (e.getSource() == back) {
