@@ -6,6 +6,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -141,6 +144,13 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		}
 		inputNum.setBounds(frameWidth / 4, frameHeight / 10 + frameHeight / 46,
 				frameWidth / 10, frameHeight / 20);
+		inputNum.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					confirmPressed();
+				}
+			}
+		});
 		sum.setBounds(frameWidth / 10, frameHeight / 5 * 4, frameWidth / 10,
 				frameHeight / 20);
 		jtfSum.setBounds(frameWidth / 4, frameHeight / 5 * 4, frameWidth / 10,
@@ -237,43 +247,40 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		// 错误处理结束
 	}
 
+	private void confirmPressed() {
+		String year = timeInput[0].getSelectedItem().toString();
+		String month = timeInput[1].getSelectedItem().toString();
+		String day = timeInput[2].getSelectedItem().toString();
+
+		String date = year + "-" + month + "-" + day;
+
+		String hallNum = inputNum.getText();
+
+		result = blServer.Settle(date, hallNum);
+
+		if (result.isWrong()) {
+			// 錯誤信息處理
+			wrongShow();
+		} else {
+			initTableModel();
+
+			this.jtfSum.setText(String.valueOf(money));
+			this.add(js);
+			this.remove(confirm);
+			this.add(jtfSum);
+			this.add(sum);
+			this.add(back);
+			this.repaint();
+		}
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirm) {
-			String year = timeInput[0].getSelectedItem().toString();
-			String month = timeInput[1].getSelectedItem().toString();
-			String day = timeInput[2].getSelectedItem().toString();
-
-			String date = year + "-" + month + "-" + day;
-
-			String hallNum = inputNum.getText();
-
-			result = blServer.Settle(date, hallNum);
-
-			if (result.isWrong()) {
-				// 錯誤信息處理
-				wrongShow();
-			} else {
-				initTableModel();
-
-				this.jtfSum.setText(String.valueOf(money));
-				this.add(js);
-				this.remove(confirm);
-				this.add(jtfSum);
-				this.add(sum);
-				this.add(back);
-				this.repaint();
-			}
-
+			confirmPressed();
 		}
 
 		if (e.getSource() == back) {
-			this.add(confirm);
-			this.remove(js);
-			this.remove(jtfSum);
-			this.remove(sum);
-			this.remove(back);
-			this.remove(js);
-			this.repaint();
+			this.notifyWatchers(State.ACCOUNTANTBALACE);
 		}
 	}
 }

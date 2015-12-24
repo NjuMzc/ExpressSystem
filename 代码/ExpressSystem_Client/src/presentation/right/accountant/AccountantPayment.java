@@ -28,7 +28,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 	PayServer blServer;
 	PayVO inputMessage;
 	PayVO result;
-	
+
 	int frameWidth;
 	int frameHeight;
 	JLabel[] jl;
@@ -40,9 +40,11 @@ public class AccountantPayment extends RightAll implements ActionListener {
 	JComboBox<String>[] timeInput;
 	JTextField jtf[];
 	JLabel yuan;
+	
+	JComboBox<String> type;
 
 	public AccountantPayment(int frameWidth, int frameHeight) {
-		blServer=new PayServerImpl();
+		blServer = new PayServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -77,6 +79,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 			jtf[i] = new JTextField();
 		}
 		yuan = new JLabel("元");
+		type=new JComboBox<String>();
 
 		init();
 
@@ -90,9 +93,11 @@ public class AccountantPayment extends RightAll implements ActionListener {
 			this.add(timeInput[i]);
 		}
 		for (int i = 0; i < 5; i++) {
+			if(i!=2)
 			this.add(jtf[i]);
 		}
 		this.add(yuan);
+		this.add(type);
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -133,13 +138,36 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 5; i++) {
-			jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight / 8
-					* (i + 1), frameWidth / 10, frameHeight / 20);
+			if (i != 4)
+				jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight
+						/ 8 * (i + 1), frameWidth / 10, frameHeight / 20);
+			else
+				jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight
+						/ 8 * (i + 1), frameWidth / 5, frameHeight / 20);
 		}
+		type.addItem("租金");
+		type.addItem("运费");
+		type.addItem("工资");
+		type.addItem("奖励");
+		type.setBounds(frameWidth / 4, frameHeight / 15 + frameHeight
+						/ 8 * 3, frameWidth / 10, frameHeight / 20);
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		jtf[3].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!=KeyEvent.VK_PERIOD) {
+					e.consume();
+				}
+			}
+		});
 		yuan.setBounds(frameWidth / 5 * 2, frameHeight / 15 + frameHeight / 2,
 				frameWidth / 10, frameHeight / 20);
 		yuan.setFont(new Font("宋体", Font.BOLD, 16));
-
 
 		jtf[0].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
@@ -153,18 +181,11 @@ public class AccountantPayment extends RightAll implements ActionListener {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER
 						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
-					jtf[2].requestFocus();
-				}
-			}
-		});
-		jtf[2].addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER
-						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
 					jtf[3].requestFocus();
 				}
 			}
 		});
+	 
 		jtf[3].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER
@@ -183,17 +204,11 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		jtf[3].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					jtf[2].requestFocus();
-				}
-			}
-		});
-		jtf[2].addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[1].requestFocus();
 				}
 			}
 		});
+		 
 		jtf[1].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -218,8 +233,8 @@ public class AccountantPayment extends RightAll implements ActionListener {
 			watcher.update(state);
 		}
 	}
-	
-	private void wrongShow(){
+
+	private void wrongShow() {
 		// 错误处理
 		final JLabel remindWrong = new JLabel();
 		remindWrong.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
@@ -250,36 +265,36 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.ACCOUNTANTSTART);
 		} else if (e.getSource() == confirm) {
-			inputMessage=new PayVO();
-			
-			String year=timeInput[0].getSelectedItem().toString();
-			String month=timeInput[1].getSelectedItem().toString();
-			String day=timeInput[2].getSelectedItem().toString();
-			
-			String date=year+"-"+month+"-"+day;
+			inputMessage = new PayVO();
+
+			String year = timeInput[0].getSelectedItem().toString();
+			String month = timeInput[1].getSelectedItem().toString();
+			String day = timeInput[2].getSelectedItem().toString();
+
+			String date = year + "-" + month + "-" + day;
 			inputMessage.setDate(date);
-			
-			String payer=jtf[0].getText();
-			String account=jtf[1].getText();
-			String tiaoMu=jtf[2].getText();
-			String money=jtf[3].getText();
-			String beiZhu=jtf[4].getText();
-			
+
+			String payer = jtf[0].getText();
+			String account = jtf[1].getText();
+			String tiaoMu = jtf[2].getText();
+			String money = jtf[3].getText();
+			String beiZhu = jtf[4].getText();
+
 			inputMessage.setPayer(payer);
 			inputMessage.setAccount(account);
 			inputMessage.setTiaoMu(tiaoMu);
 			inputMessage.setMoney(money);
 			inputMessage.setBeiZhu(beiZhu);
-			
-			result=blServer.makeBill(inputMessage);
-			
-			if(result.isWrong()){
-				//錯誤處理
+
+			result = blServer.makeBill(inputMessage);
+
+			if (result.isWrong()) {
+				// 錯誤處理
 				wrongShow();
-			}else{
+			} else {
 				this.notifyWatchers(State.ACCOUNTANTPAYMENT);
 			}
-			
+
 		}
 
 	}

@@ -1,5 +1,6 @@
 package presentation.right.accountant;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -22,7 +23,7 @@ import vo.paymentbl.ProfitVO;
 public class AccountantCost extends RightAll implements ActionListener {
 	GetProfitServer blServer;
 	ProfitVO result;
-	
+
 	int frameWidth;
 	int frameHeight;
 	JLabel[] jl;
@@ -38,7 +39,7 @@ public class AccountantCost extends RightAll implements ActionListener {
 	JTextField jtf[];
 
 	public AccountantCost(int frameWidth, int frameHeight) {
-		blServer=new GetProfitServerImpl();
+		blServer = new GetProfitServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -62,11 +63,11 @@ public class AccountantCost extends RightAll implements ActionListener {
 			time[i] = new JLabel();
 			timeover[i] = new JLabel();
 		}
-		YearMonthDay time1=new YearMonthDay();
+		YearMonthDay time1 = new YearMonthDay();
 		timeInput[0] = time1.getCboYear();
 		timeInput[1] = time1.getCboMonth();
 		timeInput[2] = time1.getCboDay();
-		YearMonthDay time2=new YearMonthDay();
+		YearMonthDay time2 = new YearMonthDay();
 		timeInputover[0] = time2.getCboYear();
 		timeInputover[1] = time2.getCboMonth();
 		timeInputover[2] = time2.getCboDay();
@@ -79,7 +80,7 @@ public class AccountantCost extends RightAll implements ActionListener {
 
 		init();
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 2; i++) {
 			this.add(jl[i]);
 		}
 		this.add(back);
@@ -88,7 +89,6 @@ public class AccountantCost extends RightAll implements ActionListener {
 			this.add(timeInput[i]);
 			this.add(timeover[i]);
 			this.add(timeInputover[i]);
-			this.add(jtf[i]);
 		}
 		this.add(search);
 	}
@@ -100,8 +100,7 @@ public class AccountantCost extends RightAll implements ActionListener {
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
-	
+
 	private void init() {
 
 		jl[0].setText("开始时间");
@@ -113,7 +112,7 @@ public class AccountantCost extends RightAll implements ActionListener {
 		for (int i = 0; i < 5; i++) {
 			jl[i].setBounds(frameWidth / 10, frameHeight / 15 + frameHeight / 8
 					* i, frameWidth / 9, frameHeight / 20);
-			jl[i].setFont(new Font("宋体",Font.BOLD,16));
+			jl[i].setFont(new Font("宋体", Font.BOLD, 16));
 		}
 
 		back.setBounds(frameWidth / 40 * 11, frameHeight / 10 * 9,
@@ -151,7 +150,7 @@ public class AccountantCost extends RightAll implements ActionListener {
 			jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight / 8
 					* (i + 2), frameWidth / 10, frameHeight / 20);
 		}
-		 
+
 		jtf[0].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER
@@ -170,14 +169,14 @@ public class AccountantCost extends RightAll implements ActionListener {
 		});
 		jtf[1].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if (  e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[0].requestFocus();
 				}
 			}
 		});
 		jtf[2].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if (  e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[1].requestFocus();
 				}
 			}
@@ -200,37 +199,71 @@ public class AccountantCost extends RightAll implements ActionListener {
 		}
 	}
 
+	private void wrongShow() {
+		// 错误处理
+		final JLabel remindWrong = new JLabel();
+		remindWrong.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
+				frameWidth / 2, frameHeight / 20);
+		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+		remindWrong.setForeground(Color.red);
+		this.add(remindWrong);
+		this.repaint();
+
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// 以下根据错误类型设置文字
+				remindWrong.setText(result.getWrongMessage());
+				try {
+					Thread.sleep(2000);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				remindWrong.setText("");
+			}
+		});
+		t.start();
+		// 错误处理结束
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == back) {
-			this.notifyWatchers(State.ACCOUNTANTSTART);
+			this.notifyWatchers(State.ACCOUNTANTCOST);
 		}
 
-		if(e.getSource()==search){
-			//设置总支出，收入，利润，将jtf设为不可编辑
-			String year=timeInput[0].getSelectedItem().toString();
-			String month=timeInput[1].getSelectedItem().toString();
-			String day=timeInput[2].getSelectedItem().toString();
-			
-			String start=year+"-"+month+"-"+day;
-			
-			String year2=timeInputover[0].getSelectedItem().toString();
-			String month2=timeInputover[1].getSelectedItem().toString();
-			String day2=timeInputover[2].getSelectedItem().toString();
-			
-			String end=year2+"-"+month2+"-"+day2;
-			
-		    result=blServer.getProfit(start, end);
-		    
-	 
-		    jtf[0].setText(String.valueOf(result.getInput())+" 元");
-		    jtf[1].setText(String.valueOf(result.getOutput())+" 元");
-		    jtf[2].setText(String.valueOf(result.getProfit())+" 元");
-		    
-		    for(int i=0;i<3;i++){
-		    	jtf[i].setEditable(false);
-		    }
-		    
-			
+		if (e.getSource() == search) {
+			// 设置总支出，收入，利润，将jtf设为不可编辑
+			String year = timeInput[0].getSelectedItem().toString();
+			String month = timeInput[1].getSelectedItem().toString();
+			String day = timeInput[2].getSelectedItem().toString();
+
+			String start = year + "-" + month + "-" + day;
+
+			String year2 = timeInputover[0].getSelectedItem().toString();
+			String month2 = timeInputover[1].getSelectedItem().toString();
+			String day2 = timeInputover[2].getSelectedItem().toString();
+
+			String end = year2 + "-" + month2 + "-" + day2;
+
+			result = blServer.getProfit(start, end);
+
+			if (result.isWrong()) {
+				wrongShow();
+			} else {
+				jtf[0].setText(String.valueOf(result.getInput()) + " 元");
+				jtf[1].setText(String.valueOf(result.getOutput()) + " 元");
+				jtf[2].setText(String.valueOf(result.getProfit()) + " 元");
+
+				this.remove(search);
+				for (int i = 0; i < 3; i++) {
+					this.add(jtf[i]);
+					this.add(jl[i + 2]);
+					jtf[i].setEditable(false);
+				}
+
+				this.repaint();
+			}
+
 		}
 	}
 }

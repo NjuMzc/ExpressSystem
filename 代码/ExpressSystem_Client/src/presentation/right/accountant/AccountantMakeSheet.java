@@ -211,6 +211,7 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		int row = table.getSelectedRow();
 		String type = model.getValueAt(row, 2).toString();
 		String id = model.getValueAt(row, 3).toString();
+		jta.setText("");
 		if (type.equals("收款单")) {
 			ChargeBill bill = chargeServer.getBill(id);
 
@@ -360,6 +361,8 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 			}
 
 			else {
+				input.remove(search);
+				input.repaint();
 				initTableModel();
 			}
 

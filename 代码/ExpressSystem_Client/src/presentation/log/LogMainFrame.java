@@ -84,21 +84,7 @@ public class LogMainFrame extends RightAll implements ActionListener {
 		cancel.setBounds(frameWidth * 9 / 16, frameHeight * 93 / 128,
 				frameWidth * 7 / 48, frameWidth / 20);
 		cancel.addActionListener(this);
-
-		// //左栏按钮贴图
-		// ImageIcon icon0 = new ImageIcon("pictures//确认.png");
-		// Image temp0 = icon0.getImage().getScaledInstance(confirm.getWidth(),
-		// confirm.getHeight(), icon0.getImage().SCALE_DEFAULT);
-		// icon0 = new ImageIcon(temp0);
-		// confirm.setIcon(icon0);
-		//
-		// //左栏按钮贴图
-		// ImageIcon icon1 = new ImageIcon("pictures//取消.png");
-		// Image temp1 = icon1.getImage().getScaledInstance(cancel.getWidth(),
-		// cancel.getHeight(), icon1.getImage().SCALE_DEFAULT);
-		// icon1 = new ImageIcon(temp1);
-		// cancel.setIcon(icon1);
-
+ 
 		jtf.setBounds(frameWidth * 38 / 112, frameHeight * 57 / 128, 300, 50);
 		jtf.setFont(new Font("宋体", Font.PLAIN, 28));
 		jtf.setOpaque(false);
