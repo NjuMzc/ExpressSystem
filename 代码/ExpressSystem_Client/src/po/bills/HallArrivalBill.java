@@ -5,9 +5,6 @@ package po.bills;
 
 import java.io.Serializable;
 import java.rmi.Remote;
-import java.util.Iterator;
-
-import po.Message;
   
 public class HallArrivalBill implements Serializable,Remote{
 
@@ -40,7 +37,7 @@ public class HallArrivalBill implements Serializable,Remote{
 			this.state="BAD";
 		}
 		//单据编号和中转单编号相同
-		this.id=transOrderNum+goodID;
+		this.id=transOrderNum;
 		this.goodID=GoodID;
 		approveBill = new BillApproverPO();
 	}

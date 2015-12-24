@@ -89,7 +89,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 		searchpanel = new JPanel();
 		searchpanel.setLayout(null);
 		searchpanel.setBounds(frameWidth / 16, frameHeight / 5 * 3,
-				frameWidth / 5 * 3, frameHeight / 10);
+				frameWidth / 8 * 5, frameHeight / 10);
 		searchlable = new JLabel[2];
 		searchjtf = new JTextField[2];
 		for (int i = 0; i < 2; i++) {
@@ -137,7 +137,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 		addpanel = new JPanel();
 		addpanel.setLayout(null);
 		addpanel.setBounds(frameWidth / 16, frameHeight / 5 * 3,
-				frameWidth / 5 * 3, frameHeight / 10);
+				frameWidth / 8 * 5, frameHeight / 10);
 		addlable = new JLabel[2];
 		addjtf = new JTextField[2];
 		for (int i = 0; i < 2; i++) {
@@ -176,7 +176,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 		changepanel = new JPanel();
 		changepanel.setLayout(null);
 		changepanel.setBounds(frameWidth / 16, frameHeight / 5 * 3,
-				frameWidth / 5 * 3, frameHeight / 10);
+				frameWidth / 8 * 5, frameHeight / 10);
 		changelable = new JLabel[2];
 		changejtf = new JTextField[2];
 		for (int i = 0; i < 2; i++) {
@@ -198,6 +198,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 			changepanel.add(changelable[i]);
 			changepanel.add(changejtf[i]);
 		}
+		changejtf[1].setEditable(false);
 		changeover.setBounds(frameWidth / 2, frameHeight / 22,
 				frameHeight / 19, frameHeight / 19);
 
@@ -226,34 +227,6 @@ public class AccountantManage extends RightAll implements ActionListener {
 			jb[i].setBounds(frameWidth / 10 + frameWidth / 20 * 3 * i,
 					frameHeight / 10 * 9, frameWidth / 10, frameHeight / 19);
 			jb[i].addActionListener(this);
-
-			// ImageIcon icon3 = new ImageIcon("pictures//查询.png");
-			// Image temp3 =
-			// icon3.getImage().getScaledInstance(icon3.getIconWidth(),
-			// icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
-			// icon3= new ImageIcon(temp3);
-			// jb[3].setIcon(icon3);
-			//
-			// ImageIcon icon0 = new ImageIcon("pictures//增加.png");
-			// Image temp0 =
-			// icon0.getImage().getScaledInstance(icon0.getIconWidth(),
-			// icon0.getIconHeight(), icon0.getImage().SCALE_DEFAULT);
-			// icon0= new ImageIcon(temp0);
-			// jb[0].setIcon(icon0);
-			//
-			// ImageIcon icon1 = new ImageIcon("pictures//删除.png");
-			// Image temp1 =
-			// icon1.getImage().getScaledInstance(icon1.getIconWidth(),
-			// icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
-			// icon1= new ImageIcon(temp1);
-			// jb[1].setIcon(icon1);
-			//
-			// ImageIcon icon2 = new ImageIcon("pictures//修改.png");
-			// Image temp2 =
-			// icon2.getImage().getScaledInstance(icon2.getIconWidth(),
-			// icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
-			// icon2= new ImageIcon(temp2);
-			// jb[2].setIcon(icon2);
 		}
 	}
 
@@ -302,6 +275,10 @@ public class AccountantManage extends RightAll implements ActionListener {
 				this.remove(searchpanel);
 			}
 			addAddPanel();
+			for (int i = 0; i < 4; i++) {
+				this.remove(jb[i]);
+			}
+			this.repaint();
 		} else if (e.getSource() == jb[1]) {
 			if (addpanel != null) {
 				this.remove(addpanel);
@@ -313,6 +290,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 			if (selectedRow >= 0) {
 				model.removeRow(selectedRow);
 			}
+
 		} else if (e.getSource() == jb[2]) {
 			if (addpanel != null) {
 				this.remove(addpanel);
@@ -331,7 +309,13 @@ public class AccountantManage extends RightAll implements ActionListener {
 				vec.add(table.getValueAt(row, 1).toString());
 				addChangePanel(vec);
 				model.removeRow(row);
+
+				for (int i = 0; i < 4; i++) {
+					this.remove(jb[i]);
+				}
 			}
+
+			this.repaint();
 		} else if (e.getSource() == jb[3]) {
 			if (addpanel != null) {
 				this.remove(addpanel);
@@ -341,6 +325,9 @@ public class AccountantManage extends RightAll implements ActionListener {
 			}
 
 			addSearchPanel();
+			for (int i = 0; i < 4; i++) {
+				this.remove(jb[i]);
+			}
 			this.repaint();
 		}
 
@@ -353,6 +340,9 @@ public class AccountantManage extends RightAll implements ActionListener {
 			model.addRow(vec);
 
 			this.remove(addpanel);
+			for (int i = 0; i < 4; i++) {
+				this.add(jb[i]);
+			}
 			this.repaint();
 		} else if (e.getSource() == changeover) {
 			Vector<String> vec = new Vector<>();
@@ -362,10 +352,16 @@ public class AccountantManage extends RightAll implements ActionListener {
 			model.addRow(vec);
 
 			this.remove(changepanel);
+			for (int i = 0; i < 4; i++) {
+				this.add(jb[i]);
+			}
 			this.repaint();
 
 		} else if (e.getSource() == searchover) {
 			this.remove(searchpanel);
+			for (int i = 0; i < 4; i++) {
+				this.add(jb[i]);
+			}
 			this.repaint();
 		}
 
@@ -373,6 +369,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 			searchpanel.add(searchjtf[1]);
 			searchpanel.add(searchlable[1]);
 			searchpanel.add(searchover);
+			searchpanel.remove(search);
 			this.repaint();
 		}
 

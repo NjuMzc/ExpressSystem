@@ -22,6 +22,11 @@ public class GetRecordServerImpl implements GetRecord {
 	@Override
 	public RecordVO getRecord(String start, String end) {
 		// TODO Auto-generated method stub
+		if(!DateHelper.compare(start, end)){
+			RecordVO result=new RecordVO("日期输入错误!");
+			return result;
+		}
+		
 		Iterator<PaymentBill> paymentbills=paymentServer.getAll();
 		Iterator<ChargeBill> chargebills=chargeServer.getAll();
 		

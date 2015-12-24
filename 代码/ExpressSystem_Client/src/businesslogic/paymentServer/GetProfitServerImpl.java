@@ -22,6 +22,10 @@ public class GetProfitServerImpl implements GetProfitServer {
 	@Override
 	public ProfitVO getProfit(String start, String end) {
 		// TODO Auto-generated method stub
+		if(!DateHelper.compare(start, end)){
+			ProfitVO result=new ProfitVO("日期输入错误!");
+			return result;
+		}
 		Iterator<PaymentBill> paymentbills=paymentServer.getAll();
 		Iterator<ChargeBill> chargebills=chargeServer.getAll();
 		

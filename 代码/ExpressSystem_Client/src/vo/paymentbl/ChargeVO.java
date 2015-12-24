@@ -17,6 +17,7 @@ public class ChargeVO {
 	private ExceptionMessage exMessage;//错误信息
 	
 	public ChargeVO() {
+		orderNumbers=new ArrayList<>();
         exMessage=new ExceptionMessage();
 	}
 	

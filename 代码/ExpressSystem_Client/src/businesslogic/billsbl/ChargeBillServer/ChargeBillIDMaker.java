@@ -1,5 +1,6 @@
 package businesslogic.billsbl.ChargeBillServer;
 
+import businesslogic.DateHelper;
 import po.bills.ChargeBill;
 import client.RMIHelper;
 import dataservice.billsdataservice.ChargeBillDataServer;
@@ -16,7 +17,9 @@ public class ChargeBillIDMaker {
 		result+=bill.getDate();
 		String FlowNum="000";
 		
-		result=bill.getDate()+FlowNum;
+		String date=DateHelper.changeFormat(bill.getDate());
+		
+		result=date+FlowNum;
 		while(dataServer.findBill(result)!=null){
 			
 			int flow=Integer.valueOf(FlowNum);
@@ -31,7 +34,7 @@ public class ChargeBillIDMaker {
 				return null;
 			}
 				
-			result=bill.getDate()+FlowNum;
+			result=date+FlowNum;
 		}
 		return result;		
 	}
