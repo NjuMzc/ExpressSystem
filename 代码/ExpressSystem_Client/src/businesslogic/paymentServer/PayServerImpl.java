@@ -79,7 +79,7 @@ public class PayServerImpl implements PayServer {
 		
 		payInform=new PayVO(bill);
 		
-		return null;
+		return new PayVO();
 	}
 
 }

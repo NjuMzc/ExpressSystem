@@ -202,6 +202,10 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 	}
 
 	private void addAddPanel() {
+		if (addPanel != null) {
+			this.remove(addPanel);
+
+		}
 		addPanel = new JPanel();
 		jta = new JTextArea();
 		addPanel.setLayout(null);
@@ -240,6 +244,7 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		addPanel.add(jta);
 
 		this.add(addPanel);
+
 		this.repaint();
 
 	}

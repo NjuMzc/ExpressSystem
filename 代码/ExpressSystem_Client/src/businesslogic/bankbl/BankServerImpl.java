@@ -32,9 +32,10 @@ public class BankServerImpl implements bankServer {
 	public BankVO addBank(String name, String balance) {
 		// TODO Auto-generated method stub
 		if (dataServer.find(name) != null){
-			BankVO result=new BankVO("该名字单据已存在！");
+			BankVO result=new BankVO("该名字银行已存在！");
 			return result;
-		}else if(balance==""||name==""){
+		}
+		if(balance.equals("")||name.equals("")){
 			BankVO result=new BankVO("账户信息尚不完全请补充！");
 			return result;
 		}
@@ -45,7 +46,7 @@ public class BankServerImpl implements bankServer {
 			BankVO result=new BankVO("输入的数据格式不正确！");
 			return result;
 		}
-		
+
 		
 			BankPO bank = new BankPO(name, Double.valueOf(balance));
 			dataServer.insert(bank);
@@ -134,11 +135,12 @@ public class BankServerImpl implements bankServer {
 		} else {
 			double gold = Double.valueOf(money);
 			double balance = bank.getBalance();
-			double newBalance = gold - balance;
+			double newBalance = balance-gold;
 			if (newBalance < 0) {
-				System.out.println("余额不足！");
+				System.out.println(gold+" "+balance+" "+newBalance);
 				return false;
 			} else {
+			    new java.text.DecimalFormat("#.00").format(newBalance);
 				bank.setBalance(newBalance);
 				dataServer.update(bank);
 				return true;

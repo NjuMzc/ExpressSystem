@@ -10,12 +10,15 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import po.Workers.DriverPO;
+import businesslogic.bankbl.BankServerImpl;
+import businesslogicservice.bankblservice.bankServer;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
 public class AccountantMakebill_ONE extends RightAll implements ActionListener {
+	bankServer bankServer;
+	
 	int frameWidth;
 	int frameHeight;
 	private List<Watcher> list;
@@ -39,6 +42,8 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 	JButton changeover;
 
 	public AccountantMakebill_ONE(int frameWidth, int frameHeight) {
+		bankServer=new BankServerImpl();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 		list = new ArrayList<Watcher>();
@@ -268,6 +273,17 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 			model.addRow(vec);
 		}
 
+		if(e.getSource() == allover){
+			int row=table.getRowCount();
+			
+			for(int i=0;i<row;i++){
+				String name=table.getValueAt(i, 0).toString();
+				String money=table.getValueAt(i, 1).toString();
+				bankServer.addBank(name, money);
+			}
+	
+			
+		}
 	}
 
 }

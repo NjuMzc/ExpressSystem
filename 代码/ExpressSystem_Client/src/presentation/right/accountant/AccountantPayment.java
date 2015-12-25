@@ -151,13 +151,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		type.addItem("奖励");
 		type.setBounds(frameWidth / 4, frameHeight / 15 + frameHeight
 						/ 8 * 3, frameWidth / 10, frameHeight / 20);
-		jtf[1].addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if (!Character.isDigit(e.getKeyChar())) {
-					e.consume();
-				}
-			}
-		});
+		
 		jtf[3].addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!=KeyEvent.VK_PERIOD) {
@@ -276,7 +270,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 
 			String payer = jtf[0].getText();
 			String account = jtf[1].getText();
-			String tiaoMu = jtf[2].getText();
+			String tiaoMu = type.getSelectedItem().toString();
 			String money = jtf[3].getText();
 			String beiZhu = jtf[4].getText();
 

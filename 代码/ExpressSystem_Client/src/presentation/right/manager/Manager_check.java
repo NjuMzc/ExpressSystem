@@ -3,6 +3,7 @@ package presentation.right.manager;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -11,11 +12,16 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.*;
 
+import businesslogic.billsbl.approver.BillApproverServerImpl;
+import businesslogicservice.billApprover.BillApproveServer;
+import po.bills.BillApproverPO;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
 public class Manager_check extends RightAll implements ActionListener {
+	BillApproveServer approver;
+	
 	int frameWidth;
 	int frameHeight;
 	JButton allpass;
@@ -33,6 +39,7 @@ public class Manager_check extends RightAll implements ActionListener {
 	int currentRow;
 
 	public Manager_check(int frameWidth, int frameHeight) {
+		approver=new BillApproverServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -167,25 +174,38 @@ public class Manager_check extends RightAll implements ActionListener {
 	private void initJta() {
 		// 单据显示
 
-		billJta.append("收款单\r\n");
-		billJta.append("时间\r\n");
-		billJta.append("金额\r\n");
-		billJta.append("位置\r\n");
-		billJta.append("到达地\r\n");
+		BillApproverPO bill=approver.getByNum(currentRow);
+		Iterator<String> things=bill.getInform();
+		
+		while(things.hasNext()){
+			billJta.append(things.next()+"\r\n");
+		}
 		billJta.setEditable(false);
 	}
 
 	private void initTableModel() {
-		Vector<Object> vec = new Vector<Object>();
-		vec.add(new Boolean(false));
-		vec.add("1");
-		vec.add("2015.10.1");
-		vec.add("入库单");
-		vec.add("123456789");
-
-		for (int i = 0; i < 10; i++) {
+		Iterator<BillApproverPO> list=approver.getList();
+		int counter=1;
+		
+		while(list.hasNext()){
+			BillApproverPO bill=list.next();
+			Iterator<String>  easeInform=bill.getEaseInform();
+			
+			Vector<Object> vec = new Vector<Object>();
+			vec.add(new Boolean(false));
+			vec.add(String.valueOf(counter));
+			vec.add(easeInform.next());
+			vec.add(easeInform.next());
+			vec.add(easeInform.next());
+			
+			counter++;
+			
 			model.addRow(vec);
 		}
+		
+	
+
+		
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -205,9 +225,11 @@ public class Manager_check extends RightAll implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == pass) {
 			// 单个审批通过
+			approver.accept(currentRow);
 			pass();
 		} else if (e.getSource() == notpass) {
 			// 单个审批不通过
+			approver.accept(currentRow);
 		}
 
 		if (e.getSource() == allpass) {
@@ -217,6 +239,8 @@ public class Manager_check extends RightAll implements ActionListener {
 						.getCellEditor().getCellEditorValue());
 			}
 		}
+		
+		initTableModel();
 	}
 
 	private void pass() {
