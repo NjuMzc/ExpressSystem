@@ -64,38 +64,55 @@ public class RMIHelper {
 	private static ImportBillDataServer importBillData;
 	private static SalaryDataServer salaryData;
 
+	private static String IpAddress = "127.0.0.1";
+	private static String port = "1099";
+
 	public static void init() {
 		try {
-			systemData = (SystemDataServer) Naming.lookup("rmi://localhost:1099/systemData");
-			orderBillData = (OrderBillDataServer) Naming.lookup("rmi://localhost:1099/orderBillData");
-			transportData = (TransportDataServer) Naming.lookup("rmi://localhost:1099/transportData");
-			receiveBillData = (ReceiveBillDataServer) Naming.lookup("rmi://localhost:1099/receiveBillData");
-			bankData = (BankDataServer) Naming.lookup("rmi://localhost:1099/bankData");
-			hallData = (Inform_HallDataServer) Naming.lookup("rmi://localhost:1099/hallData");
-			hallStaffData = (Inform_HallStaffDataServer) Naming.lookup("rmi://localhost:1099/hallStaffData");
-			keeperData = (Inform_KeeperDataServer) Naming.lookup("rmi://localhost:1099/keeperData");
-			storageData = (Inform_StorageDataServer) Naming.lookup("rmi://localhost:1099/storageData");
-			tranStaffData = (Inform_TranStaffDataServer) Naming.lookup("rmi://localhost:1099/tranStaffData");
-			tranStationData = (Inform_TranStationDataServer) Naming.lookup("rmi://localhost:1099/tranStationData");
-			hallArrivalBillData = (HallArrivalBillDataServer) Naming.lookup("rmi://localhost:1099/hallArrivalBillData");
-			chargeBillData = (ChargeBillDataServer) Naming.lookup("rmi://localhost:1099/chargeBillData");
-			deliveryBillData = (DeliveryBillDataServer) Naming.lookup("rmi://localhost:1099/deliveryBillData");
-			hallEntruckData = (HallEntruckBillDataServer) Naming.lookup("rmi://localhost:1099/hallEntruckBillData");
-			paymentBillData = (PaymentBillDataServer) Naming.lookup("rmi://localhost:1099/paymentBillData");
-			sendingBillData = (SendingBillDataServer) Naming.lookup("rmi://localhost:1099/sendingBillData");
+			systemData = (SystemDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/systemData");
+			orderBillData = (OrderBillDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/orderBillData");
+			transportData = (TransportDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/transportData");
+			receiveBillData = (ReceiveBillDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/receiveBillData");
+			bankData = (BankDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/bankData");
+			hallData = (Inform_HallDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/hallData");
+			hallStaffData = (Inform_HallStaffDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/hallStaffData");
+			keeperData = (Inform_KeeperDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/keeperData");
+			storageData = (Inform_StorageDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/storageData");
+			tranStaffData = (Inform_TranStaffDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/tranStaffData");
+			tranStationData = (Inform_TranStationDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/tranStationData");
+			hallArrivalBillData = (HallArrivalBillDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/hallArrivalBillData");
+			chargeBillData = (ChargeBillDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/chargeBillData");
+			deliveryBillData = (DeliveryBillDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/deliveryBillData");
+			hallEntruckData = (HallEntruckBillDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/hallEntruckBillData");
+			paymentBillData = (PaymentBillDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/paymentBillData");
+			sendingBillData = (SendingBillDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/sendingBillData");
 			transArrivalBillData = (TransArrivalBillDataServer) Naming
-					.lookup("rmi://localhost:1099/transArrivalBillData");
+					.lookup("rmi://" + IpAddress + ":" + port + "/transArrivalBillData");
 			transEntruckBillData = (TransEntruckBillDataServer) Naming
-					.lookup("rmi://localhost:1099/transEntruckBillData");
-			priceListData = (PriceListDataServer) Naming.lookup("rmi://localhost:1099/priceListData");
-			cityDistanceData = (CityDistanceDataServer) Naming.lookup("rmi://localhost:1099/cityDistanceData");
-			carData = (Inform_CarDataServer) Naming.lookup("rmi://localhost:1099/carData");
-			driverData = (Inform_DriverDataServer) Naming.lookup("rmi://localhost:1099/driverData");
-			cityData = (CityDataServer) Naming.lookup("rmi://localhost:1099/cityData");
-			billApproverData = (BillApproverDataServer) Naming.lookup("rmi://localhost:1099/billApproverData");
-			exportBillData = (ExportBillDataServer) Naming.lookup("rmi://localhost:1099/exportBillData");
-			importBillData = (ImportBillDataServer) Naming.lookup("rmi://localhost:1099/importBillData");
-			salaryData = (SalaryDataServer) Naming.lookup("rmi://localhost:1099/salaryData");
+					.lookup("rmi://" + IpAddress + ":" + port + "/transEntruckBillData");
+			priceListData = (PriceListDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/priceListData");
+			cityDistanceData = (CityDistanceDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/cityDistanceData");
+			carData = (Inform_CarDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/carData");
+			driverData = (Inform_DriverDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/driverData");
+			cityData = (CityDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/cityData");
+			billApproverData = (BillApproverDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/billApproverData");
+			exportBillData = (ExportBillDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/exportBillData");
+			importBillData = (ImportBillDataServer) Naming
+					.lookup("rmi://" + IpAddress + ":" + port + "/importBillData");
+			salaryData = (SalaryDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/salaryData");
 
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
