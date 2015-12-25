@@ -176,6 +176,20 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		icon3= new ImageIcon(temp3);
 		add.setIcon(icon3);
 		add.addActionListener(this);
+		jtf[0].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		jtf[5].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 		
 		initTable();
 
@@ -332,6 +346,9 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 				orderList.add(tableModel.getValueAt(i, 0).toString());
 			}
 			TransEntruckBill bill=blServer.makeBill(message, orderList.iterator());
+		    for(int i=0;i<7;i++){
+		    	jtf[i].setEditable(false);
+		    }
 		}
 
 		if (e.getSource() == add) {

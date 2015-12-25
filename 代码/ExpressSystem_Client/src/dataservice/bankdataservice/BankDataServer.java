@@ -14,6 +14,6 @@ public interface BankDataServer extends Remote {
 
 	public void update(BankPO po);
 
-	public ArrayList getAllBank();
+	public ArrayList<BankPO> getAllBank();
 
 }

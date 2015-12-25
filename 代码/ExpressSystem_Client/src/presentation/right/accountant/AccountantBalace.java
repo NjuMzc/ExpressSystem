@@ -160,6 +160,13 @@ public class AccountantBalace extends RightAll implements ActionListener {
 
 		back.setBounds(frameWidth / 4, frameHeight / 10 * 9, frameWidth / 10,
 				frameHeight / 19);
+		inputNum.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 
 		ImageIcon icon1 = new ImageIcon("pictures//返回小.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),

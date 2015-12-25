@@ -27,6 +27,10 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 	JTextField jtf_num;
 	JTextField jtf_name;
 
+	boolean isSmall = true;
+	JButton jingying;
+	JButton chengben;
+
 	public ManagerPanel(int frameWidth, int frameHeight) {
 
 		this.frameWidth = frameWidth;
@@ -49,6 +53,9 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 
 		jtf_name = new JTextField();
 		jtf_num = new JTextField();
+
+		jingying = new JButton("查看经营情况表");
+		chengben = new JButton("查看成本收益表");
 
 		init();
 
@@ -78,6 +85,13 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 					frameWidth / 4, frameHeight / 13);
 			jb[i].addActionListener(this);
 		}
+
+		jingying.setBounds(0, frameHeight / 3 + frameHeight / 13 * 5,
+				frameWidth / 4, frameHeight / 26);
+		chengben.setBounds(0, frameHeight / 3 + frameHeight / 13 * 5
+				+ frameHeight / 26, frameWidth / 4, frameHeight / 26);
+		jingying.addActionListener(this);
+		chengben.addActionListener(this);
 
 		ImageIcon icon0 = new ImageIcon("pictures//人员机构管理.png");
 		Image temp0 = icon0.getImage().getScaledInstance(jb[0].getWidth(),
@@ -126,28 +140,65 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 				frameWidth / 17, frameWidth / 17);
 		close.addActionListener(this);
 
-		jtf_name.setBounds(frameWidth / 10, frameHeight / 64*15, frameWidth / 10,
-				frameHeight / 30);
-		jtf_num.setBounds(frameWidth / 10, frameHeight / 64*18,
+		jtf_name.setBounds(frameWidth / 10, frameHeight / 64 * 15,
 				frameWidth / 10, frameHeight / 30);
-		
+		jtf_num.setBounds(frameWidth / 10, frameHeight / 64 * 18,
+				frameWidth / 10, frameHeight / 30);
+
 		jtf_name.setText(SystemHelper.getUserName());
 		jtf_name.setEditable(false);
 		jtf_num.setText(SystemHelper.getUserID());
 		jtf_num.setEditable(false);
 	}
 
+	private void handleIsSmall() {
+
+		this.add(jingying);
+		this.add(chengben);
+		this.repaint();
+		this.isSmall = false;
+	}
+
+	private void handleIsNotSmall() {
+		this.remove(jingying);
+		this.remove(chengben);
+		this.repaint();
+		this.isSmall = true;
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == jb[0]) {
+			if (!isSmall) {
+				handleIsNotSmall();
+			}
 			this.notifyWatchers(State.MANAGERMANAGE);
 		} else if (e.getSource() == jb[1]) {
+			if (!isSmall) {
+				handleIsNotSmall();
+			}
 			this.notifyWatchers(State.MANAGERMAKEMONEY);
 		} else if (e.getSource() == jb[2]) {
+			if (!isSmall) {
+				handleIsNotSmall();
+			}
 			this.notifyWatchers(State.MANAGERMAKECONSTANT);
 		} else if (e.getSource() == jb[3]) {
+			if (!isSmall) {
+				handleIsNotSmall();
+			}
 			this.notifyWatchers(State.MANAGERCHECK);
 		} else if (e.getSource() == jb[4]) {
-			this.notifyWatchers(State.MANAGERFIND);
+			if (isSmall) {
+				handleIsSmall();
+			} else {
+				handleIsNotSmall();
+			}
+		}
+		
+		if(e.getSource()==jingying){
+			this.notifyWatchers(State.ACCOUNTANTMAKESHEET);
+		}else if(e.getSource()==chengben){
+			this.notifyWatchers(State.ACCOUNTANTCOST);
 		}
 
 		if (e.getSource() == logout) {

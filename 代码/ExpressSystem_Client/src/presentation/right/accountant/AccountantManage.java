@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -14,12 +15,19 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.bankbl.BankServerImpl;
+import businesslogicservice.bankblservice.bankServer;
 import po.Workers.CarPO;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
+import vo.BankVO;
 
 public class AccountantManage extends RightAll implements ActionListener {
+	bankServer blServer;
+	BankVO result;
+	String tempName;
+	
 	int frameWidth;
 	int frameHeight;
 	private List<Watcher> list;
@@ -48,6 +56,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 	JButton search;
 
 	public AccountantManage(int frameWidth, int frameHeight) {
+		blServer=new BankServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -269,11 +278,16 @@ public class AccountantManage extends RightAll implements ActionListener {
 
 	private void initTableModel() {
 
-		Vector<String> vec = new Vector<>();
-		vec.add("人民银行");
-		vec.add("100,000");
+		Iterator<BankVO> list=blServer.getAll();
+		while(list.hasNext()){
+			BankVO bank=list.next();
+			Vector<String> vec = new Vector<>();
+			vec.add(bank.getName());
+			vec.add(bank.getMoney());
 
-		model.addRow(vec);
+			model.addRow(vec);
+		}
+		
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -304,7 +318,10 @@ public class AccountantManage extends RightAll implements ActionListener {
 				this.remove(jb[i]);
 			}
 			this.repaint();
-		} else if (e.getSource() == jb[1]) {
+		} 
+		  else if (e.getSource() == jb[1]) {
+			  //删除账户
+			 
 			if (addpanel != null) {
 				this.remove(addpanel);
 			}
@@ -313,7 +330,19 @@ public class AccountantManage extends RightAll implements ActionListener {
 			}
 			int selectedRow = table.getSelectedRow();
 			if (selectedRow >= 0) {
-				model.removeRow(selectedRow);
+				String name=table.getValueAt(selectedRow, 0).toString();
+				
+				result=blServer.removeBank(name);
+				
+				if(result.isWrong()){
+					//错误信息处理
+					
+					
+				}else{
+					
+					model.removeRow(selectedRow);
+				}
+				
 			}
 
 		} else if (e.getSource() == jb[2]) {
@@ -329,6 +358,8 @@ public class AccountantManage extends RightAll implements ActionListener {
 			// 改
 			int row = table.getSelectedRow();
 			if (row >= 0) {
+				tempName=table.getValueAt(row, 0).toString();
+				
 				Vector<String> vec = new Vector<String>();
 				vec.add(table.getValueAt(row, 0).toString());
 				vec.add(table.getValueAt(row, 1).toString());
@@ -358,29 +389,53 @@ public class AccountantManage extends RightAll implements ActionListener {
 
 		// 增加成功
 		if (e.getSource() == addover) {
-			Vector<String> vec = new Vector<>();
-			vec.add(addjtf[0].getText());
-			vec.add(addjtf[1].getText());
+			result=blServer.addBank(addjtf[0].getText(),addjtf[1].getText());
+			
+			if(result.isWrong()){
+				//错误信息处理
+				
+			}else{
 
-			model.addRow(vec);
+				Vector<String> vec = new Vector<>();
+				vec.add(addjtf[0].getText());
+				vec.add(addjtf[1].getText());
 
-			this.remove(addpanel);
-			for (int i = 0; i < 4; i++) {
-				this.add(jb[i]);
+				
+				model.addRow(vec);
+
+				this.remove(addpanel);
+				for (int i = 0; i < 4; i++) {
+					this.add(jb[i]);
+				}
+				this.repaint();
 			}
-			this.repaint();
+			
 		} else if (e.getSource() == changeover) {
 			Vector<String> vec = new Vector<>();
 			vec.add(changejtf[0].getText());
 			vec.add(changejtf[1].getText());
 
-			model.addRow(vec);
+			
 
-			this.remove(changepanel);
-			for (int i = 0; i < 4; i++) {
-				this.add(jb[i]);
+			result=blServer.changeBankName(tempName, changejtf[0].getText());
+			
+			if(result.isWrong()){
+				//错误信息处理
+				System.out.println(result.getWrongMessage());
+				System.out.println(result.getName());
 			}
-			this.repaint();
+			else{
+				System.out.println(result.getName());
+				model.addRow(vec);
+				
+				this.remove(changepanel);
+				for (int i = 0; i < 4; i++) {
+					this.add(jb[i]);
+				}
+				this.repaint();
+			}
+			
+			
 
 		} else if (e.getSource() == searchover) {
 			this.remove(searchpanel);
@@ -391,11 +446,23 @@ public class AccountantManage extends RightAll implements ActionListener {
 		}
 
 		if (e.getSource() == search) {
-			searchpanel.add(searchjtf[1]);
-			searchpanel.add(searchlable[1]);
-			searchpanel.add(searchover);
-			searchpanel.remove(search);
-			this.repaint();
+            result=blServer.inquireBank(searchjtf[0].getText());
+            
+            if(result.isWrong()){
+            	//错误信息处理
+            	
+            }else{
+            	searchjtf[1].setText(result.getMoney());
+            	searchjtf[1].setEditable(false);
+            	searchjtf[0].setEditable(false);
+            	
+    			searchpanel.add(searchjtf[1]);
+    			searchpanel.add(searchlable[1]);
+    			searchpanel.add(searchover);
+    			searchpanel.remove(search);
+    			this.repaint();
+            }
+		
 		}
 
 	}

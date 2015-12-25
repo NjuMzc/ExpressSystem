@@ -134,6 +134,20 @@ public class Ying_arrive extends RightAll implements ActionListener {
 			time[i].setFont(new Font("宋体",Font.PLAIN,14));
 			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
+		jtf[0].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 
 		jrb[0].setText("完好");
 		jrb[1].setText("丢失");

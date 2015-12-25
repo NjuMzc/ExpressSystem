@@ -46,8 +46,8 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	public Zhong_transfer(int frameWidth, int frameHeight) {
-		blServer=new Trans_DeliveryServerImpl();
-		
+		blServer = new Trans_DeliveryServerImpl();
+
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 
@@ -84,7 +84,7 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 		timeInput[1] = time1.getCboMonth();
 		timeInput[2] = time1.getCboDay();
 		type = new JComboBox<String>();
-		dtc=new ColorRenderer();
+		dtc = new ColorRenderer();
 
 		init();
 
@@ -128,6 +128,28 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 					/ 12 * i, frameWidth / 8, frameHeight / 20);
 			jl[i].setFont(new Font("宋体", Font.BOLD, 15));
 		}
+
+		jtf[0].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		jtf[4].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		jtf[5].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 
 		add.setBounds(frameWidth / 3, frameHeight / 12 * 6, frameHeight / 19,
 				frameHeight / 19);
@@ -232,6 +254,21 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 		});
 		jtf[4].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER
+						|| e.getKeyCode() == KeyEvent.VK_DOWN) {
+					jtf[5].requestFocus();
+				}
+			}
+		});
+		jtf[5].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+					jtf[4].requestFocus();
+				}
+			}
+		});
+		jtf[4].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[3].requestFocus();
 				}
@@ -267,8 +304,6 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 		jtable.getColumnModel().getColumn(0).setCellRenderer(dtc);
 	}
 
-
-
 	public void addWatcher(Watcher watcher) {
 		list.add(watcher);
 	}
@@ -287,21 +322,21 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.ZHONG_START);
 		} else if (e.getSource() == confirm) {
-			String kind=type.getSelectedItem().toString();
-			
-			String year=timeInput[0].getSelectedItem().toString();
-			String month=timeInput[1].getSelectedItem().toString();
-			String day=timeInput[2].getSelectedItem().toString();
-			
-			String date=year+"-"+month+"-"+day;
-			
-			String deliveryNum=jtf[0].getText();
-			String transNum=jtf[6].getText();
-			String departure=jtf[1].getText();
-			String destination=jtf[2].getText();
-			String supervisor=jtf[3].getText();
-			
-			Message message=new Message();
+			String kind = type.getSelectedItem().toString();
+
+			String year = timeInput[0].getSelectedItem().toString();
+			String month = timeInput[1].getSelectedItem().toString();
+			String day = timeInput[2].getSelectedItem().toString();
+
+			String date = year + "-" + month + "-" + day;
+
+			String deliveryNum = jtf[0].getText();
+			String transNum = jtf[6].getText();
+			String departure = jtf[1].getText();
+			String destination = jtf[2].getText();
+			String supervisor = jtf[3].getText();
+
+			Message message = new Message();
 			message.addInform(kind);
 			message.addInform(date);
 			message.addInform(deliveryNum);
@@ -309,18 +344,17 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 			message.addInform(departure);
 			message.addInform(destination);
 			message.addInform(supervisor);
-			
-			int row=tableModel.getRowCount();
-			ArrayList<String> orderList=new ArrayList<String>();
-			
-			for(int i=0;i<row;i++){
+
+			int row = tableModel.getRowCount();
+			ArrayList<String> orderList = new ArrayList<String>();
+
+			for (int i = 0; i < row; i++) {
 				orderList.add(tableModel.getValueAt(i, 0).toString());
 			}
-			
-			DeliveryBill bill=blServer.makeBill(message, orderList.iterator());
-			
-			
-			
+
+			DeliveryBill bill = blServer
+					.makeBill(message, orderList.iterator());
+
 			this.add(jl[8]);
 			this.add(jtf[6]);
 			this.remove(confirm);
@@ -331,9 +365,9 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 			over.addActionListener(this);
 			this.add(over);
 			this.repaint();
-			
+
 			jtf[5].setText(bill.getFee());
-			for(int i=0;i<7;i++){
+			for (int i = 0; i < 7; i++) {
 				jtf[i].setEditable(false);
 			}
 		}
@@ -348,10 +382,10 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 				jtf[4].setText("");
 			}
 		}
-		
-		if(e.getSource()==over){
+
+		if (e.getSource() == over) {
 			this.notifyWatchers(State.ZHONG_TRANSFER);
 		}
-		
+
 	}
 }
