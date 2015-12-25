@@ -64,7 +64,7 @@ public class RMIHelper {
 	private static ImportBillDataServer importBillData;
 	private static SalaryDataServer salaryData;
 
-	private static String IpAddress = "127.0.0.1";
+	private static String IpAddress = "localhost";
 	private static String port = "1099";
 
 	public static void init() {
