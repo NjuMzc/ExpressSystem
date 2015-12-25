@@ -1,7 +1,7 @@
 package businesslogic.paymentServer;
 
-import po.BankPO;
 import po.bills.PaymentBill;
+import vo.BankVO;
 import vo.exception.ExceptionMessage;
 import vo.paymentbl.PayVO;
 import businesslogic.bankbl.BankServerImpl;
@@ -22,7 +22,7 @@ public class PayServerImpl implements PayServer {
 	public PayVO makeBill(PayVO pay) {
 		// TODO Auto-generated method stub
 		PayVO payInform;
-		BankPO bank;
+		BankVO bank;
 		
 		//对输入的信息格式进行检查
 	    if(pay.getDate().equals("")){
@@ -59,7 +59,7 @@ public class PayServerImpl implements PayServer {
 			return payInform;
 		}
 		
-		if(bank.getBalance()<Double.valueOf(pay.getMoney())){
+		if(Double.valueOf(bank.getMoney()) < Double.valueOf(pay.getMoney())){
 			ExceptionMessage exMessage=new ExceptionMessage("目标银行账户余额不足！");
 			payInform=new PayVO(exMessage);
 			return payInform;
@@ -74,6 +74,8 @@ public class PayServerImpl implements PayServer {
 			payInform=new PayVO(exMessage);
 			return payInform;
 		}
+		
+		bankServer.giveMoney(bill.getAccount(), String.valueOf(bill.getMoney()));
 		
 		payInform=new PayVO(bill);
 		
