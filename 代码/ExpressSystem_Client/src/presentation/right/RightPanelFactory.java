@@ -19,9 +19,10 @@ import presentation.watcher.State;
 
 public class RightPanelFactory {
 
-	public RightAll createRightPanel(State state,int frameWidth,int frameHeight ){
+	public RightAll createRightPanel(State state, int frameWidth,
+			int frameHeight) {
 		RightAll right = null;
-		
+
 		if (state == State.COURIERSTART) {
 			right = new StartPanel(frameWidth, frameHeight);
 		} else if (state == State.COURIERMAKEBILL) {
@@ -48,7 +49,7 @@ public class RightPanelFactory {
 			right = new Ying_collect(frameWidth, frameHeight);
 		} else if (state == State.YING_ARRIVE) {
 			right = new Ying_arrive(frameWidth, frameHeight);
-		}else if (state == State.YING_PAYMENT) {
+		} else if (state == State.YING_PAYMENT) {
 			right = new Ying_payment(frameWidth, frameHeight);
 		} else if (state == State.YING_LOADING) {
 			right = new Ying_loading(frameWidth, frameHeight);
@@ -60,11 +61,11 @@ public class RightPanelFactory {
 			right = new AccountantStart(frameWidth, frameHeight);
 		} else if (state == State.ACCOUNTANTMAKEBILL_ONE) {
 			right = new AccountantMakebill_ONE(frameWidth, frameHeight);
-		}  else if (state == State.ACCOUNTANTMAKEBILL_TWO) {
+		} else if (state == State.ACCOUNTANTMAKEBILL_TWO) {
 			right = new AccountantMakebill_TWO(frameWidth, frameHeight);
 		} else if (state == State.ACCOUNTANTMAKEBILL_THREE) {
 			right = new AccountantMakebill_THREE(frameWidth, frameHeight);
-		}else if (state == State.ACCOUNTANTMAKESHEET) {
+		} else if (state == State.ACCOUNTANTMAKESHEET) {
 			right = new AccountantMakeSheet(frameWidth, frameHeight);
 		} else if (state == State.ACCOUNTANTPAYMENT) {
 			right = new AccountantPayment(frameWidth, frameHeight);
@@ -78,7 +79,7 @@ public class RightPanelFactory {
 			right = new StockmanStart(frameWidth, frameHeight);
 		} else if (state == State.STOCKMANINSTOCK) {
 			right = new StockmanInStock(frameWidth, frameHeight);
-		}  else if (state == State.STOCKMANOUTSTOCK) {
+		} else if (state == State.STOCKMANOUTSTOCK) {
 			right = new StockmanOutStock(frameWidth, frameHeight);
 		} else if (state == State.STOCKMANOUTSTOCKAFTER) {
 			right = new StockmanOutStockAfter(frameWidth, frameHeight);
@@ -98,16 +99,14 @@ public class RightPanelFactory {
 			right = new Manager_Manage(frameWidth, frameHeight);
 		} else if (state == State.MANAGERCHECK) {
 			right = new Manager_check(frameWidth, frameHeight);
-		} else if (state == State.MANAGERFIND) {
-			right = new Manager_find(frameWidth, frameHeight);
 		} else if (state == State.ADMINSTART) {
 			right = new adminStart(frameWidth, frameHeight);
 		} else if (state == State.ADMINMANAGE) {
 			right = new adminManage(frameWidth, frameHeight);
-		}  else if (state == State.COURIERSEARCHAFTER) {
+		} else if (state == State.COURIERSEARCHAFTER) {
 			right = new CourierSearch_After(frameWidth, frameHeight);
 		}
-		
+
 		return right;
 	}
 }
