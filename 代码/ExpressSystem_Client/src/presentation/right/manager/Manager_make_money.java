@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,6 +172,23 @@ public class Manager_make_money extends RightAll implements ActionListener {
 			jtf2[i].setBounds(frameWidth / 100 * 50,
 					frameHeight / 10 * (i + 1), frameWidth / 16,
 					frameHeight / 20);
+
+			jtf1[i].addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					if (!Character.isDigit(e.getKeyChar())
+							&& e.getKeyChar() != KeyEvent.VK_PERIOD) {
+						e.consume();
+					}
+				}
+			});
+			jtf2[i].addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					if (!Character.isDigit(e.getKeyChar())
+							&& e.getKeyChar() != KeyEvent.VK_PERIOD) {
+						e.consume();
+					}
+				}
+			});
 		}
 
 		for (int i = 0; i < 3; i++) {
@@ -182,6 +201,14 @@ public class Manager_make_money extends RightAll implements ActionListener {
 			jtf3[i].setBounds(frameWidth / 124 * 79,
 					frameHeight / 10 * (i + 5), frameWidth / 16,
 					frameHeight / 20);
+			jtf3[i].addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					if (!Character.isDigit(e.getKeyChar())
+							&& e.getKeyChar() != KeyEvent.VK_PERIOD) {
+						e.consume();
+					}
+				}
+			});
 		}
 
 		for (int i = 0; i < 4; i++) {
@@ -215,6 +242,21 @@ public class Manager_make_money extends RightAll implements ActionListener {
 				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
 		icon2 = new ImageIcon(temp2);
 		ok.setIcon(icon2);
+
+		initData();
+
+	}
+
+	// 数据初始化
+	private void initData() {
+		for (int i = 0; i < 7; i++) {
+			jradiobutton1[i].setSelected(true);
+			jtf1[i].setText("1000");
+			jtf2[i].setEditable(false);
+		}
+		for (int i = 0; i < 3; i++) {
+			jtf3[i].setEditable(false);
+		}
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -240,7 +282,6 @@ public class Manager_make_money extends RightAll implements ActionListener {
 
 			salary = new String[7];
 			choice = new int[7];
-			
 
 			for (int i = 0; i < 7; i++) {
 				if (jradiobutton1[i].isSelected()) {
@@ -260,36 +301,52 @@ public class Manager_make_money extends RightAll implements ActionListener {
 					salary[i + 4] = jtf3[i].getText();
 				}
 			}
-		
-			for(int i=0;i<7;i++){
-				SalaryVO salaryVO=new SalaryVO(salary[i],  choice[i],i);
+
+			for (int i = 0; i < 7; i++) {
+				SalaryVO salaryVO = new SalaryVO(salary[i], choice[i], i);
 				blServer.setSalary(salaryVO);
 			}
-			
-			SalaryVO ss=blServer.getSalary("MANAGER");
-			System.out.println(ss.getStaffType()+" "+ss.getNum());
+
+			SalaryVO ss = blServer.getSalary("MANAGER");
+			System.out.println(ss.getStaffType() + " " + ss.getNum());
 		}
-	 
+
 		for (int i = 0; i < 7; i++) {
 			if (e.getSource() == jradiobutton1[i]) {
 				jtf2[i].setText("");
-				if(i<7&&i>3)
-				jtf3[i-4].setText("");
+				if (i < 7 && i > 3)
+					jtf3[i - 4].setText("");
+
+				jtf1[i].setEditable(true);
+				jtf2[i].setEditable(false);
+				if (i > 3 && i < 7) {
+					jtf3[i - 4].setEditable(false);
+				}
+
 			}
 
 			if (e.getSource() == jradiobutton2[i]) {
 				jtf1[i].setText("");
-				if(i<7&&i>3)
-				jtf3[i-4].setText("");
+				if (i < 7 && i > 3)
+					jtf3[i - 4].setText("");
+
+				jtf2[i].setEditable(true);
+				jtf1[i].setEditable(false);
+				if (i > 3 && i < 7) {
+					jtf3[i - 4].setEditable(false);
+				}
 			}
 		}
 		for (int i = 0; i < 3; i++) {
 			if (e.getSource() == jradiobutton3[i]) {
 				jtf1[i + 4].setText("");
 				jtf2[i + 4].setText("");
+
+				jtf3[i].setEditable(true);
+				jtf1[i + 4].setEditable(false);
+				jtf2[i + 4].setEditable(false);
 			}
 		}
-		
-		
+
 	}
 }
