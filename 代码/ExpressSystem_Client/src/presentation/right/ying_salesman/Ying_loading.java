@@ -140,6 +140,20 @@ public class Ying_loading extends RightAll implements ActionListener {
 					/ 225*25 * i, frameWidth / 7, frameHeight / 20);
 			jl[i].setFont(new Font("宋体",Font.BOLD,15));
 		}
+		jtf[0].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		jtf[6].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 
 		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10+frameHeight/30,
 				 frameWidth / 9,frameHeight / 16);

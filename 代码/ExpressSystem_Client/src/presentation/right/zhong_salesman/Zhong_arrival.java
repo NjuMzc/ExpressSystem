@@ -155,6 +155,16 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 			time[i].setFont(new Font("宋体",Font.PLAIN,15));
 			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
+		
+		for(int i=0;i<3;i++){
+			jtf[i].addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					if (!Character.isDigit(e.getKeyChar())) {
+						e.consume();
+					}
+				}
+			});
+		}
 
 		for (int i = 0; i < 3; i++) {
 			state[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,

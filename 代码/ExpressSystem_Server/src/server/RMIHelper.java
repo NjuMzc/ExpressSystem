@@ -2,6 +2,7 @@ package server;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
@@ -64,7 +65,7 @@ import dataservice.transportdataservice.TransportDataServer;
 
 public class RMIHelper {
 
-	private static String IpAddress = "127.0.0.1";
+	private static String IpAddress = "localhost";
 	private static String port = "1099";
 
 	public static void init() {
@@ -72,6 +73,9 @@ public class RMIHelper {
 		TimeCounter timeCounter = new TimeCounter();
 		timeCounter.start();
 		try {
+
+//			System.setProperty("java.rmi.server.hostname", "172.26.196.95");
+//			System.setSecurityManager(new RMISecurityManager());
 			LocateRegistry.createRegistry(1099);
 
 			SystemDataServer systemDataService = new SystemDataServerImpl();
