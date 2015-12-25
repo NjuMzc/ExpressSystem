@@ -97,27 +97,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 
 		int x = frameWidth / 4;
 		int y = frameHeight / 15;
-		// input[0].setText("寄件人信息");
-		// input[1].setText("姓名");
-		// input[2].setText("单位");
-		// input[3].setText("收件人信息");
-		// input[4].setText("姓名");
-		// input[5].setText("单位");
-		// input[6].setText("托运货物信息");
-		// input[7].setText("原件数");
-		// input[8].setText("尺寸");
-		// input[9].setText("包装费");
-		// input[10].setText("住址");
-		// input[11].setText("电话");
-		// input[12].setText("住址");
-		// input[13].setText("电话");
-		// input[14].setText("重量");
-		// input[15].setText("内件品名");
-		// input[16].setText("快递类型");
-		// input[17].setText("手机");
-		// input[18].setText("手机");
-		// input[19].setText("快递类型");
-		// input[20].setText("包装类型");
+	 
 		for (int i = 0; i < 10; i++) {
 			input[i].setBounds(0, frameHeight / 15 * i, frameWidth / 10,
 					frameHeight / 20);
@@ -191,9 +171,36 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		inputText[15].setBounds(x * 2 + frameWidth / 17,
 				(y + frameHeight / 100) * 5 + frameHeight / 31, width, height);
 		for (int i = 0; i < 16; i++) {
-			// inputText[i].setText(i+"");
 			inputText[i].setFont(new Font("宋体", Font.PLAIN, 13));
 		}
+		inputText[8].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		inputText[10].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		inputText[14].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		inputText[15].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 
 		// 输入栏焦点转移
 		inputText[0].addKeyListener(new KeyAdapter() {

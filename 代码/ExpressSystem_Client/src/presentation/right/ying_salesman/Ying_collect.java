@@ -123,6 +123,14 @@ public class Ying_collect extends RightAll implements ActionListener {
 			timeInput[i].setFont(new Font("宋体", Font.PLAIN, 14));
 		}
 
+		jtf[0].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		
 		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);

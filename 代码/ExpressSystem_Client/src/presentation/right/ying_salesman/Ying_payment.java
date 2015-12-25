@@ -155,6 +155,28 @@ public class Ying_payment extends RightAll implements ActionListener {
 			time[i].setFont(new Font("宋体", Font.PLAIN, 14));
 			timeInput[i].setFont(new Font("宋体", Font.PLAIN, 14));
 		}
+		jtf[0].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())
+						&& e.getKeyChar() != KeyEvent.VK_PERIOD) {
+					e.consume();
+				}
+			}
+		});
+		jtf[1].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+		jtf[2].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 
 		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10 + frameHeight
 				/ 30, frameWidth / 9, frameHeight / 16);
