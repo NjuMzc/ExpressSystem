@@ -246,11 +246,11 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 	}
 
 	private void handle_IsSmall() {
-		jb_add1 = new JButton("库存");// 库存
+		jb_add1 = new JButton("");// 库存
 		jb_add1.addActionListener(this);
-		jb_add2 = new JButton("账户");// 账户
+		jb_add2 = new JButton("");// 账户
 		jb_add2.addActionListener(this);
-		jb_add3 = new JButton("机构");// 机构
+		jb_add3 = new JButton("");// 机构
 		jb_add3.addActionListener(this);
 
 		jb_add1.setBounds(0, frameHeight / 3 + frameHeight / 13,
@@ -259,6 +259,25 @@ public class AccountantPanel extends LeftAll implements ActionListener {
 				/ 23, frameWidth / 4, frameHeight / 23);
 		jb_add3.setBounds(0, frameHeight / 3 + frameHeight / 13 + frameHeight
 				/ 23 * 2, frameWidth / 4, frameHeight / 23);
+		
+		ImageIcon icon11= new ImageIcon("pictures//库存.png");
+		Image temp11= icon11.getImage().getScaledInstance(icon11.getIconWidth(),
+				icon11.getIconHeight(), icon11.getImage().SCALE_DEFAULT);
+		icon11= new ImageIcon(temp11);
+		jb_add1.setIcon(icon11);
+		
+		ImageIcon icon12= new ImageIcon("pictures//账户.png");
+		Image temp12= icon12.getImage().getScaledInstance(icon12.getIconWidth(),
+				icon12.getIconHeight(), icon12.getImage().SCALE_DEFAULT);
+		icon12= new ImageIcon(temp12);
+		jb_add2.setIcon(icon12);
+		
+		ImageIcon icon13= new ImageIcon("pictures//机构.png");
+		Image temp13= icon13.getImage().getScaledInstance(icon13.getIconWidth(),
+				icon13.getIconHeight(), icon13.getImage().SCALE_DEFAULT);
+		icon13= new ImageIcon(temp13);
+		jb_add3.setIcon(icon13);
+		
 
 		this.add(jb_add1);
 		this.add(jb_add2);

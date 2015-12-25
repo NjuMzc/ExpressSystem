@@ -219,15 +219,40 @@ public class AccountantManage extends RightAll implements ActionListener {
 		js.setBounds(frameWidth / 16, frameHeight / 10, frameWidth / 8 * 5,
 				frameHeight / 2);
 		initTable();
-		jb[0].setText("增加");//
-		jb[1].setText("删除");//
-		jb[2].setText("修改");//
-		jb[3].setText("查询");//
+		jb[0].setText("");//增加
+		jb[1].setText("");//删除
+		jb[2].setText("");//修改
+		jb[3].setText("");//查询
 		for (int i = 0; i < 4; i++) {
 			jb[i].setBounds(frameWidth / 10 + frameWidth / 20 * 3 * i,
 					frameHeight / 10 * 9, frameWidth / 10, frameHeight / 19);
 			jb[i].addActionListener(this);
 		}
+		ImageIcon icon2 = new ImageIcon("pictures//增加橙.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		jb[0].setIcon(icon2);
+		
+		ImageIcon icon3 = new ImageIcon("pictures//删除.png");
+		Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3= new ImageIcon(temp3);
+		jb[1].setIcon(icon3);
+		
+		ImageIcon icon4 = new ImageIcon("pictures//修改浅.png");
+		Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
+				icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
+		icon4 = new ImageIcon(temp4);
+		jb[2].setIcon(icon4);
+		
+		ImageIcon icon5 = new ImageIcon("pictures//查询.png");
+		Image temp5= icon5.getImage().getScaledInstance(icon5.getIconWidth(),
+				icon5.getIconHeight(), icon5.getImage().SCALE_DEFAULT);
+		icon5 = new ImageIcon(temp5);
+		jb[3].setIcon(icon5);
+		
+		
 	}
 
 	private void initTable() {

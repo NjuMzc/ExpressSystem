@@ -58,9 +58,9 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		for (int i = 0; i < 6; i++) {
 			jl[i] = new JLabel();
 		}
-		confirm = new JButton("确认");
+		confirm = new JButton("");//确认
 		confirm.addActionListener(this);
-		cancel = new JButton("取消");
+		cancel = new JButton("");//取消
 		cancel.addActionListener(this);
 
 		time = new JLabel[3];
@@ -77,7 +77,9 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		jtf = new JTextField[5];
 		for (int i = 0; i < 5; i++) {
 			jtf[i] = new JTextField();
+			jtf[i].setFont(new Font("宋体", Font.PLAIN, 14));
 		}
+		
 		yuan = new JLabel("元");
 		type=new JComboBox<String>();
 
@@ -121,10 +123,24 @@ public class AccountantPayment extends RightAll implements ActionListener {
 					* i, frameWidth / 8, frameHeight / 20);
 			jl[i].setFont(new Font("宋体", Font.BOLD, 16));
 		}
-		confirm.setBounds(frameWidth / 4, frameHeight / 10 * 9,
-				frameWidth / 10, frameWidth / 20);
-		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10,
-				frameWidth / 20);
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
+
+		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10+frameHeight/30,
+				 frameWidth / 9,frameHeight / 16);
+
+		
+		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
 
 		time[0].setText("年");
 		time[1].setText("月");
@@ -138,12 +154,16 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 5; i++) {
-			if (i != 4)
+			if (i != 4){
 				jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight
 						/ 8 * (i + 1), frameWidth / 10, frameHeight / 20);
-			else
+			     jtf[i].setFont(new Font("宋体",Font.PLAIN,14));
+			}
+			else{
 				jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight
 						/ 8 * (i + 1), frameWidth / 5, frameHeight / 20);
+			jtf[i].setFont(new Font("宋体",Font.PLAIN,14));
+			}
 		}
 		type.addItem("租金");
 		type.addItem("运费");
@@ -151,6 +171,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		type.addItem("奖励");
 		type.setBounds(frameWidth / 4, frameHeight / 15 + frameHeight
 						/ 8 * 3, frameWidth / 10, frameHeight / 20);
+		type.setFont(new Font("宋体",Font.PLAIN,13));
 		jtf[1].addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				if (!Character.isDigit(e.getKeyChar())) {
@@ -165,7 +186,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 				}
 			}
 		});
-		yuan.setBounds(frameWidth / 5 * 2, frameHeight / 15 + frameHeight / 2,
+		yuan.setBounds(frameWidth / 5 * 2-frameWidth/25, frameHeight / 15 + frameHeight / 2,
 				frameWidth / 10, frameHeight / 20);
 		yuan.setFont(new Font("宋体", Font.BOLD, 16));
 
@@ -237,7 +258,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 	private void wrongShow() {
 		// 错误处理
 		final JLabel remindWrong = new JLabel();
-		remindWrong.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
+		remindWrong.setBounds(frameWidth * 4 / 8, frameHeight * 5 / 20,
 				frameWidth / 4, frameHeight / 20);
 		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
 		remindWrong.setForeground(Color.red);
