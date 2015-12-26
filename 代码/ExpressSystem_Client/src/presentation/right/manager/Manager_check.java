@@ -229,7 +229,7 @@ public class Manager_check extends RightAll implements ActionListener {
 
 		if (e.getSource() == allpass) {
 			// 批量审批
-			 
+			approver.approveAll(); 
 		}
 
 		initTableModel();

@@ -1,14 +1,18 @@
 package businesslogic.billsbl.OrderBillServer;
 
 import businesslogic.constantbl.CityDistanceServerImpl;
+import businesslogic.constantbl.PriceListServerImpl;
 import businesslogicservice.constantblservice.CityDistanceServer;
+import businesslogicservice.constantblservice.PriceListServer;
 import po.bills.OrderBill;
 
 public class OrderBill_ChargeCalculator {
 	CityDistanceServer distanceServer;
+	PriceListServer price;
 	
 	public OrderBill_ChargeCalculator(){
 		distanceServer=new CityDistanceServerImpl();
+		price=new PriceListServerImpl();
 	}
 	
 	public double calculate(OrderBill bill){
@@ -30,13 +34,13 @@ public class OrderBill_ChargeCalculator {
 
 		if(kind.equals("ecnomic")){
 			//经济快递
-			result=weight*distance*18;
+			result=weight*distance*price.getEconomicPrice();
 		}else if(kind.equals("standard")){
 			//标准快递
-			result=weight*distance*23;
+			result=weight*distance*price.getStandardPrice();
 		}else if(kind.equals("express")){
 			//特快专递
-			result=weight*distance*25;
+			result=weight*distance*price.getExpressPrice();
 		}else{
 			return 0;
 		}
