@@ -83,22 +83,20 @@ public class Manager_Manage extends RightAll {
 	}
 
 	class cityPanel extends JPanel implements ActionListener {
-		// 1
-		JLabel city_remind;
-		JButton nj;
-		JButton bj;
-		JButton sh;
-		JButton gz;
+ 
+		DefaultTableModel model_city;
+		JTable table_city;
+		JScrollPane js_city;
 
-		JButton newCity;
 		JButton addCity;
 		JTextField jtf;
 		JLabel addLabel;
 		JButton overButton;
 
 		DefaultTableCellRenderer dtc;
-
+ 
 		Vector<JButton> vecButton;
+
 		OrgPanel org = null;
 		int numCity = 4;
 
@@ -106,12 +104,15 @@ public class Manager_Manage extends RightAll {
 			this.setLayout(null);
 			this.setBounds(0, 0, frameWidth / 4, frameHeight);
 			this.setBackground(Color.gray);
+ 
+			model_city = new DefaultTableModel();
+			table_city = new JTable(model_city) {
+				public boolean isCellEditable(int row, int column) {
+					return false;
+				}
+			};
+			js_city = new JScrollPane(table_city);
 
-			city_remind = new JLabel("请选择城市");
-			nj = new JButton("南京");
-			bj = new JButton("北京");
-			sh = new JButton("上海");
-			gz = new JButton("广州");
 			addCity = new JButton("增加城市");
 			vecButton = new Vector<JButton>();
 
@@ -120,11 +121,7 @@ public class Manager_Manage extends RightAll {
 			initCityPanel();
 
 			this.add(addCity);
-			this.add(city_remind);
-			this.add(nj);
-			this.add(bj);
-			this.add(sh);
-			this.add(gz);
+			this.add(js_city);
 		}
 
 		protected void paintComponent(Graphics g) {
@@ -136,85 +133,104 @@ public class Manager_Manage extends RightAll {
 		}
 
 		private void initCityPanel() {
-			city_remind.setBounds(0, 0, frameWidth / 4, frameHeight / 15);
-			nj.setBounds(0, frameHeight / 5, frameWidth / 4, frameHeight / 15);
-
-			nj.setBackground(Color.orange);
-			nj.setOpaque(true);
-
-			// JLabel nj1=new JLabel("南京");
-			// nj1.setBounds(0, frameHeight / 5, frameWidth / 4, frameHeight /
-			// 15);
-			// this.add(nj);
-			nj.addActionListener(this);
-			nj.setActionCommand("NanJing");
-			bj.setBounds(0, frameHeight / 5 + frameHeight / 15, frameWidth / 4,
-					frameHeight / 15);
-			bj.addActionListener(this);
-			bj.setActionCommand("BeiJing");
-			sh.setBounds(0, frameHeight / 5 + frameHeight / 15 * 2,
-					frameWidth / 4, frameHeight / 15);
-			sh.addActionListener(this);
-			sh.setActionCommand("ShangHai");
-			gz.setBounds(0, frameHeight / 5 + frameHeight / 5, frameWidth / 4,
-					frameHeight / 15);
-			gz.addActionListener(this);
-			gz.setActionCommand("GuangZhou");
+	 
 			addCity.setBounds(frameWidth / 16, frameHeight / 10 * 9,
 					frameWidth / 8, frameHeight / 20);
 			addCity.addActionListener(this);
+			initModel();
+			js_city.setBounds(0, frameHeight / 4, frameWidth / 4,
+					frameHeight / 4);
+			table_city.getTableHeader().setReorderingAllowed(false);
+			table_city.getTableHeader().setResizingAllowed(false);
+			table_city.getColumnModel().getColumn(0).setCellRenderer(dtc);
+			table_city.addMouseListener(new MouseListener() {
 
-			// ImageIcon icon1 = new ImageIcon("pictures//城市标签.png");
-			// Image temp1 = icon1.getImage().getScaledInstance(nj.getWidth(),
-			// nj.getHeight(), icon1.getImage().SCALE_DEFAULT);
-			// icon1 = new ImageIcon(temp1);
-			// nj.setIcon(icon1);
-			//
-			// nj.setMargin(new Insets(0, 0, 0, 0));
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
 
-			vecButton.add(nj);
-			vecButton.add(bj);
-			vecButton.add(gz);
-			vecButton.add(sh);
+				}
+
+				@Override
+				public void mousePressed(MouseEvent arg0) {
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+
+					int rowSelected = table_city.getSelectedRow();
+					if (rowSelected >= 0) {
+						currentCity = table_city.getValueAt(rowSelected, 0)
+								.toString();
+
+						System.out.println(currentCity);
+
+						if (org != null) {
+							Manager_Manage.this.remove(org);
+							if (org.conOrgPanel != null) {
+								Manager_Manage.this.remove(org.conOrgPanel);
+							}
+						}
+
+						org = new OrgPanel();
+
+						Manager_Manage.this.add(org);
+						Manager_Manage.this.repaint();
+					}
+
+				}
+			});
+ 
+		}
+
+		
+		//根据逻辑层的城市数据初始化
+		private void initModel() {
+			model_city.addColumn("请选择城市");
+
+			//注意城市名称，原有四个城市用中文，逻辑层做修改
+			Vector<String> vec1 = new Vector<>();
+			vec1.add("NanJing");
+			Vector<String> vec2 = new Vector<>();
+			vec2.add("BeiJing");
+			Vector<String> vec3 = new Vector<>();
+			vec3.add("ShangHai");
+			Vector<String> vec4 = new Vector<>();
+			vec4.add("GuangZhou");
+
+			model_city.addRow(vec1);
+			model_city.addRow(vec2);
+			model_city.addRow(vec3);
+			model_city.addRow(vec4);
+
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			for (int i = 0; i < vecButton.size(); i++) {
-				if (e.getSource() == vecButton.elementAt(i)) {
-					System.out.println("in");
-					currentCity = e.getActionCommand();
+		 
 
-					if (org != null) {
-						Manager_Manage.this.remove(org);
-						if (org.conOrgPanel != null) {
-							Manager_Manage.this.remove(org.conOrgPanel);
-						}
-					}
-
-					org = new OrgPanel();
-
-					Manager_Manage.this.add(org);
-					Manager_Manage.this.repaint();
-				}
-			}
 			if (e.getSource() == addCity) {
 				numCity++;
-				newCity = new JButton("");
-				newCity.addActionListener(this);
-				newCity.setBounds(0, frameHeight / 5 + frameHeight / 15
-						* (numCity - 1), frameWidth / 4, frameHeight / 15);
 
 				addPanel();
 
-				vecButton.add(newCity);
-				this.add(newCity);
 				this.repaint();
 			}
 
 		}
 
 		private void removeAddPanel() {
+			this.add(addCity);
 			this.remove(jtf);
 			this.remove(addLabel);
 			this.remove(overButton);
@@ -243,12 +259,18 @@ public class Manager_Manage extends RightAll {
 					public void actionPerformed(ActionEvent e) {
 						String input = jtf.getText();
 						if (!input.equals("")) {
-							newCity.setText(input);
+
+							Vector<String> vec = new Vector<>();
+							vec.add(input);
+							model_city.addRow(vec);
+							//逻辑层做增加，input
+
 							removeAddPanel();
 						}
 					}
 				});
-
+ 
+				this.remove(addCity);
 				this.add(jtf);
 				this.add(addLabel);
 				this.add(overButton);
@@ -305,7 +327,6 @@ public class Manager_Manage extends RightAll {
 					return false;
 				}
 			};
-			;
 			TableColumn firstColumn = orgTablel.getColumnModel().getColumn(0);
 			firstColumn.setPreferredWidth(frameWidth / 6);
 			orgTablel.getTableHeader().setReorderingAllowed(false);
