@@ -15,6 +15,7 @@ public class Client {
 		} catch (Exception e) {
 			// TODO exception
 		}
+	
 
 		// 这个包只能在下面的线程里改变他的frame属性，不然会报错
 

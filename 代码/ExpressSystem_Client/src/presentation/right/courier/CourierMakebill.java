@@ -2,8 +2,11 @@ package presentation.right.courier;
 
 import javax.swing.*;
 
+import businesslogic.constantbl.CityServerImpl;
 import businesslogic.transportbl.courier.Trans_MakingOrderServerImpl;
+import businesslogicservice.constantblservice.CityServer;
 import businesslogicservice.transportblservice.courier.Trans_MakingOrderServer;
+import po.CityPO;
 import po.Message;
 import po.bills.OrderBill;
 import presentation.Data;
@@ -18,6 +21,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CourierMakebill extends RightAll implements ActionListener {
@@ -409,10 +413,15 @@ public class CourierMakebill extends RightAll implements ActionListener {
 	}
 
 	private void initJCombobox() {
-		city1.addItem("南京");
-		city1.addItem("北京");
-		city2.addItem("北京");
-		city2.addItem("南京");
+		CityServer server=new CityServerImpl();
+		
+		Iterator<CityPO> it1=server.getAll();
+		
+		while(it1.hasNext()){
+			CityPO city=it1.next();
+			city1.addItem(city.getName());
+			city2.addItem(city.getName());
+		}
 	}
 
 	public void addWatcher(Watcher watcher) {
