@@ -1,13 +1,21 @@
 package businesslogic.storagebl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import po.Institution.storageAssist.Record;
+import po.bills.OrderBill;
 import client.RMIHelper;
 import dataservice.transportdataservice.TransportDataServer;
 import vo.storagebl.ChaKanVO;
 import vo.storagebl.ExportVO;
 import vo.storagebl.ImportVO;
 import vo.storagebl.PanDianVO;
+import vo.storagebl.RecordVO;
+import businesslogic.DateHelper;
 import businesslogic.billsbl.ExportBillServer.ExportBillServer;
 import businesslogic.billsbl.ImportBillServer.ImportBillServer;
+import businesslogic.billsbl.OrderBillServer.OrderBillServer;
 import businesslogicservice.storageblservice.StorageManager;
 import businesslogicservice.storageblservice.StorageServer;
 
@@ -16,12 +24,14 @@ public class StorageServerImpl implements StorageServer {
 	ImportBillServer importBillServer;
 	ExportBillServer exportBillServer;
 	TransportDataServer dataServer;
+	OrderBillServer billServer;
 	
 	public StorageServerImpl(){
 		storageManager=new StorageManagerImpl();
 		importBillServer=new ImportBillServer();
 		exportBillServer=new ExportBillServer();
 		dataServer=RMIHelper.getTransportData();
+	    billServer=new OrderBillServer();
 	}
 
 	@Override
@@ -78,13 +88,62 @@ public class StorageServerImpl implements StorageServer {
 	@Override
 	public ExportVO Export(ExportVO exportMessage) {
 		// TODO Auto-generated method stub
+		String orderNum=exportMessage.getOrderNum();
+		String date=exportMessage.getDate();
+
+		String destination=exportMessage.getDestination();
+		String loader=exportMessage.getLoader();
+		String DeliverNum=exportMessage.getDeliverNum();
+		String transportNum=exportMessage.getTransportNum();
+		
+		ExportVO result;
+		
+		//建议在接口中增加查找一个商品的功能
+		
+		if(destination.equals("")||loader.equals("")||
+				DeliverNum.equals("")||transportNum.equals(""))
+				{
+					result=new ExportVO("输入的信息不完整请补充!");
+					return result;
+				}
+		
+		exportBillServer.makeBill(orderNum, date, destination, loader, DeliverNum, transportNum);
+//		storageManager.ExportGood(orderNum, location, date);  需要修改此处实现
+		
+		result=new ExportVO();
 		return null;
+		
+		
 	}
 
 	@Override
 	public ChaKanVO chaKan(String date1, String date2) {
 		// TODO Auto-generated method stub
-		return null;
+		ChaKanVO result;
+		if(!DateHelper.compare(date1, date2)){
+			result=new ChaKanVO("输入的日期格式有误!");
+			return result;
+		}
+		
+		ArrayList<RecordVO> list=new ArrayList<>();
+		
+		Iterator<Record> it=storageManager.getStorageHistory(date1, date2);
+		while(it.hasNext()){
+			Record a=it.next();
+			String id=a.getPo().getID();
+			OrderBill bill=billServer.findBill(id);
+			if(bill==null){
+				result=new ChaKanVO("商品号不存在!");
+				return result;
+			}
+			String money=bill.getCharge();
+			
+			RecordVO record=new RecordVO(a, money);
+			list.add(record);
+		}
+		result=new ChaKanVO(list);
+		
+		return result;
 	}
 
 	@Override
