@@ -1,5 +1,7 @@
 package businesslogicservice.constantblservice;
 
+import java.util.Iterator;
+
 import po.CityPO;
 
 public interface CityServer {
@@ -12,4 +14,5 @@ public interface CityServer {
 	
 	public boolean delete(String id);
 	
+	public Iterator<CityPO> getAll();
 }

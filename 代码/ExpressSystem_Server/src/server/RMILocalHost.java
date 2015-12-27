@@ -4,10 +4,8 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.server.RMISocketFactory;
 
 import data.bankdata.BankDataServerImpl;
 import data.billdata.BillApproverDataServerImpl;
@@ -66,8 +64,7 @@ import dataservice.salarydataservice.SalaryDataServer;
 import dataservice.systemdataservice.SystemDataServer;
 import dataservice.transportdataservice.TransportDataServer;
 
-public class RMIHelper {
-
+public class RMILocalHost {
 	private static String hostIP = "localhost";
 	private static String port = "8400";
 
@@ -77,15 +74,11 @@ public class RMIHelper {
 		timeCounter.start();
 
 		try {
-			hostIP = InetAddress.getLocalHost().getHostAddress();
 			LocateRegistry.createRegistry(Integer.valueOf(port));
-			System.out.println(hostIP);
-		} catch (UnknownHostException e1) {
+		} catch (NumberFormatException e1) {
 			e1.printStackTrace();
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			e.printStackTrace();
+		} catch (RemoteException e1) {
+			e1.printStackTrace();
 		}
 
 		try {
@@ -187,21 +180,4 @@ public class RMIHelper {
 
 	}
 
-}
-
-class TimeCounter extends Thread {
-	@Override
-	public void run() {
-		int i = 1;
-		super.run();
-		while (true) {
-			System.out.println(i + ".......");
-			i++;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 }

@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -14,6 +15,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.poi.hslf.record.Record;
+
+import businesslogic.storagebl.StorageManagerImpl;
+import businesslogicservice.storageblservice.StorageManager;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
@@ -40,7 +45,9 @@ public class StockmanSearch extends RightAll implements ActionListener {
 	JTextField jtfIn;
 	JTextField jtfOut;
 	DefaultTableCellRenderer dtc;
-	
+
+	private StorageManager manager = new StorageManagerImpl();
+
 	public StockmanSearch(int frameWidth, int frameHeight) {
 
 		this.frameWidth = frameWidth;
@@ -65,15 +72,15 @@ public class StockmanSearch extends RightAll implements ActionListener {
 			time[i] = new JLabel();
 			timeover[i] = new JLabel();
 		}
-		YearMonthDay time1=new YearMonthDay();
+		YearMonthDay time1 = new YearMonthDay();
 		timeInput[0] = time1.getCboYear();
 		timeInput[1] = time1.getCboMonth();
 		timeInput[2] = time1.getCboDay();
-		YearMonthDay time2=new YearMonthDay();
+		YearMonthDay time2 = new YearMonthDay();
 		timeInputover[0] = time2.getCboYear();
 		timeInputover[1] = time2.getCboMonth();
 		timeInputover[2] = time2.getCboDay();
-		dtc=new ColorRenderer();
+		dtc = new ColorRenderer();
 
 		init();
 
@@ -97,8 +104,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
-	
+
 	private void init() {
 
 		jl[0].setText("起始时间");
@@ -142,7 +148,11 @@ public class StockmanSearch extends RightAll implements ActionListener {
 				frameHeight / 3 * 2);
 
 		tableModel = new DefaultTableModel();
-		table = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
+		table = new JTable(tableModel) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		js = new JScrollPane(table);
 		inStock = new JLabel("入库合计");
 		outStock = new JLabel("出库合计");
@@ -157,6 +167,8 @@ public class StockmanSearch extends RightAll implements ActionListener {
 				frameHeight / 20);
 		jtfOut.setBounds(frameWidth / 10, frameHeight / 2 + frameHeight / 10,
 				frameWidth / 10, frameHeight / 20);
+		jtfIn.setEditable(false);
+		jtfOut.setEditable(false);
 
 		initTable();
 
@@ -180,19 +192,40 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(2).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(3).setCellRenderer(dtc);
-		
+
 		initTableModel();
 	}
 
 	private void initTableModel() {
-		Vector<String> vec = new Vector<>();
 
-		vec.add("110232124");
-		vec.add("入库");
-		vec.add("1000");
-		vec.add("04区01排01架01号");
+		String year = timeInput[0].getSelectedItem().toString();
+		String month = timeInput[1].getSelectedItem().toString();
+		String day = timeInput[2].getSelectedItem().toString();
+		String date = year + "-" + month + "-" + day;
 
-		tableModel.addRow(vec);
+		String year1 = timeInputover[0].getSelectedItem().toString();
+		String month1 = timeInputover[1].getSelectedItem().toString();
+		String day1 = timeInputover[2].getSelectedItem().toString();
+		String date1 = year1 + "-" + month1 + "-" + day1;
+
+		Iterator<po.Institution.storageAssist.Record> records = manager
+				.getStorageHistory(date, date1);
+
+	
+
+		while (records.hasNext()) {
+			Vector<String> vec2 = new Vector<>();
+			po.Institution.storageAssist.Record a= records.next();
+			vec2.add(a.getPo().getID());
+			vec2.add(a.getType().toString());
+			vec2.add("2333");
+			String location =a.getLocation();
+			location=location.substring(0,2)+"区"+location.substring(2, 4)+"排"+location.substring(4, 6)+"架"+location.substring(6,8)+"位";
+			vec2.add(location);
+			tableModel.addRow(vec2);
+		}
+
+		
 	}
 
 	public void addWatcher(Watcher watcher) {

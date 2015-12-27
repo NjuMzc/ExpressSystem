@@ -16,9 +16,9 @@ public class CapacityReocrder implements Serializable {
 	 */
 	private static final long serialVersionUID = -1738284309651167038L;
 	private final int area = 4;
-	private final int row = 50;
+	private final int row = 8;
 	private final int shelf = 10;
-	private final int position = 100;
+	private final int position = 30;
 	private StorageInfo[][][][] info;
 	private int num[];
 
@@ -35,10 +35,10 @@ public class CapacityReocrder implements Serializable {
 
 	public boolean importGood(GoodPO good, String time, String location) {
 		// location的格式应为“X-XX-XX-XXX”分别为区排架位号，位数不够左边补0
-		int a = Integer.valueOf(location.substring(0, 1)) - 1;
+		int a = Integer.valueOf(location.substring(0, 2)) - 1;
 		int b = Integer.valueOf(location.substring(2, 4)) - 1;
-		int c = Integer.valueOf(location.substring(5, 7)) - 1;
-		int d = Integer.valueOf(location.substring(8, 11)) - 1;
+		int c = Integer.valueOf(location.substring(4, 6)) - 1;
+		int d = Integer.valueOf(location.substring(6, 8)) - 1;
 		StorageInfo storage = new StorageInfo(good, time);
 		try {
 			if (info[a][b][c][d] != null) {
@@ -56,10 +56,10 @@ public class CapacityReocrder implements Serializable {
 
 	public boolean exportGood(String location) {
 		// location的格式应为“X-XX-XX-XXX”分别为区排架位号，位数不够左边补0
-		int a = Integer.valueOf(location.substring(0, 1)) - 1;
+		int a = Integer.valueOf(location.substring(0, 2)) - 1;
 		int b = Integer.valueOf(location.substring(2, 4)) - 1;
-		int c = Integer.valueOf(location.substring(5, 7)) - 1;
-		int d = Integer.valueOf(location.substring(8, 11)) - 1;
+		int c = Integer.valueOf(location.substring(4, 6)) - 1;
+		int d = Integer.valueOf(location.substring(6, 8)) - 1;
 		try {
 			if (info[a][b][c][d] == null) {
 				System.out.println("该位置无货物，请选择其他位置");
@@ -75,20 +75,18 @@ public class CapacityReocrder implements Serializable {
 	}
 
 	public boolean isEmpty(String location) {
-		// location的格式应为“X-XX-XX-XXX”分别为区排架位号，位数不够左边补0
-		int a = Integer.valueOf(location.substring(0, 1)) - 1;
+		int a = Integer.valueOf(location.substring(0, 2)) - 1;
 		int b = Integer.valueOf(location.substring(2, 4)) - 1;
-		int c = Integer.valueOf(location.substring(5, 7)) - 1;
-		int d = Integer.valueOf(location.substring(8, 11)) - 1;
+		int c = Integer.valueOf(location.substring(4, 6)) - 1;
+		int d = Integer.valueOf(location.substring(6, 8)) - 1;
 		return info[a][b][c][d] == null;
 	}
 
 	public StorageInfo getInfo(String location) {
-		// location的格式应为“X-XX-XX-XXX”分别为区排架位号，位数不够左边补0
-		int a = Integer.valueOf(location.substring(0, 1)) - 1;
+		int a = Integer.valueOf(location.substring(0, 2)) - 1;
 		int b = Integer.valueOf(location.substring(2, 4)) - 1;
-		int c = Integer.valueOf(location.substring(5, 7)) - 1;
-		int d = Integer.valueOf(location.substring(8, 11)) - 1;
+		int c = Integer.valueOf(location.substring(4, 6)) - 1;
+		int d = Integer.valueOf(location.substring(6, 8)) - 1;
 		return info[a][b][c][d];
 	}
 

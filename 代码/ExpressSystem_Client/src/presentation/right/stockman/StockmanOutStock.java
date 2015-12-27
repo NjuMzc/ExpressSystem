@@ -15,6 +15,8 @@ import java.util.List;
 
 import javax.swing.*;
 
+import businesslogic.storagebl.StorageManagerImpl;
+import businesslogicservice.storageblservice.StorageManager;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -30,9 +32,10 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 	JComboBox<String>[] timeInput;
 	JComboBox<String> type;
 	private List<Watcher> list;
+	private StorageManager storageM;
 
 	public StockmanOutStock(int frameWidth, int frameHeight) {
-
+		storageM= new  StorageManagerImpl();
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 
@@ -243,7 +246,14 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 			}
 			destination=jtf[1].getText();
 			types=type.getSelectedItem().toString();
-			num=jtf[3].getText();
+			num=jtf[2].getText();
+			
+//			storageM.ExportGood(id, location, date)
+//			System.out.println("id:"+id);
+//			System.out.println("time:"+time);
+//			System.out.println("destination:"+destination);
+//			System.out.println("type:"+types);
+//			System.out.println("num:"+num);
 		}
 	}
 }

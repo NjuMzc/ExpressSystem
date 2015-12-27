@@ -1,25 +1,34 @@
 package businesslogic.constantbl;
 
+import java.util.Iterator;
+
 import client.RMIHelper;
 import dataservice.constantdataservice.CityDataServer;
+import dataservice.informationdataservice.Inform_StorageDataServer;
+import dataservice.informationdataservice.Inform_TranStationDataServer;
 import po.CityPO;
+import po.Institution.StoragePO;
+import po.Institution.TranStationPO;
 import businesslogicservice.constantblservice.CityServer;
 
 public class CityServerImpl implements CityServer {
 
-	
+	Inform_StorageDataServer storageDataServer;
+	Inform_TranStationDataServer tranServer;
     CityDataServer dataServer;
 	
 	public CityServerImpl(){
 		//RMI
 		dataServer=RMIHelper.getCityData();
+		tranServer=RMIHelper.getTranStationData();
+		storageDataServer=RMIHelper.getStorageData();
 		
 		//初始化四个城市
 		if(dataServer.getById("025")==null){
 			addCity("025", "南京");
 			addCity("010", "北京");
-			addCity("021","广州");
-			addCity("020", "上海");
+			addCity("020","广州");
+			addCity("021", "上海");
 		}
 
 	}
@@ -31,6 +40,12 @@ public class CityServerImpl implements CityServer {
 		}
 		CityPO city=new CityPO(id, name);
 		dataServer.addCity(city);
+		
+		TranStationPO station=new TranStationPO(id,name+"中转中心");
+		tranServer.addTranStation(station);
+		StoragePO storage=new StoragePO(id);
+		storage.setName(name+"中转中心仓库");
+		storageDataServer.add(storage);
 		return city;
 		
 	}
@@ -53,6 +68,13 @@ public class CityServerImpl implements CityServer {
 	public boolean delete(String id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Iterator<CityPO> getAll() {
+		// TODO Auto-generated method stub
+		
+		return dataServer.getAll().iterator();
 	}
 
 }

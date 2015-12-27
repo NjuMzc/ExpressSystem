@@ -2,8 +2,11 @@ package presentation.right.courier;
 
 import javax.swing.*;
 
+import businesslogic.constantbl.CityServerImpl;
 import businesslogic.transportbl.courier.Trans_MakingOrderServerImpl;
+import businesslogicservice.constantblservice.CityServer;
 import businesslogicservice.transportblservice.courier.Trans_MakingOrderServer;
+import po.CityPO;
 import po.Message;
 import po.bills.OrderBill;
 import presentation.Data;
@@ -18,6 +21,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CourierMakebill extends RightAll implements ActionListener {
@@ -39,6 +43,8 @@ public class CourierMakebill extends RightAll implements ActionListener {
 	JButton over;
 	JLabel bg2;
 	private List<Watcher> list;
+	JComboBox<String> city1;
+	JComboBox<String> city2;
 
 	public CourierMakebill(int frameWidth, int frameHeight) {
 		this.blServer = new Trans_MakingOrderServerImpl();
@@ -66,6 +72,8 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		type = new JComboBox<String>(item);
 		String[] items = { "纸箱", "木箱", "包装袋", "其他" };
 		type_decorate = new JComboBox<String>(items);
+		city1 = new JComboBox<String>();
+		city2 = new JComboBox<String>();
 
 		init();
 
@@ -76,11 +84,14 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		for (int i = 0; i < 16; i++) {
 			if (i != 13)
 				this.add(inputText[i]);
+			inputText[i].setText(""+i);
 		}
 
 		this.add(type);
 		this.add(type_decorate);
 
+		this.add(city1);
+		this.add(city2);
 		this.add(confirm);
 		this.add(cancel);
 
@@ -98,7 +109,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 
 		int x = frameWidth / 4;
 		int y = frameHeight / 15;
-	 
+
 		for (int i = 0; i < 10; i++) {
 			input[i].setBounds(0, frameHeight / 15 * i, frameWidth / 10,
 					frameHeight / 20);
@@ -116,6 +127,8 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		input[18].setBounds(x * 2, y * 5, width, height);
 		input[19].setBounds(x * 2, y * 7, width, height);
 		input[20].setBounds(x * 2, y * 8, width, height);
+		
+		initJCombobox();
 
 		confirm.setBounds(frameWidth / 4 - frameWidth / 10,
 				frameHeight / 10 * 9, width - frameWidth / 50, height
@@ -151,13 +164,17 @@ public class CourierMakebill extends RightAll implements ActionListener {
 					(y + frameHeight / 95) * (i + 2) + frameHeight / 10, width,
 					height);
 		}
+		city1.setBounds(x + frameWidth / 10 + frameWidth / 50,
+				(y + frameHeight / 100) * 1 + frameHeight / 19, width/4*3, height );
+		city2.setBounds(x + frameWidth / 10 + frameWidth / 50,
+				(y + frameHeight / 96) * 4 + frameHeight / 31, width/4*3, height );
 		inputText[6].setBounds(x / 3 + frameWidth / 25, (y + frameHeight / 95)
 				* 8 - frameHeight / 70 + frameHeight / 10, width, height);
-		inputText[7].setBounds(x + frameWidth / 10 + frameWidth / 50,
+		inputText[7].setBounds(x + frameWidth / 10 + frameWidth / 50+width/4*3,
 				(y + frameHeight / 100) * 1 + frameHeight / 19, width, height);
 		inputText[8].setBounds(x + frameWidth / 10 + frameWidth / 50,
 				(y + frameHeight / 100) * 2 + frameHeight / 19, width, height);
-		inputText[9].setBounds(x + frameWidth / 10 + frameWidth / 50,
+		inputText[9].setBounds(x + frameWidth / 10 + frameWidth / 50+width/4*3,
 				(y + frameHeight / 96) * 4 + frameHeight / 31, width, height);
 		inputText[10].setBounds(x + frameWidth / 10 + frameWidth / 50,
 				(y + frameHeight / 96) * 5 + frameHeight / 31, width, height);
@@ -395,6 +412,18 @@ public class CourierMakebill extends RightAll implements ActionListener {
 
 	}
 
+	private void initJCombobox() {
+		CityServer server=new CityServerImpl();
+		
+		Iterator<CityPO> it1=server.getAll();
+		
+		while(it1.hasNext()){
+			CityPO city=it1.next();
+			city1.addItem(city.getName());
+			city2.addItem(city.getName());
+		}
+	}
+
 	public void addWatcher(Watcher watcher) {
 		list.add(watcher);
 	}
@@ -438,10 +467,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 				(frameHeight / 15 + frameHeight / 95) * 9 + frameHeight / 10
 						- frameHeight / 35, frameWidth / 8 - frameWidth / 35,
 				frameHeight / 20);
-		// for (int i = 0; i < 3; i++) {
-		// jtf[i].setBounds(frameWidth / 12, frameHeight / 15 * (i + 10),
-		// frameWidth / 10, frameHeight / 20);
-		// }
+	 
 
 		this.add(orderFee);
 		this.add(orderNum);
@@ -499,11 +525,19 @@ public class CourierMakebill extends RightAll implements ActionListener {
 	private void solveInfor() {
 		Message message = new Message();
 		for (int i = 0; i < 16; i++) {
-			if (i != 13) {
+			if (i != 13&&i!=7&&i!=9) {
 				message.addInform(inputText[i].getText());
-			} else {
+			} else if(i==7){
+				String loc1=city1.getSelectedItem().toString()+inputText[7].getText();
+				message.addInform(loc1);
+			} else if(i==9){
+				String loc2=city2.getSelectedItem().toString()+inputText[9].getText();
+				message.addInform(loc2);
+			}else{
 				message.addInform("");
 			}
+			
+			
 		}
 		message.addInform((String) type.getSelectedItem());
 		message.addInform((String) type_decorate.getSelectedItem());
@@ -515,7 +549,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 			jtf[1].setText(result.getFee());
 			jtf[2].setText(result.getDate());
 		} else {
-			//错误信息处理
+			// 错误信息处理
 			System.out.println(result.getWrongMessage());
 		}
 		for (int i = 0; i < 3; i++) {
