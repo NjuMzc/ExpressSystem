@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -91,10 +92,10 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		};
 		table = new JTable(model);
 		js = new JScrollPane(table);
-		search = new JButton("查询");
+		search = new JButton("");//查询
 		dtc = new ColorRenderer();
 
-		export = new JButton("导出报表");
+		export = new JButton("");//导出报表
 
 		init();
 
@@ -141,23 +142,38 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		}
 
 		input.setLayout(null);
+		input.setBackground(new Color(193,223, 164));//new Color(219,238,172)
 		input.setBounds(0, 0, frameWidth / 2, frameHeight);
 		start.setBounds(frameWidth / 20, frameHeight / 20, frameWidth / 12,
 				frameHeight / 20);
 		end.setBounds(frameWidth / 20, frameHeight / 10, frameWidth / 12,
 				frameHeight / 20);
 		js.setBounds(0, frameHeight / 5, frameWidth / 2, frameHeight / 10 * 7);
-		search.setBounds(frameWidth / 12 * 5, frameHeight / 10,
-				frameWidth / 12, frameHeight / 20);
+		search.setBounds(frameWidth / 12 * 5+frameWidth/120, frameHeight / 10,
+				frameWidth / 13, frameHeight / 20);
 		search.addActionListener(this);
+		
+		ImageIcon icon4 = new ImageIcon("pictures//查询小.png");
+		Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
+				icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
+		icon4 = new ImageIcon(temp4);
+		search.setIcon(icon4);
 
-		export.setBounds(frameWidth / 20 * 3, frameHeight / 16 * 15,
+		export.setBounds(frameWidth / 20 * 3+frameWidth/40, frameHeight / 16 * 15,
 				frameWidth / 10, frameHeight / 20);
 		export.addActionListener(this);
+		
+		ImageIcon icon5 = new ImageIcon("pictures//导出报表.png");
+		Image temp5 = icon5.getImage().getScaledInstance(icon5.getIconWidth(),
+				icon5.getIconHeight(), icon5.getImage().SCALE_DEFAULT);
+		icon5 = new ImageIcon(temp5);
+		export.setIcon(icon5);
+		
 
 		initTable();
 	}
 
+	
 	private void initTable() {
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
@@ -202,6 +218,7 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 	}
 
 	private void addAddPanel() {
+		
 		if (addPanel != null) {
 			this.remove(addPanel);
 
@@ -242,9 +259,9 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 		}
 
 		addPanel.add(jta);
+		addPanel.setBackground(new Color(175,207,170));//new Color(198,234, 163)
 
 		this.add(addPanel);
-
 		this.repaint();
 
 	}

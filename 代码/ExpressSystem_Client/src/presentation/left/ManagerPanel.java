@@ -54,8 +54,8 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 		jtf_name = new JTextField();
 		jtf_num = new JTextField();
 
-		jingying = new JButton("查看经营情况表");
-		chengben = new JButton("查看成本收益表");
+		jingying = new JButton("");//查看经营情况表
+		chengben = new JButton("");//查看成本收益表
 
 		init();
 
@@ -87,9 +87,22 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 		}
 
 		jingying.setBounds(0, frameHeight / 3 + frameHeight / 13 * 5,
-				frameWidth / 4, frameHeight / 26);
+				frameWidth / 4, frameHeight / 25);
 		chengben.setBounds(0, frameHeight / 3 + frameHeight / 13 * 5
-				+ frameHeight / 26, frameWidth / 4, frameHeight / 26);
+				+ frameHeight / 25, frameWidth / 4, frameHeight / 25);
+		
+		ImageIcon icon6 = new ImageIcon("pictures//查看经营情况表.png");
+		Image temp6 = icon6.getImage().getScaledInstance(icon6.getIconWidth(),
+				icon6.getIconHeight(), icon6.getImage().SCALE_DEFAULT);
+		icon6= new ImageIcon(temp6);
+		jingying.setIcon(icon6);
+
+		ImageIcon icon7 = new ImageIcon("pictures//查看成本收益表.png");
+		Image temp7 = icon7.getImage().getScaledInstance(icon7.getIconWidth(),
+				icon7.getIconHeight(), icon7.getImage().SCALE_DEFAULT);
+		icon7 = new ImageIcon(temp7);
+		chengben.setIcon(icon7);
+		
 		jingying.addActionListener(this);
 		chengben.addActionListener(this);
 

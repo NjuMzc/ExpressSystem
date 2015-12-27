@@ -113,7 +113,7 @@ public class Manager_Manage extends RightAll {
 			};
 			js_city = new JScrollPane(table_city);
 
-			addCity = new JButton("增加城市");
+			addCity = new JButton("");//增加城市
 			vecButton = new Vector<JButton>();
 
 			dtc = new ColorRenderer();
@@ -127,9 +127,9 @@ public class Manager_Manage extends RightAll {
 		protected void paintComponent(Graphics g) {
 			// TODO Auto-generated method stub
 			super.paintComponent(g);
-			ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+			ImageIcon background = new ImageIcon("pictures\\三分之一左right.png");
 			Image bg = background.getImage();
-			g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
+			g.drawImage(bg, 0, 0, frameWidth * 1/ 4, frameHeight, null);
 		}
 
 		private void initCityPanel() {
@@ -137,6 +137,13 @@ public class Manager_Manage extends RightAll {
 			addCity.setBounds(frameWidth / 16, frameHeight / 10 * 9,
 					frameWidth / 8, frameHeight / 20);
 			addCity.addActionListener(this);
+			
+			ImageIcon icon4 = new ImageIcon("pictures//增加城市.png");
+			Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
+					icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
+			icon4 = new ImageIcon(temp4);
+			addCity.setIcon(icon4);
+			
 			initModel();
 			js_city.setBounds(0, frameHeight / 4, frameWidth / 4,
 					frameHeight / 4);
@@ -307,9 +314,9 @@ public class Manager_Manage extends RightAll {
 		protected void paintComponent(Graphics g) {
 			// TODO Auto-generated method stub
 			super.paintComponent(g);
-			ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+			ImageIcon background = new ImageIcon("pictures\\三分之二中right.png");
 			Image bg = background.getImage();
-			g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
+			g.drawImage(bg, 0, 0, frameWidth *1 / 4, frameHeight, null);
 		}
 
 		private void initOrgPanel() {
@@ -524,9 +531,9 @@ public class Manager_Manage extends RightAll {
 		protected void paintComponent(Graphics g) {
 			// TODO Auto-generated method stub
 			super.paintComponent(g);
-			ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+			ImageIcon background = new ImageIcon("pictures\\三分之一right.png");
 			Image bg = background.getImage();
-			g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
+			g.drawImage(bg, 0, 0, frameWidth * 1/ 4, frameHeight, null);
 		}
 
 		private void initConcretOrgPanel() {
