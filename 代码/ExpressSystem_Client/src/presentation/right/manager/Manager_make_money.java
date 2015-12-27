@@ -343,6 +343,7 @@ public class Manager_make_money extends RightAll implements ActionListener {
 
 			SalaryVO ss = blServer.getSalary("MANAGER");
 			System.out.println(ss.getStaffType() + " " + ss.getNum());
+			 this.notifyWatchers(State.MANAGERSTART);
 		}
 
 		for (int i = 0; i < 7; i++) {
@@ -380,7 +381,9 @@ public class Manager_make_money extends RightAll implements ActionListener {
 				jtf1[i + 4].setEditable(false);
 				jtf2[i + 4].setEditable(false);
 			}
+			
+			
 		}
-
+           
 	}
 }
