@@ -1,10 +1,13 @@
 package server;
 
+import java.net.InetAddress;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.server.RMISocketFactory;
 
 import data.bankdata.BankDataServerImpl;
 import data.billdata.BillApproverDataServerImpl;
@@ -65,102 +68,114 @@ import dataservice.transportdataservice.TransportDataServer;
 
 public class RMIHelper {
 
-	private static String IpAddress = "localhost";
-	private static String port = "1099";
+	private static String hostIP = "localhost";
+	private static String port = "8400";
 
 	public static void init() {
 		System.out.println("服务器初始化中，请稍候-----------");
 		TimeCounter timeCounter = new TimeCounter();
 		timeCounter.start();
+		
+		try {
+			hostIP = InetAddress.getLocalHost().getHostAddress();
+			LocateRegistry.createRegistry(Integer.valueOf(port));
+			System.out.println(hostIP);
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
 		try {
 
-//			System.setProperty("java.rmi.server.hostname", "172.26.196.95");
-//			System.setSecurityManager(new RMISecurityManager());
-			LocateRegistry.createRegistry(1099);
+			// System.setProperty("java.rmi.server.hostname", "172.26.196.95");
+			// System.setSecurityManager(new RMISecurityManager());
 
 			SystemDataServer systemDataService = new SystemDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/systemData", systemDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/systemData", systemDataService);
 
 			OrderBillDataServer orderBillDataService = new OrderBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/orderBillData", orderBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/orderBillData", orderBillDataService);
 
 			TransportDataServer transportDataService = new TransportDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/transportData", transportDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/transportData", transportDataService);
 
 			ReceiveBillDataServer receiveBillDataService = new ReceiveBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/receiveBillData", receiveBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/receiveBillData", receiveBillDataService);
 
 			BankDataServer bankDataService = new BankDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/bankData", bankDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/bankData", bankDataService);
 
 			Inform_HallDataServer hallDataService = new Inform_HallDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/hallData", hallDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/hallData", hallDataService);
 
 			Inform_HallStaffDataServer hallStaffDataService = new Inform_HallStaffDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/hallStaffData", hallStaffDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/hallStaffData", hallStaffDataService);
 
 			Inform_KeeperDataServer keeperDataService = new Inform_KeeperDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/keeperData", keeperDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/keeperData", keeperDataService);
 
 			Inform_StorageDataServer storageDataService = new Inform_StorageDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/storageData", storageDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/storageData", storageDataService);
 
 			Inform_TranStaffDataServer tranStaffDataService = new Inform_TranStaffDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/tranStaffData", tranStaffDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/tranStaffData", tranStaffDataService);
 
 			Inform_TranStationDataServer tranStationDataService = new Inform_TranStationDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/tranStationData", tranStationDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/tranStationData", tranStationDataService);
 
 			HallArrivalBillDataServer hallArrivalBillDataService = new HallArrivalBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/hallArrivalBillData", hallArrivalBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/hallArrivalBillData", hallArrivalBillDataService);
 
 			ChargeBillDataServer chargeBillDataService = new ChargeBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/chargeBillData", chargeBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/chargeBillData", chargeBillDataService);
 
 			DeliveryBillDataServer deliveryBillDataService = new DeliveryBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/deliveryBillData", deliveryBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/deliveryBillData", deliveryBillDataService);
 
 			HallEntruckBillDataServer hallEntruckBillDataService = new HallEntruckBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/hallEntruckBillData", hallEntruckBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/hallEntruckBillData", hallEntruckBillDataService);
 
 			PaymentBillDataServer paymentBillDataService = new PaymentBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/paymentBillData", paymentBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/paymentBillData", paymentBillDataService);
 
 			SendingBillDataServer sendingBillDataService = new SendingBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/sendingBillData", sendingBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/sendingBillData", sendingBillDataService);
 
 			TransArrivalBillDataServer transArrivallDataService = new TransArrivalBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/transArrivalBillData", transArrivallDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/transArrivalBillData", transArrivallDataService);
 
 			TransEntruckBillDataServer transEntruckBillDataService = new TransEntruckBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/transEntruckBillData", transEntruckBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/transEntruckBillData", transEntruckBillDataService);
 
 			PriceListDataServer priceListDataService = new PriceListDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/priceListData", priceListDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/priceListData", priceListDataService);
 
 			CityDistanceDataServer cityDistanceDataService = new CityDistanceDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/cityDistanceData", cityDistanceDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/cityDistanceData", cityDistanceDataService);
 
 			Inform_CarDataServer carDataService = new Inform_CarDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/carData", carDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/carData", carDataService);
 
 			Inform_DriverDataServer driverDataService = new Inform_DriverDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/driverData", driverDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/driverData", driverDataService);
 
 			CityDataServer cityDataService = new CityDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/cityData", cityDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/cityData", cityDataService);
 
 			BillApproverDataServer billApproverDataService = new BillApproverDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/billApproverData", billApproverDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/billApproverData", billApproverDataService);
 
 			ExportBillDataServer exportBillDataService = new ExportBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/exportBillData", exportBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/exportBillData", exportBillDataService);
 
 			ImportBillDataServer importBillDataService = new ImportBillDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/importBillData", importBillDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/importBillData", importBillDataService);
 
 			SalaryDataServer salaryDataService = new SalaryDataServerImpl();
-			Naming.rebind("rmi://" + IpAddress + ":" + port + "/salaryData", salaryDataService);
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/salaryData", salaryDataService);
 
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {

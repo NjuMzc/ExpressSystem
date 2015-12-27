@@ -64,55 +64,53 @@ public class RMIHelper {
 	private static ImportBillDataServer importBillData;
 	private static SalaryDataServer salaryData;
 
-	private static String IpAddress = "localhost";
-	private static String port = "1099";
+	private static String hostIP = "172.28.153.101";
+	private static String port = "8400";
 
 	public static void init() {
+
 		try {
-			systemData = (SystemDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/systemData");
-			orderBillData = (OrderBillDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/orderBillData");
-			transportData = (TransportDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/transportData");
+			systemData = (SystemDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/systemData");
+			orderBillData = (OrderBillDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/orderBillData");
+			transportData = (TransportDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/transportData");
 			receiveBillData = (ReceiveBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/receiveBillData");
-			bankData = (BankDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/bankData");
-			hallData = (Inform_HallDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/hallData");
+					.lookup("rmi://" + hostIP + ":" + port + "/receiveBillData");
+			bankData = (BankDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/bankData");
+			hallData = (Inform_HallDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/hallData");
 			hallStaffData = (Inform_HallStaffDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/hallStaffData");
-			keeperData = (Inform_KeeperDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/keeperData");
-			storageData = (Inform_StorageDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/storageData");
+					.lookup("rmi://" + hostIP + ":" + port + "/hallStaffData");
+			keeperData = (Inform_KeeperDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/keeperData");
+			storageData = (Inform_StorageDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/storageData");
 			tranStaffData = (Inform_TranStaffDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/tranStaffData");
+					.lookup("rmi://" + hostIP + ":" + port + "/tranStaffData");
 			tranStationData = (Inform_TranStationDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/tranStationData");
+					.lookup("rmi://" + hostIP + ":" + port + "/tranStationData");
 			hallArrivalBillData = (HallArrivalBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/hallArrivalBillData");
-			chargeBillData = (ChargeBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/chargeBillData");
+					.lookup("rmi://" + hostIP + ":" + port + "/hallArrivalBillData");
+			chargeBillData = (ChargeBillDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/chargeBillData");
 			deliveryBillData = (DeliveryBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/deliveryBillData");
+					.lookup("rmi://" + hostIP + ":" + port + "/deliveryBillData");
 			hallEntruckData = (HallEntruckBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/hallEntruckBillData");
+					.lookup("rmi://" + hostIP + ":" + port + "/hallEntruckBillData");
 			paymentBillData = (PaymentBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/paymentBillData");
+					.lookup("rmi://" + hostIP + ":" + port + "/paymentBillData");
 			sendingBillData = (SendingBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/sendingBillData");
+					.lookup("rmi://" + hostIP + ":" + port + "/sendingBillData");
 			transArrivalBillData = (TransArrivalBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/transArrivalBillData");
+					.lookup("rmi://" + hostIP + ":" + port + "/transArrivalBillData");
 			transEntruckBillData = (TransEntruckBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/transEntruckBillData");
-			priceListData = (PriceListDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/priceListData");
+					.lookup("rmi://" + hostIP + ":" + port + "/transEntruckBillData");
+			priceListData = (PriceListDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/priceListData");
 			cityDistanceData = (CityDistanceDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/cityDistanceData");
-			carData = (Inform_CarDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/carData");
-			driverData = (Inform_DriverDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/driverData");
-			cityData = (CityDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/cityData");
+					.lookup("rmi://" + hostIP + ":" + port + "/cityDistanceData");
+			carData = (Inform_CarDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/carData");
+			driverData = (Inform_DriverDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/driverData");
+			cityData = (CityDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/cityData");
 			billApproverData = (BillApproverDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/billApproverData");
-			exportBillData = (ExportBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/exportBillData");
-			importBillData = (ImportBillDataServer) Naming
-					.lookup("rmi://" + IpAddress + ":" + port + "/importBillData");
-			salaryData = (SalaryDataServer) Naming.lookup("rmi://" + IpAddress + ":" + port + "/salaryData");
+					.lookup("rmi://" + hostIP + ":" + port + "/billApproverData");
+			exportBillData = (ExportBillDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/exportBillData");
+			importBillData = (ImportBillDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/importBillData");
+			salaryData = (SalaryDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/salaryData");
 
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
