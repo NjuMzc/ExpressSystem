@@ -84,4 +84,17 @@ public class BillApproverServerImpl implements BillApproveServer {
 		dataServer.update(list);
 	}
 
+	
+	public void approveAll(){
+		list=dataServer.get();
+		Iterator<BillApproverPO> bills=list.getList().iterator();
+		
+		while(bills.hasNext()){
+			BillApproverPO bill=bills.next();
+			bill.setState("Approved");
+		}
+	
+		list.getList().clear();
+		dataServer.update(list);
+	}
 }

@@ -17,4 +17,6 @@ public interface BillApproveServer {
 	public void addBill(BillApproverPO bill);
 	
 	public void approvePiLiang(int[] nums);
+	
+	public void approveAll();
 }

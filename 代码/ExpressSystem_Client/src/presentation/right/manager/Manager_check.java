@@ -99,12 +99,10 @@ public class Manager_check extends RightAll implements ActionListener {
 		jtable1.getColumnModel().getColumn(3).setCellRenderer(dtc);
 
 		jtable1.getColumnModel().getColumn(0)
-				.setPreferredWidth(frameWidth / 20);
+				.setPreferredWidth(frameWidth / 25);
 		jtable1.getColumnModel().getColumn(1)
 				.setPreferredWidth(frameWidth / 15);
 		jtable1.getColumnModel().getColumn(2)
-				.setPreferredWidth(frameWidth / 10);
-		jtable1.getColumnModel().getColumn(3)
 				.setPreferredWidth(frameWidth / 10);
 		jtable1.addMouseListener(new MouseListener() {
 
@@ -229,7 +227,9 @@ public class Manager_check extends RightAll implements ActionListener {
 
 		if (e.getSource() == allpass) {
 			// 批量审批
-			 
+			this.remove(billPanel);
+			this.repaint();
+			approver.approveAll(); 
 		}
 
 		initTableModel();

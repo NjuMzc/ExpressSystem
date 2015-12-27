@@ -38,6 +38,10 @@ public class Trans_HallArrivalServerImpl implements Trans_HallArrivalServer {
 	@Override
 	public HallArrivalBill makeBill(String GoodID,String date, String transOrderNum, String departure, String state) {
 		// TODO Auto-generated method stub
+		if(goodController.getGood(GoodID)==null){
+			return null;
+		}
+		
 		HallArrivalBill bill = billServer.makeBill(GoodID, date, transOrderNum, departure, state);
 		
 		staffNow=staffServer.find(SystemHelper.getUserID());
