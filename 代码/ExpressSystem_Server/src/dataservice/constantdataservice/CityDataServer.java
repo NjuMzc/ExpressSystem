@@ -2,6 +2,8 @@ package dataservice.constantdataservice;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import po.CityPO;
 
@@ -16,4 +18,6 @@ public interface CityDataServer extends Remote {
 	public boolean remove(CityPO city) throws RemoteException;
 
 	public void update(CityPO city) throws RemoteException;
+	
+	public ArrayList<CityPO> getAll() throws RemoteException;
 }

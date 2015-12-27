@@ -2,9 +2,7 @@ package presentation.right.manager;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -19,11 +17,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
+import businesslogicservice.constantblservice.CityServer;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_HallInformServer;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_StorageInformServer;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_TranStationInformServer;
+import po.CityPO;
 import po.SystemUserPO;
 import po.Institution.HallPO;
 import po.Institution.StoragePO;
@@ -35,12 +33,15 @@ import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 import businesslogicservice.systemblservice.*;
+import businesslogic.constantbl.CityServerImpl;
 import businesslogic.informationbl.Inform_HallInformServerImpl;
 import businesslogic.informationbl.Inform_StorageInformServerImpl;
 import businesslogic.informationbl.Inform_TranStationInformServerImpl;
 import businesslogic.systembl.SystemBlServerImpl;
 
 public class Manager_Manage extends RightAll {
+	
+	CityServer cityServer;
 
 	int frameWidth;
 	int frameHeight;
@@ -66,6 +67,8 @@ public class Manager_Manage extends RightAll {
 	}
 
 	public Manager_Manage(int frameWidth, int frameHeight) {
+		cityServer=new CityServerImpl();
+		
 		tranServer = new Inform_TranStationInformServerImpl();
 		storageServer = new Inform_StorageInformServerImpl();
 		hallServer = new Inform_HallInformServerImpl();
@@ -199,11 +202,19 @@ public class Manager_Manage extends RightAll {
 			model_city.addColumn("请选择城市");
 
 			//注意城市名称，原有四个城市用中文，逻辑层做修改
-			Vector<String> vec1 = new Vector<>();
-			vec1.add("南京");
-		 
+			Iterator<CityPO> list=cityServer.getAll();
+			
+			while(list.hasNext()){
+				CityPO city=list.next();
+				
 
-			model_city.addRow(vec1);
+				Vector<String> vec1 = new Vector<>();
+				vec1.add(city.getName());
+			 
+
+				model_city.addRow(vec1);
+			}
+			
  
 
 		}
