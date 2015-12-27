@@ -243,7 +243,13 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 			}
 			destination=jtf[1].getText();
 			types=type.getSelectedItem().toString();
-			num=jtf[3].getText();
+			num=jtf[2].getText();
+			
+//			System.out.println("id:"+id);
+//			System.out.println("time:"+time);
+//			System.out.println("destination:"+destination);
+//			System.out.println("type:"+types);
+//			System.out.println("num:"+num);
 		}
 	}
 }
