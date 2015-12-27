@@ -75,7 +75,7 @@ public class RMIHelper {
 		System.out.println("服务器初始化中，请稍候-----------");
 		TimeCounter timeCounter = new TimeCounter();
 		timeCounter.start();
-		
+
 		try {
 			hostIP = InetAddress.getLocalHost().getHostAddress();
 			LocateRegistry.createRegistry(Integer.valueOf(port));
@@ -87,11 +87,7 @@ public class RMIHelper {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> origin/master
 		try {
 
 			// System.setProperty("java.rmi.server.hostname", "172.26.196.95");

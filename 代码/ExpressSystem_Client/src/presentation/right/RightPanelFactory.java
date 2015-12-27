@@ -9,7 +9,6 @@ import presentation.right.courier.*;
 import presentation.right.manager.ManagerStart;
 import presentation.right.manager.Manager_Manage;
 import presentation.right.manager.Manager_check;
-import presentation.right.manager.Manager_find;
 import presentation.right.manager.Manager_make_constant;
 import presentation.right.manager.Manager_make_money;
 import presentation.right.stockman.*;
@@ -19,8 +18,7 @@ import presentation.watcher.State;
 
 public class RightPanelFactory {
 
-	public RightAll createRightPanel(State state, int frameWidth,
-			int frameHeight) {
+	public RightAll createRightPanel(State state, int frameWidth, int frameHeight) {
 		RightAll right = null;
 
 		if (state == State.COURIERSTART) {
