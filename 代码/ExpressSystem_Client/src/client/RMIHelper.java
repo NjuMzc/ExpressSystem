@@ -68,6 +68,7 @@ public class RMIHelper {
 	private static String port = "8400";
 
 	public static void init() {
+		hostIP = "localhost";// 如果要联机了请将这一行注释或删除
 
 		try {
 			systemData = (SystemDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/systemData");
