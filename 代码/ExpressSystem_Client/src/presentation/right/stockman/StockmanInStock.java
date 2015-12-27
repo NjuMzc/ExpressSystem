@@ -14,9 +14,12 @@ import java.util.List;
 
 import javax.swing.*;
 
+import businesslogic.storagebl.StorageServerImpl;
+import businesslogicservice.storageblservice.StorageServer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
+import vo.storagebl.ImportVO;
 
 public class StockmanInStock extends RightAll implements ActionListener {
 	int frameWidth;
@@ -28,12 +31,14 @@ public class StockmanInStock extends RightAll implements ActionListener {
 	JLabel time[];
 	JComboBox<String>[] timeInput;
 	private List<Watcher> list;
+	private StorageServer storage;
 
 	public StockmanInStock(int frameWidth, int frameHeight) {
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
-
+		
+		storage = new StorageServerImpl();
 		list = new ArrayList<Watcher>();
 
 		this.setLayout(null);
@@ -271,7 +276,9 @@ public class StockmanInStock extends RightAll implements ActionListener {
 			String pai;
 			String jia;
 			String wei;
-
+			String[] location = new String[4];
+	
+			
 			id = jtf[0].getText();
 			time = timeInput[0].getSelectedItem().toString();
 			time += "-";
@@ -294,9 +301,16 @@ public class StockmanInStock extends RightAll implements ActionListener {
 			jia = jtf[5].getText();
 			wei = jtf[6].getText();
 
+			location[0]=qu;
+			location[1]=pai;
+			location[2]=jia;
+			location[3]=wei;
 			// System.out.println("id:" + id);
 			// System.out.println("date:" + time);
 			// System.out.println("区" + qu + "排" + pai + "架" + jia + "位" + wei);
+			ImportVO importBill = new ImportVO(id, time, destination, location);
+			storage.Import(importBill);
+			
 
 			this.notifyWatchers(State.STOCKMANINSTOCK);
 		}
