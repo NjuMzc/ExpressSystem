@@ -249,7 +249,7 @@ public class Manager_Manage extends RightAll {
 			if (jtf == null) {
 				this.repaint();
 				this.jtf = new JTextField();
-				this.addLabel = new JLabel("请新城市名称:");
+				this.addLabel = new JLabel("请输入新城市编号及名称(空格隔开):");
 				this.overButton = new JButton("完成");
 				jtf.setBounds(frameWidth / 24, frameHeight / 2 + frameHeight
 						/ 4, frameWidth / 6, frameHeight / 20);
@@ -264,11 +264,14 @@ public class Manager_Manage extends RightAll {
 						String input = jtf.getText();
 						if (!input.equals("")) {
 
+							String[] inputs=input.split(" ");
+							
 							Vector<String> vec = new Vector<>();
-							vec.add(input);
+							vec.add(inputs[1]);
 							model_city.addRow(vec);
 							//逻辑层做增加，input
 
+							cityServer.addCity(inputs[0], inputs[1]);
 							removeAddPanel();
 						}
 					}
