@@ -200,18 +200,11 @@ public class Manager_Manage extends RightAll {
 
 			//注意城市名称，原有四个城市用中文，逻辑层做修改
 			Vector<String> vec1 = new Vector<>();
-			vec1.add("NanJing");
-			Vector<String> vec2 = new Vector<>();
-			vec2.add("BeiJing");
-			Vector<String> vec3 = new Vector<>();
-			vec3.add("ShangHai");
-			Vector<String> vec4 = new Vector<>();
-			vec4.add("GuangZhou");
+			vec1.add("南京");
+		 
 
 			model_city.addRow(vec1);
-			model_city.addRow(vec2);
-			model_city.addRow(vec3);
-			model_city.addRow(vec4);
+ 
 
 		}
 
