@@ -29,9 +29,14 @@ public class ImportVO {
 		exMessage=new ExceptionMessage();
 	}
 	
-	public String getWrongInform(){
-		return exMessage.getMessage();
-	}
+	// 用于传递错误信息
+		public boolean isWrong() {
+			return exMessage.isWrong();
+		}
+
+		public String getWrongMessage() {
+			return exMessage.getMessage();
+		}
 	
 	
 	public String getGoodID() {
