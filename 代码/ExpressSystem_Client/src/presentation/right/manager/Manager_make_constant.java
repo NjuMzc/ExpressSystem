@@ -11,11 +11,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 import org.omg.CORBA.FREE_MEM;
 
+import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -23,10 +27,10 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 	int frameWidth;
 	int frameHeight;
 
-	JLabel cityremind;
-	JLabel city[];
-	JLabel km[];
-	JTextField jtf1[];
+	// JLabel cityremind;
+	// JLabel city[];
+	// JLabel km[];
+	// JTextField jtf1[];
 	JLabel feeremind;
 	JLabel fee[];
 	JLabel yuan[];
@@ -34,6 +38,10 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 	JButton submit;
 	JButton cancel;
 	private List<Watcher> list;
+	DefaultTableModel model;
+	JTable table;
+	JScrollPane js;
+	DefaultTableCellRenderer dtc;
 
 	public Manager_make_constant(int frameWidth, int frameHeight) {
 
@@ -44,20 +52,17 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		cityremind = new JLabel("城市距离:");
-		cityremind.setFont(new Font("宋体", Font.BOLD, 20));
-
-		city = new JLabel[6];
-		km = new JLabel[6];
-		jtf1 = new JTextField[6];
-		for (int i = 0; i < 6; i++) {
-			city[i] = new JLabel();
-			km[i] = new JLabel("km");
-			jtf1[i] = new JTextField();
-			city[i].setFont(new Font("宋体", Font.PLAIN, 16));
-			km[i].setFont(new Font("宋体", Font.PLAIN, 16));
-			jtf1[i].setFont(new Font("宋体", Font.PLAIN, 16));
-		}
+		model = new DefaultTableModel();
+		table = new JTable(model) {
+			public boolean isCellEditable(int row, int column) {
+				if (column == 1) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		};
+		js = new JScrollPane(table);
 
 		feeremind = new JLabel("包装价格:");
 		feeremind.setFont(new Font("宋体", Font.BOLD, 20));
@@ -75,15 +80,11 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 		submit = new JButton("");// 提交
 		cancel = new JButton("");// 取消
 
+		dtc = new ColorRenderer();
+
 		init();
 
-		this.add(cityremind);
 		this.add(feeremind);
-		for (int i = 0; i < 6; i++) {
-			this.add(city[i]);
-			this.add(km[i]);
-			this.add(jtf1[i]);
-		}
 		for (int i = 0; i < 3; i++) {
 			this.add(fee[i]);
 			this.add(yuan[i]);
@@ -91,7 +92,7 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 		}
 		this.add(submit);
 		this.add(cancel);
-
+		this.add(js);
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -103,59 +104,33 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 	}
 
 	private void init() {
-		cityremind.setBounds(frameWidth / 10, frameHeight / 10 - frameHeight
-				/ 20, frameWidth / 8, frameHeight / 10);
 		feeremind.setBounds(frameWidth / 10,
 				frameHeight / 2 + frameHeight / 10, frameWidth / 8,
 				frameHeight / 10);
-		city[0].setText("南京——北京");
-		city[1].setText("北京——广州");
-		city[2].setText("广州——上海");
-		city[3].setText("上海——南京");
-		city[4].setText("广州——北京");
-		city[5].setText("上海——广州");
+
+		model.addColumn("出发地-到达地");
+		model.addColumn("距离（/km）");
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
+		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+		initModel();
+		js.setBounds(frameWidth / 8, frameHeight / 10, frameWidth / 2,
+				frameHeight / 2);
+
 		fee[0].setText("木箱：");
 		fee[1].setText("纸盒：");
 		fee[2].setText("包装袋：");
 		for (int i = 0; i < 3; i++) {
-			city[i].setBounds(frameWidth / 10, frameHeight / 5 + frameHeight
-					/ 10 * i - frameHeight / 20, frameWidth / 9,
-					frameHeight / 20);
-			km[i].setBounds(frameWidth / 20 * 7, frameHeight / 5 + frameHeight
-					/ 10 * i - frameHeight / 20, frameWidth / 10,
-					frameHeight / 20);
 			fee[i].setBounds(frameWidth / 10 + frameWidth / 5 * i, frameHeight
 					/ 2 + frameHeight / 5, frameWidth / 9, frameHeight / 20);
 			yuan[i].setBounds(frameWidth / 10 + frameWidth / 8 + frameWidth / 5
 					* i, frameHeight / 2 + frameHeight / 5, frameWidth / 20,
 					frameHeight / 20);
-			jtf1[i].setBounds(frameWidth / 40 * 9, frameHeight / 5
-					+ frameHeight / 10 * i - frameHeight / 20, frameWidth / 10,
-					frameHeight / 20);
 			jtf2[i].setBounds(frameWidth / 6 + frameWidth / 5 * i, frameHeight
 					/ 2 + frameHeight / 5, frameWidth / 20, frameHeight / 20);
 		}
-		for (int i = 3; i < 6; i++) {
-			city[i].setBounds(frameWidth / 12 * 5, frameHeight / 5
-					+ frameHeight / 10 * (i - 3) - frameHeight / 20,
-					frameWidth / 9, frameHeight / 20);
-			km[i].setBounds(frameWidth / 12 * 5 + frameWidth / 4, frameHeight
-					/ 5 - frameHeight / 20 + frameHeight / 10 * (i - 3),
-					frameWidth / 10, frameHeight / 20);
-			jtf1[i].setBounds(frameWidth / 12 * 5 + frameWidth / 4 - frameWidth
-					/ 8, frameHeight / 5 - frameHeight / 20 + frameHeight / 10
-					* (i - 3), frameWidth / 10, frameHeight / 20);
-		}
-		for (int i = 0; i < 6; i++) {
-			jtf1[i].addKeyListener(new KeyAdapter() {
-				public void keyTyped(KeyEvent e) {
-					if (!Character.isDigit(e.getKeyChar())
-							&& e.getKeyChar() != KeyEvent.VK_PERIOD) {
-						e.consume();
-					}
-				}
-			});
-		}
+
 		for (int i = 0; i < 3; i++) {
 			jtf2[i].addKeyListener(new KeyAdapter() {
 				public void keyTyped(KeyEvent e) {
@@ -169,8 +144,10 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 
 		submit.setBounds(frameWidth / 10 + frameHeight / 17, frameHeight / 10
 				* 9 - frameHeight / 55, frameWidth / 10, frameHeight / 18);
+		submit.addActionListener(this);
 		cancel.setBounds(frameWidth / 20 * 10, frameHeight / 10 * 9
 				- frameHeight / 55, frameWidth / 10, frameHeight / 18);
+		cancel.addActionListener(this);
 		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
@@ -183,6 +160,43 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 		icon2 = new ImageIcon(temp2);
 		submit.setIcon(icon2);
 
+		jtf2[0].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					jtf2[1].requestFocus();
+				}
+			}
+		});
+		jtf2[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					jtf2[2].requestFocus();
+				}
+			}
+		});
+		jtf2[2].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					jtf2[1].requestFocus();
+				}
+			}
+		});
+		jtf2[1].addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					jtf2[0].requestFocus();
+				}
+			}
+		});
+
+	}
+
+	private void initModel() {
+		Vector<String> vec = new Vector<>();
+		vec.add("南京-北京");
+		vec.add("1000");
+		for (int i = 0; i < 20; i++)
+			model.addRow(vec);
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -199,6 +213,63 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 		}
 	}
 
+	private void wrongsolve() {
+		// 错误处理
+		final JLabel remindWrong = new JLabel();
+		remindWrong.setBounds(frameWidth / 10 - frameWidth / 30, frameHeight
+				/ 14 + frameHeight / 7 * 5 + frameHeight / 70 - frameHeight
+				/ 12, frameWidth / 2, frameHeight / 18);
+		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+		remindWrong.setForeground(Color.red);
+		this.add(remindWrong);
+		this.repaint();
+
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// 以下根据错误类型设置文字
+				remindWrong.setText("wrong");
+				try {
+					Thread.sleep(2000);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				remindWrong.setText("");
+			}
+		});
+		t.start();
+		// 错误处理结束
+	}
+
 	public void actionPerformed(ActionEvent e) {
+
+		if (e.getSource() == cancel) {
+			this.notifyWatchers(State.MANAGERSTART);
+		} else if (e.getSource() == submit) {
+
+			String fee[];
+			String cities[];
+			String distance[];
+			fee = new String[3];
+			cities = new String[table.getRowCount()];
+			distance = new String[table.getRowCount()];
+			for (int i = 0; i < 3; i++) {
+				fee[i] = jtf2[i].getText();
+				// System.out.print("fee=" + fee[i] + " ");
+			}
+			// System.out.println();
+			for (int i = 0; i < table.getRowCount(); i++) {
+				cities[i] = table.getValueAt(i, 0).toString();
+				distance[i] = table.getValueAt(i, 1).toString();
+				// System.out.println("城市：" + cities[i] + "  " + " 距离："
+				// + distance[i]);
+			}
+			// System.out.println();
+
+			//错误提示
+			wrongsolve();
+			
+		}
+
 	}
 }

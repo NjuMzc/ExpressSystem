@@ -4,6 +4,7 @@ package businesslogic.transportbl.courier;
  */
 import po.Message;
 import po.bills.OrderBill;
+import vo.BillVO;
 import businesslogic.billsbl.OrderBillServer.OrderBillServer;
 import businesslogic.transportbl.GoodController;
 import businesslogicservice.transportblservice.courier.Trans_MakingOrderServer;
@@ -20,8 +21,22 @@ public class Trans_MakingOrderServerImpl implements Trans_MakingOrderServer{
 	}
 	
 	@Override
-	public OrderBill makeOrder(Message msg) {
+	public BillVO makeOrder(Message msg) {
 		// TODO Auto-generated method stub
+		BillVO result;
+		
+		try{
+			double temp;
+			temp=Double.valueOf(msg.getInform(4));
+			temp=Double.valueOf(msg.getInform(11));
+			temp=Double.valueOf(msg.getInform(5));
+			temp=Double.valueOf(msg.getInform(6));
+		}catch(NumberFormatException e){
+			result=new BillVO("输入的数据格式有误!");
+			return result;
+		}
+		
+		
 	    OrderBill bill=billServer.makeBill(msg);
 	    if(bill==null){
 	    	return null;
@@ -33,7 +48,12 @@ public class Trans_MakingOrderServerImpl implements Trans_MakingOrderServer{
 	    
 	    //添加一个新的货物
 	    goodController.makeGood(bill);
-		return bill;
+	    
+	    result=new BillVO();
+	    result.setId(bill.getID());
+	    result.setFee(bill.getCharge());
+	    result.setDate(bill.getTime());
+		return result;
 	}
 
 }

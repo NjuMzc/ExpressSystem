@@ -87,7 +87,11 @@ public class RMIHelper {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> origin/master
 		try {
 
 			// System.setProperty("java.rmi.server.hostname", "172.26.196.95");

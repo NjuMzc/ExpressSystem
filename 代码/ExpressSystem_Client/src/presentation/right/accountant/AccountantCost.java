@@ -53,7 +53,7 @@ public class AccountantCost extends RightAll implements ActionListener {
 		for (int i = 0; i < 5; i++) {
 			jl[i] = new JLabel();
 		}
-		back = new JButton("返回");
+		back = new JButton("");//返回
 
 		time = new JLabel[3];
 		timeInput = new JComboBox[3];
@@ -71,7 +71,7 @@ public class AccountantCost extends RightAll implements ActionListener {
 		timeInputover[0] = time2.getCboYear();
 		timeInputover[1] = time2.getCboMonth();
 		timeInputover[2] = time2.getCboDay();
-		search = new JButton("查询");
+		search = new JButton("");//查询
 
 		jtf = new JTextField[3];
 		for (int i = 0; i < 3; i++) {
@@ -115,9 +115,11 @@ public class AccountantCost extends RightAll implements ActionListener {
 			jl[i].setFont(new Font("宋体", Font.BOLD, 16));
 		}
 
-		back.setBounds(frameWidth / 40 * 11, frameHeight / 10 * 9,
-				frameWidth / 10, frameHeight / 20);
+		back.setBounds(frameWidth / 40 * 13, frameHeight / 10 * 9,
+				frameWidth / 11, frameHeight / 20);
 		back.addActionListener(this);
+		
+
 
 		time[0].setText("年");
 		time[1].setText("月");
@@ -141,14 +143,27 @@ public class AccountantCost extends RightAll implements ActionListener {
 			timeover[i].setFont(new Font("宋体", Font.PLAIN, 14));
 		}
 
-		search.setBounds(frameWidth / 8 * 5,
-				frameHeight / 15 + frameHeight / 8, frameWidth / 10,
+		search.setBounds(frameWidth / 8 * 5-frameWidth/26,
+				frameHeight / 15 + frameHeight / 8, frameWidth / 11,
 				frameHeight / 20);
 		search.addActionListener(this);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//返回小.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		back.setIcon(icon1);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//查询.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		search.setIcon(icon2);
 
 		for (int i = 0; i < 3; i++) {
 			jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight / 8
 					* (i + 2), frameWidth / 10, frameHeight / 20);
+			jtf[i].setFont(new Font("宋体",Font.PLAIN,14));
 		}
 
 		jtf[0].addKeyListener(new KeyAdapter() {
@@ -202,7 +217,7 @@ public class AccountantCost extends RightAll implements ActionListener {
 	private void wrongShow() {
 		// 错误处理
 		final JLabel remindWrong = new JLabel();
-		remindWrong.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
+		remindWrong.setBounds(frameWidth * 2 / 8, frameHeight *7 / 20,
 				frameWidth / 2, frameHeight / 20);
 		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
 		remindWrong.setForeground(Color.red);

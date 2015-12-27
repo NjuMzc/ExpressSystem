@@ -218,7 +218,38 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.STOCKMANSTART);
 		} else if (e.getSource() == confirm) {
-
+            
+			String id;
+			String time;
+			String destination;
+			String types;
+			String num;
+			
+			id=jtf[0].getText();
+			time = timeInput[0].getSelectedItem().toString();
+			time += "-";
+			if (timeInput[1].getSelectedItem().toString().length() == 1) {
+				time += "0";
+				time += timeInput[1].getSelectedItem().toString();
+			} else {
+				time += timeInput[1].getSelectedItem().toString();
+			}
+			time += "-";
+			if (timeInput[2].getSelectedItem().toString().length() == 1) {
+				time += "0";
+				time += timeInput[2].getSelectedItem().toString();
+			} else {
+				time += timeInput[2].getSelectedItem().toString();
+			}
+			destination=jtf[1].getText();
+			types=type.getSelectedItem().toString();
+			num=jtf[2].getText();
+			
+//			System.out.println("id:"+id);
+//			System.out.println("time:"+time);
+//			System.out.println("destination:"+destination);
+//			System.out.println("type:"+types);
+//			System.out.println("num:"+num);
 		}
 	}
 }

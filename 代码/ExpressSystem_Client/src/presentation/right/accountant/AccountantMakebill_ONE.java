@@ -1,5 +1,7 @@
 package presentation.right.accountant;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,12 +12,15 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import po.Workers.DriverPO;
+import businesslogic.bankbl.BankServerImpl;
+import businesslogicservice.bankblservice.bankServer;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
 public class AccountantMakebill_ONE extends RightAll implements ActionListener {
+	bankServer bankServer;
+	
 	int frameWidth;
 	int frameHeight;
 	private List<Watcher> list;
@@ -39,6 +44,8 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 	JButton changeover;
 
 	public AccountantMakebill_ONE(int frameWidth, int frameHeight) {
+		bankServer=new BankServerImpl();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 		list = new ArrayList<Watcher>();
@@ -57,7 +64,7 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			jb[i] = new JButton();
 		}
-		allover = new JButton("建账完成");
+		allover = new JButton("");//建账完成
 		dtc = new ColorRenderer();
 
 		init();
@@ -68,22 +75,55 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 		}
 		this.add(allover);
 	}
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+	}
 
 	private void init() {
 
 		js.setBounds(0, frameHeight / 10, frameWidth / 4 * 3,
 				frameHeight / 5 * 3);
 		initTable();
-		jb[0].setText("增加");
-		jb[1].setText("删除");
-		jb[2].setText("修改");
+		jb[0].setText("");//增加
+		jb[1].setText("");//删除
+		jb[2].setText("");//修改
 		for (int i = 0; i < 3; i++) {
 			jb[i].setBounds(frameWidth / 8 + frameWidth / 5 * i,
 					frameHeight / 40, frameWidth / 10, frameHeight / 20);
 			jb[i].addActionListener(this);
 		}
+		
+		ImageIcon icon2 = new ImageIcon("pictures//增加黄.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		jb[0].setIcon(icon2);
+		
+		ImageIcon icon3 = new ImageIcon("pictures//删除.png");
+		Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3= new ImageIcon(temp3);
+		jb[1].setIcon(icon3);
+		
+		ImageIcon icon4 = new ImageIcon("pictures//修改浅.png");
+		Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
+				icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
+		icon4 = new ImageIcon(temp4);
+		jb[2].setIcon(icon4);
+		
 		allover.setBounds(frameWidth / 40 * 13, frameHeight / 10 * 9,
 				frameWidth / 10, frameHeight / 20);
+		
+		ImageIcon icon1 = new ImageIcon("pictures//完成.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		allover.setIcon(icon1);
 	}
 
 	private void initTable() {
@@ -120,7 +160,7 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 			changelable[i] = new JLabel();
 			changejtf[i] = new JTextField();
 		}
-		changeover = new JButton("√");
+		changeover = new JButton("");//√
 		changelable[0].setText("快递单号");
 		changelable[1].setText("快递日期");
 		changelable[2].setText("目的地");
@@ -140,8 +180,15 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 			changepanel.add(changelable[i]);
 			changepanel.add(changejtf[i]);
 		}
-		changeover.setBounds(frameWidth / 10 * 7, frameHeight / 20,
-				frameWidth / 20, frameHeight / 20);
+		changeover.setBounds(frameWidth / 10 * 7+frameWidth/65, frameHeight / 20,
+				frameHeight / 20, frameHeight / 20);
+
+		ImageIcon icon4 = new ImageIcon("pictures//勾.png");
+		Image temp4 = icon4.getImage().getScaledInstance(changeover.getWidth(),
+				changeover.getHeight(), icon4.getImage().SCALE_DEFAULT);
+		icon4 = new ImageIcon(temp4);
+		changeover.setIcon(icon4);
+		
 		changeover.addActionListener(this);
 
 		changepanel.add(changeover);
@@ -170,7 +217,7 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 			addlable[i] = new JLabel();
 			addjtf[i] = new JTextField();
 		}
-		addover = new JButton("√");
+		addover = new JButton("");//√
 		addlable[0].setText("快递单号");
 		addlable[1].setText("入库日期");
 		addlable[2].setText("目的地");
@@ -188,8 +235,13 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 			addpanel.add(addlable[i]);
 			addpanel.add(addjtf[i]);
 		}
-		addover.setBounds(frameWidth / 10 * 7, frameHeight / 20,
-				frameWidth / 20, frameHeight / 20);
+		addover.setBounds(frameWidth / 10 * 7+frameWidth/65, frameHeight / 20,
+				frameHeight / 20, frameHeight / 20);
+		ImageIcon icon7 = new ImageIcon("pictures//勾.png");
+		Image temp7 = icon7.getImage().getScaledInstance(addover.getWidth(),
+				addover.getHeight(), icon7.getImage().SCALE_DEFAULT);
+		icon7 = new ImageIcon(temp7);
+	   addover.setIcon(icon7);
 		addover.addActionListener(this);
 
 		addpanel.add(addover);
@@ -268,6 +320,17 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 			model.addRow(vec);
 		}
 
+		if(e.getSource() == allover){
+			int row=table.getRowCount();
+			
+			for(int i=0;i<row;i++){
+				String name=table.getValueAt(i, 0).toString();
+				String money=table.getValueAt(i, 1).toString();
+				bankServer.addBank(name, money);
+			}
+	
+			
+		}
 	}
 
 }

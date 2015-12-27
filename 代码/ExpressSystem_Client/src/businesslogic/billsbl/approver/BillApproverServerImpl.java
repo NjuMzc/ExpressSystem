@@ -1,5 +1,6 @@
 package businesslogic.billsbl.approver;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import client.RMIHelper;
@@ -63,16 +64,37 @@ public class BillApproverServerImpl implements BillApproveServer {
 	}
 
 	@Override
-	public void approveAll() {
+	public void approvePiLiang(int[] nums) {
 		// TODO Auto-generated method stub
 		list=dataServer.get();
-		Iterator<BillApproverPO> it=list.getList().iterator();
-		while(it.hasNext()){
-			BillApproverPO bill=it.next();
-			bill.setState("Approved");
+		ArrayList<BillApproverPO> billlist=list.getList();
+		
+		for(int i=0;i<billlist.size();i++){
+			if(i==nums[i]){
+				billlist.get(i).setState("Approved");
+			}
 		}
-		list.getList().clear();
+		
+		for(int i=0;i<billlist.size();i++){
+			if(i==nums[i]){
+				list.remove(i);
+			}
+		}
+		
 		dataServer.update(list);
 	}
 
+	
+	public void approveAll(){
+		list=dataServer.get();
+		Iterator<BillApproverPO> bills=list.getList().iterator();
+		
+		while(bills.hasNext()){
+			BillApproverPO bill=bills.next();
+			bill.setState("Approved");
+		}
+	
+		list.getList().clear();
+		dataServer.update(list);
+	}
 }

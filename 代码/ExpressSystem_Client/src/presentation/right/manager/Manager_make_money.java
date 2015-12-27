@@ -249,14 +249,48 @@ public class Manager_make_money extends RightAll implements ActionListener {
 
 	// 数据初始化
 	private void initData() {
+
+		SalaryVO[] salarys = new SalaryVO[7];
+
+		salarys[0] = blServer.getSalary("MANAGER");
+		salarys[1] = blServer.getSalary("SYSTEM_MANAGER");
+		salarys[2] = blServer.getSalary("ACCOUNTANT");
+		salarys[3] = blServer.getSalary("STORAGE_MANAGER");
+		salarys[4] = blServer.getSalary("COURIER");
+		salarys[5] = blServer.getSalary("BUSINESSMAN");
+		salarys[6] = blServer.getSalary("TRANSMAN");
+
 		for (int i = 0; i < 7; i++) {
-			jradiobutton1[i].setSelected(true);
-			jtf1[i].setText("1000");
-			jtf2[i].setEditable(false);
+
+			if (salarys[i].getSalaryType().equals("MONTH")) {
+				jradiobutton1[i].setSelected(true);
+				jtf1[i].setText(salarys[i].getNum());
+				jtf2[i].setEditable(false);
+				if(i>3&&i<7)
+				jtf3[i-4].setEditable(false);
+
+			}
+
+			if (salarys[i].getSalaryType().equals("PERCENTAGE")) {
+				jradiobutton2[i].setSelected(true);
+				jtf2[i].setText(salarys[i].getNum());
+				jtf1[i].setEditable(false);
+				if(i>3&&i<7)
+				jtf3[i-4].setEditable(false);
+
+			}
+
+			if (salarys[i].getSalaryType().equals("COUNT")) {
+				if(i>3&&i<7)
+				jradiobutton3[i-4].setSelected(true);
+				if(i>3&&i<7)
+				jtf3[i-4].setText(salarys[i].getNum());
+				jtf2[i].setEditable(false);
+				jtf1[i-4].setEditable(false);
+
+			}
 		}
-		for (int i = 0; i < 3; i++) {
-			jtf3[i].setEditable(false);
-		}
+
 	}
 
 	public void addWatcher(Watcher watcher) {

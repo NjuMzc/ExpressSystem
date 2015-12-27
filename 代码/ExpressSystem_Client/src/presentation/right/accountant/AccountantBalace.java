@@ -83,6 +83,7 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		js = new JScrollPane(table);
 
 		inputNum = new JTextField();
+	    inputNum.setFont(new Font("宋体", Font.PLAIN, 14));
 		sum = new JLabel("金额合计");
 		sum.setFont(new Font("宋体", Font.BOLD, 16));
 		jtfSum = new JTextField();
@@ -155,6 +156,7 @@ public class AccountantBalace extends RightAll implements ActionListener {
 				frameHeight / 20);
 		jtfSum.setBounds(frameWidth / 4, frameHeight / 5 * 4, frameWidth / 10,
 				frameHeight / 20);
+		jtfSum.setFont(new Font("宋体", Font.PLAIN, 14));
 
 		back.setBounds(frameWidth / 4, frameHeight / 10 * 9, frameWidth / 10,
 				frameHeight / 19);
@@ -230,7 +232,7 @@ public class AccountantBalace extends RightAll implements ActionListener {
 	private void wrongShow() {
 		// 错误处理
 		final JLabel remindWrong = new JLabel();
-		remindWrong.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
+		remindWrong.setBounds(frameWidth * 2 / 8, frameHeight * 7 / 20,
 				frameWidth / 4, frameHeight / 20);
 		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
 		remindWrong.setForeground(Color.red);

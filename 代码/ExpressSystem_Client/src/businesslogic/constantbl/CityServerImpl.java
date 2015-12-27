@@ -1,5 +1,7 @@
 package businesslogic.constantbl;
 
+import java.util.Iterator;
+
 import client.RMIHelper;
 import dataservice.constantdataservice.CityDataServer;
 import po.CityPO;
@@ -53,6 +55,13 @@ public class CityServerImpl implements CityServer {
 	public boolean delete(String id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Iterator<CityPO> getAll() {
+		// TODO Auto-generated method stub
+		
+		return dataServer.getAll().iterator();
 	}
 
 }

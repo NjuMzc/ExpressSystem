@@ -157,6 +157,8 @@ public class StockmanSearch extends RightAll implements ActionListener {
 				frameHeight / 20);
 		jtfOut.setBounds(frameWidth / 10, frameHeight / 2 + frameHeight / 10,
 				frameWidth / 10, frameHeight / 20);
+		jtfIn.setEditable(false);
+		jtfOut.setEditable(false);
 
 		initTable();
 

@@ -1,6 +1,8 @@
 package presentation.right.accountant;
 
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -93,6 +95,14 @@ public class AccountantMakebill_THREE extends RightAll implements
 		jp1.add(js1);
 		this.add(jp1);
 	}
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+		Image bg =background.getImage();
+		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+	}
 
 	private void initJp1() {
 		jp1.setBounds(0, 0, frameWidth / 4, frameHeight);
@@ -126,14 +136,28 @@ public class AccountantMakebill_THREE extends RightAll implements
 
 		js2.setBounds(0, 0, frameWidth / 4, frameHeight / 2);
 
-		orgAdd = new JButton("增加");
+		orgAdd = new JButton("");//增加
 		orgAdd.setBounds(frameWidth / 16, frameHeight / 2 + frameHeight / 8,
-				frameWidth / 8, frameHeight / 20);
+				frameWidth / 10, frameHeight / 20);
 		orgAdd.addActionListener(this);
-		orgDel = new JButton("删除");
-		orgDel.setBounds(frameWidth / 16, frameHeight / 10 * 9, frameWidth / 8,
+		orgDel = new JButton("");//删除
+		orgDel.setBounds(frameWidth / 16, frameHeight / 10 * 9, frameWidth / 10,
 				frameHeight / 20);
 		orgDel.addActionListener(this);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//增加黄.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		orgAdd.setIcon(icon2);
+		
+		ImageIcon icon3 = new ImageIcon("pictures//删除.png");
+		Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3= new ImageIcon(temp3);
+		orgDel.setIcon(icon3);
+
+		
 
 		jp2.add(js2);
 		jp2.add(orgAdd);
@@ -167,15 +191,28 @@ public class AccountantMakebill_THREE extends RightAll implements
 		con_js = new JScrollPane(con_table);
 		con_js.setBounds(0, 0, frameWidth / 4, frameHeight / 2);
 
-		con_orgAdd = new JButton("增加");
+		con_orgAdd = new JButton("");//增加
 		con_orgAdd.setBounds(frameWidth / 16,
-				frameHeight / 2 + frameHeight / 8, frameWidth / 8,
+				frameHeight / 2 + frameHeight / 8, frameWidth / 10,
 				frameHeight / 20);
 		con_orgAdd.addActionListener(this);
-		con_orgDel = new JButton("删除");
+		con_orgDel = new JButton("");//删除
 		con_orgDel.setBounds(frameWidth / 16, frameHeight / 10 * 9,
-				frameWidth / 8, frameHeight / 20);
+				frameWidth / 10, frameHeight / 20);
 		con_orgDel.addActionListener(this);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//增加黄.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		con_orgAdd.setIcon(icon2);
+		
+		ImageIcon icon3 = new ImageIcon("pictures//删除.png");
+		Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3= new ImageIcon(temp3);
+		con_orgDel.setIcon(icon3);
+		
 
 		jp3.add(con_js);
 		jp3.add(con_orgAdd);
@@ -201,14 +238,27 @@ public class AccountantMakebill_THREE extends RightAll implements
 		initCarModel();
 		car_js.setBounds(0, 0, frameWidth / 2, frameHeight / 2);
 
-		car_orgAdd = new JButton("增加");
+		car_orgAdd = new JButton("");//增加
 		car_orgAdd.setBounds(frameWidth * 3 / 16, frameHeight / 2 + frameHeight
-				/ 8, frameWidth / 8, frameHeight / 20);
+				/ 8, frameWidth / 10, frameHeight / 20);
 		car_orgAdd.addActionListener(this);
-		car_orgDel = new JButton("删除");
+		car_orgDel = new JButton("");//删除
 		car_orgDel.setBounds(frameWidth * 3 / 16, frameHeight / 10 * 9,
-				frameWidth / 8, frameHeight / 20);
+				frameWidth / 10, frameHeight / 20);
 		car_orgDel.addActionListener(this);
+		
+		ImageIcon icon2 = new ImageIcon("pictures//增加黄.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		car_orgAdd.setIcon(icon2);
+		
+		ImageIcon icon3 = new ImageIcon("pictures//删除.png");
+		Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3= new ImageIcon(temp3);
+		car_orgDel.setIcon(icon3);
+		
 
 		jp4.add(car_js);
 		jp4.add(car_orgAdd);
@@ -431,7 +481,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 			addLabel_car[4].setText("购买时间");
 			addLabel_car[5].setText("服役时间");
 			addLabel_car[6].setText("车辆描述");
-			this.overButton_car = new JButton("完成");
+			this.overButton_car = new JButton("");//完成
 			for (int i = 0; i < 7; i++) {
 				jtf_car[i].setBounds(frameWidth / 14 * i, frameHeight / 2
 						+ frameHeight / 4, frameWidth / 14, frameHeight / 20);
@@ -441,7 +491,14 @@ public class AccountantMakebill_THREE extends RightAll implements
 						+ frameHeight / 5, frameWidth / 14, frameHeight / 20);
 			}
 			overButton_car.setBounds(frameWidth / 16 * 3,
-					frameHeight / 20 * 17, frameWidth / 8, frameHeight / 20);
+					frameHeight / 20 * 16, frameWidth /10, frameHeight / 20);
+			
+			ImageIcon icon2 = new ImageIcon("pictures//完成.png");
+			Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+					icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+			icon2 = new ImageIcon(temp2);
+			overButton_car.setIcon(icon2);
+			
 			overButton_car.addActionListener(new ActionListener() {
 
 				@Override
@@ -485,13 +542,20 @@ public class AccountantMakebill_THREE extends RightAll implements
 			this.repaint();
 			this.jtf_people = new JTextField();
 			this.addLabel_people = new JLabel("请输入员工编号:");
-			this.overButton_people = new JButton("完成");
+			this.overButton_people = new JButton("");//完成
 			jtf_people.setBounds(frameWidth / 24, frameHeight / 2 + frameHeight
 					/ 4, frameWidth / 6, frameHeight / 20);
 			addLabel_people.setBounds(frameWidth / 24, frameHeight / 2
 					+ frameHeight / 5, frameWidth / 6, frameHeight / 20);
-			overButton_people.setBounds(frameWidth / 16, frameHeight / 20 * 17,
-					frameWidth / 8, frameHeight / 20);
+			overButton_people.setBounds(frameWidth / 16, frameHeight / 20 * 16,
+					frameWidth /10, frameHeight / 20);
+			
+			ImageIcon icon2 = new ImageIcon("pictures//完成.png");
+			Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+					icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+			icon2 = new ImageIcon(temp2);
+			overButton_people.setIcon(icon2);
+			
 			overButton_people.addActionListener(new ActionListener() {
 
 				@Override
@@ -529,15 +593,22 @@ public class AccountantMakebill_THREE extends RightAll implements
 			this.repaint();
 			this.jtf = new JTextField();
 			this.addLabel = new JLabel("请输入机构名称:");
-			this.overButton = new JButton("完成");
+			this.overButton = new JButton("");//完成
 			jtf.setBounds(frameWidth / 24, frameHeight / 2 + frameHeight / 4,
 					frameWidth / 6, frameHeight / 20);
 			addLabel.setBounds(frameWidth / 24, frameHeight / 2 + frameHeight
 					/ 5, frameWidth / 6, frameHeight / 20);
-			overButton.setBounds(frameWidth / 16, frameHeight / 20 * 17,
-					frameWidth / 8, frameHeight / 20);
+			overButton.setBounds(frameWidth / 16, frameHeight / 20 * 16,
+					frameWidth / 10, frameHeight / 20);
+			
+			ImageIcon icon2 = new ImageIcon("pictures//完成.png");
+			Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+					icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+			icon2 = new ImageIcon(temp2);
+			overButton.setIcon(icon2);
+			
 			overButton.addActionListener(new ActionListener() {
-
+   
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					String input = jtf.getText();

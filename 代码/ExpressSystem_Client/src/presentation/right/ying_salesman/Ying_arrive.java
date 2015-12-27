@@ -1,6 +1,5 @@
 package presentation.right.ying_salesman;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -16,13 +15,10 @@ import javax.swing.*;
 import businesslogic.transportbl.hallStaff.Trans_HallArrivalServerImpl;
 import businesslogicservice.transportblservice.hallStaff.Trans_HallArrivalServer;
 import po.bills.HallArrivalBill;
-import po.bills.TransArrivalBill;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.State;
-import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
-import vo.paymentbl.ChargeVO;
 
 public class Ying_arrive extends RightAll implements ActionListener {
 
@@ -249,9 +245,14 @@ public class Ying_arrive extends RightAll implements ActionListener {
 			
 			HallArrivalBill bill=blServer.makeBill(GoodID, date, transOrderNum, departure, state);
 			
+			if(bill==null){
+				//错误信息处理
+				System.out.println("输入的货物编号错误！");
+			}else{
+
+				this.notifyWatchers(State.YING_ARRIVE);
+			}
 			
-			
-			this.notifyWatchers(State.YING_ARRIVE);
 		}
 	}
 }
