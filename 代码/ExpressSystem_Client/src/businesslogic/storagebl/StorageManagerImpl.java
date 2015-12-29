@@ -1,5 +1,6 @@
 package businesslogic.storagebl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import businesslogic.billsbl.ExportBillServer.ExportBillServer;
@@ -14,6 +15,7 @@ import po.GoodPO;
 import po.Institution.StoragePO;
 import po.Institution.storageAssist.Record;
 import po.Institution.storageAssist.StorageInfo;
+import vo.storagebl.PanDianVO;
 
 /**
  * 
@@ -103,4 +105,9 @@ public class StorageManagerImpl implements StorageManager {
 		return false;
 	}
 
+	public ArrayList<PanDianVO> getList(){
+		StoragePO storage = storageServer.find(storageID);
+		return storage.getAllList();
+	}
+	
 }

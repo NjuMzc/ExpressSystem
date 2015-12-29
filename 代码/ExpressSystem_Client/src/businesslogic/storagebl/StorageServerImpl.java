@@ -147,15 +147,24 @@ public class StorageServerImpl implements StorageServer {
 	}
 
 	@Override
-	public PanDianVO panDian(String date) {
+	public Iterator<PanDianVO> panDian() {
 		// TODO Auto-generated method stub
-		return null;
+		Iterator<PanDianVO> it=storageManager.getList().iterator();
+		return it;
 	}
 
 	@Override
 	public void exportTable() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean changeStorage(String oldLocation, String newLocation) {
+		// TODO Auto-generated method stub
+		
+		
+		return storageManager.changeStorage(oldLocation, newLocation);
 	}
 
 }

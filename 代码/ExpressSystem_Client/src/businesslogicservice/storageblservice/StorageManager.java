@@ -1,9 +1,11 @@
 package businesslogicservice.storageblservice;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import po.Institution.storageAssist.Record;
 import po.Institution.storageAssist.StorageInfo;
+import vo.storagebl.PanDianVO;
 
 
 
@@ -20,4 +22,5 @@ public interface StorageManager {
 
 	public boolean changeStorage(String oldLocation,String newLocation);//分区调整功能
 
+	public ArrayList<PanDianVO> getList();
 }

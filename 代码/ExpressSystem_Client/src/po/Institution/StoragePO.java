@@ -12,6 +12,7 @@ import po.Institution.storageAssist.Record;
 import po.Institution.storageAssist.StorageAlerter;
 import po.Institution.storageAssist.StorageInfo;
 import po.Workers.StorageKeeperPO;
+import vo.storagebl.PanDianVO;
 
 /**
  * 中转中心仓库的对象
@@ -52,6 +53,11 @@ public class StoragePO implements Serializable, Remote {
 
 	public String getName() {
 		return name;
+	}
+	
+	
+	public ArrayList<PanDianVO> getAllList(){
+		return capacity.getAllList();
 	}
 
 	// 货物入库时的操作

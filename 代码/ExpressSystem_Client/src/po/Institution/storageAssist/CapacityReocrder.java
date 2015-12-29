@@ -1,8 +1,10 @@
 package po.Institution.storageAssist;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import po.GoodPO;
+import vo.storagebl.PanDianVO;
 
 /**
  * 仓库位置信息的辅助类,用于存储仓库各位置的货物信息、入库时间(用于库存盘点）
@@ -92,5 +94,28 @@ public class CapacityReocrder implements Serializable {
 
 	public StorageInfo[] getAllInfor(int area, int row, int shelf) {
 		return info[area][row][shelf];
+	}
+	
+	public ArrayList<PanDianVO> getAllList(){
+		ArrayList<PanDianVO> pandian = new ArrayList<>();
+		for (int i = 0; i < area; i++) {
+			for(int j=0;j<row;j++){
+				for(int k=0;k<shelf;k++){
+					for(int m=0;m<position;m++){
+						StorageInfo temp=info[i][j][k][m];
+						if(temp!=null){
+							String num=temp.getGood().getID();
+							String date=temp.getTime();
+							String destination= temp.getGood().getDestination();
+							String[] location={""+(i+1),""+(j+1),""+(1+k),""+(m+1)};
+							PanDianVO pan = new PanDianVO(num,date,destination,location);
+							pandian.add(pan);
+						}
+					}
+				}
+			}
+		}
+		
+		return pandian;
 	}
 }
