@@ -216,6 +216,34 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 			watcher.update(state);
 		}
 	}
+	
+
+	private void wrongShow() {
+		// 错误处理
+		final JLabel remindWrong = new JLabel();
+		remindWrong.setBounds(frameWidth / 4, frameHeight * 31 / 40,
+				frameWidth / 4, frameHeight / 20);
+		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+		remindWrong.setForeground(Color.red);
+		this.add(remindWrong);
+		this.repaint();
+
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// 以下根据错误类型设置文字
+				remindWrong.setText("wrong");
+				try {
+					Thread.sleep(2000);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				remindWrong.setText("");
+			}
+		});
+		t.start();
+		// 错误处理结束
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
@@ -247,13 +275,13 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 			destination=jtf[1].getText();
 			types=type.getSelectedItem().toString();
 			num=jtf[2].getText();
-			
-//			storageM.ExportGood(id, location, date)
-//			System.out.println("id:"+id);
-//			System.out.println("time:"+time);
-//			System.out.println("destination:"+destination);
-//			System.out.println("type:"+types);
-//			System.out.println("num:"+num);
+ 
+			//错误处理
+			if(true){
+				wrongShow();
+			}else{
+				
+			}
 		}
 	}
 }
