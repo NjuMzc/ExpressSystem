@@ -18,11 +18,15 @@ import javax.swing.table.DefaultTableModel;
 import org.apache.poi.hslf.record.Record;
 
 import businesslogic.storagebl.StorageManagerImpl;
+import businesslogic.storagebl.StorageServerImpl;
 import businesslogicservice.storageblservice.StorageManager;
+import businesslogicservice.storageblservice.StorageServer;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
+import vo.storagebl.ChaKanVO;
+import vo.storagebl.RecordVO;
 
 public class StockmanSearch extends RightAll implements ActionListener {
 	int frameWidth;
@@ -46,9 +50,14 @@ public class StockmanSearch extends RightAll implements ActionListener {
 	JTextField jtfOut;
 	DefaultTableCellRenderer dtc;
 
-	private StorageManager manager = new StorageManagerImpl();
+	StorageServer storageServer;
+	double chukuMoney;
+	double rukuMoney;
 
 	public StockmanSearch(int frameWidth, int frameHeight) {
+		storageServer=new StorageServerImpl();
+		chukuMoney=0;
+		rukuMoney=0;
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -142,6 +151,9 @@ public class StockmanSearch extends RightAll implements ActionListener {
 	}
 
 	private void addPanel() {
+		if(addpanel!=null){
+			this.remove(addpanel);
+		}
 		addpanel = new JPanel();
 		addpanel.setLayout(null);
 		addpanel.setBounds(0, frameHeight / 3, frameWidth / 4 * 3,
@@ -157,7 +169,9 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		inStock = new JLabel("入库合计");
 		outStock = new JLabel("出库合计");
 		jtfIn = new JTextField();
+		jtfIn.setText(""+rukuMoney);
 		jtfOut = new JTextField();
+		jtfOut.setText(""+chukuMoney);
 
 		js.setBounds(0, 0, frameWidth / 4 * 3, frameHeight / 2);
 		inStock.setBounds(0, frameHeight / 2, frameWidth / 10, frameHeight / 20);
@@ -169,7 +183,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 				frameWidth / 10, frameHeight / 20);
 		jtfIn.setEditable(false);
 		jtfOut.setEditable(false);
-
+		
 		initTable();
 
 		addpanel.add(jtfIn);
@@ -208,22 +222,36 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		String day1 = timeInputover[2].getSelectedItem().toString();
 		String date1 = year1 + "-" + month1 + "-" + day1;
 
-		Iterator<po.Institution.storageAssist.Record> records = manager
-				.getStorageHistory(date, date1);
+		ChaKanVO vo=storageServer.chaKan(date, date1);
 
-	
+		if(vo.isWrong()){
+			//错误信息处理
+			System.out.println(vo.getWrongMessage());
+		}else{
+			Iterator<RecordVO> records=vo.getList();
 
-		while (records.hasNext()) {
-			Vector<String> vec2 = new Vector<>();
-			po.Institution.storageAssist.Record a= records.next();
-			vec2.add(a.getPo().getID());
-			vec2.add(a.getType().toString());
-			vec2.add("2333");
-			String location =a.getLocation();
-			location=location.substring(0,2)+"区"+location.substring(2, 4)+"排"+location.substring(4, 6)+"架"+location.substring(6,8)+"位";
-			vec2.add(location);
-			tableModel.addRow(vec2);
+			while (records.hasNext()) {
+				System.out.println("assss");
+				Vector<String> vec2 = new Vector<>();
+				RecordVO a= records.next();
+				vec2.add(a.getGood().getID());
+				
+				if(a.getType().equals("IMPORT")){
+					vec2.add("入库");
+					rukuMoney+=Double.valueOf(a.getMoney());
+				}else {
+					vec2.add("出库");
+					chukuMoney+=Double.valueOf(a.getMoney());
+				}
+				vec2.add(a.getMoney());
+				String location =a.getLocation();
+				location=location.substring(0,2)+"区"+location.substring(2, 4)+"排"+location.substring(4, 6)+"架"+location.substring(6,8)+"位";
+				vec2.add(location);
+				tableModel.addRow(vec2);
+			}
 		}
+		
+	    
 
 		
 	}

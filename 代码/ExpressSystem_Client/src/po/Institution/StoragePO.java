@@ -11,8 +11,8 @@ import po.Institution.storageAssist.IO_Type;
 import po.Institution.storageAssist.Record;
 import po.Institution.storageAssist.StorageAlerter;
 import po.Institution.storageAssist.StorageInfo;
+import po.Institution.storageAssist.StoreList;
 import po.Workers.StorageKeeperPO;
-import vo.storagebl.PanDianVO;
 
 /**
  * 中转中心仓库的对象
@@ -56,7 +56,7 @@ public class StoragePO implements Serializable, Remote {
 	}
 	
 	
-	public ArrayList<PanDianVO> getAllList(){
+	public ArrayList<StoreList> getAllList(){
 		return capacity.getAllList();
 	}
 

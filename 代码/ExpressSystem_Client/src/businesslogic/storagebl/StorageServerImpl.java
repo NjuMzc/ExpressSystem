@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import po.Institution.storageAssist.Record;
+import po.Institution.storageAssist.StoreList;
 import po.bills.OrderBill;
 import client.RMIHelper;
 import dataservice.transportdataservice.TransportDataServer;
@@ -45,6 +46,11 @@ public class StorageServerImpl implements StorageServer {
 		ImportVO returnMessage;
 		
 		//错误信息检查
+		if(billServer.findBill(goodID)==null){
+			returnMessage=new ImportVO("输入的订单不存在!");
+			return returnMessage;
+		}
+		
 		if(goodID.equals("")){
 			returnMessage=new ImportVO("请输入订单号!");
 			return returnMessage;
@@ -108,6 +114,8 @@ public class StorageServerImpl implements StorageServer {
 				}
 		
 		exportBillServer.makeBill(orderNum, date, destination, loader, DeliverNum, transportNum);
+		
+		
 //		storageManager.ExportGood(orderNum, location, date);  需要修改此处实现
 		
 		result=new ExportVO();
@@ -124,7 +132,6 @@ public class StorageServerImpl implements StorageServer {
 			result=new ChaKanVO("输入的日期格式有误!");
 			return result;
 		}
-		
 		ArrayList<RecordVO> list=new ArrayList<>();
 		
 		Iterator<Record> it=storageManager.getStorageHistory(date1, date2);
@@ -149,8 +156,16 @@ public class StorageServerImpl implements StorageServer {
 	@Override
 	public Iterator<PanDianVO> panDian() {
 		// TODO Auto-generated method stub
-		Iterator<PanDianVO> it=storageManager.getList().iterator();
-		return it;
+		Iterator<StoreList> it=storageManager.getList().iterator();
+		ArrayList<PanDianVO> list=new ArrayList<>();
+		while(it.hasNext()){
+			StoreList po=it.next();
+			
+			PanDianVO vo=new PanDianVO(po.getNum(), po.getDate(),po.getDestination(), po.getLocation());
+			
+			list.add(vo);
+		}
+		return list.iterator();
 	}
 
 	@Override

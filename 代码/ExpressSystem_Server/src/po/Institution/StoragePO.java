@@ -11,6 +11,7 @@ import po.Institution.storageAssist.IO_Type;
 import po.Institution.storageAssist.Record;
 import po.Institution.storageAssist.StorageAlerter;
 import po.Institution.storageAssist.StorageInfo;
+import po.Institution.storageAssist.StoreList;
 import po.Workers.StorageKeeperPO;
 
 /**
@@ -52,6 +53,11 @@ public class StoragePO implements Serializable, Remote {
 
 	public String getName() {
 		return name;
+	}
+	
+	
+	public ArrayList<StoreList> getAllList(){
+		return capacity.getAllList();
 	}
 
 	// 货物入库时的操作
