@@ -14,6 +14,7 @@ import businesslogicservice.transportblservice.courier.Trans_MakingReceiveBillSe
 import javax.swing.*;
 
 import po.Message;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -24,7 +25,7 @@ public class InputInforPanel extends RightAll implements ActionListener {
 	JButton confirm;
 	JButton cancel;
 	JLabel jl[];
-	//JLabel wrong;
+	// JLabel wrong;
 	JTextField jtfNum;
 	JTextField jtfName;
 	private List<Watcher> list;
@@ -50,7 +51,7 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 		}
-		YearMonthDay time1=new YearMonthDay();
+		YearMonthDay time1 = new YearMonthDay();
 		timeInput[0] = time1.getCboYear();
 		timeInput[1] = time1.getCboMonth();
 		timeInput[2] = time1.getCboDay();
@@ -63,9 +64,9 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		cancel = new JButton();
 		jtfNum = new JTextField();
 		jtfName = new JTextField();
- 
+
 		init();
- 
+
 		this.add(confirm);
 		this.add(cancel);
 		this.add(jtfName);
@@ -81,27 +82,29 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\收件2right.png");
-		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
+
 	private void init() {
 
-		confirm.setBounds(frameWidth / 4-frameWidth/25, frameHeight / 10 + frameWidth / 2,
-				frameWidth / 10+frameWidth/70, frameWidth / 21);
-		confirm.setText("");//确认
+		confirm.setBounds(frameWidth / 4 - frameWidth / 25, frameHeight / 10
+				+ frameWidth / 2, frameWidth / 10 + frameWidth / 70,
+				frameWidth / 21);
+		confirm.setText("");// 确认
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth * 2 / 5+frameWidth/25, frameHeight / 10 + frameWidth / 2,
-				frameWidth / 10+frameWidth/70, frameWidth / 21);
-		cancel.setText("");//取消
+		cancel.setBounds(frameWidth * 2 / 5 + frameWidth / 25, frameHeight / 10
+				+ frameWidth / 2, frameWidth / 10 + frameWidth / 70,
+				frameWidth / 21);
+		cancel.setText("");// 取消
 		cancel.addActionListener(this);
-		
+
 		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		cancel.setIcon(icon1);
-		
+
 		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
 		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
 				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
@@ -109,20 +112,21 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		confirm.setIcon(icon2);
 
 		for (int i = 0; i < 3; i++) {
-			jl[i].setBounds(frameWidth / 6-frameWidth/35, frameHeight / 10+frameHeight/30 + frameHeight / 5
-					* i, frameWidth / 7, frameHeight / 18);
-			jl[i].setFont(new Font("宋体",Font.BOLD,18));
+			jl[i].setBounds(frameWidth / 6 - frameWidth / 35, frameHeight / 10
+					+ frameHeight / 30 + frameHeight / 5 * i, frameWidth / 7,
+					frameHeight / 18);
+			jl[i].setFont(new Font("宋体", Font.BOLD, 18));
 		}
 		jl[0].setText("快递单号");
 		jl[1].setText("收件人姓名");
 		jl[2].setText("收件日期");
 
-		jtfNum.setBounds(frameWidth / 4+frameWidth/35, frameHeight / 10+frameHeight/30, frameWidth / 8,
-				frameHeight/16);
-		jtfName.setBounds(frameWidth / 4+frameWidth/35, frameHeight / 10 * 3+frameHeight/30,
-				frameWidth / 8, frameHeight/ 16);
-		jtfNum.setFont(new Font("宋体",Font.PLAIN,16));
-		jtfName.setFont(new Font("宋体",Font.PLAIN,16));
+		jtfNum.setBounds(frameWidth / 4 + frameWidth / 35, frameHeight / 10
+				+ frameHeight / 30, frameWidth / 8, frameHeight / 16);
+		jtfName.setBounds(frameWidth / 4 + frameWidth / 35, frameHeight / 10
+				* 3 + frameHeight / 30, frameWidth / 8, frameHeight / 16);
+		jtfNum.setFont(new Font("宋体", Font.PLAIN, 16));
+		jtfName.setFont(new Font("宋体", Font.PLAIN, 16));
 		jtfNum.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				if (!Character.isDigit(e.getKeyChar())) {
@@ -135,17 +139,20 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		time[1].setText("月");
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
-			timeInput[i].setBounds(frameWidth / 4 +frameWidth/35+ frameWidth / 10 * i+frameWidth/60*i,
-					frameHeight / 2+frameHeight/25, frameWidth / 12+frameWidth/60, frameHeight / 18);
-			time[i].setBounds(frameWidth / 3+frameWidth/35 +frameWidth/60*(i+1)+ frameWidth / 10 * i,
-					frameHeight / 2+frameHeight/25, frameWidth / 10, frameHeight / 18);
-			time[i].setFont(new Font("宋体",Font.PLAIN,14));
-			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
+			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 35
+					+ frameWidth / 10 * i + frameWidth / 60 * i, frameHeight
+					/ 2 + frameHeight / 25, frameWidth / 12 + frameWidth / 60,
+					frameHeight / 18);
+			time[i].setBounds(frameWidth / 3 + frameWidth / 35 + frameWidth
+					/ 60 * (i + 1) + frameWidth / 10 * i, frameHeight / 2
+					+ frameHeight / 25, frameWidth / 10, frameHeight / 18);
+			time[i].setFont(new Font("宋体", Font.PLAIN, 14));
+			timeInput[i].setFont(new Font("宋体", Font.PLAIN, 14));
 		}
-		
+
 		jtfName.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtfNum.requestFocus();
 				}
 			}
@@ -159,12 +166,12 @@ public class InputInforPanel extends RightAll implements ActionListener {
 			}
 		});
 	}
-	
-	private void wrongShow(){
+
+	private void wrongShow() {
 		// 错误处理
 		final JLabel remindWrong = new JLabel();
-		remindWrong.setBounds(frameWidth /3-frameWidth/15, frameHeight /5*3 
-				, frameWidth / 3, frameHeight/10);
+		remindWrong.setBounds(frameWidth / 3 - frameWidth / 15,
+				frameHeight / 5 * 3, frameWidth / 3, frameHeight / 10);
 		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
 		remindWrong.setForeground(Color.red);
 		this.add(remindWrong);
@@ -174,7 +181,7 @@ public class InputInforPanel extends RightAll implements ActionListener {
 			@Override
 			public void run() {
 				// 以下根据错误类型设置文字
-				remindWrong.setText("输入的订单不存在!" );
+				remindWrong.setText("输入的订单不存在!");
 				try {
 					Thread.sleep(2000);
 				} catch (Exception e2) {
@@ -230,6 +237,8 @@ public class InputInforPanel extends RightAll implements ActionListener {
 
 			if (isWrongShow) {
 				wrongShow();
+				// Remind remind = new Remind("wrong!");
+				// this.add(remind);
 			}
 
 		}
