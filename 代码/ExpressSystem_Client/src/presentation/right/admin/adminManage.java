@@ -202,6 +202,17 @@ public class adminManage extends RightAll implements ActionListener {
 	}
 
 	private void addChangePanel(Vector<String> vec) {
+		if(change!=null){
+			this.remove(change);
+		}
+		if(delete!=null){
+			this.remove(delete);
+		}
+		if(add!=null){
+			this.remove(add);
+		}
+		this.repaint();
+		
 		changepanel = new JPanel();
 		changepanel.setLayout(null);
 		changepanel.setBounds(0, frameHeight / 30 * 23, frameWidth / 4 * 3,
@@ -250,6 +261,17 @@ public class adminManage extends RightAll implements ActionListener {
 	}
 
 	private void addAddPanel() {
+		if(change!=null){
+			this.remove(change);
+		}
+		if(delete!=null){
+			this.remove(delete);
+		}
+		if(add!=null){
+			this.remove(add);
+		}
+		this.repaint();
+		
 		addpanel = new JPanel();
 		addpanel.setLayout(null);
 		addpanel.setBounds(0, frameHeight / 30 * 23, frameWidth / 4 * 3,
@@ -310,11 +332,9 @@ public class adminManage extends RightAll implements ActionListener {
 		if (e.getSource() == change) {
 			if (addpanel != null) {
 				this.remove(addpanel);
-				this.repaint();
 			}
 			if (changepanel != null) {
 				this.remove(changepanel);
-				this.repaint();
 			}
 
 			// 改
@@ -355,6 +375,9 @@ public class adminManage extends RightAll implements ActionListener {
 		// 增加
 		if (e.getSource() == addover) {
 			this.remove(addpanel);
+			this.add(change);
+			this.add(delete);
+			this.add(add);
 			this.repaint();
 
 			SystemUserPO user = null;
@@ -397,6 +420,9 @@ public class adminManage extends RightAll implements ActionListener {
 
 		if (e.getSource() == changeover) {
 			this.remove(changepanel);
+			this.add(add);
+			this.add(change);
+			this.add(delete);
 			this.repaint();
 
 			String newName = changejtf[0].getText();
