@@ -116,10 +116,10 @@ public class StorageServerImpl implements StorageServer {
 		exportBillServer.makeBill(orderNum, date, destination, loader, DeliverNum, transportNum);
 		
 		
-//		storageManager.ExportGood(orderNum, location, date);  需要修改此处实现
+		storageManager.ExportGood(orderNum,  date);  
 		
 		result=new ExportVO();
-		return null;
+		return result;
 		
 		
 	}

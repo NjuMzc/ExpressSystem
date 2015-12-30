@@ -242,16 +242,19 @@ public class StockmanSearch extends RightAll implements ActionListener {
 				}else {
 					vec2.add("出库");
 					chukuMoney+=Double.valueOf(a.getMoney());
+					System.out.println("出库总金额："+chukuMoney);
 				}
 				vec2.add(a.getMoney());
 				String location =a.getLocation();
 				location=location.substring(0,2)+"区"+location.substring(2, 4)+"排"+location.substring(4, 6)+"架"+location.substring(6,8)+"位";
 				vec2.add(location);
 				tableModel.addRow(vec2);
+				
 			}
+			jtfIn.setText(""+rukuMoney);
+			jtfOut.setText(""+chukuMoney);
 		}
 		
-	    
 
 		
 	}

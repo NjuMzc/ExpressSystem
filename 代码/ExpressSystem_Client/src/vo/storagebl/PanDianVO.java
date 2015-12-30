@@ -1,5 +1,7 @@
 package vo.storagebl;
 
+import po.bills.ImportBill;
+import businesslogic.billsbl.ImportBillServer.ImportBillServer;
 import vo.exception.ExceptionMessage;
 
 public class PanDianVO {
@@ -19,7 +21,9 @@ public class PanDianVO {
 			String[] location) {
 		this.num = num;
 		this.date = date;
-		this.destination = destination;
+		ImportBillServer billServer=new ImportBillServer();
+		ImportBill bill=billServer.getBill(num);
+		this.destination = bill.getDestination();
 		this.location = location;
 		exMessage=new ExceptionMessage();
 	}
