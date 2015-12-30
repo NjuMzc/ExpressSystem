@@ -40,8 +40,7 @@ public class StorageManagerImpl implements StorageManager {
 		goodServer = RMIHelper.getTransportData();
 		keeperServer = RMIHelper.getKeeperData();
 
-		storageID = keeperServer.find(SystemHelper.getUserID()).getStorage()
-				.getID();// 一个可怕的级联调用
+		storageID = keeperServer.find(SystemHelper.getUserID()).getStorage().getID();// 一个可怕的级联调用
 
 		importBillServer = new ImportBillServer();
 		exportBillServer = new ExportBillServer();
@@ -68,6 +67,18 @@ public class StorageManagerImpl implements StorageManager {
 	}
 
 	@Override
+	public boolean ExportGood(String ID, String date) {
+		StoragePO storage = storageServer.find(storageID);
+		String location = storage.getLocation(ID);
+		if (location != "null") {
+			ExportGood(ID, location, date);
+			return true;
+		} else {
+			// id对应的货物不在
+			return false;
+		}
+	}
+
 	public boolean ExportGood(String goodID, String location, String date) {
 		StoragePO storage = storageServer.find(storageID);
 		GoodPO good = goodServer.find(goodID);

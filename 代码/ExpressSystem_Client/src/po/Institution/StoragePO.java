@@ -28,8 +28,10 @@ public class StoragePO implements Serializable, Remote {
 	private CapacityReocrder capacity;// 存储位置信息
 	private IORecorder ioInfo;// 出入记录
 	private StorageAlerter alert;// 报警器
+	private ArrayList<String> ids;
 
 	public StoragePO(String id) {
+		ids = new ArrayList<>();
 		this.id = id;
 		this.name = "";
 		this.capacity = new CapacityReocrder();
@@ -54,9 +56,8 @@ public class StoragePO implements Serializable, Remote {
 	public String getName() {
 		return name;
 	}
-	
-	
-	public ArrayList<StoreList> getAllList(){
+
+	public ArrayList<StoreList> getAllList() {
 		return capacity.getAllList();
 	}
 
@@ -67,6 +68,8 @@ public class StoragePO implements Serializable, Remote {
 			double rate = capacity.getRate(area);
 			if (alert.Alert(rate)) {
 				ioInfo.addRecord(good, IO_Type.IMPORT, date, location);
+				String idAndLocation = good.getID() + location;
+				ids.add(idAndLocation);
 				return true;
 			}
 			return false;
@@ -75,10 +78,23 @@ public class StoragePO implements Serializable, Remote {
 		}
 	}
 
+	//  对应快递编号与位置信息
+	public String getLocation(String id) {
+		for (String string : ids) {
+			String ID = string.substring(0, 10);
+			if (ID.equals(id)) {
+				return string.substring(10);
+			}
+		}
+		return "null";
+	}
+
 	// 货物出库时的操作
 	public boolean exportGood(GoodPO good, String location, String date) {
 		if (capacity.exportGood(location)) {
 			ioInfo.addRecord(good, IO_Type.EXPORT, date, location);
+			String idAndLocation = good.getID() + location;
+			ids.remove(idAndLocation);
 			return true;
 		} else {
 			return false;
