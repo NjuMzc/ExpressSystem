@@ -14,7 +14,6 @@ import businesslogicservice.transportblservice.courier.Trans_MakingReceiveBillSe
 import javax.swing.*;
 
 import po.Message;
-import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
