@@ -34,13 +34,26 @@ public class StorageManagerImpl implements StorageManager {
 
 	String storageID;
 
+	public StorageManagerImpl(String storageID) {
+
+		// RMI
+		this.storageID = storageID;
+		storageServer = RMIHelper.getStorageData();
+		goodServer = RMIHelper.getTransportData();
+		keeperServer = RMIHelper.getKeeperData();
+
+		importBillServer = new ImportBillServer();
+		exportBillServer = new ExportBillServer();
+	}
+
 	public StorageManagerImpl() {
 		// RMI
 		storageServer = RMIHelper.getStorageData();
 		goodServer = RMIHelper.getTransportData();
 		keeperServer = RMIHelper.getKeeperData();
 
-		storageID = keeperServer.find(SystemHelper.getUserID()).getStorage().getID();// 一个可怕的级联调用
+		storageID = keeperServer.find(SystemHelper.getUserID()).getStorage()
+				.getID();// 一个可怕的级联调用
 
 		importBillServer = new ImportBillServer();
 		exportBillServer = new ExportBillServer();

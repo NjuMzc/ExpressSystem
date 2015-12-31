@@ -8,6 +8,7 @@ import po.Institution.storageAssist.StoreList;
 import po.bills.OrderBill;
 import client.RMIHelper;
 import dataservice.transportdataservice.TransportDataServer;
+import vo.accountSet.StorageSetterVO;
 import vo.storagebl.ChaKanVO;
 import vo.storagebl.ExportVO;
 import vo.storagebl.ImportVO;
@@ -27,6 +28,14 @@ public class StorageServerImpl implements StorageServer {
 	TransportDataServer dataServer;
 	OrderBillServer billServer;
 	
+	public StorageServerImpl(String storageID){
+		storageManager=new StorageManagerImpl(storageID);
+		importBillServer=new ImportBillServer();
+		exportBillServer=new ExportBillServer();
+		dataServer=RMIHelper.getTransportData();
+	    billServer=new OrderBillServer();
+	}
+	
 	public StorageServerImpl(){
 		storageManager=new StorageManagerImpl();
 		importBillServer=new ImportBillServer();
@@ -35,6 +44,65 @@ public class StorageServerImpl implements StorageServer {
 	    billServer=new OrderBillServer();
 	}
 
+	/**
+	 * 期初建账时调用import方法
+	 * @param vo
+	 * @return
+	 */
+	public ImportVO Import(StorageSetterVO vo){
+		// TODO Auto-generated method stub
+				String goodID=vo.getOrderNum();
+				String[] location=vo.getLocation();
+				String date=vo.getDate();
+				
+				
+				ImportVO returnMessage;
+				
+				//错误信息检查
+				if(billServer.findBill(goodID)==null){
+					returnMessage=new ImportVO("输入的订单不存在!");
+					return returnMessage;
+				}
+				String destination=billServer.findBill(goodID).getDestination();
+				
+				if(goodID.equals("")){
+					returnMessage=new ImportVO("请输入订单号!");
+					return returnMessage;
+				}
+				
+				
+				for(int i=0;i<4;i++){
+				    String temp=location[i];
+				    if(temp.equals("")){
+				    	returnMessage=new ImportVO("请输入货物位置信息!");
+						return returnMessage;
+				    }
+				}
+				
+			    if(destination.equals("")){
+			    	returnMessage=new ImportVO("请输入目的地!");
+					return returnMessage;
+			    }
+			    
+			    //处理输入
+			    String location2="";
+			    for(int i=0;i<4;i++){
+			    	if(location[i].length()==1){
+			    		location2+="0";
+			    	}
+			    	location2+=location[i];
+			    }
+			    
+			    if(!storageManager.ImportGood(goodID, location2, date)){
+			    	returnMessage=new ImportVO("目标仓库位置现在已经存在商品");
+					return returnMessage;
+			    }
+			    
+			    returnMessage=new ImportVO();
+				
+				return returnMessage;
+	}
+	//仓库管理员调用的Import方法
 	@Override
 	public ImportVO Import(ImportVO importMessage) {
 		// TODO Auto-generated method stub
