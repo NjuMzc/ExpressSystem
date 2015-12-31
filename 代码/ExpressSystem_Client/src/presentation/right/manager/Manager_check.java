@@ -12,6 +12,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.*;
 
+import org.apache.poi.hssf.record.chart.FrameRecord;
+
 import businesslogic.billsbl.approver.BillApproverServerImpl;
 import businesslogicservice.billApprover.BillApproveServer;
 import po.bills.BillApproverPO;
@@ -78,9 +80,9 @@ public class Manager_check extends RightAll implements ActionListener {
 				frameWidth / 10, frameHeight / 20);
 		allpass.addActionListener(this);
 		initTable();
-		js.setBounds(frameWidth / 20, frameHeight / 10, frameWidth / 3,
+		js.setBounds(frameWidth / 20, frameHeight / 10, frameWidth / 3+frameWidth/40,
 				frameHeight / 4 * 3);
-
+    
 	}
 
 	private void initTable() {
@@ -89,6 +91,7 @@ public class Manager_check extends RightAll implements ActionListener {
 		model.addColumn("类型");
 		model.addColumn("单据号");
 
+		 jtable1.setFont(new Font("宋体",Font.PLAIN,13));
 		jtable1.getTableHeader().setReorderingAllowed(false);
 		jtable1.getTableHeader().setResizingAllowed(false);
 
@@ -101,7 +104,7 @@ public class Manager_check extends RightAll implements ActionListener {
 		jtable1.getColumnModel().getColumn(0)
 				.setPreferredWidth(frameWidth / 25);
 		jtable1.getColumnModel().getColumn(1)
-				.setPreferredWidth(frameWidth / 15);
+				.setPreferredWidth(frameWidth / 13);
 		jtable1.getColumnModel().getColumn(2)
 				.setPreferredWidth(frameWidth / 10);
 		jtable1.addMouseListener(new MouseListener() {

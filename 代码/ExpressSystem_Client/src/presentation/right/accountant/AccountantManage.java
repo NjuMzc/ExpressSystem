@@ -1,6 +1,7 @@
 package presentation.right.accountant;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
@@ -272,7 +273,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 		table.getTableHeader().setResizingAllowed(false);
 		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
-
+		 table.setFont(new Font("宋体",Font.PLAIN,13));
 		initTableModel();
 	}
 

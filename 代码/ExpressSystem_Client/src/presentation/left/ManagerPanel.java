@@ -46,10 +46,12 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 		}
 		logout = new JButton("");// 登出系统
 		close = new JButton("");// 关闭系统
-		logout.setContentAreaFilled(false);
-		close.setContentAreaFilled(false);
-		logout.setBorderPainted(false);
-		close.setBorderPainted(false);
+//		logout.setContentAreaFilled(false);
+//		close.setContentAreaFilled(false);
+	logout.setBorderPainted(false);
+	close.setBorderPainted(false);
+
+		
 
 		jtf_name = new JTextField();
 		jtf_num = new JTextField();
@@ -145,14 +147,106 @@ public class ManagerPanel extends LeftAll implements ActionListener {
 		jb[4].setText("");// 查看报表
 
 		logout.setMargin(new Insets(0, 0, 0, 0));
-		logout.setBounds(frameWidth * 3 / 80, frameHeight * 63 / 72,
-				frameWidth / 17, frameWidth / 17);
+		logout.setBounds(frameWidth * 2/ 80+frameWidth/150, frameHeight * 63 / 72-frameHeight/100,
+				frameWidth / 13, frameWidth / 13);
+		
+		 final ImageIcon icon8 = new ImageIcon("pictures//back.png");
+		Image temp8 = icon8.getImage().getScaledInstance(logout.getWidth(),
+				logout.getHeight(), icon8.getImage().SCALE_DEFAULT);
+		//icon8= new ImageIcon(temp8);
+		
+		 final ImageIcon icon10= new ImageIcon("pictures//back2.png");
+		Image temp10 = icon10.getImage().getScaledInstance(logout.getWidth(),
+				logout.getHeight(), icon8.getImage().SCALE_DEFAULT);
+		//icon10= new ImageIcon(temp10);
+		
+		logout.setIcon(icon8);
 		logout.addActionListener(this);
+		
+		logout.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				logout.setIcon(icon8);
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				logout.setIcon(icon10);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				logout.setIcon(icon8);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				logout.setIcon(icon10);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	
+		
+		
 		close.setMargin(new Insets(0, 0, 0, 0));
-		close.setBounds(frameWidth * 13 / 80, frameHeight * 63 / 72,
-				frameWidth / 17, frameWidth / 17);
+		close.setBounds(frameWidth * 12 / 80+frameWidth/150, frameHeight * 63 / 72-frameHeight/130,
+				frameWidth / 13-frameWidth/110, frameWidth / 13);
 		close.addActionListener(this);
 
+		
+		final ImageIcon icon9 = new ImageIcon("pictures//delete.png");
+		Image temp9 = icon9.getImage().getScaledInstance(close.getWidth(),
+				close.getHeight(), icon9.getImage().SCALE_DEFAULT);
+		//icon9= new ImageIcon(temp9);
+		close.setIcon(icon9);
+		final ImageIcon icon11= new ImageIcon("pictures//delete2.png");
+		Image temp11 = icon11.getImage().getScaledInstance(close.getWidth(),
+				close.getHeight(), icon11.getImage().SCALE_DEFAULT);
+		
+		close.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				close.setIcon(icon9);
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				close.setIcon(icon11);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				close.setIcon(icon9);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				close.setIcon(icon11);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
 		jtf_name.setBounds(frameWidth / 10, frameHeight / 64 * 15,
 				frameWidth / 10, frameHeight / 30);
 		jtf_num.setBounds(frameWidth / 10, frameHeight / 64 * 18,

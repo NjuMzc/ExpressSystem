@@ -1,5 +1,6 @@
 package presentation.right.accountant;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -134,6 +135,7 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 		model.addColumn("排号");
 		model.addColumn("架号");
 		model.addColumn("位号");
+		 table.setFont(new Font("宋体",Font.PLAIN,13));
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
 		table.getColumnModel().getColumn(0).setCellRenderer(dtc);

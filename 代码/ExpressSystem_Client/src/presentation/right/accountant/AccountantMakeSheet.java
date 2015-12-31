@@ -177,7 +177,7 @@ public class AccountantMakeSheet extends RightAll implements ActionListener {
 	private void initTable() {
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
-
+		 table.setFont(new Font("宋体",Font.PLAIN,13));
 		table.addMouseListener(new MouseListener() {
 
 			@Override

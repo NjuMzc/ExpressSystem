@@ -51,7 +51,7 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
-
+      
 		model = new DefaultTableModel();
 		table = new JTable(model) {
 			public boolean isCellEditable(int row, int column) {
@@ -63,7 +63,7 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 			}
 		};
 		js = new JScrollPane(table);
-
+  
 		feeremind = new JLabel("包装价格:");
 		feeremind.setFont(new Font("宋体", Font.BOLD, 20));
 		fee = new JLabel[3];
@@ -107,7 +107,7 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 		feeremind.setBounds(frameWidth / 10,
 				frameHeight / 2 + frameHeight / 10, frameWidth / 8,
 				frameHeight / 10);
-
+      
 		model.addColumn("出发地-到达地");
 		model.addColumn("距离（/km）");
 		table.getTableHeader().setReorderingAllowed(false);
@@ -115,6 +115,8 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
 		initModel();
+	       table.setFont(new Font("宋体",Font.PLAIN,13));
+
 		js.setBounds(frameWidth / 8, frameHeight / 10, frameWidth / 2,
 				frameHeight / 2);
 
