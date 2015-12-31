@@ -70,4 +70,42 @@ public class StorageSetterImpl implements storageSetter {
 		return voList.iterator();
 	}
 
+
+	@Override
+	public void clean() {
+		// TODO Auto-generated method stub
+		dataServer.clean();
+	}
+
+
+	@Override
+	public StorageSetterVO checkInform(StorageSetterVO vo) {
+		// TODO Auto-generated method stub
+		String storageID=vo.getStorageNum();
+		String date=vo.getDate();
+		String orderNum=vo.getOrderNum();
+		String[] location=vo.getLocation();
+		
+		StorageSetterVO result;
+		
+		if(informServer.find(storageID)==null){
+			result=new StorageSetterVO("输入的仓库编号错误!");
+			return result;
+		}
+		
+		storageServer=new StorageServerImpl(storageID);
+		ImportVO importResult=storageServer.Import(vo);
+		
+		if(importResult.isWrong()){
+			result=new StorageSetterVO(importResult.getWrongMessage());
+			return result;
+		}
+		
+		result=new StorageSetterVO(storageID, orderNum, date, location);
+		StorageInform inform=new StorageInform(storageID, orderNum, date, location);
+		dataServer.addInform(inform);
+		
+		return result;
+	}
+
 }
