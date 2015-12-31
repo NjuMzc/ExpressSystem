@@ -27,7 +27,7 @@ import vo.storagebl.ExportVO;
 public class StockmanOutStock extends RightAll implements ActionListener {
 	StorageServer storageServer;
 	ExportVO vo;
-	
+
 	int frameWidth;
 	int frameHeight;
 	JLabel[] jl;
@@ -41,8 +41,8 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 	private StorageManager storageM;
 
 	public StockmanOutStock(int frameWidth, int frameHeight) {
-		storageServer=new StorageServerImpl();
-		storageM= new  StorageManagerImpl();
+		storageServer = new StorageServerImpl();
+		storageM = new StorageManagerImpl();
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 
@@ -223,7 +223,6 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 			watcher.update(state);
 		}
 	}
-	
 
 	private void wrongShow() {
 		// 错误处理
@@ -256,31 +255,38 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.STOCKMANSTART);
 		} else if (e.getSource() == confirm) {
-            
+
 			String id;
 			String destination;
 			String types;
 			String num;
-			
+
 			String date = "";
-			 String year=timeInput[0].getSelectedItem().toString();
-			 String month=timeInput[1].getSelectedItem().toString();
-			 String day=timeInput[2].getSelectedItem().toString();
-			
-			 date=year+"-"+month+"-"+day;
-			
-			id=jtf[0].getText();
-	
-			destination=jtf[1].getText();
-			types=type.getSelectedItem().toString();
-			num=jtf[2].getText();
-			ExportVO exportMessage=new ExportVO(id, date, destination, types, num, num);
- 
-			 vo=storageServer.Export(exportMessage);
-			//错误处理
-			if(vo.isWrong()){
+			String year = timeInput[0].getSelectedItem().toString();
+			String month = timeInput[1].getSelectedItem().toString();
+			if (month.length() == 1) {
+				month = "0" + month;
+			}
+			String day = timeInput[2].getSelectedItem().toString();
+			if (day.length() == 1) {
+				day = "0" + day;
+			}
+
+			date = year + "-" + month + "-" + day;
+
+			id = jtf[0].getText();
+
+			destination = jtf[1].getText();
+			types = type.getSelectedItem().toString();
+			num = jtf[2].getText();
+			ExportVO exportMessage = new ExportVO(id, date, destination, types,
+					num, num);
+
+			vo = storageServer.Export(exportMessage);
+			// 错误处理
+			if (vo.isWrong()) {
 				wrongShow();
-			}else{
+			} else {
 				System.out.println("Export Success!");
 			}
 		}

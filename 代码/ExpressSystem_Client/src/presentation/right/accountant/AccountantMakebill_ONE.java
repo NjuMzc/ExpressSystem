@@ -128,9 +128,9 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 	}
 
 	private void initTable() {
+		model.addColumn("仓库号");
 		model.addColumn("快递编号");
 		model.addColumn("入库日期");
-		model.addColumn("目的地");
 		model.addColumn("区号");
 		model.addColumn("排号");
 		model.addColumn("架号");
@@ -163,9 +163,9 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 			changejtf[i] = new JTextField();
 		}
 		changeover = new JButton("");//√
-		changelable[0].setText("快递单号");
-		changelable[1].setText("快递日期");
-		changelable[2].setText("目的地");
+		changelable[0].setText("仓库号");
+		changelable[1].setText("快递编号");
+		changelable[2].setText("入库日期");
 		changelable[3].setText("区号");
 		changelable[4].setText("排号");
 		changelable[5].setText("架号");

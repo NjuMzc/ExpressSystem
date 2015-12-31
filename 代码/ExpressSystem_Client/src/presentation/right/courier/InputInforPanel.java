@@ -169,33 +169,6 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		});
 	}
 
-	private void wrongShow() {
-		// 错误处理
-		final JLabel remindWrong = new JLabel();
-		remindWrong.setBounds(frameWidth / 3 - frameWidth / 15,
-				frameHeight / 5 * 3, frameWidth / 3, frameHeight / 10);
-		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-		remindWrong.setForeground(Color.red);
-		this.add(remindWrong);
-		this.repaint();
-
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// 以下根据错误类型设置文字
-				remindWrong.setText("输入的订单不存在!");
-				try {
-					Thread.sleep(2000);
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-				remindWrong.setText("");
-			}
-		});
-		t.start();
-		// 错误处理结束
-	}
-
 	public void save(Message msg) {
 		try {
 			System.out.println("xiexie");
@@ -208,7 +181,6 @@ public class InputInforPanel extends RightAll implements ActionListener {
 				writer.write(";");
 			}
 			writer.newLine();
-
 			writer.close();
 
 		} catch (Exception e) {
@@ -240,14 +212,11 @@ public class InputInforPanel extends RightAll implements ActionListener {
 			if (isWrongShow) {
 
 				JPanel jp = new JPanel();
-				JLabel remind = new JLabel();
-				remind.setText("收件单填写正确");
-				remind.setSize(frameWidth / 2, frameHeight / 10);
-				jp.add(remind, BorderLayout.CENTER);
+				String input = "收件单填写正确";
 				this.add(jp);
-				Remind remindThread = new Remind(jp);
+				Remind remindThread = new Remind(jp, input);
 				remindThread.start();
-		 
+
 			}
 
 		}
