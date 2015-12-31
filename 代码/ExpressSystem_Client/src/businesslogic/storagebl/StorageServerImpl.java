@@ -147,7 +147,7 @@ public class StorageServerImpl implements StorageServer {
 	    }
 	    
 	    if(!storageManager.ImportGood(goodID, location2, date)){
-	    	returnMessage=new ImportVO("目标仓库位置现在已经存在商品");
+	    	returnMessage=new ImportVO("目标位置不存在或者已有商品!");
 			return returnMessage;
 	    }
 	    
