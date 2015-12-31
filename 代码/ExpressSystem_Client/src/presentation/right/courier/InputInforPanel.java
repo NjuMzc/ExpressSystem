@@ -1,5 +1,6 @@
 package presentation.right.courier;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -14,6 +15,8 @@ import businesslogicservice.transportblservice.courier.Trans_MakingReceiveBillSe
 import javax.swing.*;
 
 import po.Message;
+import presentation.Data;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -235,9 +238,16 @@ public class InputInforPanel extends RightAll implements ActionListener {
 			}
 
 			if (isWrongShow) {
-				wrongShow();
-				// Remind remind = new Remind("wrong!");
-				// this.add(remind);
+
+				JPanel jp = new JPanel();
+				JLabel remind = new JLabel();
+				remind.setText("收件单填写正确");
+				remind.setSize(frameWidth / 2, frameHeight / 10);
+				jp.add(remind, BorderLayout.CENTER);
+				this.add(jp);
+				Remind remindThread = new Remind(jp);
+				remindThread.start();
+		 
 			}
 
 		}
