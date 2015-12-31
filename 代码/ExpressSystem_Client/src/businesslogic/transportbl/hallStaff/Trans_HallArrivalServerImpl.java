@@ -12,24 +12,19 @@ import po.Workers.HallStaffPO;
 import po.bills.HallArrivalBill;
 import businesslogic.LocationNumGetter;
 import businesslogic.billsbl.HallArrivalBillServer.HallArrivalBillServer;
-import businesslogic.informationbl.Inform_HallInformServerImpl;
 import businesslogic.systembl.SystemHelper;
 import businesslogic.transportbl.GoodController;
-import businesslogicservice.informationblservice.InstitutionInform.Inform_HallInformServer;
 import businesslogicservice.transportblservice.hallStaff.Trans_HallArrivalServer;
 
 public class Trans_HallArrivalServerImpl implements Trans_HallArrivalServer {
 	HallArrivalBillServer billServer; 
 	GoodController goodController;
-	Inform_HallInformServer hallServer;
 	Inform_HallStaffDataServer staffServer;
-	
 	HallStaffPO staffNow;
 	
 	public Trans_HallArrivalServerImpl(){
 		billServer=new HallArrivalBillServer();
 		goodController=new GoodController();
-		hallServer=new Inform_HallInformServerImpl();
 		//RMI
 		
 		staffServer=RMIHelper.getHallStaffData();
@@ -69,7 +64,7 @@ public class Trans_HallArrivalServerImpl implements Trans_HallArrivalServer {
 		String depatureNum=LocationNumGetter.getNum(departure);
 		String locationOfHall=hallID.substring(0, 3);
 		
-		if(locationOfHall==depatureNum)
+		if(locationOfHall.equals(depatureNum))
 			return true;
 		else 
 			return false;
@@ -83,9 +78,12 @@ public class Trans_HallArrivalServerImpl implements Trans_HallArrivalServer {
 	 * @return
 	 */
 	public boolean isReceiverHall(String hallID,String GoodID){
-     
 		GoodPO good=goodController.getGood(GoodID);
-		if(good.getDestination()==hallID.substring(0, 3))
+		String destinationNum=LocationNumGetter.getNum(good.getDestination());
+		String locationOfHall=hallID.substring(0, 3);
+		
+		
+		if(locationOfHall.equals(destinationNum))
 			return true;
 		else
 	        return false;

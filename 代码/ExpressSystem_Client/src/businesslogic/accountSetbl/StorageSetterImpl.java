@@ -21,6 +21,7 @@ public class StorageSetterImpl implements storageSetter {
 	public StorageSetterImpl(){
 		//RMI实现
 		informServer=RMIHelper.getStorageData();
+		dataServer=RMIHelper.getStorageInformData();
 	
 	}
 	

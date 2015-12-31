@@ -47,6 +47,8 @@ public class RMIHelper {
 	private static Inform_StorageDataServer storageData;
 	private static Inform_TranStaffDataServer tranStaffData;
 	private static Inform_TranStationDataServer tranStationData;
+	
+
 	private static HallArrivalBillDataServer hallArrivalBillData;
 	private static ChargeBillDataServer chargeBillData;
 	private static DeliveryBillDataServer deliveryBillData;
@@ -124,6 +126,10 @@ public class RMIHelper {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public static StorageInformDataServer getStorageInformData() {
+		return storageInformData;
 	}
 
 	public static SalaryDataServer getSalaryData() {
