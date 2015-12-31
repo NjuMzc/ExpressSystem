@@ -35,6 +35,7 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
+	   this.setBackground(new Color(193,223, 164));
 
 		senderInfor = new JPanel();
 		senderInfor.setLayout(null);
@@ -50,7 +51,7 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 		extra1 = new JLabel("快递单号");
 		extra2 = new JLabel("快递费用");
 		extra3 = new JLabel("预计到达日期");
-		confirm = new JButton("确认");
+		confirm = new JButton("");//确认
 
 		init();
 
@@ -68,10 +69,19 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 		this.add(confirm);
 
 	}
+	
+//	protected void paintComponent(Graphics g) {
+//		// TODO Auto-generated method stub
+//		super.paintComponent(g);
+//		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
+//		Image bg = background.getImage();
+//		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
+//	}
+//	
 
 	private void init() {
-		senderInfor.setBounds(50, 50, frameWidth * 3 / 4 - 50, frameHeight - 150);
-
+		senderInfor.setBounds(30, 50, frameWidth * 3 / 4 - 40, frameHeight - 150);
+       senderInfor.setBackground(new Color(193,223, 164));
 		int x = frameWidth * 3 / 4 - 20;
 		int y = frameHeight - 200;
 		input[0].setText("寄件人信息");
@@ -97,6 +107,10 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 		input[20].setText("包装类型");
 		for (int i = 0; i < 10; i++) {
 			input[i].setBounds(0, 40 * i, 100, 20);
+			input[i].setFont(new Font("宋体",Font.BOLD,15));
+		}
+		for(int i=10;i<21;i++){
+			input[i].setFont(new Font("宋体",Font.BOLD,15));
 		}
 		input[10].setBounds(x / 3, 40, 100, 20);
 		input[11].setBounds(x / 3, 40 * 2, 100, 20);
@@ -110,17 +124,23 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 		input[19].setBounds(x / 3 * 2, 40 * 8, 100, 20);
 		input[20].setBounds(x / 3 * 2, 40 * 9, 100, 20);
 		extra1.setBounds(0, 40 * 10, 100, 20);
+		extra1.setFont(new Font("宋体",Font.BOLD,15));
 		extra2.setBounds(0, 40 * 11, 100, 20);
+		extra2.setFont(new Font("宋体",Font.BOLD,15));
 		extra3.setBounds(0, 40 * 12, 100, 20);
+       extra3.setFont(new Font("宋体",Font.BOLD,15));
 
 		for (int i = 0; i < 2; i++) {
 			inputText[i].setBounds(80, 40 * (i + 1), 100, 20);
+			inputText[i].setFont(new Font("宋体",Font.PLAIN,13));
 		}
 		for (int i = 2; i < 4; i++) {
 			inputText[i].setBounds(80, 40 * (i + 2), 100, 20);
+			inputText[i].setFont(new Font("宋体",Font.PLAIN,13));
 		}
 		for (int i = 4; i < 7; i++) {
 			inputText[i].setBounds(80, 40 * (i + 3), 100, 20);
+			inputText[i].setFont(new Font("宋体",Font.PLAIN,13));
 		}
 		inputText[7].setBounds(x / 3 + 70, 40, 100, 20);
 		inputText[8].setBounds(x / 3 + 70, 40 * 2, 100, 20);
@@ -138,12 +158,17 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 		inputText[20].setBounds(80, 40 * 12, 100, 20);
 		for (int i = 0; i < 21; i++) {
 			inputText[i].setText(String.valueOf(i));
+			inputText[i].setFont(new Font("宋体",Font.PLAIN,13));
 			inputText[i].setEditable(false);
 		}
-		confirm.setBounds(frameWidth / 4 * 3 - 100, frameHeight - 80, 80, 40);
+		confirm.setBounds(frameWidth / 3* 1 , frameHeight*18/20 , frameWidth/9, frameHeight/19);
 		confirm.addActionListener(this);
 
-		
+		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		confirm.setIcon(icon2);
 		
 		
 	}

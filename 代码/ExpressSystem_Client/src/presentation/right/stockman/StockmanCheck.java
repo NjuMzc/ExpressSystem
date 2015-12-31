@@ -1,6 +1,7 @@
 package presentation.right.stockman;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -59,18 +60,19 @@ public class StockmanCheck extends RightAll implements ActionListener {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		cancel = new JButton("返回");
+		cancel = new JButton("");//返回
 		tableModel = new DefaultTableModel();
 		table = new JTable(tableModel);
 		js = new JScrollPane(table);
 		currenttime = new JLabel("当前日期");
+		currenttime.setFont(new Font("宋体",Font.PLAIN,14));;
 		time = new JLabel[3];
 		timeInput = new JTextField[3];
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 			timeInput[i] = new JTextField();
 		}
-		export = new JButton("导出报表");
+		export = new JButton("");//导出报表
 		dtc = new ColorRenderer();
 
 		init();
@@ -94,18 +96,32 @@ public class StockmanCheck extends RightAll implements ActionListener {
 	}
 
 	private void init() {
-		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9, frameWidth / 10,
-				frameHeight / 20);
+		cancel.setBounds(frameWidth / 2, frameHeight / 10 * 9+frameHeight/80, frameWidth / 10,
+				frameHeight / 19);
 		cancel.addActionListener(this);
-		export.setBounds(frameWidth / 5, frameHeight / 10 * 9, frameWidth / 10,
-				frameHeight / 20);
+		export.setBounds(frameWidth / 5, frameHeight / 10 * 9+frameHeight/80, frameWidth / 10,
+				frameHeight / 19);
 		export.addActionListener(this);
-		currenttime.setBounds(0, 0, frameWidth / 10, frameHeight / 10);
-
+		currenttime.setBounds(5, 0, frameWidth / 10, frameHeight / 10);
+       
+		ImageIcon icon2 = new ImageIcon("pictures//导出报表.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		export.setIcon(icon2);
+		
+		ImageIcon icon1= new ImageIcon("pictures//返回小.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		cancel.setIcon(icon1);
+		
+		
 		time[0].setText("年");
 		time[1].setText("月");
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
+			time[i].setFont(new Font("宋体",Font.PLAIN,12));
 			timeInput[i].setBounds(frameWidth / 10 * (i + 1), frameHeight / 40,
 					frameWidth / 12, frameHeight / 20);
 			time[i].setBounds(frameWidth / 12 + frameWidth / 10 * (i + 1),
@@ -146,6 +162,7 @@ public class StockmanCheck extends RightAll implements ActionListener {
 		tableModel.addColumn("排号");
 		tableModel.addColumn("架号");
 		tableModel.addColumn("位号");
+		table.setFont(new Font("宋体",Font.PLAIN,13));
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
 		table.getColumnModel().getColumn(0).setCellRenderer(dtc);

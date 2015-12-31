@@ -49,7 +49,7 @@ public class Manager_check extends RightAll implements ActionListener {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		allpass = new JButton("批量审批");
+		allpass = new JButton("");//批量审批
 		model = new DefaultTableModel();
 		jtable1 = new JTable(model) {
 			public boolean isCellEditable(int row, int column) {
@@ -77,8 +77,14 @@ public class Manager_check extends RightAll implements ActionListener {
 
 	private void init() {
 		allpass.setBounds(frameWidth / 3, frameHeight / 10 * 9,
-				frameWidth / 10, frameHeight / 20);
+				frameWidth / 10, frameHeight / 19);
 		allpass.addActionListener(this);
+		ImageIcon icon1 = new ImageIcon("pictures//批量审批.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		allpass.setIcon(icon1);
+
 		initTable();
 		js.setBounds(frameWidth / 20, frameHeight / 10, frameWidth / 3+frameWidth/40,
 				frameHeight / 4 * 3);

@@ -1,6 +1,7 @@
 package presentation.right.stockman;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
@@ -71,7 +72,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		for (int i = 0; i < 2; i++) {
 			jl[i] = new JLabel();
 		}
-		search = new JButton("查询");
+		search = new JButton("");//查询
 
 		time = new JLabel[3];
 		timeInput = new JComboBox[3];
@@ -118,13 +119,21 @@ public class StockmanSearch extends RightAll implements ActionListener {
 
 		jl[0].setText("起始时间");
 		jl[1].setText("中止时间 ");
-		jl[0].setBounds(frameWidth / 6, frameHeight / 10, frameWidth / 10,
-				frameHeight / 20);
-		jl[1].setBounds(frameWidth / 2 + frameWidth / 10, frameHeight / 10,
-				frameWidth / 10, frameHeight / 20);
-		search.setBounds(frameWidth / 4, frameHeight / 4, frameWidth / 10,
-				frameHeight / 20);
+		jl[0].setFont(new Font("宋体",Font.BOLD,15));
+		jl[1].setFont(new Font("宋体",Font.BOLD,15));
+		jl[0].setBounds(frameWidth / 5, frameHeight / 10, frameWidth / 8,
+				frameHeight / 16);
+		jl[1].setBounds(frameWidth / 3 + frameWidth / 8,  frameHeight / 10,
+				frameWidth / 10, frameHeight / 16);
+		search.setBounds(frameWidth / 3+frameWidth/100, frameHeight / 4, frameWidth / 10,
+				frameHeight / 19);
 		search.addActionListener(this);
+		ImageIcon icon2 = new ImageIcon("pictures//查询.png");
+		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
+				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+		icon2 = new ImageIcon(temp2);
+		search.setIcon(icon2);
+		
 
 		time[0].setText("年");
 		time[1].setText("月");

@@ -98,7 +98,7 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\制定常量right.png");
+		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
