@@ -199,6 +199,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		tableModel.addColumn("快递编号");
 		tableModel.addColumn("出/入库");
 		tableModel.addColumn("金额");
+		tableModel.addColumn("时间");
 		tableModel.addColumn("库存位置");
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
@@ -206,6 +207,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(2).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(3).setCellRenderer(dtc);
+		table.getColumnModel().getColumn(4).setCellRenderer(dtc);
 
 		initTableModel();
 	}
@@ -245,6 +247,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 					System.out.println("出库总金额："+chukuMoney);
 				}
 				vec2.add(a.getMoney());
+				vec2.add(a.getDate());
 				String location =a.getLocation();
 				location=location.substring(0,2)+"区"+location.substring(2, 4)+"排"+location.substring(4, 6)+"架"+location.substring(6,8)+"位";
 				vec2.add(location);

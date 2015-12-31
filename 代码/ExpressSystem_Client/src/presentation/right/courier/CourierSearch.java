@@ -8,6 +8,7 @@ import businesslogic.transportbl.courier.Trans_InquireOrderServerImpl;
 import businesslogicservice.transportblservice.courier.Trans_InquireOrderServer;
 import po.bills.OrderBill;
 import presentation.Data;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
@@ -34,6 +35,10 @@ public class CourierSearch extends RightAll implements ActionListener {
 	JTextField inputOrder;
 	boolean isWrongShow = false;
 	private List<Watcher> list;
+
+	JPanel jp_wrong;
+	String input_wrong;
+	Remind remindThread;
 
 	public CourierSearch(int frameWidth, int frameHeight) {
 		blServer = new Trans_InquireOrderServerImpl();
@@ -119,41 +124,24 @@ public class CourierSearch extends RightAll implements ActionListener {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COURIERSTART);
 		} else if (e.getSource() == confirm) {
+			if (remindThread != null) {
+				remindThread.stop();
+				this.remove(jp_wrong);
+			}
+			jp_wrong = new JPanel();
+
 			OrderBill bill = blServer.inquire(inputOrder.getText());
 			System.out.println(inputOrder.getText());
 			if (bill == null) {
-				// 错误处理
-				final JLabel remindWrong = new JLabel();
-				remindWrong.setBounds(frameWidth / 3 - frameWidth / 8
-						+ frameWidth / 30, frameHeight / 4 * 1 - frameHeight
-						/ 15, frameWidth / 2, frameHeight / 7);
-				remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-				remindWrong.setForeground(Color.red);
-				this.add(remindWrong);
-				this.repaint();
-
-				Thread t = new Thread(new Runnable() {
-					@Override
-					public void run() {
-						// 以下根据错误类型设置文字
-						remindWrong.setFont(new Font("宋体", Font.BOLD, 22));
-						remindWrong.setText("输入的快递单号不存在!");
-						remindWrong.setForeground(new Color(227, 23, 13));
-						try {
-							Thread.sleep(2000);
-						} catch (Exception e2) {
-							// TODO: handle exception
-						}
-						remindWrong.setText("");
-					}
-				});
-				t.start();
-				// 错误处理结束
+				input_wrong = "输入的快递单号不存在";
 			} else {
 				BillNow.setBill(bill);
 				this.notifyWatchers(State.COURIERSEARCHAFTER);
 			}
 
+			this.add(jp_wrong);
+			remindThread = new Remind(jp_wrong, input_wrong);
+			remindThread.start();
 		}
 
 	}

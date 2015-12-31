@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.swing.*;
 
+import businesslogic.storagebl.StorageServerImpl;
+import businesslogicservice.storageblservice.StorageServer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -24,10 +26,10 @@ public class StockmanChange extends RightAll implements ActionListener {
 	JLabel jl2;
 	JLabel jl3;
 	JLabel jl4;
-	JButton jb1[]=null;
-	JButton jb2[]=null;
-	JButton jb3[]=null;
-	JButton jb4[]=null;
+	JButton jb1[] = null;
+	JButton jb2[] = null;
+	JButton jb3[] = null;
+	JButton jb4[] = null;
 	private List<Watcher> list;
 	String qu;
 	String pai;
@@ -40,10 +42,14 @@ public class StockmanChange extends RightAll implements ActionListener {
 	JTextField jtf[];
 	JButton confirm;
 
+	private StorageServer storage;
+
 	public StockmanChange(int frameWidth, int frameHeight) {
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
+
+		storage = new StorageServerImpl();
 
 		list = new ArrayList<Watcher>();
 
@@ -73,9 +79,9 @@ public class StockmanChange extends RightAll implements ActionListener {
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
+
 	private void init() {
-	
+
 		jp1.setBackground(new Color(221, 232, 216));
 		jp1.setLayout(null);
 		jp1.setBounds(0, 0, frameWidth / 4 * 3, frameHeight);
@@ -89,6 +95,15 @@ public class StockmanChange extends RightAll implements ActionListener {
 		}
 		jl1.setBounds(frameWidth / 16, frameHeight / 4, frameWidth / 8,
 				frameHeight / 8);
+		for (int i = 0; i < 3; i++) {
+			jtf[i].addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					if (!Character.isDigit(e.getKeyChar())) {
+						e.consume();
+					}
+				}
+			});
+		}
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -108,7 +123,13 @@ public class StockmanChange extends RightAll implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0; i < 3; i++) {
 			if (e.getSource() == jb1[i]) {
-				qu = jb1[i].getText();
+				if (i == 0) {
+					qu = "01";
+				} else if (i == 1) {
+					qu = "02";
+				} else if (i == 2) {
+					qu = "03";
+				}
 				this.remove(jp1);
 				initJp2();
 				this.add(jp2);
@@ -118,8 +139,8 @@ public class StockmanChange extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 8; i++) {
-			if (jb2!=null&&e.getSource() == jb2[i]) {
-				pai = jb2[i].getText();
+			if (jb2 != null && e.getSource() == jb2[i]) {
+				pai = "0" + jb2[i].getText();
 				this.remove(jp2);
 				initJp3();
 				this.add(jp3);
@@ -129,8 +150,12 @@ public class StockmanChange extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 10; i++) {
-			if (jb3!=null&&e.getSource() == jb3[i]) {
-				jia = jb3[i].getText();
+			if (jb3 != null && e.getSource() == jb3[i]) {
+				if (i != 9) {
+					jia = "0" + jb3[i].getText();
+				} else {
+					jia = jb3[i].getText();
+				}
 				this.remove(jp3);
 				initJp4();
 				this.add(jp4);
@@ -140,8 +165,12 @@ public class StockmanChange extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 30; i++) {
-			if (jb4!=null&&e.getSource() == jb4[i]) {
-				wei = jb4[i].getText();
+			if (jb4 != null && e.getSource() == jb4[i]) {
+				if (i < 9) {
+					wei = "0" + jb4[i].getText();
+				} else {
+					wei = jb4[i].getText();
+				}
 				this.remove(jp4);
 				initJp5();
 				this.add(jp5);
@@ -149,9 +178,23 @@ public class StockmanChange extends RightAll implements ActionListener {
 				break;
 			}
 		}
-		
-		if(e.getSource()==confirm){
-			// 调整@li
+
+		if (e.getSource() == confirm) {
+			String change_pai = jtf[0].getText();
+			if (change_pai.length() == 1) {
+				change_pai = "0" + change_pai;
+			}
+			String change_jia = jtf[1].getText();
+			if (change_jia.length() == 1) {
+				change_jia = "0" + change_jia;
+			}
+			String change_wei = jtf[2].getText();
+			if (change_wei.length() == 1) {
+				change_wei = "0" + change_wei;
+			}
+			String oldLoc = qu + pai + jia + wei;
+			String loc = "04" + change_pai + change_jia + change_wei;
+			storage.changeStorage(oldLoc, loc);
 		}
 	}
 
@@ -195,7 +238,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 	}
 
 	private void initJp4() {
-		
+
 		jp4 = new JPanel();
 		jp4.setBackground(new Color(221, 232, 216));
 		jb4 = new JButton[30];
@@ -230,7 +273,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 
 	private void initJp3() {
 
-		jp3 = new JPanel();		
+		jp3 = new JPanel();
 		jp3.setBackground(new Color(221, 232, 216));
 		jb3 = new JButton[10];
 		for (int i = 0; i < 10; i++) {
@@ -258,7 +301,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 
 	private void initJp2() {
 
-		jp2 = new JPanel();	
+		jp2 = new JPanel();
 		jp2.setBackground(new Color(221, 232, 216));
 		jb2 = new JButton[8];
 		for (int i = 0; i < 8; i++) {
