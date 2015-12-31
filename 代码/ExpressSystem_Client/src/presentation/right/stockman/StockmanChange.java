@@ -95,15 +95,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 		}
 		jl1.setBounds(frameWidth / 16, frameHeight / 4, frameWidth / 8,
 				frameHeight / 8);
-		for (int i = 0; i < 3; i++) {
-			jtf[i].addKeyListener(new KeyAdapter() {
-				public void keyTyped(KeyEvent e) {
-					if (!Character.isDigit(e.getKeyChar())) {
-						e.consume();
-					}
-				}
-			});
-		}
+		 
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -209,6 +201,15 @@ public class StockmanChange extends RightAll implements ActionListener {
 		jtf = new JTextField[3];
 		for (int i = 0; i < 3; i++) {
 			jtf[i] = new JTextField();
+		}
+		for (int i = 0; i < 3; i++) {
+			jtf[i].addKeyListener(new KeyAdapter() {
+				public void keyTyped(KeyEvent e) {
+					if (!Character.isDigit(e.getKeyChar())) {
+						e.consume();
+					}
+				}
+			});
 		}
 		confirm = new JButton("确认");
 
