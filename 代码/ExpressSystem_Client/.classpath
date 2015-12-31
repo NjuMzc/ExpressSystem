@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="H:/ExpressSystem/代码/ExpressSystem_Client/poi/poi-3.13/poi-ooxml-schemas-3.13-20150929.jar"/>
 	<classpathentry kind="lib" path="H:/ExpressSystem/代码/ExpressSystem_Client/poi/poi-3.13/poi-scratchpad-3.13-20150929.jar"/>
 	<classpathentry kind="lib" path="H:/ExpressSystem/代码/ExpressSystem_Client/ExpressSystem_Client_fat.jar"/>
+	<classpathentry kind="lib" path="H:/ExpressSystem/代码/beautyeye_lnf.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
