@@ -16,11 +16,13 @@ public class Record implements Serializable {
 	String date;
 	String location;
 
+
 	public Record(GoodPO po, IO_Type type, String date, String location) {
 		this.po = po;
 		this.type = type;
 		this.date = date;
 		this.location = location;
+
 	}
 
 	public String getLocation() {
@@ -38,5 +40,7 @@ public class Record implements Serializable {
 	public String getDate() {
 		return date;
 	}
+	
+
 
 }

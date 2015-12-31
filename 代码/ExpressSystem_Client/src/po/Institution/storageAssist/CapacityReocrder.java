@@ -21,7 +21,7 @@ public class CapacityReocrder implements Serializable {
 	private final int shelf = 10;
 	private final int position = 30;
 	private StorageInfo[][][][] info;
-	private String[][][][] ids;
+	
 	private int num[];
 
 	public CapacityReocrder() {
