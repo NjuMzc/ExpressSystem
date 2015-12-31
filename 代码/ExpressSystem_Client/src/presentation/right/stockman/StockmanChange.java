@@ -79,9 +79,9 @@ public class StockmanChange extends RightAll implements ActionListener {
 		jp1.setBackground(new Color(221, 232, 216));
 		jp1.setLayout(null);
 		jp1.setBounds(0, 0, frameWidth / 4 * 3, frameHeight);
-		jb1[0].setText("航空区");
-		jb1[1].setText("火车区");
-		jb1[2].setText("汽运区");
+		jb1[0].setText("航空区(1区)");
+		jb1[1].setText("火车区(2区)");
+		jb1[2].setText("汽运区(3区)");
 		for (int i = 0; i < 3; i++) {
 			jb1[i].setBounds(frameWidth / 16 + frameWidth / 48 * 11 * i,
 					frameHeight / 8 * 3, frameWidth / 6, frameHeight / 4);
