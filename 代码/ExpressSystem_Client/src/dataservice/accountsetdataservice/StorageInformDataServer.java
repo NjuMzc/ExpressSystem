@@ -1,10 +1,11 @@
 package dataservice.accountsetdataservice;
 
+import java.rmi.Remote;
 import java.util.ArrayList;
 
 import po.accountSet.StorageInform;
 
-public interface StorageInformDataServer {
+public interface StorageInformDataServer extends Remote{
 
 	public void addInform(StorageInform inform);
 	

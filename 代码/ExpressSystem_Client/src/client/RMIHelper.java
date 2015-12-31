@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import dataservice.accountsetdataservice.StorageInformDataServer;
 import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.BillApproverDataServer;
 import dataservice.billsdataservice.ChargeBillDataServer;
@@ -63,6 +64,7 @@ public class RMIHelper {
 	private static ExportBillDataServer exportBillData;
 	private static ImportBillDataServer importBillData;
 	private static SalaryDataServer salaryData;
+	private static StorageInformDataServer storageInformData;
 
 	private static String hostIP = "172.28.153.101";
 	private static String port = "8400";
@@ -112,7 +114,8 @@ public class RMIHelper {
 			exportBillData = (ExportBillDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/exportBillData");
 			importBillData = (ImportBillDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/importBillData");
 			salaryData = (SalaryDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/salaryData");
-
+			storageInformData = (StorageInformDataServer) Naming
+					.lookup("rmi://" + hostIP + ":" + port + "/storageInformData");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {

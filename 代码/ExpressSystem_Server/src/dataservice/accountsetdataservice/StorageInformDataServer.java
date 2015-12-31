@@ -1,14 +1,16 @@
 package dataservice.accountsetdataservice;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.accountSet.StorageInform;
 
-public interface StorageInformDataServer {
+public interface StorageInformDataServer extends Remote{
 
-	public void addInform(StorageInform inform);
+	public void addInform(StorageInform inform)throws RemoteException;
 	
-	public ArrayList<StorageInform> getInform();
+	public ArrayList<StorageInform> getInform()throws RemoteException;
 	
-	public void clean();//清空之前的数据
+	public void clean()throws RemoteException;//清空之前的数据
 }

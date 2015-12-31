@@ -17,7 +17,7 @@ public class MainFrame extends JFrame {
 
 		this.setBackground(Color.blue);
 		this.setBounds(0, 0, width, height);
-		// this.setLayout(null);
+//		this.setLayout(null);
 		panel = new JPanel();
 		panel.setBounds(0, 0, width, height);
 		panel.setBackground(Color.orange);

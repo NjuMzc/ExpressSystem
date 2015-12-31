@@ -1,7 +1,14 @@
 package po.accountSet;
 
-public class StorageInform {
+import java.io.Serializable;
+import java.rmi.Remote;
 
+public class StorageInform implements Serializable,Remote{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3967496085899431180L;
 	String StorageNum;
 	String orderNum;
 	String date;
