@@ -1,5 +1,6 @@
 package businesslogic.storagebl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import businesslogic.billsbl.ExportBillServer.ExportBillServer;
@@ -14,36 +15,39 @@ import po.GoodPO;
 import po.Institution.StoragePO;
 import po.Institution.storageAssist.Record;
 import po.Institution.storageAssist.StorageInfo;
+import po.Institution.storageAssist.StoreList;
+import vo.storagebl.PanDianVO;
 
 /**
  * 
  * @author nick
- *
+ * 
  */
 public class StorageManagerImpl implements StorageManager {
 	Inform_StorageDataServer storageServer;
 	TransportDataServer goodServer;
-    
+
 	Inform_KeeperDataServer keeperServer;
-	
+
 	ImportBillServer importBillServer;
 	ExportBillServer exportBillServer;
 
 	String storageID;
+
 	public StorageManagerImpl() {
 		// RMI
 		storageServer = RMIHelper.getStorageData();
 		goodServer = RMIHelper.getTransportData();
-		keeperServer=RMIHelper.getKeeperData();
-		
-		storageID=keeperServer.find(SystemHelper.getUserID()).getStorage().getID();//一个可怕的级联调用
-		
-		importBillServer=new ImportBillServer();
-		exportBillServer=new ExportBillServer();
+		keeperServer = RMIHelper.getKeeperData();
+
+		storageID = keeperServer.find(SystemHelper.getUserID()).getStorage().getID();// 一个可怕的级联调用
+
+		importBillServer = new ImportBillServer();
+		exportBillServer = new ExportBillServer();
 	}
 
 	@Override
-	public boolean ImportGood( String goodID, String location, String date) {
+	public boolean ImportGood(String goodID, String location, String date) {
 		StoragePO storage = storageServer.find(storageID);
 		GoodPO good = goodServer.find(goodID);
 		try {
@@ -63,9 +67,22 @@ public class StorageManagerImpl implements StorageManager {
 	}
 
 	@Override
+	public boolean ExportGood(String ID, String date) {
+		StoragePO storage = storageServer.find(storageID);
+		String location = storage.getLocation(ID);
+		if (location != "null") {
+			ExportGood(ID, location, date);
+			return true;
+		} else {
+			// id对应的货物不在
+			return false;
+		}
+	}
+
 	public boolean ExportGood(String goodID, String location, String date) {
 		StoragePO storage = storageServer.find(storageID);
 		GoodPO good = goodServer.find(goodID);
+
 		try {
 			if (storage.exportGood(good, location, date)) {
 				storageServer.update(storage);
@@ -94,13 +111,18 @@ public class StorageManagerImpl implements StorageManager {
 	}
 
 	@Override
-	public boolean changeStorage( String oldLocation, String newLocation) {
+	public boolean changeStorage(String oldLocation, String newLocation) {
 		StoragePO storage = storageServer.find(storageID);
 		if (storage.change(oldLocation, newLocation)) {
 			storageServer.update(storage);
 			return true;
 		}
 		return false;
+	}
+
+	public ArrayList<StoreList> getList() {
+		StoragePO storage = storageServer.find(storageID);
+		return storage.getAllList();
 	}
 
 }

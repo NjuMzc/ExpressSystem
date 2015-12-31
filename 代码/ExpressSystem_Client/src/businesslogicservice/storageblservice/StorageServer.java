@@ -1,5 +1,7 @@
 package businesslogicservice.storageblservice;
 
+import java.util.Iterator;
+
 import vo.storagebl.ChaKanVO;
 import vo.storagebl.ExportVO;
 import vo.storagebl.ImportVO;
@@ -13,7 +15,9 @@ public interface StorageServer {
 	
 	public ChaKanVO chaKan(String date1,String date2);
 	
-	public PanDianVO panDian(String date);
+	public Iterator<PanDianVO> panDian();
 	
 	public void exportTable();
+	
+	public boolean changeStorage(String oldLocation,String newLocation);
 }

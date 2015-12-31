@@ -32,6 +32,7 @@ public class StockmanInStock extends RightAll implements ActionListener {
 	JComboBox<String>[] timeInput;
 	private List<Watcher> list;
 	private StorageServer storage;
+	ImportVO result;
 
 	public StockmanInStock(int frameWidth, int frameHeight) {
 
@@ -264,6 +265,36 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		}
 	}
 
+	private void wrongShow(final String input) {
+
+		// 错误处理
+		final JLabel remindWrong = new JLabel();
+		remindWrong.setBounds(frameWidth / 4, frameHeight * 31 / 40,
+				frameWidth / 2, frameHeight / 20);
+		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+
+		this.add(remindWrong);
+		this.repaint();
+
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// 以下根据错误类型设置文字
+				remindWrong.setForeground(Color.red);
+				remindWrong.setText(result.getWrongMessage());
+
+				try {
+					Thread.sleep(2000);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				remindWrong.setText("");
+			}
+		});
+		t.start();
+		// 错误处理结束
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.STOCKMANSTART);
@@ -299,38 +330,22 @@ public class StockmanInStock extends RightAll implements ActionListener {
 			pai = jtf[4].getText();
 			jia = jtf[5].getText();
 			wei = jtf[6].getText();
-//			if (qu.length() == 1) {
-//				qu = "0" + qu;
-//			}
-//
-//			if (pai.length() == 1) {
-//				pai = "0" + pai;
-//			}
-//
-//			if (jia.length() == 1) {
-//				jia = "0" + jia;
-//			}
-//
-//			if (wei.length() == 1) {
-//				wei = "0" + wei;
-//			}
 
 			location[0] = qu;
 			location[1] = pai;
 			location[2] = jia;
 			location[3] = wei;
 
-			// System.out.println("id:" + id);
-			// System.out.println("date:" + time);
-			// System.out.println("区" + qu + "排" + pai + "架" + jia + "位" + wei);
 			ImportVO importBill = new ImportVO(id, time, destination, location);
-			ImportVO result=storage.Import(importBill);
-			
-			if(result.isWrong()){
+			result = storage.Import(importBill);
+
+			if (result.isWrong()) {
 				System.out.println(result.getWrongMessage());
+				wrongShow("wrong");
+			} else {
+				this.notifyWatchers(State.STOCKMANINSTOCK);
 			}
 
-			this.notifyWatchers(State.STOCKMANINSTOCK);
 		}
 	}
 }

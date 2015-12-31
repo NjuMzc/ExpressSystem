@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -16,14 +17,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.storagebl.StorageServerImpl;
+import businesslogicservice.storageblservice.StorageServer;
+
 import java.util.Calendar;
 
 import presentation.ExportExcel;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
+import vo.storagebl.PanDianVO;
 
 public class StockmanCheck extends RightAll implements ActionListener {
+	StorageServer storageServer;
+	
 	int frameWidth;
 	int frameHeight;
 	JButton cancel;
@@ -42,6 +49,7 @@ public class StockmanCheck extends RightAll implements ActionListener {
 	JFileChooser jfc;
 
 	public StockmanCheck(int frameWidth, int frameHeight) {
+		storageServer=new StorageServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -152,17 +160,23 @@ public class StockmanCheck extends RightAll implements ActionListener {
 	}
 
 	private void initTableModel() {
-		Vector<String> vec = new Vector<>();
+		Iterator<PanDianVO> list=storageServer.panDian();
+		while(list.hasNext()){
+			PanDianVO vo=list.next();
+			Vector<String> vec = new Vector<>();
 
-		vec.add("123456789");
-		vec.add("2015.12.12");
-		vec.add("南京");
-		vec.add("1");
-		vec.add("1");
-		vec.add("1");
-		vec.add("1");
+			vec.add(vo.getNum());
+			vec.add(vo.getDate());
+			vec.add(vo.getDestination());
+			String[] temp=vo.getLocation();
+			for(int i=0;i<4;i++){
+				vec.add(temp[i]);
+			}
 
-		tableModel.addRow(vec);
+			tableModel.addRow(vec);
+		}
+		
+		
 	}
 
 	public void addWatcher(Watcher watcher) {

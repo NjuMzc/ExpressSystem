@@ -16,12 +16,18 @@ import java.util.List;
 import javax.swing.*;
 
 import businesslogic.storagebl.StorageManagerImpl;
+import businesslogic.storagebl.StorageServerImpl;
 import businesslogicservice.storageblservice.StorageManager;
+import businesslogicservice.storageblservice.StorageServer;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
+import vo.storagebl.ExportVO;
 
 public class StockmanOutStock extends RightAll implements ActionListener {
+	StorageServer storageServer;
+	ExportVO vo;
+	
 	int frameWidth;
 	int frameHeight;
 	JLabel[] jl;
@@ -35,6 +41,7 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 	private StorageManager storageM;
 
 	public StockmanOutStock(int frameWidth, int frameHeight) {
+		storageServer=new StorageServerImpl();
 		storageM= new  StorageManagerImpl();
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -216,6 +223,34 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 			watcher.update(state);
 		}
 	}
+	
+
+	private void wrongShow() {
+		// 错误处理
+		final JLabel remindWrong = new JLabel();
+		remindWrong.setBounds(frameWidth / 4, frameHeight * 31 / 40,
+				frameWidth / 4, frameHeight / 20);
+		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
+		remindWrong.setForeground(Color.red);
+		this.add(remindWrong);
+		this.repaint();
+
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// 以下根据错误类型设置文字
+				remindWrong.setText(vo.getWrongMessage());
+				try {
+					Thread.sleep(2000);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				remindWrong.setText("");
+			}
+		});
+		t.start();
+		// 错误处理结束
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
@@ -223,37 +258,31 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 		} else if (e.getSource() == confirm) {
             
 			String id;
-			String time;
 			String destination;
 			String types;
 			String num;
 			
+			String date = "";
+			 String year=timeInput[0].getSelectedItem().toString();
+			 String month=timeInput[1].getSelectedItem().toString();
+			 String day=timeInput[2].getSelectedItem().toString();
+			
+			 date=year+"-"+month+"-"+day;
+			
 			id=jtf[0].getText();
-			time = timeInput[0].getSelectedItem().toString();
-			time += "-";
-			if (timeInput[1].getSelectedItem().toString().length() == 1) {
-				time += "0";
-				time += timeInput[1].getSelectedItem().toString();
-			} else {
-				time += timeInput[1].getSelectedItem().toString();
-			}
-			time += "-";
-			if (timeInput[2].getSelectedItem().toString().length() == 1) {
-				time += "0";
-				time += timeInput[2].getSelectedItem().toString();
-			} else {
-				time += timeInput[2].getSelectedItem().toString();
-			}
+	
 			destination=jtf[1].getText();
 			types=type.getSelectedItem().toString();
 			num=jtf[2].getText();
-			
-//			storageM.ExportGood(id, location, date)
-//			System.out.println("id:"+id);
-//			System.out.println("time:"+time);
-//			System.out.println("destination:"+destination);
-//			System.out.println("type:"+types);
-//			System.out.println("num:"+num);
+			ExportVO exportMessage=new ExportVO(id, date, destination, types, num, num);
+ 
+			 vo=storageServer.Export(exportMessage);
+			//错误处理
+			if(vo.isWrong()){
+				wrongShow();
+			}else{
+				System.out.println("Export Success!");
+			}
 		}
 	}
 }
