@@ -40,7 +40,7 @@ public class MainFrame extends JFrame {
 		panel.add(network);
 	}
 
-	public static void main(String[] args) {
-		MainFrame a = new MainFrame();
-	}
+//	public static void main(String[] args) {
+//		MainFrame a = new MainFrame();
+//	}
 }
