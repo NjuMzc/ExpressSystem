@@ -12,6 +12,7 @@ import javax.swing.*;
 import businesslogic.transportbl.hallStaff.Trans_HallSendingServerImpl;
 import businesslogicservice.transportblservice.hallStaff.Trans_HallSendingServer;
 import po.bills.SendingBill;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -27,8 +28,10 @@ public class Ying_collect extends RightAll implements ActionListener {
 	JButton cancel;
 	JComboBox<String>[] timeInput;
 	JLabel time[];
-
 	private List<Watcher> list;
+	
+	JPanel jp_wrong;
+	Remind remindThread;
 
 	public Ying_collect(int frameWidth, int frameHeight) {
 		blServer = new Trans_HallSendingServerImpl();
@@ -130,7 +133,7 @@ public class Ying_collect extends RightAll implements ActionListener {
 				}
 			}
 		});
-		
+
 		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
@@ -181,22 +184,36 @@ public class Ying_collect extends RightAll implements ActionListener {
 			watcher.update(state);
 		}
 	}
+	
+	private void showMessage(String message) {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
+ 
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, message);
+		remindThread.start();
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.ZHONG_START);
 		} else if (e.getSource() == confirm) {
 			String date = "";
-			 String year=timeInput[0].getSelectedItem().toString();
-			 String month=timeInput[1].getSelectedItem().toString();
-			 String day=timeInput[2].getSelectedItem().toString();
-			
-			 date=year+"-"+month+"-"+day;
+			String year = timeInput[0].getSelectedItem().toString();
+			String month = timeInput[1].getSelectedItem().toString();
+			String day = timeInput[2].getSelectedItem().toString();
+
+			date = year + "-" + month + "-" + day;
 			String orderId = jtf[0].getText();
 			String sender = jtf[1].getText();
 
 			SendingBill bill = blServer.makeBill(date, orderId, sender);
 
+			//showMessage();
+			
 		}
 
 	}

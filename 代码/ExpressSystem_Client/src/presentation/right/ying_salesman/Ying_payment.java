@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import businesslogic.paymentServer.ChargeServerImpl;
 import businesslogicservice.paymentblservice.ChargeServer;
 import presentation.right.ColorRenderer;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.State;
@@ -51,8 +52,10 @@ public class Ying_payment extends RightAll implements ActionListener {
 	JScrollPane js;
 	JButton add;
 	DefaultTableCellRenderer dtc;
-
 	private List<Watcher> list;
+
+	JPanel jp_wrong;
+	Remind remindThread;
 
 	public Ying_payment(int frameWidth, int frameHeight) {
 		blServer = new ChargeServerImpl();
@@ -267,32 +270,17 @@ public class Ying_payment extends RightAll implements ActionListener {
 		}
 	}
 
-	private void wrongsolve() {
-		// 错误处理
-		final JLabel remindWrong = new JLabel();
-		remindWrong.setBounds(frameWidth / 10 - frameWidth / 30, frameHeight
-				/ 14 + frameHeight / 7 * 5 + frameHeight / 70 - frameHeight
-				/ 12, frameWidth / 2, frameHeight / 18);
-		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-		remindWrong.setForeground(Color.red);
-		this.add(remindWrong);
-		this.repaint();
+	private void showMessage(String message) {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
 
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// 以下根据错误类型设置文字
-				remindWrong.setText(result.getWrongMessage());
-				try {
-					Thread.sleep(2000);
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-				remindWrong.setText("");
-			}
-		});
-		t.start();
-		// 错误处理结束
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, message);
+		remindThread.start();
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -324,8 +312,9 @@ public class Ying_payment extends RightAll implements ActionListener {
 			result = blServer.makeBill(charge);
 			if (result.isWrong()) {
 				// 错误信息处理
-				wrongsolve();
+				showMessage(result.getWrongMessage());
 			} else {
+				//showMessage("收款单填写成功");
 				this.notifyWatchers(State.YING_PAYMENT);
 			}
 

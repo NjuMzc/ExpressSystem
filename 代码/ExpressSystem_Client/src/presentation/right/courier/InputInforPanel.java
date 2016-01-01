@@ -212,7 +212,7 @@ public class InputInforPanel extends RightAll implements ActionListener {
 			if (isWrongShow) {
 
 				JPanel jp = new JPanel();
-				String input = "收件单填写正确";
+				String input = "收件单填写错误";
 				this.add(jp);
 				Remind remindThread = new Remind(jp, input);
 				remindThread.start();

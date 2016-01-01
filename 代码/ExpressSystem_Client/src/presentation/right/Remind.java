@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import presentation.Data;
+import presentation.watcher.State;
 
 public class Remind extends Thread {
 
@@ -25,7 +26,8 @@ public class Remind extends Thread {
 		remindJp = jp;
 		remindjL = new JLabel(input);
 		remindjL.setFont(new Font("宋体", Font.BOLD, 20));
-		remindJp.setBackground(new Color(174, 221, 129));
+//		remindJp.setBackground(new Color(174, 221, 129));
+		remindJp.setBackground(new Color(237, 222, 139));
 		remindJp.setLayout(null);
 		remindjL.setBounds(frameWidth / 8, 0, frameWidth / 2, frameHeight / 10);
 		remindJp.add(remindjL);
@@ -71,7 +73,7 @@ public class Remind extends Thread {
 				// TODO: handle exception
 			}
 		}
-
+ 
 	}
 
 }

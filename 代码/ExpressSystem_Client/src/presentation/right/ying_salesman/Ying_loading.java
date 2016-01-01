@@ -28,6 +28,7 @@ import businesslogicservice.transportblservice.hallStaff.Trans_HallEntruckServer
 import po.Message;
 import po.bills.HallEntruckBill;
 import presentation.right.ColorRenderer;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.State;
@@ -35,8 +36,8 @@ import presentation.watcher.Watched;
 import presentation.watcher.Watcher;
 
 public class Ying_loading extends RightAll implements ActionListener {
-    Trans_HallEntruckServer blServer;
-	
+	Trans_HallEntruckServer blServer;
+
 	int frameWidth;
 	int frameHeight;
 	JLabel jl[];
@@ -51,12 +52,14 @@ public class Ying_loading extends RightAll implements ActionListener {
 	JScrollPane js;
 	JButton over;
 	DefaultTableCellRenderer dtc;
-
 	private List<Watcher> list;
 
+	JPanel jp_wrong;
+	Remind remindThread;
+
 	public Ying_loading(int frameWidth, int frameHeight) {
-		blServer=new Trans_HallEntruckServerImpl();
-		
+		blServer = new Trans_HallEntruckServerImpl();
+
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 
@@ -81,19 +84,23 @@ public class Ying_loading extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 		}
-		YearMonthDay time1=new YearMonthDay();
+		YearMonthDay time1 = new YearMonthDay();
 		timeInput[0] = time1.getCboYear();
 		timeInput[1] = time1.getCboMonth();
 		timeInput[2] = time1.getCboDay();
 		add = new JButton("");
 
 		tableModel = new DefaultTableModel();
-		jtable = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
+		jtable = new JTable(tableModel) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		js = new JScrollPane(jtable);
-		over = new JButton("");//完成
+		over = new JButton("");// 完成
 
-		dtc=new ColorRenderer();
-		
+		dtc = new ColorRenderer();
+
 		init();
 
 		for (int i = 0; i < 9; i++) {
@@ -117,9 +124,9 @@ public class Ying_loading extends RightAll implements ActionListener {
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\装车单right.png");
 		Image bg = background.getImage();
-		g.drawImage(bg, 0, 0, frameWidth/4*3,frameHeight,null);
+		g.drawImage(bg, 0, 0, frameWidth / 4 * 3, frameHeight, null);
 	}
-	
+
 	private void init() {
 		jl[0].setText("装车单");
 		jl[1].setText("装车日期");
@@ -132,13 +139,14 @@ public class Ying_loading extends RightAll implements ActionListener {
 		jl[8].setText("订单条形码号");
 		jl[9].setText("运费");
 
-		jl[0].setBounds(frameWidth / 3, frameHeight / 20+frameHeight/70, frameWidth / 10,
-				frameHeight / 20);
-		jl[0].setFont(new Font("黑体",Font.PLAIN,19));
+		jl[0].setBounds(frameWidth / 3, frameHeight / 20 + frameHeight / 70,
+				frameWidth / 10, frameHeight / 20);
+		jl[0].setFont(new Font("黑体", Font.PLAIN, 19));
 		for (int i = 1; i < 10; i++) {
-			jl[i].setBounds(frameWidth / 10, frameHeight / 20 +frameHeight/58+ frameHeight
-					/ 225*25 * i, frameWidth / 7, frameHeight / 20);
-			jl[i].setFont(new Font("宋体",Font.BOLD,15));
+			jl[i].setBounds(frameWidth / 10, frameHeight / 20 + frameHeight
+					/ 58 + frameHeight / 225 * 25 * i, frameWidth / 7,
+					frameHeight / 20);
+			jl[i].setFont(new Font("宋体", Font.BOLD, 15));
 		}
 		jtf[0].addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
@@ -155,19 +163,19 @@ public class Ying_loading extends RightAll implements ActionListener {
 			}
 		});
 
-		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10+frameHeight/30,
-				 frameWidth / 9,frameHeight / 16);
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10 + frameHeight
+				/ 30, frameWidth / 9, frameHeight / 16);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10+frameHeight/30,
-				 frameWidth / 9,frameHeight / 16);
+		cancel.setBounds(frameWidth * 2 / 5 + frameWidth / 15, frameHeight * 8
+				/ 10 + frameHeight / 30, frameWidth / 9, frameHeight / 16);
 		cancel.addActionListener(this);
-		
+
 		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		cancel.setIcon(icon1);
-		
+
 		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
 		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
 				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
@@ -175,9 +183,10 @@ public class Ying_loading extends RightAll implements ActionListener {
 		confirm.setIcon(icon2);
 
 		for (int i = 0; i < 8; i++) {
-			jtf[i].setBounds(frameWidth / 4, frameHeight / 20 +frameHeight/58+ frameHeight
-					/ 225*25 * (i + 2), frameWidth / 10, frameHeight / 20);
-			jtf[i].setFont(new Font("宋体",Font.PLAIN,15));
+			jtf[i].setBounds(frameWidth / 4, frameHeight / 20 + frameHeight
+					/ 58 + frameHeight / 225 * 25 * (i + 2), frameWidth / 10,
+					frameHeight / 20);
+			jtf[i].setFont(new Font("宋体", Font.PLAIN, 15));
 		}
 
 		time[0].setText("年");
@@ -185,30 +194,33 @@ public class Ying_loading extends RightAll implements ActionListener {
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
 			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 10 * i,
-					frameHeight / 20 + frameHeight / 15+frameHeight/60, frameWidth / 12,
-					frameHeight / 20);
+					frameHeight / 20 + frameHeight / 15 + frameHeight / 60,
+					frameWidth / 12, frameHeight / 20);
 			time[i].setBounds(frameWidth / 3 + frameWidth / 10 * i, frameHeight
-					/ 20 + frameHeight / 15+frameHeight/60, frameWidth / 12, frameHeight / 20);
-			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
-			time[i].setFont(new Font("宋体",Font.PLAIN,14));
+					/ 20 + frameHeight / 15 + frameHeight / 60,
+					frameWidth / 12, frameHeight / 20);
+			timeInput[i].setFont(new Font("宋体", Font.PLAIN, 14));
+			time[i].setFont(new Font("宋体", Font.PLAIN, 14));
 		}
-		add.setBounds(frameWidth / 12 * 4+frameWidth/30, frameHeight / 20 +frameHeight/58+ frameHeight
-				/ 225*25 * 8,  frameHeight / 19, frameHeight / 19);
-		
+		add.setBounds(frameWidth / 12 * 4 + frameWidth / 30, frameHeight / 20
+				+ frameHeight / 58 + frameHeight / 225 * 25 * 8,
+				frameHeight / 19, frameHeight / 19);
+
 		ImageIcon icon3 = new ImageIcon("pictures//添加.png");
 		Image temp3 = icon3.getImage().getScaledInstance(add.getWidth(),
 				add.getHeight(), icon3.getImage().SCALE_DEFAULT);
-		icon3= new ImageIcon(temp3);
+		icon3 = new ImageIcon(temp3);
 		add.setIcon(icon3);
-		
+
 		add.addActionListener(this);
 
 		initTable();
 
-		js.setBounds(frameWidth / 12 * 5+frameWidth/20, frameHeight / 20 +frameHeight/40+ frameHeight / 15
-				* 2, frameWidth / 5, frameHeight / 2);
-		over.setBounds(frameWidth /3, frameHeight * 8 / 10+frameHeight/30,
-				 frameWidth / 9,frameHeight / 16);
+		js.setBounds(frameWidth / 12 * 5 + frameWidth / 20, frameHeight / 20
+				+ frameHeight / 40 + frameHeight / 15 * 2, frameWidth / 5,
+				frameHeight / 2);
+		over.setBounds(frameWidth / 3, frameHeight * 8 / 10 + frameHeight / 30,
+				frameWidth / 9, frameHeight / 16);
 		over.addActionListener(this);
 		ImageIcon icon4 = new ImageIcon("pictures//完成.png");
 		Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
@@ -266,42 +278,42 @@ public class Ying_loading extends RightAll implements ActionListener {
 		});
 		jtf[6].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[5].requestFocus();
 				}
 			}
 		});
 		jtf[5].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[4].requestFocus();
 				}
 			}
 		});
 		jtf[4].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[3].requestFocus();
 				}
 			}
 		});
 		jtf[3].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[2].requestFocus();
 				}
 			}
 		});
 		jtf[2].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[1].requestFocus();
 				}
 			}
 		});
 		jtf[1].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[0].requestFocus();
 				}
 			}
@@ -310,7 +322,7 @@ public class Ying_loading extends RightAll implements ActionListener {
 
 	private void initTable() {
 		tableModel.addColumn("已有单号列表");
-		jtable.setFont(new Font("宋体",Font.PLAIN,15));
+		jtable.setFont(new Font("宋体", Font.PLAIN, 15));
 		jtable.getTableHeader().setReorderingAllowed(false);
 		jtable.getTableHeader().setResizingAllowed(false);
 		jtable.getColumnModel().getColumn(0).setCellRenderer(dtc);
@@ -339,24 +351,36 @@ public class Ying_loading extends RightAll implements ActionListener {
 		}
 	}
 
+	private void showMessage(String message) {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
+
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, message);
+		remindThread.start();
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.YING_START);
 		} else if (e.getSource() == confirm) {
-			String year=timeInput[0].getSelectedItem().toString();
-			String month=timeInput[1].getSelectedItem().toString();
-			String day=timeInput[2].getSelectedItem().toString();
-			
-			String date=year+"-"+month+"-"+day;
-			
-			String hallId=jtf[0].getText();
-			String transNum=jtf[1].getText();
-			String carId=jtf[2].getText();
-			String destination=jtf[3].getText();
-			String  supervisor=jtf[4].getText();
-			String  transportor=jtf[5].getText();
-			
-			Message message=new Message();
+			String year = timeInput[0].getSelectedItem().toString();
+			String month = timeInput[1].getSelectedItem().toString();
+			String day = timeInput[2].getSelectedItem().toString();
+
+			String date = year + "-" + month + "-" + day;
+
+			String hallId = jtf[0].getText();
+			String transNum = jtf[1].getText();
+			String carId = jtf[2].getText();
+			String destination = jtf[3].getText();
+			String supervisor = jtf[4].getText();
+			String transportor = jtf[5].getText();
+
+			Message message = new Message();
 			message.addInform(date);
 			message.addInform(hallId);
 			message.addInform(transNum);
@@ -364,15 +388,16 @@ public class Ying_loading extends RightAll implements ActionListener {
 			message.addInform(carId);
 			message.addInform(supervisor);
 			message.addInform(transportor);
-			
-			int row=tableModel.getRowCount();
-			ArrayList<String> orderList=new ArrayList<String>();
-			
-			for(int i=0;i<row;i++){
+
+			int row = tableModel.getRowCount();
+			ArrayList<String> orderList = new ArrayList<String>();
+
+			for (int i = 0; i < row; i++) {
 				orderList.add(tableModel.getValueAt(i, 0).toString());
 			}
-			HallEntruckBill bill=blServer.makeBill(message, orderList.iterator());
-			
+			HallEntruckBill bill = blServer.makeBill(message,
+					orderList.iterator());
+
 			jtf[8].setText(String.valueOf(bill.getPayment()));
 
 			this.add(jl[9]);

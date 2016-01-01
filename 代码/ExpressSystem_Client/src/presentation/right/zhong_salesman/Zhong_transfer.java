@@ -370,6 +370,8 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 			for (int i = 0; i < 7; i++) {
 				jtf[i].setEditable(false);
 			}
+			
+			//给我反馈@ma 
 		}
 
 		if (e.getSource() == add) {

@@ -39,7 +39,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 
 	Inform_DriverInformServer driverServer;
 	Inform_CarInformServer carServer;
-	
+
 	int frameWidth;
 	int frameHeight;
 	JLabel remind;
@@ -48,13 +48,13 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 	JPanel addpanel;
 
 	DefaultTableCellRenderer dtc;
-	
+
 	private List<Watcher> list;
 
 	public Ying_manageInfor(int frameWidth, int frameHeight) {
-		carServer=new Inform_CarInformServerImpl();
-		driverServer=new Inform_DriverInformServerImpl();
-		
+		carServer = new Inform_CarInformServerImpl();
+		driverServer = new Inform_DriverInformServerImpl();
+
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 
@@ -63,12 +63,12 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		manage = new JButton("");//确认
+		manage = new JButton("");// 确认
 		type = new JComboBox<String>();
 		remind = new JLabel("请选择管理类型：");
 
-		dtc=new ColorRenderer();
-		
+		dtc = new ColorRenderer();
+
 		init();
 
 		this.add(manage);
@@ -80,10 +80,10 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
-		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
-	
+
 	private void init() {
 
 		manage.setBounds(frameWidth / 2, frameHeight / 10, frameWidth / 10,
@@ -93,16 +93,16 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		manage.setIcon(icon1);
-		
+
 		manage.addActionListener(this);
 		type.addItem("司机");
 		type.addItem("车辆");
-		type.setBounds(frameWidth / 4+frameWidth/16, frameHeight / 10, frameWidth / 9,
-				frameHeight / 20);
-		type.setFont(new Font("宋体",Font.PLAIN,16));
+		type.setBounds(frameWidth / 4 + frameWidth / 16, frameHeight / 10,
+				frameWidth / 9, frameHeight / 20);
+		type.setFont(new Font("宋体", Font.PLAIN, 16));
 		remind.setBounds(frameWidth / 9, frameHeight / 10, frameWidth / 4,
 				frameHeight / 20);
-		remind.setFont(new Font("宋体",Font.BOLD,20) );
+		remind.setFont(new Font("宋体", Font.BOLD, 20));
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -165,7 +165,11 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			this.setBackground(new Color(124, 141, 117));
 
 			tableModel = new DefaultTableModel();
-			table = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
+			table = new JTable(tableModel) {
+				public boolean isCellEditable(int row, int column) {
+					return false;
+				}
+			};
 			js = new JScrollPane(table);
 
 			jb = new JButton[3];
@@ -185,33 +189,37 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			js.setBounds(0, 0, frameWidth / 4 * 3, frameHeight / 5 * 3);
 			initThisTable();
 
-			jb[0].setText("");//增加
-			jb[1].setText("");//删除
-			jb[2].setText("");//修改
+			jb[0].setText("");// 增加
+			jb[1].setText("");// 删除
+			jb[2].setText("");// 修改
 			for (int i = 0; i < 3; i++) {
 				jb[i].setBounds(frameWidth / 8 + frameWidth / 5 * i,
-						frameHeight / 4 * 3-frameHeight/40, frameWidth / 10, frameHeight / 18);
+						frameHeight / 4 * 3 - frameHeight / 40,
+						frameWidth / 10, frameHeight / 18);
 				jb[i].addActionListener(this);
 			}
-			
+
 			ImageIcon icon2 = new ImageIcon("pictures//增加黄.png");
-			Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
-					icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+			Image temp2 = icon2.getImage().getScaledInstance(
+					icon2.getIconWidth(), icon2.getIconHeight(),
+					icon2.getImage().SCALE_DEFAULT);
 			icon2 = new ImageIcon(temp2);
 			jb[0].setIcon(icon2);
-			
+
 			ImageIcon icon3 = new ImageIcon("pictures//删除.png");
-			Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
-					icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
-			icon3= new ImageIcon(temp3);
+			Image temp3 = icon3.getImage().getScaledInstance(
+					icon3.getIconWidth(), icon3.getIconHeight(),
+					icon3.getImage().SCALE_DEFAULT);
+			icon3 = new ImageIcon(temp3);
 			jb[1].setIcon(icon3);
-			
+
 			ImageIcon icon4 = new ImageIcon("pictures//修改.png");
-			Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
-					icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
+			Image temp4 = icon4.getImage().getScaledInstance(
+					icon4.getIconWidth(), icon4.getIconHeight(),
+					icon4.getImage().SCALE_DEFAULT);
 			icon4 = new ImageIcon(temp4);
 			jb[2].setIcon(icon4);
-			
+
 		}
 
 		// 初始化table
@@ -230,8 +238,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			table.getColumnModel().getColumn(4).setCellRenderer(dtc);
 			table.getColumnModel().getColumn(5).setCellRenderer(dtc);
 			table.getColumnModel().getColumn(6).setCellRenderer(dtc);
-			
-			
+
 			table.getColumnModel().getColumn(0)
 					.setPreferredWidth(frameWidth / 30);
 			table.getColumnModel().getColumn(1)
@@ -253,10 +260,10 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 
 		// 初始化model,@ma
 		private void initThisTableModel() {
-			Iterator<DriverPO> driverList=driverServer.getAllDriver(); 
-			while(driverList.hasNext()){
-				DriverPO driver=driverList.next();
-				
+			Iterator<DriverPO> driverList = driverServer.getAllDriver();
+			while (driverList.hasNext()) {
+				DriverPO driver = driverList.next();
+
 				Vector<String> vec = new Vector<>();
 				vec.add(driver.getName());
 				vec.add(driver.getId());
@@ -268,7 +275,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 
 				tableModel.addRow(vec);
 			}
-			
+
 		}
 
 		private void addAddPanel() {
@@ -354,6 +361,12 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == jb[0]) {
+
+				// 123
+				for (int i = 0; i < 3; i++) {
+					this.remove(jb[i]);
+				}
+
 				if (changepanel != null) {
 					this.remove(changepanel);
 					this.repaint();
@@ -370,12 +383,13 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				// 删
 				int selectedRow = table.getSelectedRow();
 				if (selectedRow >= 0) {
-					String id=(String) table.getValueAt(selectedRow, 1);
-					if(driverServer.removeDriver(id))
-					tableModel.removeRow(selectedRow);
+					String id = (String) table.getValueAt(selectedRow, 1);
+					if (driverServer.removeDriver(id))
+						tableModel.removeRow(selectedRow);
 				}
 
 			} else if (e.getSource() == jb[2]) {
+				 
 				if (addpanel != null) {
 					this.remove(addpanel);
 					this.repaint();
@@ -388,50 +402,66 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				// 改
 				int row = table.getSelectedRow();
 				if (row >= 0) {
+					//123
+					for (int i = 0; i < 3; i++) {
+						this.remove(jb[i]);
+					}
+					
 					Vector<String> vec = new Vector<String>();
-					
-						vec.add((String) (table.getValueAt(row, 0)));
-						vec.add((String) (table.getValueAt(row, 1)));
-						vec.add((String) (table.getValueAt(row, 2)));
-						vec.add((String) (table.getValueAt(row, 3)));
-						vec.add((String) (table.getValueAt(row, 4)));
-						vec.add((String) (table.getValueAt(row, 5)));
-						vec.add((String) (table.getValueAt(row, 6)));
 
-						addChangePanel(vec);
-						tableModel.removeRow(row);
-					
+					vec.add((String) (table.getValueAt(row, 0)));
+					vec.add((String) (table.getValueAt(row, 1)));
+					vec.add((String) (table.getValueAt(row, 2)));
+					vec.add((String) (table.getValueAt(row, 3)));
+					vec.add((String) (table.getValueAt(row, 4)));
+					vec.add((String) (table.getValueAt(row, 5)));
+					vec.add((String) (table.getValueAt(row, 6)));
+
+					addChangePanel(vec);
+					tableModel.removeRow(row);
+
 				}
 
 			}
 
 			// 增加成功
 			if (e.getSource() == addover) {
+				for (int i = 0; i < 3; i++) {
+					this.add(jb[i]);
+				}
 				this.remove(addpanel);
 				this.repaint();
 
-				DriverPO driver=driverServer.addDriver(addjtf[0].getText(), addjtf[2].getText(),addjtf[3].getText(),addjtf[4].getText(), addjtf[5].getText(),addjtf[6].getText());
-				
+				DriverPO driver = driverServer.addDriver(addjtf[0].getText(),
+						addjtf[2].getText(), addjtf[3].getText(),
+						addjtf[4].getText(), addjtf[5].getText(),
+						addjtf[6].getText());
+
 				Vector<String> vec = new Vector<>();
 				for (int i = 0; i < 7; i++) {
-					if(i==1){
+					if (i == 1) {
 						vec.add(driver.getId());
-					}else{
+					} else {
 						vec.add(addjtf[i].getText());
 					}
-					
+
 				}
-				
+
 				tableModel.addRow(vec);
 			}
 
 			if (e.getSource() == changeover) {
+				for (int i = 0; i < 3; i++) {
+					this.add(jb[i]);
+				}
 				this.remove(changepanel);
 				this.repaint();
 
-				Boolean OK=driverServer.updateDriver(changejtf[1].getText(),changejtf[0].getText(), changejtf[2].getText(),
-						changejtf[3].getText(), changejtf[4].getText(), changejtf[5].getText(),  changejtf[6].getText());
-				
+				Boolean OK = driverServer.updateDriver(changejtf[1].getText(),
+						changejtf[0].getText(), changejtf[2].getText(),
+						changejtf[3].getText(), changejtf[4].getText(),
+						changejtf[5].getText(), changejtf[6].getText());
+
 				Vector<String> vec = new Vector<>();
 				for (int i = 0; i < 7; i++) {
 					vec.add(changejtf[i].getText());
@@ -466,7 +496,11 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			this.setBackground(Color.gray);
 
 			tableModel = new DefaultTableModel();
-			table = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
+			table = new JTable(tableModel) {
+				public boolean isCellEditable(int row, int column) {
+					return false;
+				}
+			};
 			js = new JScrollPane(table);
 
 			jb = new JButton[3];
@@ -486,30 +520,34 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			js.setBounds(0, 0, frameWidth / 4 * 3, frameHeight / 5 * 3);
 			initThisTable();
 
-			jb[0].setText("");//增加
-			jb[1].setText("");//删除
-			jb[2].setText("");//修改
+			jb[0].setText("");// 增加
+			jb[1].setText("");// 删除
+			jb[2].setText("");// 修改
 			for (int i = 0; i < 3; i++) {
 				jb[i].setBounds(frameWidth / 8 + frameWidth / 5 * i,
-						frameHeight / 4 * 3-frameHeight/40, frameWidth / 10, frameHeight / 18);
+						frameHeight / 4 * 3 - frameHeight / 40,
+						frameWidth / 10, frameHeight / 18);
 				jb[i].addActionListener(this);
 			}
-			
+
 			ImageIcon icon2 = new ImageIcon("pictures//增加黄.png");
-			Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
-					icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
+			Image temp2 = icon2.getImage().getScaledInstance(
+					icon2.getIconWidth(), icon2.getIconHeight(),
+					icon2.getImage().SCALE_DEFAULT);
 			icon2 = new ImageIcon(temp2);
 			jb[0].setIcon(icon2);
-			
+
 			ImageIcon icon3 = new ImageIcon("pictures//删除.png");
-			Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
-					icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
-			icon3= new ImageIcon(temp3);
+			Image temp3 = icon3.getImage().getScaledInstance(
+					icon3.getIconWidth(), icon3.getIconHeight(),
+					icon3.getImage().SCALE_DEFAULT);
+			icon3 = new ImageIcon(temp3);
 			jb[1].setIcon(icon3);
-			
+
 			ImageIcon icon4 = new ImageIcon("pictures//修改.png");
-			Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
-					icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
+			Image temp4 = icon4.getImage().getScaledInstance(
+					icon4.getIconWidth(), icon4.getIconHeight(),
+					icon4.getImage().SCALE_DEFAULT);
 			icon4 = new ImageIcon(temp4);
 			jb[2].setIcon(icon4);
 		}
@@ -523,18 +561,18 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			tableModel.addColumn("购买时间");
 			tableModel.addColumn("服役时间");
 			tableModel.addColumn("车辆描述 ");
-			table.getColumnModel().getColumn(0)
-					.setPreferredWidth(frameWidth / 30);
-			table.getColumnModel().getColumn(1)
-					.setPreferredWidth(frameWidth / 30);
-			table.getColumnModel().getColumn(2)
-					.setPreferredWidth(frameWidth / 30);
-			table.getColumnModel().getColumn(3)
-					.setPreferredWidth(frameWidth / 10);
-			table.getColumnModel().getColumn(4)
-					.setPreferredWidth(frameWidth / 30);
-			table.getColumnModel().getColumn(5)
-					.setPreferredWidth(frameWidth / 30);
+//			table.getColumnModel().getColumn(0)
+//					.setPreferredWidth(frameWidth / 30);
+//			table.getColumnModel().getColumn(1)
+//					.setPreferredWidth(frameWidth / 30);
+//			table.getColumnModel().getColumn(2)
+//					.setPreferredWidth(frameWidth / 30);
+//			table.getColumnModel().getColumn(3)
+//					.setPreferredWidth(frameWidth / 10);
+//			table.getColumnModel().getColumn(4)
+//					.setPreferredWidth(frameWidth / 30);
+//			table.getColumnModel().getColumn(5)
+//					.setPreferredWidth(frameWidth / 30);
 			table.getTableHeader().setReorderingAllowed(false);
 			table.getTableHeader().setResizingAllowed(false);
 
@@ -545,17 +583,17 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			table.getColumnModel().getColumn(4).setCellRenderer(dtc);
 			table.getColumnModel().getColumn(5).setCellRenderer(dtc);
 			table.getColumnModel().getColumn(6).setCellRenderer(dtc);
-			
+
 			initThisTableModel();
 
 		}
 
 		// 初始化model,@ma
 		private void initThisTableModel() {
-			Iterator<CarPO>  carList=carServer.getAllCar(); 
-			while(carList.hasNext()){
-				CarPO car=carList.next();
-				
+			Iterator<CarPO> carList = carServer.getAllCar();
+			while (carList.hasNext()) {
+				CarPO car = carList.next();
+
 				Vector<String> vec = new Vector<>();
 				vec.add(car.getId());
 				vec.add("奥迪双钻3000型");
@@ -653,6 +691,10 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == jb[0]) {
+				for(int i=0;i<3;i++){
+					this.remove(jb[i]);
+				}
+				
 				if (changepanel != null) {
 					this.remove(changepanel);
 					this.repaint();
@@ -669,12 +711,13 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				// 删
 				int selectedRow = table.getSelectedRow();
 				if (selectedRow >= 0) {
-					String id=(String) table.getValueAt(selectedRow, 0);
-					if(carServer.removeCar(id))
-					tableModel.removeRow(selectedRow);
+					String id = (String) table.getValueAt(selectedRow, 0);
+					if (carServer.removeCar(id))
+						tableModel.removeRow(selectedRow);
 				}
 
 			} else if (e.getSource() == jb[2]) {
+				 
 				if (addpanel != null) {
 					this.remove(addpanel);
 					this.repaint();
@@ -687,6 +730,9 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				// 改
 				int row = table.getSelectedRow();
 				if (row >= 0) {
+					for(int i=0;i<3;i++){
+						this.remove(jb[i]);
+					}
 					Vector<String> vec = new Vector<String>();
 
 					vec.add((String) (table.getValueAt(row, 0)));
@@ -706,29 +752,37 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 
 			// 增加成功
 			if (e.getSource() == addover) {
+				for(int i=0;i<3;i++){
+					this.add(jb[i]);
+				}
 				this.remove(addpanel);
 				this.repaint();
 
-                CarPO car=carServer.addCar(addjtf[2].getText(), addjtf[5].getText());
-				
+				CarPO car = carServer.addCar(addjtf[2].getText(),
+						addjtf[5].getText());
+
 				Vector<String> vec = new Vector<>();
 				for (int i = 0; i < 7; i++) {
-					if(i==0){
+					if (i == 0) {
 						vec.add(car.getId());
-					}else{
+					} else {
 						vec.add(addjtf[i].getText());
 					}
-					
+
 				}
 				tableModel.addRow(vec);
 			}
 
 			if (e.getSource() == changeover) {
+				for(int i=0;i<3;i++){
+					this.add(jb[i]);
+				}
 				this.remove(changepanel);
 				this.repaint();
 
-				Boolean OK=carServer.updateCar(changejtf[0].getText(), changejtf[2].getText(),changejtf[5].getText());
-				
+				Boolean OK = carServer.updateCar(changejtf[0].getText(),
+						changejtf[2].getText(), changejtf[5].getText());
+
 				Vector<String> vec = new Vector<>();
 				for (int i = 0; i < 7; i++) {
 					vec.add(changejtf[i].getText());

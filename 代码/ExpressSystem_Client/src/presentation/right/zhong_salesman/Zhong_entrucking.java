@@ -22,6 +22,7 @@ import po.Message;
 import po.bills.HallEntruckBill;
 import po.bills.TransEntruckBill;
 import presentation.right.ColorRenderer;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.State;
@@ -46,10 +47,14 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 	JScrollPane js;
 	JButton over;
 	DefaultTableCellRenderer dtc;
-	
+
+	JPanel jp_wrong;
+	String input_wrong;
+	Remind remindThread;
+
 	public Zhong_entrucking(int frameWidth, int frameHeight) {
-		blServer=new Trans_TransEntruckServerImpl();
-		
+		blServer = new Trans_TransEntruckServerImpl();
+
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 
@@ -75,18 +80,22 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		for (int i = 0; i < 3; i++) {
 			time[i] = new JLabel();
 		}
-		YearMonthDay time1=new YearMonthDay();
+		YearMonthDay time1 = new YearMonthDay();
 		timeInput[0] = time1.getCboYear();
 		timeInput[1] = time1.getCboMonth();
 		timeInput[2] = time1.getCboDay();
 
 		tableModel = new DefaultTableModel();
-		jtable = new JTable(tableModel){ public boolean isCellEditable(int row, int column) { return false; }}; 
+		jtable = new JTable(tableModel) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		js = new JScrollPane(jtable);
 
 		add = new JButton("");
-		
-		dtc=new ColorRenderer();
+
+		dtc = new ColorRenderer();
 
 		init();
 
@@ -105,13 +114,13 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		this.add(js);
 		this.add(add);
 	}
-	
+
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		ImageIcon background = new ImageIcon("pictures\\装车单right.png");
-		Image bg =background.getImage();
-		g.drawImage(bg, 0, 0,frameWidth*3/4,frameHeight,null);
+		Image bg = background.getImage();
+		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
 	}
 
 	private void init() {
@@ -124,56 +133,60 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		jl[6].setText("装车订单号");
 		jl[7].setText("运费");
 		for (int i = 0; i < 8; i++) {
-			jl[i].setBounds(frameWidth / 10, frameHeight / 11 * i+frameHeight/9,
-					frameWidth / 10, frameHeight / 20);
-			jl[i].setFont(new Font("宋体",Font.BOLD,15));
+			jl[i].setBounds(frameWidth / 10, frameHeight / 11 * i + frameHeight
+					/ 9, frameWidth / 10, frameHeight / 20);
+			jl[i].setFont(new Font("宋体", Font.BOLD, 15));
 		}
-		
-		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10+frameHeight/30,
-				 frameWidth / 9,frameHeight / 16);
+
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10 + frameHeight
+				/ 30, frameWidth / 9, frameHeight / 16);
 		confirm.addActionListener(this);
-		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10+frameHeight/30,
-				 frameWidth / 9,frameHeight / 16);
+		cancel.setBounds(frameWidth * 2 / 5 + frameWidth / 15, frameHeight * 8
+				/ 10 + frameHeight / 30, frameWidth / 9, frameHeight / 16);
 		cancel.addActionListener(this);
-		
+
 		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		cancel.setIcon(icon1);
-		
+
 		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
 		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
 				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
 		icon2 = new ImageIcon(temp2);
 		confirm.setIcon(icon2);
-		
-		jtf[0].setBounds(frameWidth / 4-frameWidth/25, frameHeight/9-frameHeight/100, frameWidth / 9, frameHeight / 20);
-		jtf[0].setFont(new Font("宋体",Font.BOLD,15));
+
+		jtf[0].setBounds(frameWidth / 4 - frameWidth / 25, frameHeight / 9
+				- frameHeight / 100, frameWidth / 9, frameHeight / 20);
+		jtf[0].setFont(new Font("宋体", Font.BOLD, 15));
 		for (int i = 1; i < 7; i++) {
-			jtf[i].setBounds(frameWidth / 4-frameWidth/25, frameHeight / 11* (i + 1)+frameHeight/9,
-					frameWidth /9, frameHeight / 20);
-			jtf[i].setFont(new Font("宋体",Font.BOLD,15));
+			jtf[i].setBounds(frameWidth / 4 - frameWidth / 25, frameHeight / 11
+					* (i + 1) + frameHeight / 9, frameWidth / 9,
+					frameHeight / 20);
+			jtf[i].setFont(new Font("宋体", Font.BOLD, 15));
 		}
 		time[0].setText("年");
 		time[1].setText("月");
 		time[2].setText("日");
 		for (int i = 0; i < 3; i++) {
-			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 50*6 * i-frameWidth/25,
-					frameHeight / 11 * 1+frameHeight/9-frameHeight/100, frameWidth / 11, frameHeight / 20);
-			time[i].setBounds(frameWidth / 3+ frameWidth / 50*6 * i+frameWidth/85-frameWidth/25,
-					frameHeight / 11 *1+frameHeight/9, frameWidth / 12, frameHeight / 20);
-			time[i].setFont(new Font("宋体",Font.PLAIN,15));
-			timeInput[i].setFont(new Font("宋体",Font.PLAIN,14));
+			timeInput[i].setBounds(frameWidth / 4 + frameWidth / 50 * 6 * i
+					- frameWidth / 25, frameHeight / 11 * 1 + frameHeight / 9
+					- frameHeight / 100, frameWidth / 11, frameHeight / 20);
+			time[i].setBounds(frameWidth / 3 + frameWidth / 50 * 6 * i
+					+ frameWidth / 85 - frameWidth / 25, frameHeight / 11 * 1
+					+ frameHeight / 9, frameWidth / 12, frameHeight / 20);
+			time[i].setFont(new Font("宋体", Font.PLAIN, 15));
+			timeInput[i].setFont(new Font("宋体", Font.PLAIN, 14));
 		}
-		add.setBounds(frameWidth / 3, frameHeight / 10 *7-frameHeight/22, frameHeight /19,
-				frameHeight /19);
+		add.setBounds(frameWidth / 3, frameHeight / 10 * 7 - frameHeight / 22,
+				frameHeight / 19, frameHeight / 19);
 		add.addActionListener(this);
 
 		ImageIcon icon3 = new ImageIcon("pictures//添加.png");
 		Image temp3 = icon3.getImage().getScaledInstance(add.getWidth(),
 				add.getHeight(), icon3.getImage().SCALE_DEFAULT);
-		icon3= new ImageIcon(temp3);
+		icon3 = new ImageIcon(temp3);
 		add.setIcon(icon3);
 		add.addActionListener(this);
 		jtf[0].addKeyListener(new KeyAdapter() {
@@ -190,12 +203,13 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 				}
 			}
 		});
-		
+
 		initTable();
 
-		js.setBounds(frameWidth / 2-frameWidth/6+frameWidth/14, frameHeight / 10 * 3-frameHeight/40, frameWidth / 4,
-				frameHeight / 3+frameHeight/8);
-		
+		js.setBounds(frameWidth / 2 - frameWidth / 6 + frameWidth / 14,
+				frameHeight / 10 * 3 - frameHeight / 40, frameWidth / 4,
+				frameHeight / 3 + frameHeight / 8);
+
 		jtf[0].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER
@@ -238,40 +252,40 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		});
 		jtf[5].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[4].requestFocus();
 				}
 			}
 		});
 		jtf[4].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[3].requestFocus();
 				}
 			}
 		});
 		jtf[3].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[2].requestFocus();
 				}
 			}
 		});
 		jtf[2].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[1].requestFocus();
 				}
 			}
 		});
 		jtf[1].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				  if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					jtf[0].requestFocus();
 				}
 			}
 		});
-		
+
 	}
 
 	private void initTable() {
@@ -304,51 +318,69 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		}
 	}
 
+	private void showMessage() {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
+
+		input_wrong = "yes or not!";
+
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, input_wrong);
+		remindThread.start();
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.ZHONG_START);
-		}else if(e.getSource()==confirm){
-			
+		} else if (e.getSource() == confirm) {
+
 			this.add(jl[7]);
 			this.add(jtf[6]);
 			this.remove(confirm);
 			this.remove(cancel);
-			over=new JButton("完成");
+			over = new JButton("完成");
 			over.setBounds(frameWidth / 72 * 23, frameHeight * 8 / 10
 					+ frameHeight / 30, frameWidth / 9, frameHeight / 16);
 			over.addActionListener(this);
 			this.add(over);
 			this.repaint();
-			
-			String year=timeInput[0].getSelectedItem().toString();
-			String month=timeInput[1].getSelectedItem().toString();
-			String day=timeInput[2].getSelectedItem().toString();
-			
-			String date=year+"-"+month+"-"+day;
-			String transNum=jtf[0].getText();
-			String carId=jtf[2].getText();
-			String destination=jtf[1].getText();
-			String  supervisor=jtf[3].getText();
-			String  transportor=jtf[4].getText();
-			
-			Message message=new Message();
+
+			String year = timeInput[0].getSelectedItem().toString();
+			String month = timeInput[1].getSelectedItem().toString();
+			String day = timeInput[2].getSelectedItem().toString();
+
+			String date = year + "-" + month + "-" + day;
+			String transNum = jtf[0].getText();
+			String carId = jtf[2].getText();
+			String destination = jtf[1].getText();
+			String supervisor = jtf[3].getText();
+			String transportor = jtf[4].getText();
+
+			Message message = new Message();
 			message.addInform(date);
 			message.addInform(transNum);
 			message.addInform(destination);
 			message.addInform(carId);
 			message.addInform(supervisor);
 			message.addInform(transportor);
-			
-			int row=tableModel.getRowCount();
-			ArrayList<String> orderList=new ArrayList<String>();
-			
-			for(int i=0;i<row;i++){
+
+			int row = tableModel.getRowCount();
+			ArrayList<String> orderList = new ArrayList<String>();
+
+			for (int i = 0; i < row; i++) {
 				orderList.add(tableModel.getValueAt(i, 0).toString());
 			}
-			TransEntruckBill bill=blServer.makeBill(message, orderList.iterator());
-		    for(int i=0;i<7;i++){
-		    	jtf[i].setEditable(false);
-		    }
+			TransEntruckBill bill = blServer.makeBill(message,
+					orderList.iterator());
+			for (int i = 0; i < 7; i++) {
+				jtf[i].setEditable(false);
+			}
+			
+			//给我反馈＠ｍａ
+			
 		}
 
 		if (e.getSource() == add) {
@@ -360,9 +392,9 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 				tableModel.addRow(vec);
 				jtf[5].setText("");
 			}
-		} 
-		
-		if(e.getSource()==over){
+		}
+
+		if (e.getSource() == over) {
 			this.notifyWatchers(State.ZHONG_ENTRUCKING);
 		}
 	}

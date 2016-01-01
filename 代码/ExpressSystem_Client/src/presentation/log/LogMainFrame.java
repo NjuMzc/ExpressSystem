@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.watcher.State;
 import presentation.watcher.Watched;
@@ -34,8 +35,11 @@ public class LogMainFrame extends RightAll implements ActionListener {
 	JButton cancel;
 	JTextField jtf;
 	JPasswordField jpf;
-
 	private List<Watcher> list;
+
+	JPanel jp_wrong;
+	String input_wrong;
+	Remind remindThread;
 
 	public LogMainFrame(int frameWidth, int frameHeight) {
 		this.frameWidth = frameWidth;
@@ -84,7 +88,7 @@ public class LogMainFrame extends RightAll implements ActionListener {
 		cancel.setBounds(frameWidth * 9 / 16, frameHeight * 93 / 128,
 				frameWidth * 7 / 48, frameWidth / 20);
 		cancel.addActionListener(this);
- 
+
 		jtf.setBounds(frameWidth * 38 / 112, frameHeight * 57 / 128, 300, 50);
 		jtf.setFont(new Font("宋体", Font.PLAIN, 28));
 		jtf.setOpaque(false);
@@ -119,6 +123,21 @@ public class LogMainFrame extends RightAll implements ActionListener {
 				}
 			}
 		});
+	}
+
+	private void showMessage() {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
+
+		input_wrong = user.getWrongMessage();
+
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, input_wrong);
+		remindThread.start();
+
 	}
 
 	private void logConfirm() {
@@ -158,10 +177,12 @@ public class LogMainFrame extends RightAll implements ActionListener {
 				}
 			} else {
 				System.out.println("Fail login!");
+
 				// 错误处理
 				final JLabel remindWrong = new JLabel();
-				remindWrong.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
-						frameWidth / 4, frameHeight / 20);
+				remindWrong
+						.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
+								frameWidth / 4, frameHeight / 20);
 				remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
 				remindWrong.setForeground(Color.red);
 				this.add(remindWrong);
