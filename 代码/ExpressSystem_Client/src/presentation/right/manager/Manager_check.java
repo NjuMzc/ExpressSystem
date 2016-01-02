@@ -86,7 +86,7 @@ public class Manager_check extends RightAll implements ActionListener {
 		allpass.setIcon(icon1);
 
 		initTable();
-		js.setBounds(frameWidth / 20, frameHeight / 10, frameWidth / 3+frameWidth/40,
+		js.setBounds(frameWidth / 40, frameHeight / 10, frameWidth / 3+frameWidth/40,
 				frameHeight / 4 * 3);
     
 	}
@@ -151,12 +151,15 @@ public class Manager_check extends RightAll implements ActionListener {
 		}
 		// 根据单据号,单据类型判断单据
 		billPanel = new JPanel();
+		billPanel.setBackground(new Color(199,213,214));
 		billPanel.setBounds(frameWidth / 5 * 2, frameHeight / 10,
 				frameWidth / 3, frameHeight / 4 * 3);
 		billPanel.setLayout(null);
 		billJta = new JTextArea();
-		pass = new JButton("通过");
-		notpass = new JButton("不通过");
+		pass = new JButton("");//通过
+		notpass = new JButton("");//不通过
+		
+		
 		billJta.setBounds(0, 0, frameWidth / 3, frameHeight / 2);
 		initJta();
 		pass.setBounds(frameWidth / 20, frameHeight / 8 * 5, frameWidth / 10,
@@ -165,6 +168,19 @@ public class Manager_check extends RightAll implements ActionListener {
 		notpass.setBounds(frameWidth / 5, frameHeight / 8 * 5, frameWidth / 10,
 				frameHeight / 20);
 		notpass.addActionListener(this);
+		
+		ImageIcon icon3 = new ImageIcon("pictures//通过.png");
+		Image temp3 = icon3.getImage().getScaledInstance(icon3.getIconWidth(),
+				icon3.getIconHeight(), icon3.getImage().SCALE_DEFAULT);
+		icon3 = new ImageIcon(temp3);
+	   pass.setIcon(icon3);
+		
+		ImageIcon icon4 = new ImageIcon("pictures//不通过.png");
+		Image temp4 = icon4.getImage().getScaledInstance(icon4.getIconWidth(),
+				icon4.getIconHeight(), icon4.getImage().SCALE_DEFAULT);
+		icon4 = new ImageIcon(temp4);
+		notpass.setIcon(icon4);
+		
 		billPanel.add(billJta);
 		billPanel.add(pass);
 		billPanel.add(notpass);

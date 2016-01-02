@@ -341,10 +341,17 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 			this.add(jtf[6]);
 			this.remove(confirm);
 			this.remove(cancel);
-			over = new JButton("完成");
+			over = new JButton("");//完成
 			over.setBounds(frameWidth / 72 * 23, frameHeight * 8 / 10
 					+ frameHeight / 30, frameWidth / 9, frameHeight / 16);
 			over.addActionListener(this);
+			
+			ImageIcon icon6 = new ImageIcon("pictures//完成.png");
+			Image temp6 = icon6.getImage().getScaledInstance(icon6.getIconWidth(),
+					icon6.getIconHeight(), icon6.getImage().SCALE_DEFAULT);
+			icon6 = new ImageIcon(temp6);
+			over.setIcon(icon6);
+			
 			this.add(over);
 			this.repaint();
 

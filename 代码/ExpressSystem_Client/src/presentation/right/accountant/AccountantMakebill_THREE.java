@@ -491,7 +491,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 						+ frameHeight / 5, frameWidth / 14, frameHeight / 20);
 			}
 			overButton_car.setBounds(frameWidth / 16 * 3,
-					frameHeight / 20 * 16, frameWidth /10, frameHeight / 20);
+					frameHeight / 20 * 17-frameWidth/40, frameWidth /10, frameHeight / 20);
 			
 			ImageIcon icon2 = new ImageIcon("pictures//完成.png");
 			Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
@@ -547,7 +547,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 					/ 4, frameWidth / 6, frameHeight / 20);
 			addLabel_people.setBounds(frameWidth / 24, frameHeight / 2
 					+ frameHeight / 5, frameWidth / 6, frameHeight / 20);
-			overButton_people.setBounds(frameWidth / 16, frameHeight / 20 * 16,
+			overButton_people.setBounds(frameWidth / 16, frameHeight / 20 * 17-frameWidth/40,
 					frameWidth /10, frameHeight / 20);
 			
 			ImageIcon icon2 = new ImageIcon("pictures//完成.png");
@@ -598,7 +598,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 					frameWidth / 6, frameHeight / 20);
 			addLabel.setBounds(frameWidth / 24, frameHeight / 2 + frameHeight
 					/ 5, frameWidth / 6, frameHeight / 20);
-			overButton.setBounds(frameWidth / 16, frameHeight / 20 * 16,
+			overButton.setBounds(frameWidth / 16, frameHeight / 20 * 17-frameWidth/40,
 					frameWidth / 10, frameHeight / 20);
 			
 			ImageIcon icon2 = new ImageIcon("pictures//完成.png");

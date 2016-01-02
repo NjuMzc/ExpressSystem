@@ -1,6 +1,7 @@
 package presentation.right.manager;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -138,7 +139,7 @@ public class Manager_Manage extends RightAll {
 		private void initCityPanel() {
 	 
 			addCity.setBounds(frameWidth / 16, frameHeight / 10 * 9,
-					frameWidth / 8, frameHeight / 20);
+					frameWidth / 9, frameHeight / 20);
 			addCity.addActionListener(this);
 			
 			ImageIcon icon4 = new ImageIcon("pictures//增加城市.png");
@@ -257,13 +258,24 @@ public class Manager_Manage extends RightAll {
 				this.repaint();
 				this.jtf = new JTextField();
 				this.addLabel = new JLabel("请输入新城市编号及名称(空格隔开):");
-				this.overButton = new JButton("完成");
-				jtf.setBounds(frameWidth / 24, frameHeight / 2 + frameHeight
+				addLabel.setFont(new Font("宋体",Font.PLAIN,13));
+				this.overButton = new JButton("");//完成
+				
+				jtf.setBounds(frameWidth / 28, frameHeight / 2 + frameHeight
 						/ 4, frameWidth / 6, frameHeight / 20);
-				addLabel.setBounds(frameWidth / 24, frameHeight / 2
-						+ frameHeight / 5, frameWidth / 6, frameHeight / 20);
-				overButton.setBounds(frameWidth / 16, frameHeight / 20 * 17,
-						frameWidth / 8, frameHeight / 20);
+				addLabel.setBounds(frameWidth / 30, frameHeight / 2
+						+ frameHeight / 5, frameWidth / 3, frameHeight / 20);
+				overButton.setBounds(frameWidth / 16, frameHeight / 20 * 17-frameWidth/40,
+						frameWidth / 9, frameHeight / 20);
+				
+
+				ImageIcon icon4 = new ImageIcon("pictures//完成.png");
+				Image temp4 = icon4.getImage().getScaledInstance(
+						icon4.getIconWidth(), icon4.getIconHeight(),
+						icon4.getImage().SCALE_DEFAULT);
+				icon4 = new ImageIcon(temp4);
+				overButton.setIcon(icon4);
+				
 				overButton.addActionListener(new ActionListener() {
 
 					@Override
@@ -389,15 +401,31 @@ public class Manager_Manage extends RightAll {
 
 			orgJs.setBounds(0, 0, frameWidth / 4, frameHeight / 2);
 
-			orgAdd = new JButton("增加");
+			orgAdd = new JButton("");//增加
 			orgAdd.setBounds(frameWidth / 16,
-					frameHeight / 2 + frameHeight / 8, frameWidth / 8,
+					frameHeight / 2 + frameHeight / 8, frameWidth / 9,
 					frameHeight / 20);
 			orgAdd.addActionListener(this);
-			orgDel = new JButton("删除");
+			orgDel = new JButton("");//删除
 			orgDel.setBounds(frameWidth / 16, frameHeight / 10 * 9,
-					frameWidth / 8, frameHeight / 20);
+					frameWidth / 9, frameHeight / 20);
 			orgDel.addActionListener(this);
+			
+			ImageIcon icon2 = new ImageIcon("pictures//增加黄.png");
+			Image temp2 = icon2.getImage().getScaledInstance(
+					icon2.getIconWidth(), icon2.getIconHeight(),
+					icon2.getImage().SCALE_DEFAULT);
+			icon2 = new ImageIcon(temp2);
+			orgAdd.setIcon(icon2);
+
+			ImageIcon icon3 = new ImageIcon("pictures//删除.png");
+			Image temp3 = icon3.getImage().getScaledInstance(
+					icon3.getIconWidth(), icon3.getIconHeight(),
+					icon3.getImage().SCALE_DEFAULT);
+			icon3 = new ImageIcon(temp3);
+			orgDel.setIcon(icon3);
+
+
 
 		}
 
@@ -464,13 +492,22 @@ public class Manager_Manage extends RightAll {
 				this.repaint();
 				this.jtf = new JTextField();
 				this.addLabel = new JLabel("请输入机构名称:");
-				this.overButton = new JButton("完成");
+				this.overButton = new JButton("");//完成
 				jtf.setBounds(frameWidth / 24, frameHeight / 2 + frameHeight
 						/ 4, frameWidth / 6, frameHeight / 20);
 				addLabel.setBounds(frameWidth / 24, frameHeight / 2
 						+ frameHeight / 5, frameWidth / 6, frameHeight / 20);
-				overButton.setBounds(frameWidth / 16, frameHeight / 20 * 17,
-						frameWidth / 8, frameHeight / 20);
+				overButton.setBounds(frameWidth / 16, frameHeight / 20 * 17-frameWidth/40,
+						frameWidth / 9, frameHeight / 20);
+				
+               addLabel.setFont(new Font("宋体",Font.PLAIN,13));
+				ImageIcon icon4 = new ImageIcon("pictures//完成.png");
+				Image temp4 = icon4.getImage().getScaledInstance(
+						icon4.getIconWidth(), icon4.getIconHeight(),
+						icon4.getImage().SCALE_DEFAULT);
+				icon4 = new ImageIcon(temp4);
+				overButton.setIcon(icon4);
+				
 				overButton.addActionListener(new ActionListener() {
 
 					@Override
@@ -563,14 +600,29 @@ public class Manager_Manage extends RightAll {
 			con_js = new JScrollPane(con_table);
 			con_js.setBounds(0, 0, frameWidth / 4, frameHeight / 2);
 
-			con_orgAdd = new JButton("增加");
+			con_orgAdd = new JButton("");//增加
 			con_orgAdd.setBounds(frameWidth / 16, frameHeight / 2 + frameHeight
-					/ 8, frameWidth / 8, frameHeight / 20);
+					/ 8, frameWidth / 9, frameHeight / 20);
 			con_orgAdd.addActionListener(this);
-			con_orgDel = new JButton("删除");
+			con_orgDel = new JButton("");//删除
 			con_orgDel.setBounds(frameWidth / 16, frameHeight / 10 * 9,
-					frameWidth / 8, frameHeight / 20);
+					frameWidth / 9, frameHeight / 20);
 			con_orgDel.addActionListener(this);
+			
+			ImageIcon icon2 = new ImageIcon("pictures//增加黄.png");
+			Image temp2 = icon2.getImage().getScaledInstance(
+					icon2.getIconWidth(), icon2.getIconHeight(),
+					icon2.getImage().SCALE_DEFAULT);
+			icon2 = new ImageIcon(temp2);
+			con_orgAdd.setIcon(icon2);
+
+			ImageIcon icon3 = new ImageIcon("pictures//删除.png");
+			Image temp3 = icon3.getImage().getScaledInstance(
+					icon3.getIconWidth(), icon3.getIconHeight(),
+					icon3.getImage().SCALE_DEFAULT);
+			icon3 = new ImageIcon(temp3);
+			con_orgDel.setIcon(icon3);
+
 
 		}
 
@@ -630,13 +682,21 @@ public class Manager_Manage extends RightAll {
 				this.repaint();
 				this.jtf = new JTextField();
 				this.addLabel = new JLabel("请输入员工编号:");
-				this.overButton = new JButton("完成");
+				this.overButton = new JButton("");//完成
 				jtf.setBounds(frameWidth / 24, frameHeight / 2 + frameHeight
 						/ 4, frameWidth / 6, frameHeight / 20);
 				addLabel.setBounds(frameWidth / 24, frameHeight / 2
 						+ frameHeight / 5, frameWidth / 6, frameHeight / 20);
-				overButton.setBounds(frameWidth / 16, frameHeight / 20 * 17,
-						frameWidth / 8, frameHeight / 20);
+				overButton.setBounds(frameWidth / 16, frameHeight / 20 * 17-frameWidth/40,
+						frameWidth / 9, frameHeight / 20);
+				
+				ImageIcon icon4 = new ImageIcon("pictures//完成.png");
+				Image temp4 = icon4.getImage().getScaledInstance(
+						icon4.getIconWidth(), icon4.getIconHeight(),
+						icon4.getImage().SCALE_DEFAULT);
+				icon4 = new ImageIcon(temp4);
+				overButton.setIcon(icon4);
+				
 				overButton.addActionListener(new ActionListener() {
 
 					@Override
