@@ -236,6 +236,7 @@ public class Manager_check extends RightAll implements ActionListener {
 
 		if (e.getSource() == allpass) {
 			// 批量审批
+			if(billPanel!=null)
 			this.remove(billPanel);
 			this.repaint();
 			approver.approveAll(); 
