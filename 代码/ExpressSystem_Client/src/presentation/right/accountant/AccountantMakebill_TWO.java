@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -13,11 +14,16 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.accountSetbl.BankSetterImpl;
+import businesslogicservice.accountSetblservice.bankSetter;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
+import vo.BankVO;
 
 public class AccountantMakebill_TWO extends RightAll implements ActionListener {
+	bankSetter blServer;
+	
 	int frameWidth;
 	int frameHeight;
 	private List<Watcher> list;
@@ -42,6 +48,8 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 	JButton changeover;
 
 	public AccountantMakebill_TWO(int frameWidth, int frameHeight) {
+		blServer=new BankSetterImpl();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 		list = new ArrayList<Watcher>();
@@ -128,7 +136,30 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 		table.getTableHeader().setResizingAllowed(false);
 		table.getColumnModel().getColumn(0).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(1).setCellRenderer(dtc);
+		
+		initTableModel();
 
+	}
+	
+	private void initTableModel(){
+		Iterator<BankVO> volist=blServer.getInform();
+		
+		if(model!=null){
+			model=null;
+		}
+		
+		while(volist.hasNext()){
+			BankVO vo=volist.next();
+			String name=vo.getName();
+		    String money=vo.getMoney();
+			
+			Vector<String> vec=new Vector<>();
+			vec.add(name);
+			vec.add(money);
+			model.addRow(vec);
+		}
+		
+		
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -292,6 +323,20 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 			model.addRow(vec);
 		}
 
+		
+		if (e.getSource() == allover) {
+		 
+		   int row=table.getRowCount();
+		   
+		   for(int i=0;i<row;i++){
+			   String name=table.getValueAt(i, 0).toString();
+			   String money=table.getValueAt(i, 1).toString();
+			   
+			   
+			   BankVO result=blServer.addInform(new BankVO(name, money));
+		   }
+		   
+		}
 	}
 
 }

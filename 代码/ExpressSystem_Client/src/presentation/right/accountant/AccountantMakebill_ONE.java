@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -13,14 +14,18 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.accountSetbl.StorageSetterImpl;
 import businesslogic.bankbl.BankServerImpl;
+import businesslogicservice.accountSetblservice.storageSetter;
 import businesslogicservice.bankblservice.bankServer;
 import presentation.right.ColorRenderer;
 import presentation.right.RightAll;
 import presentation.watcher.*;
+import vo.BankVO;
+import vo.accountSet.StorageSetterVO;
 
 public class AccountantMakebill_ONE extends RightAll implements ActionListener {
-	bankServer bankServer;
+	storageSetter blServer;
 	
 	int frameWidth;
 	int frameHeight;
@@ -45,7 +50,7 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 	JButton changeover;
 
 	public AccountantMakebill_ONE(int frameWidth, int frameHeight) {
-		bankServer=new BankServerImpl();
+		blServer=new StorageSetterImpl();
 		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
@@ -146,6 +151,34 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 		table.getColumnModel().getColumn(5).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(6).setCellRenderer(dtc);
 	}
+	
+	private void initTableModel(){
+		Iterator<StorageSetterVO> volist=blServer.getInform();
+		
+		if(model!=null){
+			model=null;
+		}
+		
+		while(volist.hasNext()){
+			StorageSetterVO vo=volist.next();
+			String date=vo.getDate();
+		    String storageNum=vo.getStorageNum();
+		    String orderNum=vo.getOrderNum();
+		    String[] location=vo.getLocation();
+			
+			Vector<String> vec=new Vector<>();
+			vec.add(storageNum);
+			vec.add(orderNum);
+			vec.add(date);
+			for(int i=0;i<4;i++){
+				vec.add(location[i]);
+			}
+			
+			model.addRow(vec);
+		}
+		
+		
+	}
 
 	public void addWatcher(Watcher watcher) {
 		list.add(watcher);
@@ -220,9 +253,9 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 			addjtf[i] = new JTextField();
 		}
 		addover = new JButton("");//√
-		addlable[0].setText("快递单号");
-		addlable[1].setText("入库日期");
-		addlable[2].setText("目的地");
+		addlable[0].setText("仓库号");
+		addlable[1].setText("快递编号");
+		addlable[2].setText("入库日期");
 		addlable[3].setText("区号");
 		addlable[4].setText("排号");
 		addlable[5].setText("架号");
@@ -326,9 +359,13 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 			int row=table.getRowCount();
 			
 			for(int i=0;i<row;i++){
-				String name=table.getValueAt(i, 0).toString();
-				String money=table.getValueAt(i, 1).toString();
-				bankServer.addBank(name, money);
+				String storageNum=table.getValueAt(i, 0).toString();
+				String orderNum=table.getValueAt(i, 1).toString();
+				String date=table.getValueAt(i, 2).toString();
+				String[] location=new String[4];
+				for(int j=0;j<4;j++){
+					location[i]=table.getValueAt(i, 3+i).toString();
+				}
 			}
 	
 			
