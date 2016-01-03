@@ -47,7 +47,6 @@ public class RMIHelper {
 	private static Inform_StorageDataServer storageData;
 	private static Inform_TranStaffDataServer tranStaffData;
 	private static Inform_TranStationDataServer tranStationData;
-	
 
 	private static HallArrivalBillDataServer hallArrivalBillData;
 	private static ChargeBillDataServer chargeBillData;
@@ -68,11 +67,12 @@ public class RMIHelper {
 	private static SalaryDataServer salaryData;
 	private static StorageInformDataServer storageInformData;
 
-	private static String hostIP = "172.28.153.101";
+	private static String hostIP = "localhost";
 	private static String port = "8400";
 
-	public static void init() {
-		hostIP = "localhost";// 如果要联机了请将这一行注释或删除
+	public static boolean init(String IP, String serverPort) {
+		hostIP = IP;
+		port = serverPort;
 
 		try {
 			systemData = (SystemDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/systemData");
@@ -120,14 +120,19 @@ public class RMIHelper {
 					.lookup("rmi://" + hostIP + ":" + port + "/storageInformData");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
+			return false;
 		} catch (RemoteException e) {
 			e.printStackTrace();
+			return false;
 		} catch (NotBoundException e) {
 			e.printStackTrace();
+			return false;
 		}
 
+		return true;
+
 	}
-	
+
 	public static StorageInformDataServer getStorageInformData() {
 		return storageInformData;
 	}

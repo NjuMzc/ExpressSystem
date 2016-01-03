@@ -49,7 +49,6 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 	DefaultTableCellRenderer dtc;
 
 	JPanel jp_wrong;
-	String input_wrong;
 	Remind remindThread;
 
 	public Zhong_entrucking(int frameWidth, int frameHeight) {
@@ -318,17 +317,15 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		}
 	}
 
-	private void showMessage() {
+	private void showMessage(String input) {
 		if (remindThread != null) {
 			remindThread.stop();
 			this.remove(jp_wrong);
 		}
 		jp_wrong = new JPanel();
 
-		input_wrong = "yes or not!";
-
 		this.add(jp_wrong);
-		remindThread = new Remind(jp_wrong, input_wrong);
+		remindThread = new Remind(jp_wrong, input);
 		remindThread.start();
 	}
 
@@ -341,17 +338,18 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 			this.add(jtf[6]);
 			this.remove(confirm);
 			this.remove(cancel);
-			over = new JButton("");//完成
+			over = new JButton("");// 完成
 			over.setBounds(frameWidth / 72 * 23, frameHeight * 8 / 10
 					+ frameHeight / 30, frameWidth / 9, frameHeight / 16);
 			over.addActionListener(this);
-			
+
 			ImageIcon icon6 = new ImageIcon("pictures//完成.png");
-			Image temp6 = icon6.getImage().getScaledInstance(icon6.getIconWidth(),
-					icon6.getIconHeight(), icon6.getImage().SCALE_DEFAULT);
+			Image temp6 = icon6.getImage().getScaledInstance(
+					icon6.getIconWidth(), icon6.getIconHeight(),
+					icon6.getImage().SCALE_DEFAULT);
 			icon6 = new ImageIcon(temp6);
 			over.setIcon(icon6);
-			
+
 			this.add(over);
 			this.repaint();
 
@@ -382,12 +380,16 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 			}
 			TransEntruckBill bill = blServer.makeBill(message,
 					orderList.iterator());
-			for (int i = 0; i < 7; i++) {
-				jtf[i].setEditable(false);
+
+			// 给我反馈＠ｍａ
+			if (true) {
+				for (int i = 0; i < 7; i++) {
+					jtf[i].setEditable(false);
+				}
+			} else {
+				showMessage("yes or no");
 			}
-			
-			//给我反馈＠ｍａ
-			
+
 		}
 
 		if (e.getSource() == add) {
@@ -402,7 +404,7 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		}
 
 		if (e.getSource() == over) {
-			this.notifyWatchers(State.ZHONG_ENTRUCKING);
+			this.notifyWatchers(State.ZHONG_START);
 		}
 	}
 }

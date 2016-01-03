@@ -252,7 +252,7 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 		}
 		jp_wrong = new JPanel();
 
-		input_wrong ="yes or not!";
+		input_wrong = "yes or not!";
 
 		this.add(jp_wrong);
 		remindThread = new Remind(jp_wrong, input_wrong);
@@ -284,8 +284,21 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 
 			TransArrivalBill bill = blServer.makeBill(tranStationID, GoodID,
 					date, transOrderNum, departure, goodState);
-			
-	        //给我反馈，有没有成功@MA
+
+			// 给我反馈，有没有成功@MA
+			if (true) {
+				this.notifyWatchers(State.ZHONG_START);
+			} else {
+				if (remindThread != null) {
+					remindThread.stop();
+					this.remove(jp_wrong);
+				}
+				jp_wrong = new JPanel();
+
+				this.add(jp_wrong);
+				remindThread = new Remind(jp_wrong, input_wrong);
+				remindThread.start();
+			}
 		}
 
 	}

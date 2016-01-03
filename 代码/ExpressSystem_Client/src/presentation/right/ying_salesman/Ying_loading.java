@@ -397,22 +397,28 @@ public class Ying_loading extends RightAll implements ActionListener {
 			}
 			HallEntruckBill bill = blServer.makeBill(message,
 					orderList.iterator());
+			
+			if(bill!=null){
+				jtf[8].setText(String.valueOf(bill.getPayment()));
 
-			jtf[8].setText(String.valueOf(bill.getPayment()));
+				this.add(jl[9]);
+				this.add(jtf[7]);
+				for (int i = 0; i < 8; i++) {
+					jtf[i].setEditable(false);
+				}
+				for (int i = 0; i < 3; i++) {
+					timeInput[i].setEditable(false);
+				}
+				this.remove(confirm);
+				this.remove(cancel);
+				this.add(over);
 
-			this.add(jl[9]);
-			this.add(jtf[7]);
-			for (int i = 0; i < 8; i++) {
-				jtf[i].setEditable(false);
+				this.repaint();
+			}else{
+				showMessage("撞车单未填写完成");
 			}
-			for (int i = 0; i < 3; i++) {
-				timeInput[i].setEditable(false);
-			}
-			this.remove(confirm);
-			this.remove(cancel);
-			this.add(over);
 
-			this.repaint();
+			 
 		}
 
 		if (e.getSource() == add) {
@@ -425,9 +431,10 @@ public class Ying_loading extends RightAll implements ActionListener {
 				jtf[6].setText("");
 			}
 		}
-
+    
+		
 		if (e.getSource() == over) {
-			this.notifyWatchers(State.YING_START);
+				this.notifyWatchers(State.YING_START);
 		}
 	}
 }

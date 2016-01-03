@@ -73,7 +73,9 @@ public class RMIHelper {
 	private static String hostIP = "localhost";
 	private static String port = "8400";
 
-	public static void init() {
+	public static void init(String ip, String hostPort) {
+		hostIP = ip;
+		port = hostPort;
 		System.out.println("服务器初始化中，请稍候-----------");
 		TimeCounter timeCounter = new TimeCounter();
 		timeCounter.start();
