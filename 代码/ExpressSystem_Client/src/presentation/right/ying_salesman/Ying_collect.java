@@ -212,10 +212,10 @@ public class Ying_collect extends RightAll implements ActionListener {
 
 			SendingBill bill = blServer.makeBill(date, orderId, sender);
  
-			if(true){
+			if(bill!=null){
 				this.notifyWatchers(State.YING_START);
 			}else{
-				showMessage("wrong");
+				showMessage("派件单未填写完整");
 			}
 			
 		}

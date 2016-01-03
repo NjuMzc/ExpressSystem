@@ -49,7 +49,6 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 	DefaultTableCellRenderer dtc;
 
 	JPanel jp_wrong;
-	String input_wrong;
 	Remind remindThread;
 
 	public Zhong_entrucking(int frameWidth, int frameHeight) {
@@ -318,17 +317,15 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		}
 	}
 
-	private void showMessage() {
+	private void showMessage(String input) {
 		if (remindThread != null) {
 			remindThread.stop();
 			this.remove(jp_wrong);
 		}
 		jp_wrong = new JPanel();
 
-		input_wrong = "yes or not!";
-
 		this.add(jp_wrong);
-		remindThread = new Remind(jp_wrong, input_wrong);
+		remindThread = new Remind(jp_wrong, input);
 		remindThread.start();
 	}
 
@@ -383,11 +380,15 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 			}
 			TransEntruckBill bill = blServer.makeBill(message,
 					orderList.iterator());
-			for (int i = 0; i < 7; i++) {
-				jtf[i].setEditable(false);
-			}
 
 			// 给我反馈＠ｍａ
+			if (true) {
+				for (int i = 0; i < 7; i++) {
+					jtf[i].setEditable(false);
+				}
+			} else {
+				showMessage("yes or no");
+			}
 
 		}
 
@@ -403,20 +404,7 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 		}
 
 		if (e.getSource() == over) {
-			//@ma 反馈
-			if (true) {
-				this.notifyWatchers(State.ZHONG_START);
-			} else {
-				if (remindThread != null) {
-					remindThread.stop();
-					this.remove(jp_wrong);
-				}
-				jp_wrong = new JPanel();
-
-				this.add(jp_wrong);
-				remindThread = new Remind(jp_wrong, input_wrong);
-				remindThread.start();
-			}
+			this.notifyWatchers(State.ZHONG_START);
 		}
 	}
 }
