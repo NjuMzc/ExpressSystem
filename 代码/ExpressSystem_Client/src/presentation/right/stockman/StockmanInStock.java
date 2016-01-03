@@ -16,6 +16,7 @@ import javax.swing.*;
 
 import businesslogic.storagebl.StorageServerImpl;
 import businesslogicservice.storageblservice.StorageServer;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -33,6 +34,9 @@ public class StockmanInStock extends RightAll implements ActionListener {
 	private List<Watcher> list;
 	private StorageServer storage;
 	ImportVO result;
+	
+	JPanel jp_wrong;
+	Remind remindThread;
 
 	public StockmanInStock(int frameWidth, int frameHeight) {
 
@@ -265,34 +269,18 @@ public class StockmanInStock extends RightAll implements ActionListener {
 		}
 	}
 
-	private void wrongShow(final String input) {
-
-		// 错误处理
-		final JLabel remindWrong = new JLabel();
-		remindWrong.setBounds(frameWidth / 4, frameHeight * 31 / 40,
-				frameWidth / 2, frameHeight / 20);
-		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-
-		this.add(remindWrong);
-		this.repaint();
-
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// 以下根据错误类型设置文字
-				remindWrong.setForeground(Color.red);
-				remindWrong.setText(result.getWrongMessage());
-
-				try {
-					Thread.sleep(2000);
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-				remindWrong.setText("");
-			}
-		});
-		t.start();
-		// 错误处理结束
+ 
+	
+	private void showMessage(String message) {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
+ 
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, message);
+		remindThread.start();
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -340,8 +328,7 @@ public class StockmanInStock extends RightAll implements ActionListener {
 			result = storage.Import(importBill);
 
 			if (result.isWrong()) {
-				System.out.println(result.getWrongMessage());
-				wrongShow("wrong");
+				showMessage(result.getWrongMessage());
 			} else {
 				this.notifyWatchers(State.STOCKMANINSTOCK);
 			}
