@@ -13,6 +13,7 @@ public class PriceListServerImpl implements PriceListServer {
 	public PriceListServerImpl(){
 		//RMI
 		dataServer=RMIHelper.getPriceListData();
+		
 		list=dataServer.get();
 		
 	}
