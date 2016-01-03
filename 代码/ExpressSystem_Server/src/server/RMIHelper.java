@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.RMISocketFactory;
 
+import data.accountSetdata.BankInformDataServerImpl;
 import data.accountSetdata.StorageInformDataServerImpl;
 import data.bankdata.BankDataServerImpl;
 import data.billdata.BillApproverDataServerImpl;
@@ -38,6 +39,7 @@ import data.informationdata.Inform_TranStationDataServerImpl;
 import data.salarydata.SalaryDataServerImpl;
 import data.systemdata.SystemDataServerImpl;
 import data.transportdata.TransportDataServerImpl;
+import dataservice.accountsetdataservice.BankInformDataServer;
 import dataservice.accountsetdataservice.StorageInformDataServer;
 import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.BillApproverDataServer;
@@ -184,6 +186,9 @@ public class RMIHelper {
 			StorageInformDataServer storageInformDataService = new StorageInformDataServerImpl();
 			Naming.rebind("rmi://" + hostIP + ":" + port + "/storageInformData", storageInformDataService);
 
+			BankInformDataServer bankInformDataService = new BankInformDataServerImpl();
+			Naming.rebind("rmi://" + hostIP + ":" + port + "/bankInformData", bankInformDataService);
+			
 			System.out.println("服务器端启动成功");
 		} catch (RemoteException e) {
 			e.printStackTrace();
