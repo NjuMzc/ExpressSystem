@@ -31,9 +31,9 @@ public class PriceListPO implements Serializable,Remote{
 		this.CarPrice=2;
 		this.TrainPrice=0.2;
 		this.AirPrice=20;
-		this.standardPrice=0.023;
-		this.expressPrice=0.025;
-		this.economicPrice=0.018;
+		this.standardPrice=23;
+		this.expressPrice=25;
+		this.economicPrice=18;
 	}
 	
 	
