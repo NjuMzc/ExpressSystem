@@ -67,11 +67,11 @@ public class RMIHelper {
 	private static SalaryDataServer salaryData;
 	private static StorageInformDataServer storageInformData;
 
-	private static String hostIP = "172.28.153.101";
+	private static String hostIP = "localhost";
 	private static String port = "8400";
 
 	public static boolean init(String IP, String serverPort) {
-		hostIP = IP;// 如果要联机了请将这一行注释或删除
+		hostIP = IP;
 		port = serverPort;
 
 		try {
