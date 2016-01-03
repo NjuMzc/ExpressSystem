@@ -34,6 +34,14 @@ public class Trans_TransArrivalServerImpl implements Trans_TransArrivalServer {
 			String date, String transOrderNum, String departure,
 			String state) {
 		// TODO Auto-generated method stub
+		if(goodController.getGood(GoodID)==null){
+			return null;
+		}
+		
+		if(tranStationID.equals("")||GoodID.equals("")||transOrderNum.equals("")
+				||departure.equals("")){
+			return null;
+		}
         TransArrivalBill bill = billServer.makeBill(tranStationID,GoodID, date, transOrderNum, departure, state);
 		
 		staffNow=staffServer.find(SystemHelper.getUserID());

@@ -29,6 +29,8 @@ public class Trans_TransEntruckServerImpl implements Trans_TransEntruckServer {
 				
 			}catch(NullPointerException  e){
 				System.out.println("目标货物不存在！");
+				return null;
+				
 				
 			}
 		}

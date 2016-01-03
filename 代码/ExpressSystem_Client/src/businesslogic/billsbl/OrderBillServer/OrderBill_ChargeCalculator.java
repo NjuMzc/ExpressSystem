@@ -29,7 +29,13 @@ public class OrderBill_ChargeCalculator {
 		}
 		distance/=1000;
 		
+		double v=Double.valueOf(bill.getGoodSize());
+		
 		double weight=Double.valueOf(bill.getGoodWeight());//获得重量
+		
+		if(weight<v/5000){
+			weight=v/5000;
+		}
 		
 		
 		String kind=bill.getKind();

@@ -26,6 +26,9 @@ public class Trans_InquireGoodStateServerImpl implements
 	public Iterator<String> getTrace(String id) {
 		// TODO Auto-generated method stub
 		ArrayList<String> trace=goodController.getGoodTrace(id);
+		if(trace==null){
+			return null;
+		}
 		return trace.iterator();
 	}
 

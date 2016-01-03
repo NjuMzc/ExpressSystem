@@ -28,8 +28,9 @@ public class Trans_HallEntruckServerImpl implements Trans_HallEntruckServer{
 				good.setTransState("Delivering");
 				
 			}catch(NullPointerException  e){
-				System.out.println("目标货物不存在！");
 				
+				System.out.println("目标货物不存在！");
+				return null;
 			}
 		}
 		

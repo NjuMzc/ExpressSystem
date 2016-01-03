@@ -31,7 +31,7 @@ public class Trans_DeliveryServerImpl implements Trans_DeliveryServer{
 				
 			}catch(NullPointerException  e){
 				System.out.println("目标货物不存在！");
-				
+				return null;
 			}
 		}
 		return bill;
