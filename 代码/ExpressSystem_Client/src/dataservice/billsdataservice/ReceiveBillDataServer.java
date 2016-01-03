@@ -1,7 +1,9 @@
 package dataservice.billsdataservice;
 
 import java.rmi.Remote;
+import java.util.ArrayList;
 
+import po.bills.OrderBill;
 import po.bills.ReceiveBill;
 
 public interface ReceiveBillDataServer extends Remote {
@@ -11,4 +13,5 @@ public interface ReceiveBillDataServer extends Remote {
 
 	public ReceiveBill findBill(String id);
 
+	public ArrayList<ReceiveBill> getAll();
 }

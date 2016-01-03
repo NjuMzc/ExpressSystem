@@ -104,6 +104,12 @@ public class ReceiveBillDataServerImpl extends UnicastRemoteObject implements Re
 		}
 
 	}
+
+	@Override
+	public ArrayList<ReceiveBill> getAll() throws RemoteException {
+		// TODO Auto-generated method stub
+		return receiveBills;
+	}
 	
 	
 }

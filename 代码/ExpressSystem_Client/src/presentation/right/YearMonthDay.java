@@ -8,7 +8,7 @@ import java.awt.event.ItemListener;
 
 public class YearMonthDay {
 
-	private final int STARTYEAR = 2015;// 年份的开始值
+	private final int STARTYEAR = 2016;// 年份的开始值
 	private final int ENDYEAR = 2021;// 年份的结束值
 
 	JComboBox cboYear = new JComboBox();

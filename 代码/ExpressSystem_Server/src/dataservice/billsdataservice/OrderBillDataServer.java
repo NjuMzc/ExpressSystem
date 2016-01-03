@@ -2,6 +2,7 @@ package dataservice.billsdataservice;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import po.bills.OrderBill;
 
@@ -13,4 +14,5 @@ public interface OrderBillDataServer extends Remote {
 
 	public OrderBill findBill(String id) throws RemoteException;
 
+	public ArrayList<OrderBill> getAll() throws RemoteException;
 }
