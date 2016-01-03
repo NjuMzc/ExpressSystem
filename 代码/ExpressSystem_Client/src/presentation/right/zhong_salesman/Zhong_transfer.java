@@ -372,7 +372,7 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 					.makeBill(message, orderList.iterator());
 
 			// 给我反馈@ma
-			if (true) {
+			if (bill!=null) {
 				this.add(jl[8]);
 				this.add(jtf[6]);
 				this.remove(confirm);
@@ -397,7 +397,7 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 					jtf[i].setEditable(false);
 				}
 			} else {
-				showMessage("yes or no");
+				showMessage("中转单未填写完整");
 			}
 		}
 
