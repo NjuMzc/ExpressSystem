@@ -407,7 +407,7 @@ public class Ying_loading extends RightAll implements ActionListener {
 
 				this.repaint();
 			} else {
-				showMessage("撞车单未填写完成");
+				showMessage("装车单未填写完成");
 			}
 
 		}

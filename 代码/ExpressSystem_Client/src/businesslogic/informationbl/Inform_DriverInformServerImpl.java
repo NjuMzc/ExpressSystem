@@ -28,6 +28,14 @@ public class Inform_DriverInformServerImpl implements Inform_DriverInformServer 
 		hall=hallServer.getHall(staffNow.getHall().getID());
 		
 	}
+	
+	public Inform_DriverInformServerImpl(String hallId){
+dataServer=RMIHelper.getDriverData();
+		
+		staffServer=new Inform_HallStaffInformServerImpl();
+		hallServer=new Inform_HallInformServerImpl();
+		hall=hallServer.getHall(hallId);
+	}
 	@Override
 	public DriverPO addDriver(String name, String birth, String ShenFenZheng,
 			String mobile, String sex, String portTime) {
@@ -84,7 +92,6 @@ public class Inform_DriverInformServerImpl implements Inform_DriverInformServer 
 	@Override
 	public Iterator<DriverPO> getAllDriver() {
 		// TODO Auto-generated method stub
-		hall=hallServer.getHall((staffNow.getHall().getID()));
 		Iterator<DriverPO> list=hall.getAllDriver().iterator();
 		return list;
 		
@@ -93,7 +100,7 @@ public class Inform_DriverInformServerImpl implements Inform_DriverInformServer 
 	@Override
 	public boolean removeDriver(String DriverId) {
 		// TODO Auto-generated method stub
-		hall=hallServer.getHall((staffNow.getHall().getID()));
+		
 		DriverPO driver=dataServer.getDriver(DriverId);
 		if(driver==null)
 			return false;

@@ -16,8 +16,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.constantbl.CityServerImpl;
+import businesslogic.informationbl.Inform_HallInformServerImpl;
+import businesslogic.informationbl.Inform_StorageInformServerImpl;
+import businesslogic.informationbl.Inform_TranStationInformServerImpl;
+import businesslogicservice.informationblservice.InstitutionInform.Inform_HallInformServer;
+import businesslogicservice.informationblservice.InstitutionInform.Inform_StorageInformServer;
+import businesslogicservice.informationblservice.InstitutionInform.Inform_TranStationInformServer;
+import businesslogicservice.informationblservice.WorkerInform.Inform_CarInformServer;
+import businesslogicservice.informationblservice.WorkerInform.Inform_DriverInformServer;
+import po.CityPO;
 import po.SystemUserPO;
 import po.Institution.HallPO;
+import po.Institution.StoragePO;
+import po.Institution.TranStationPO;
 import po.Workers.HallStaffPO;
 import po.Workers.StorageKeeperPO;
 import po.Workers.TranStaffPO;
@@ -27,6 +39,13 @@ import presentation.watcher.*;
 
 public class AccountantMakebill_THREE extends RightAll implements
 		ActionListener {
+	Inform_HallInformServer hallServer;
+	Inform_StorageInformServer storageServer;
+	Inform_TranStationInformServer stationServer;
+
+	Inform_CarInformServer carServer;
+	Inform_DriverInformServer driverServer;
+	
 	int frameWidth;
 	int frameHeight;
 	private List<Watcher> list;
@@ -72,8 +91,14 @@ public class AccountantMakebill_THREE extends RightAll implements
 	JButton overButton_car;
 	JButton car_orgAdd;
 	JButton car_orgDel;
+	
+	String chooseCity;
 
 	public AccountantMakebill_THREE(int frameWidth, int frameHeight) {
+		hallServer=new Inform_HallInformServerImpl();
+		storageServer=new Inform_StorageInformServerImpl();
+		stationServer=new Inform_TranStationInformServerImpl();
+		
 		this.frameHeight = frameHeight;
 		this.frameWidth = frameWidth;
 		list = new ArrayList<Watcher>();
@@ -113,9 +138,16 @@ public class AccountantMakebill_THREE extends RightAll implements
 
 	private void initTableModel1() {
 		// 读取城市列表
-		Vector<String> vec = new Vector<>();
-		vec.add("南京");
-		model1.addRow(vec);
+		CityServerImpl city=new CityServerImpl();
+		Iterator<CityPO> list=city.getAll();
+		
+		while(list.hasNext()){
+			CityPO po=list.next();
+			Vector<String> vec = new Vector<>();
+			vec.add(po.getName());
+			model1.addRow(vec);
+		}
+		
 
 	}
 
@@ -301,7 +333,10 @@ public class AccountantMakebill_THREE extends RightAll implements
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				int chooseRow=table1.getSelectedRow();
+				chooseCity=model1.getValueAt(chooseRow, 0).toString();
 				initJp2();
+			
 			}
 		});
 		initTableModel1();
@@ -410,10 +445,37 @@ public class AccountantMakebill_THREE extends RightAll implements
 	}
 
 	private void initTableModel2() {
-		Vector<String> vec = new Vector<>();
-		vec.add("南京仙林营业厅");
-		vec.add("110");
-		model2.addRow(vec);
+		Iterator<TranStationPO> stationlist=stationServer.getByLocation(chooseCity);
+		while(stationlist.hasNext()){
+			
+			TranStationPO po=stationlist.next();
+			Vector<String> vec = new Vector<>();
+			vec.add(po.getName());
+			vec.add(po.getID());
+			model2.addRow(vec);
+		}
+		
+		Iterator<StoragePO> storageList=storageServer.getByLocation(chooseCity);
+        while(storageList.hasNext()){
+			
+			StoragePO po=storageList.next();
+			Vector<String> vec = new Vector<>();
+			vec.add(po.getName());
+			vec.add(po.getID());
+			model2.addRow(vec);
+		}
+		
+		Iterator<HallPO> list=hallServer.getByLocation(chooseCity);
+		System.out.println(chooseCity);
+		while(list.hasNext()){
+		
+			HallPO po=list.next();
+			Vector<String> vec = new Vector<>();
+			vec.add(po.getName());
+			vec.add(po.getID());
+			model2.addRow(vec);
+		}
+		
 	}
 
 	public void addWatcher(Watcher watcher) {

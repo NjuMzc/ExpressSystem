@@ -28,6 +28,15 @@ public class Inform_CarInformServerImpl implements Inform_CarInformServer {
 		staffNow=staffServer.getStaff(SystemHelper.getUserID());
 		hall=hallServer.getHall(staffNow.getHall().getID());
 	}
+	
+	public Inform_CarInformServerImpl(String hallId){
+		//RMI
+	    dataServer=RMIHelper.getCarData();
+	    
+	    staffServer=new Inform_HallStaffInformServerImpl();
+		hallServer=new Inform_HallInformServerImpl();
+		hall=hallServer.getHall(hallId);
+	}
 
 	@Override
 	public CarPO addCar(String ChePai, String UsingTime) {
@@ -79,14 +88,14 @@ public class Inform_CarInformServerImpl implements Inform_CarInformServer {
 	@Override
 	public Iterator<CarPO> getAllCar() {
 		// TODO Auto-generated method stub
-		hall=hallServer.getHall((staffNow.getHall().getID()));
+		
 		return hall.getAllCar().iterator();
 	}
 
 	@Override
 	public boolean removeCar(String carId) {
 		// TODO Auto-generated method stub
-		hall=hallServer.getHall((staffNow.getHall().getID()));
+
 		CarPO car=dataServer.getCar(carId);
 		if(car==null)
 			return false;
