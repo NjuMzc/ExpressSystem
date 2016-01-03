@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import org.omg.CORBA.FREE_MEM;
 
 import presentation.right.ColorRenderer;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -42,6 +43,10 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 	JTable table;
 	JScrollPane js;
 	DefaultTableCellRenderer dtc;
+	
+	JPanel jp_wrong;
+	String input_wrong;
+	Remind remindThread;
 
 	public Manager_make_constant(int frameWidth, int frameHeight) {
 
@@ -269,7 +274,15 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 			// System.out.println();
 
 			//错误提示
-			wrongsolve();
+			if (remindThread != null) {
+				remindThread.stop();
+				this.remove(jp_wrong);
+			}
+			jp_wrong = new JPanel();
+			 
+			this.add(jp_wrong);
+			remindThread = new Remind(jp_wrong, input_wrong);
+			remindThread.start();
 			
 		}
 

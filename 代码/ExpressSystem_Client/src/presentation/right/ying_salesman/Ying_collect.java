@@ -211,8 +211,12 @@ public class Ying_collect extends RightAll implements ActionListener {
 			String sender = jtf[1].getText();
 
 			SendingBill bill = blServer.makeBill(date, orderId, sender);
-
-			//showMessage();
+ 
+			if(true){
+				this.notifyWatchers(State.YING_START);
+			}else{
+				showMessage("wrong");
+			}
 			
 		}
 

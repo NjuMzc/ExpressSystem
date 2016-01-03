@@ -270,7 +270,7 @@ public class Ying_arrive extends RightAll implements ActionListener {
 				showMessage("输入的货物编号错");
 			} else {
 				//showMessage("货物到达单填写成功");
-				this.notifyWatchers(State.YING_ARRIVE);
+				this.notifyWatchers(State.YING_START);
 			}
 
 		}

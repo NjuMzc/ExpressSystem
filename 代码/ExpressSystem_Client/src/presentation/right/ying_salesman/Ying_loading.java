@@ -427,7 +427,10 @@ public class Ying_loading extends RightAll implements ActionListener {
 		}
 
 		if (e.getSource() == over) {
-			this.notifyWatchers(State.YING_START);
+			if (true)
+				this.notifyWatchers(State.YING_START);
+			else
+				showMessage("错误信息");
 		}
 	}
 }
