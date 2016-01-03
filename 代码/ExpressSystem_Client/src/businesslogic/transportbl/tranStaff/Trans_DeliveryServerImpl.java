@@ -21,6 +21,11 @@ public class Trans_DeliveryServerImpl implements Trans_DeliveryServer{
 	@Override
 	public DeliveryBill makeBill(Message message, Iterator<String> billList) {
 		// TODO Auto-generated method stub
+		for(int i=0;i<message.length();i++){
+			if(message.getInform(i).equals("")){
+				return null;
+			}
+		}
         
 	    DeliveryBill bill=billServer.makeBill(message, billList);
 	    Iterator<String> list=bill.getBillNumList();

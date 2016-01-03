@@ -21,6 +21,12 @@ public class Trans_HallEntruckServerImpl implements Trans_HallEntruckServer{
 	@Override
 	public HallEntruckBill makeBill(Message message, Iterator<String> orderList) {
 		// TODO Auto-generated method stub
+		for(int i=0;i<message.length();i++){
+			if(message.getInform(i).equals("")){
+				return null;
+			}
+		}
+		
 		HallEntruckBill bill=billServer.makeBill(message, orderList);
 		while(orderList.hasNext()){
 			try{

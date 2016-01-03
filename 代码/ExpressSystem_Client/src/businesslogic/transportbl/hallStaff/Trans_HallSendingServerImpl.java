@@ -17,6 +17,8 @@ public class Trans_HallSendingServerImpl implements Trans_HallSendingServer{
 	@Override
 	public SendingBill makeBill(String time, String orderID, String sender) {
 		// TODO Auto-generated method stu
+		if(goodController.getGood(orderID)==null)
+			return null;
 		SendingBill bill=billServer.makeBill(time, orderID, sender);
 	    try{
 	    	GoodPO good=goodController.getGood(orderID);
