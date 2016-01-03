@@ -152,6 +152,10 @@ public class AccountantMakebill_THREE extends RightAll implements
 	}
 
 	private void initJp2() {
+		if(jp2!=null){
+			this.remove(jp2);
+		}
+		
 		jp2 = new JPanel();
 		jp2.setBounds(frameWidth / 4, 0, frameWidth / 4, frameHeight);
 		jp2.setLayout(null);

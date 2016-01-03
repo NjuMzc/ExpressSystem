@@ -17,7 +17,7 @@ public class BankSetterImpl implements bankSetter {
 	bankServer blServer;
 	
 	public BankSetterImpl(){
-//		this.dataServer=RMIHelper.getBankData();
+		this.dataServer=RMIHelper.getBankInformData();
 		blServer=new BankServerImpl();
 	}
 	

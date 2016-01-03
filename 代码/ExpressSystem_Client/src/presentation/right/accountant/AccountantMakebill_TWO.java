@@ -144,9 +144,6 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 	private void initTableModel(){
 		Iterator<BankVO> volist=blServer.getInform();
 		
-		if(model!=null){
-			model=null;
-		}
 		
 		while(volist.hasNext()){
 			BankVO vo=volist.next();
@@ -309,6 +306,9 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 				vec.add(addjtf[i].getText());
 			}
 
+			System.out.println(vec==null);
+			System.out.println(vec.get(0));
+			System.out.println(model==null);
 			model.addRow(vec);
 		}
 
@@ -320,6 +320,7 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 			for (int i = 0; i < 2; i++) {
 				vec.add(changejtf[i].getText());
 			}
+			
 			model.addRow(vec);
 		}
 
