@@ -4,7 +4,10 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.Registry;
+import java.util.concurrent.TimeoutException;
 
+import dataservice.accountsetdataservice.BankInformDataServer;
 import dataservice.accountsetdataservice.StorageInformDataServer;
 import dataservice.bankdataservice.BankDataServer;
 import dataservice.billsdataservice.BillApproverDataServer;
@@ -66,6 +69,7 @@ public class RMIHelper {
 	private static ImportBillDataServer importBillData;
 	private static SalaryDataServer salaryData;
 	private static StorageInformDataServer storageInformData;
+	private static BankInformDataServer bankInformData;
 
 	private static String hostIP = "localhost";
 	private static String port = "8400";
@@ -75,6 +79,7 @@ public class RMIHelper {
 		port = serverPort;
 
 		try {
+
 			systemData = (SystemDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/systemData");
 			orderBillData = (OrderBillDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/orderBillData");
 			transportData = (TransportDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/transportData");
@@ -118,6 +123,7 @@ public class RMIHelper {
 			salaryData = (SalaryDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/salaryData");
 			storageInformData = (StorageInformDataServer) Naming
 					.lookup("rmi://" + hostIP + ":" + port + "/storageInformData");
+			bankInformData = (BankInformDataServer) Naming.lookup("rmi://" + hostIP + ":" + port + "/bankInformData");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return false;
@@ -131,6 +137,11 @@ public class RMIHelper {
 
 		return true;
 
+	}
+	
+
+	public static BankInformDataServer getBankInformData() {
+		return bankInformData;
 	}
 
 	public static StorageInformDataServer getStorageInformData() {
@@ -249,3 +260,5 @@ public class RMIHelper {
 		return chargeBillData;
 	}
 }
+
+

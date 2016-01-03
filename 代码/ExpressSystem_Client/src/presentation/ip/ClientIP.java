@@ -119,19 +119,18 @@ public class ClientIP extends JFrame {
 
 					String ip = "";
 					for (int i = 0; i < 4; i++) {
-//						if (i != 3)
-//							ip += (jtf[i].getText() + ".");
-//						else
-//							ip += jtf[i].getText();
-						String temp=jtf[i].getText();
-						int a=Integer.valueOf(temp);
-						if(i!=3){
-							ip+=""+a+".";
-						}else{
-							ip+=""+a;
+						// if (i != 3)
+						// ip += (jtf[i].getText() + ".");
+						// else
+						// ip += jtf[i].getText();
+						String temp = jtf[i].getText();
+						int a = Integer.valueOf(temp);
+						if (i != 3) {
+							ip += "" + a + ".";
+						} else {
+							ip += "" + a;
 						}
-						
-						
+
 					}
 
 					System.out.println("开启ip");

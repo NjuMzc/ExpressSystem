@@ -1,10 +1,11 @@
 package dataservice.accountsetdataservice;
 
+import java.rmi.Remote;
 import java.util.ArrayList;
 
 import po.accountSet.BankInform;
 
-public interface BankInformDataServer {
+public interface BankInformDataServer extends Remote{
 	public void addInform(BankInform inform);
 	
 	public ArrayList<BankInform> getInform();
