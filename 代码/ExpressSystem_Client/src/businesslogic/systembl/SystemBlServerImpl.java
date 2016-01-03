@@ -26,7 +26,7 @@ public class SystemBlServerImpl implements systemServer {
 		dataServer=RMIHelper.getSystemData();
 		
 		//保证初始化的时候有一个admin用户
-		if(dataServer.find("admin")==null){
+		if(dataServer.find("2015070000")==null){
 			SystemUserPO admin=new SystemUserPO("2015070000","nova123321","系统管理员", "系统管理员爸爸");
 			dataServer.insert(admin);
 		}

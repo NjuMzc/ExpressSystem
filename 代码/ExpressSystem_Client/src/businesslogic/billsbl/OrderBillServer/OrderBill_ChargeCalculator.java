@@ -1,5 +1,7 @@
 package businesslogic.billsbl.OrderBillServer;
 
+import java.text.DecimalFormat;
+
 import businesslogic.constantbl.CityDistanceServerImpl;
 import businesslogic.constantbl.PriceListServerImpl;
 import businesslogicservice.constantblservice.CityDistanceServer;
@@ -32,6 +34,7 @@ public class OrderBill_ChargeCalculator {
 		
 		String kind=bill.getKind();
 
+		System.out.println(distance+" "+weight);
 		if(kind.equals("ecnomic")){
 			//经济快递
 			result=weight*distance*price.getEconomicPrice();
@@ -46,8 +49,11 @@ public class OrderBill_ChargeCalculator {
 		}
 		
 		double bagggingFee=Double.valueOf(bill.getBagFee());
+		System.out.println(result);
 		result+=bagggingFee;
 		
+		DecimalFormat df = new DecimalFormat("0.00");
+		result=Double.valueOf(df.format(result));
 		return result;
 	}  
 

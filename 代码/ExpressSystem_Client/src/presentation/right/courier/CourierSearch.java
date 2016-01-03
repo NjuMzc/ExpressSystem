@@ -134,14 +134,15 @@ public class CourierSearch extends RightAll implements ActionListener {
 			System.out.println(inputOrder.getText());
 			if (bill == null) {
 				input_wrong = "输入的快递单号不存在";
+				this.add(jp_wrong);
+				remindThread = new Remind(jp_wrong, input_wrong);
+				remindThread.start();
 			} else {
 				BillNow.setBill(bill);
-				this.notifyWatchers(State.COURIERSEARCHAFTER);
+				this.notifyWatchers(State.COURIERSTART);
 			}
 
-			this.add(jp_wrong);
-			remindThread = new Remind(jp_wrong, input_wrong);
-			remindThread.start();
+			 
 		}
 
 	}
