@@ -36,6 +36,9 @@ public class Trans_HallArrivalServerImpl implements Trans_HallArrivalServer {
 		if(goodController.getGood(GoodID)==null){
 			return null;
 		}
+		if(transOrderNum.equals("")||departure.equals("")){
+			return null;
+		}
 		
 		HallArrivalBill bill = billServer.makeBill(GoodID, date, transOrderNum, departure, state);
 		

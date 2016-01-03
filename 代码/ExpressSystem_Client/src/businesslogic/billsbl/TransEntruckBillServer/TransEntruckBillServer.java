@@ -23,6 +23,12 @@ public class TransEntruckBillServer {
 	   }
 		
 		public TransEntruckBill makeBill(Message message,Iterator<String> orderList){
+			for(int i=0;i<message.length();i++){
+				if(message.getInform(i).equals("")){
+					return null;
+				}
+			}
+			
 			TransEntruckBill bill=new TransEntruckBill(message, orderList);
 			double fee=calculator.calculateFee(bill);
 			bill.setPayment(fee);
