@@ -17,6 +17,8 @@ public class ServerIP extends JFrame {
 	JButton jb;
 	JLabel jl2;
 	JTextField jtf2;
+	JLabel state;
+	JTextField ip_state;
 
 	RemindIP remind;
 	JPanel jp_remind;
@@ -37,6 +39,8 @@ public class ServerIP extends JFrame {
 		jb = new JButton("开启");
 		jl2 = new JLabel("端口：");
 		jtf2 = new JTextField();
+		state = new JLabel("状态");
+		ip_state = new JTextField();
 
 		init();
 		this.add(jp);
@@ -78,7 +82,7 @@ public class ServerIP extends JFrame {
 			});
 		}
 
-		jb.setBounds(110, 300, 80, 30);
+		jb.setBounds(110, 320, 80, 30);
 		jb.addActionListener(new ActionListener() {
 
 			@Override
@@ -94,15 +98,20 @@ public class ServerIP extends JFrame {
 							ip += jtf[i].getText();
 					}
 
+					success();
 					RMIHelper.init(hostIP, port);
 				}
 			}
 		});
 
-		jl2.setBounds(25, 200, 50, 25);
-		jtf2.setBounds(100, 200, 100, 25);
+		jl2.setBounds(25, 175, 50, 25);
+		jtf2.setBounds(100, 175, 100, 25);
 		jtf2.setEditable(false);
 		jtf2.setText(port);
+		state.setBounds(25, 250, 50, 25);
+		ip_state.setBounds(100, 250, 100, 25);
+		ip_state.setText("未连接");
+		ip_state.setEditable(false);
 
 		jp.add(jl);
 		for (int i = 0; i < 4; i++) {
@@ -113,7 +122,15 @@ public class ServerIP extends JFrame {
 		jp.add(jb);
 		jp.add(jl2);
 		jp.add(jtf2);
+		jp.add(state);
+		jp.add(ip_state);
 
+	}
+
+	private void success() {
+		jp.remove(jb);
+		ip_state.setText("已连接");
+		jp.repaint();
 	}
 
 	public static void main(String[] args) {
