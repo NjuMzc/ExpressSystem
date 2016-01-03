@@ -197,9 +197,12 @@ public class InputInforPanel extends RightAll implements ActionListener {
 		if (e.getSource() == confirm) {
 			num = jtfNum.getText();
 			name = jtfName.getText();
-			time = (String) timeInput[0].getSelectedItem()
-					+ (String) timeInput[1].getSelectedItem()
-					+ (String) timeInput[2].getSelectedItem();
+	
+			String year = timeInput[0].getSelectedItem().toString();
+			String month = timeInput[1].getSelectedItem().toString();
+			String day = timeInput[2].getSelectedItem().toString();
+
+			time = year + "-" + month + "-" + day;
 			jtfNum.setText("");
 			jtfName.setText("");
 

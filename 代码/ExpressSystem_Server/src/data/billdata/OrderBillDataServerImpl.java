@@ -107,4 +107,11 @@ public class OrderBillDataServerImpl extends UnicastRemoteObject implements Orde
 		}
 
 	}
+
+	@Override
+	public ArrayList<OrderBill> getAll() throws RemoteException {
+		// TODO Auto-generated method stub
+		
+		return orderBills;
+	}
 }
