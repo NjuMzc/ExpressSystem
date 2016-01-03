@@ -382,12 +382,12 @@ public class Zhong_entrucking extends RightAll implements ActionListener {
 					orderList.iterator());
 
 			// 给我反馈＠ｍａ
-			if (true) {
+			if (bill!=null) {
 				for (int i = 0; i < 7; i++) {
 					jtf[i].setEditable(false);
 				}
 			} else {
-				showMessage("yes or no");
+				showMessage("装车单未填写完整");
 			}
 
 		}
