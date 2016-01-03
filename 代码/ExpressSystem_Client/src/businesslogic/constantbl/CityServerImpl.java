@@ -54,7 +54,10 @@ public class CityServerImpl implements CityServer {
 	public String getId(String name) {
 		// TODO Auto-generated method stub
 		CityPO city=dataServer.getByName(name);
-		
+		if(city==null){
+			return "";
+		}else
+			
 		return city.getId();
 	}
 
