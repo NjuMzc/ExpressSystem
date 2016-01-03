@@ -143,8 +143,7 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 	
 	private void initTableModel(){
 		Iterator<BankVO> volist=blServer.getInform();
-		
-		
+	 
 		while(volist.hasNext()){
 			BankVO vo=volist.next();
 			String name=vo.getName();
@@ -184,6 +183,7 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 			changelable[i] = new JLabel();
 			changejtf[i] = new JTextField();
 		}
+		changejtf[1].setEditable(false);
 		changeover = new JButton("");//√
 		changelable[0].setText("名称");
 		changelable[1].setText("金额 ");

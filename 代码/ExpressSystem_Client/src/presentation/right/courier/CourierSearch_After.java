@@ -2,6 +2,7 @@ package presentation.right.courier;
 
 import javax.swing.*;
 
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -25,7 +26,7 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 	JButton confirm;
 	JTextField[] inputText;
 	private List<Watcher> list;
-
+ 
 	public CourierSearch_After(int frameWidth, int frameHeight) {
 
 		this.frameWidth = frameWidth;
@@ -70,14 +71,7 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 
 	}
 	
-//	protected void paintComponent(Graphics g) {
-//		// TODO Auto-generated method stub
-//		super.paintComponent(g);
-//		ImageIcon background = new ImageIcon("pictures\\系统管理startRight.png");
-//		Image bg = background.getImage();
-//		g.drawImage(bg, 0, 0, frameWidth * 3 / 4, frameHeight, null);
-//	}
-//	
+ 
 
 	private void init() {
 		senderInfor.setBounds(30, 50, frameWidth * 3 / 4 - 40, frameHeight - 150);
@@ -189,7 +183,7 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirm) {
-			this.notifyWatchers(State.COURIERSEARCH);
+			this.notifyWatchers(State.COURIERSTART);
 		}
 	}
 }

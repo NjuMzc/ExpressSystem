@@ -27,7 +27,6 @@ public class InputInforPanel extends RightAll implements ActionListener {
 	JButton confirm;
 	JButton cancel;
 	JLabel jl[];
-	// JLabel wrong;
 	JTextField jtfNum;
 	JTextField jtfName;
 	private List<Watcher> list;

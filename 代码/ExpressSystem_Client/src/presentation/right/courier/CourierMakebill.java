@@ -47,6 +47,10 @@ public class CourierMakebill extends RightAll implements ActionListener {
 	JComboBox<String> city1;
 	JComboBox<String> city2;
 
+	JLabel kg;
+	JLabel cm;
+	JLabel yuan;
+
 	JPanel jp_wrong;
 	Remind remindThread;
 
@@ -78,6 +82,9 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		type_decorate = new JComboBox<String>(items);
 		city1 = new JComboBox<String>();
 		city2 = new JComboBox<String>();
+		kg = new JLabel("kg");
+		cm = new JLabel("cm^3");
+		yuan = new JLabel("元");
 
 		init();
 
@@ -89,6 +96,10 @@ public class CourierMakebill extends RightAll implements ActionListener {
 			if (i != 13)
 				this.add(inputText[i]);
 		}
+
+		this.add(kg);
+		this.add(cm);
+		this.add(yuan);
 
 		this.add(type);
 		this.add(type_decorate);
@@ -117,7 +128,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 			input[i].setBounds(0, frameHeight / 15 * i, frameWidth / 10,
 					frameHeight / 20);
 		}
-		int width = frameWidth / 8;
+		int width = frameWidth / 10;
 		int height = frameHeight / 20;
 		input[10].setBounds(x, y, width, height);
 		input[11].setBounds(x, y * 2, width, height);
@@ -195,9 +206,54 @@ public class CourierMakebill extends RightAll implements ActionListener {
 				(y + frameHeight / 100) * 2 + frameHeight / 19, width, height);
 		inputText[15].setBounds(x * 2 + frameWidth / 17,
 				(y + frameHeight / 100) * 5 + frameHeight / 31, width, height);
+
+		kg.setBounds(x + frameWidth / 10 + frameWidth / 50 + width,
+				(y + frameHeight / 95) * 6 + frameHeight / 10, height, height);
+		cm.setBounds(x / 3 + frameWidth / 25 + width, (y + frameHeight / 95)
+				* (5 + 2) + frameHeight / 10, height, height);
+		yuan.setBounds(x / 3 + frameWidth / 25 + width, (y + frameHeight / 95)
+				* (6 + 2) + frameHeight / 10, height, height);
+		inputText[11].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!((e.getKeyChar() == KeyEvent.VK_PERIOD) || Character
+						.isDigit(e.getKeyChar()))) {
+					e.consume();
+				}
+			}
+		});
+		inputText[5].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!((e.getKeyChar() == KeyEvent.VK_PERIOD) || Character
+						.isDigit(e.getKeyChar()))) {
+					e.consume();
+				}
+			}
+		});
+		inputText[6].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+
+				if (!((e.getKeyChar() == KeyEvent.VK_PERIOD) || Character
+						.isDigit(e.getKeyChar()))) {
+					e.consume();
+				}
+			}
+		});
+		inputText[4].addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
+
+		Font f = new Font("宋体", Font.PLAIN, 13);
 		for (int i = 0; i < 16; i++) {
-			inputText[i].setFont(new Font("宋体", Font.PLAIN, 13));
+			inputText[i].setFont(f);
+			kg.setFont(f);
+			cm.setFont(f);
+			yuan.setFont(f);
 		}
+
 		inputText[8].addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				if (!Character.isDigit(e.getKeyChar())) {
@@ -500,7 +556,6 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		this.add(over);
 		this.repaint();
 	}
- 
 
 	private void solveInfor() {
 		Message message = new Message();

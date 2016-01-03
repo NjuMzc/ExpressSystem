@@ -37,7 +37,6 @@ public class CourierSearch extends RightAll implements ActionListener {
 	private List<Watcher> list;
 
 	JPanel jp_wrong;
-	String input_wrong;
 	Remind remindThread;
 
 	public CourierSearch(int frameWidth, int frameHeight) {
@@ -120,29 +119,32 @@ public class CourierSearch extends RightAll implements ActionListener {
 		}
 	}
 
+	private void showMessage(String input) {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
+
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, input);
+		remindThread.start();
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cancel) {
 			this.notifyWatchers(State.COURIERSTART);
 		} else if (e.getSource() == confirm) {
-			if (remindThread != null) {
-				remindThread.stop();
-				this.remove(jp_wrong);
-			}
-			jp_wrong = new JPanel();
 
 			OrderBill bill = blServer.inquire(inputOrder.getText());
 			System.out.println(inputOrder.getText());
 			if (bill == null) {
-				input_wrong = "输入的快递单号不存在";
-				this.add(jp_wrong);
-				remindThread = new Remind(jp_wrong, input_wrong);
-				remindThread.start();
+				showMessage("输入的快递单号不存在");
 			} else {
 				BillNow.setBill(bill);
-				this.notifyWatchers(State.COURIERSTART);
+				// this.notifyWatchers(State.COURIERSEARCHAFTER);
 			}
 
-			 
 		}
 
 	}

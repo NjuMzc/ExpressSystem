@@ -38,6 +38,8 @@ public class Manager_check extends RightAll implements ActionListener {
 	JButton notpass;
 	private List<Watcher> list;
 	int currentRow;
+	
+	JScrollPane extrajs;
 
 	public Manager_check(int frameWidth, int frameHeight) {
 		approver = new BillApproverServerImpl();
@@ -156,11 +158,13 @@ public class Manager_check extends RightAll implements ActionListener {
 				frameWidth / 3, frameHeight / 4 * 3);
 		billPanel.setLayout(null);
 		billJta = new JTextArea();
+		extrajs=new JScrollPane(billJta);
 		pass = new JButton("");//通过
 		notpass = new JButton("");//不通过
 		
 		
 		billJta.setBounds(0, 0, frameWidth / 3, frameHeight / 2);
+		extrajs.setBounds(0, 0, frameWidth / 3, frameHeight / 2);
 		initJta();
 		pass.setBounds(frameWidth / 20, frameHeight / 8 * 5, frameWidth / 10,
 				frameHeight / 20);
@@ -181,7 +185,8 @@ public class Manager_check extends RightAll implements ActionListener {
 		icon4 = new ImageIcon(temp4);
 		notpass.setIcon(icon4);
 		
-		billPanel.add(billJta);
+		//billPanel.add(billJta);
+		billPanel.add(extrajs);
 		billPanel.add(pass);
 		billPanel.add(notpass);
 		this.add(billPanel);
