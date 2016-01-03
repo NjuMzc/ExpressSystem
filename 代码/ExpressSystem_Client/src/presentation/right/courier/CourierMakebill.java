@@ -500,33 +500,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		this.add(over);
 		this.repaint();
 	}
-
-	// private void wrongShow() {
-	// // 错误处理
-	// final JLabel remindWrong = new JLabel();
-	// remindWrong.setBounds(frameWidth / 4, frameHeight * 17 / 20,
-	// frameWidth / 4, frameHeight / 20);
-	// remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-	// remindWrong.setForeground(Color.red);
-	// this.add(remindWrong);
-	// this.repaint();
-	//
-	// Thread t = new Thread(new Runnable() {
-	// @Override
-	// public void run() {
-	// // 以下根据错误类型设置文字
-	// remindWrong.setText("信息未填写完整 ");
-	// try {
-	// Thread.sleep(2000);
-	// } catch (Exception e2) {
-	// // TODO: handle exception
-	// }
-	// remindWrong.setText("");
-	// }
-	// });
-	// t.start();
-	// // 错误处理结束
-	// }
+ 
 
 	private void solveInfor() {
 		Message message = new Message();
@@ -574,7 +548,6 @@ public class CourierMakebill extends RightAll implements ActionListener {
 		this.add(jp_wrong);
 		remindThread = new Remind(jp_wrong, message);
 		remindThread.start();
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -596,8 +569,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 				addOver();
 				solveInfor();
 			} else {
-				// wrongShow();
-				showMessage("yes or no");
+				showMessage("快递单未填写完整");
 			}
 
 		}

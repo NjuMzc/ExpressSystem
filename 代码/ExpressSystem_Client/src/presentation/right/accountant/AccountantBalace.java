@@ -22,6 +22,7 @@ import businesslogic.paymentServer.SettleServerImpl;
 import businesslogicservice.paymentblservice.SettleServer;
 import po.bills.ChargeBill;
 import presentation.right.ColorRenderer;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -47,6 +48,9 @@ public class AccountantBalace extends RightAll implements ActionListener {
 	JTable table;
 	JScrollPane js;
 	DefaultTableCellRenderer dtc;
+
+	JPanel jp_wrong;
+	Remind remindThread;
 
 	public AccountantBalace(int frameWidth, int frameHeight) {
 		blServer = new SettleServerImpl();
@@ -83,7 +87,7 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		js = new JScrollPane(table);
 
 		inputNum = new JTextField();
-	    inputNum.setFont(new Font("宋体", Font.PLAIN, 14));
+		inputNum.setFont(new Font("宋体", Font.PLAIN, 14));
 		sum = new JLabel("金额合计");
 		sum.setFont(new Font("宋体", Font.BOLD, 16));
 		jtfSum = new JTextField();
@@ -229,33 +233,6 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		}
 	}
 
-	private void wrongShow() {
-		// 错误处理
-		final JLabel remindWrong = new JLabel();
-		remindWrong.setBounds(frameWidth * 2 / 8, frameHeight * 7 / 20,
-				frameWidth / 4, frameHeight / 20);
-		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-		remindWrong.setForeground(Color.red);
-		this.add(remindWrong);
-		this.repaint();
-
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// 以下根据错误类型设置文字
-				remindWrong.setText(result.getWrongMessage());
-				try {
-					Thread.sleep(2000);
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-				remindWrong.setText("");
-			}
-		});
-		t.start();
-		// 错误处理结束
-	}
-
 	private void confirmPressed() {
 		String year = timeInput[0].getSelectedItem().toString();
 		String month = timeInput[1].getSelectedItem().toString();
@@ -268,8 +245,7 @@ public class AccountantBalace extends RightAll implements ActionListener {
 		result = blServer.Settle(date, hallNum);
 
 		if (result.isWrong()) {
-			// 錯誤信息處理
-			wrongShow();
+			showMessage(result.getWrongMessage());
 		} else {
 			initTableModel();
 
@@ -281,6 +257,18 @@ public class AccountantBalace extends RightAll implements ActionListener {
 			this.add(back);
 			this.repaint();
 		}
+	}
+
+	private void showMessage(String message) {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
+
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, message);
+		remindThread.start();
 	}
 
 	public void actionPerformed(ActionEvent e) {

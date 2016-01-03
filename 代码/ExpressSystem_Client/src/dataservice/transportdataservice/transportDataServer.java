@@ -9,7 +9,7 @@ import po.GoodPO;
  * 
  * @author nick
  *
- */
+ */ 
 public interface TransportDataServer extends Remote {
 	public void insert(GoodPO po);
 

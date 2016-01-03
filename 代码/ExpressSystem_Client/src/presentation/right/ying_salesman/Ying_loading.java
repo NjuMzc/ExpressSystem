@@ -326,15 +326,7 @@ public class Ying_loading extends RightAll implements ActionListener {
 		jtable.getTableHeader().setReorderingAllowed(false);
 		jtable.getTableHeader().setResizingAllowed(false);
 		jtable.getColumnModel().getColumn(0).setCellRenderer(dtc);
-		initTableModel();
-	}
 
-	private void initTableModel() {
-		Vector<String> vec = new Vector<>();
-		vec.add("12345666");
-
-		// 初始化已有单号列表
-		tableModel.addRow(vec);
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -397,9 +389,9 @@ public class Ying_loading extends RightAll implements ActionListener {
 			}
 			HallEntruckBill bill = blServer.makeBill(message,
 					orderList.iterator());
-			
-			if(bill!=null){
-				jtf[8].setText(String.valueOf(bill.getPayment()));
+
+			if (bill != null) {
+				jtf[7].setText(String.valueOf(bill.getPayment()));
 
 				this.add(jl[9]);
 				this.add(jtf[7]);
@@ -414,11 +406,10 @@ public class Ying_loading extends RightAll implements ActionListener {
 				this.add(over);
 
 				this.repaint();
-			}else{
+			} else {
 				showMessage("撞车单未填写完成");
 			}
 
-			 
 		}
 
 		if (e.getSource() == add) {
@@ -431,10 +422,9 @@ public class Ying_loading extends RightAll implements ActionListener {
 				jtf[6].setText("");
 			}
 		}
-    
-		
+
 		if (e.getSource() == over) {
-				this.notifyWatchers(State.YING_START);
+			this.notifyWatchers(State.YING_START);
 		}
 	}
 }

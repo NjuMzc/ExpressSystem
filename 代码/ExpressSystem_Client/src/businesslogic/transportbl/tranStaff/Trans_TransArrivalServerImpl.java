@@ -77,6 +77,8 @@ public class Trans_TransArrivalServerImpl implements Trans_TransArrivalServer {
 	public boolean isReceiverStation(String stationID,String GoodID){
      
 		GoodPO good=goodController.getGood(GoodID);
+		if(good==null)
+			return false;
 		if(good.getDestination()==stationID)
 			return true;
 		else
