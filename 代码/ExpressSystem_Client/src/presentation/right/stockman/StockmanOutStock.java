@@ -19,6 +19,7 @@ import businesslogic.storagebl.StorageManagerImpl;
 import businesslogic.storagebl.StorageServerImpl;
 import businesslogicservice.storageblservice.StorageManager;
 import businesslogicservice.storageblservice.StorageServer;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -39,6 +40,9 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 	JComboBox<String> type;
 	private List<Watcher> list;
 	private StorageManager storageM;
+
+	JPanel jp_wrong;
+	Remind remindThread;
 
 	public StockmanOutStock(int frameWidth, int frameHeight) {
 		storageServer = new StorageServerImpl();
@@ -224,31 +228,16 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 		}
 	}
 
-	private void wrongShow() {
-		// 错误处理
-		final JLabel remindWrong = new JLabel();
-		remindWrong.setBounds(frameWidth / 4, frameHeight * 31 / 40,
-				frameWidth / 4, frameHeight / 20);
-		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-		remindWrong.setForeground(Color.red);
-		this.add(remindWrong);
-		this.repaint();
+	private void showMessage(String message) {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
 
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// 以下根据错误类型设置文字
-				remindWrong.setText(vo.getWrongMessage());
-				try {
-					Thread.sleep(2000);
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-				remindWrong.setText("");
-			}
-		});
-		t.start();
-		// 错误处理结束
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, message);
+		remindThread.start();
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -285,9 +274,11 @@ public class StockmanOutStock extends RightAll implements ActionListener {
 			vo = storageServer.Export(exportMessage);
 			// 错误处理
 			if (vo.isWrong()) {
-				wrongShow();
+				// wrongShow();
+				showMessage(vo.getWrongMessage());
 			} else {
 				System.out.println("Export Success!");
+				this.notifyWatchers(State.STOCKMANSTART);
 			}
 		}
 	}

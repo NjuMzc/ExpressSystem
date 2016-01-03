@@ -204,7 +204,8 @@ public class ClientIP extends JFrame {
 		} catch (Exception e1) {
 			// TODO exception
 		}
-
+		
+		//System.setProperty("sun.rmi.transport.tcp.responseTimeout", "5000");
 		ClientIP client = new ClientIP();
 
 	}

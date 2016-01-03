@@ -245,17 +245,15 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 
 	}
 
-	private void showMessage() {
+	private void showMessage(String input) {
 		if (remindThread != null) {
 			remindThread.stop();
 			this.remove(jp_wrong);
 		}
 		jp_wrong = new JPanel();
 
-		input_wrong = "yes or not!";
-
 		this.add(jp_wrong);
-		remindThread = new Remind(jp_wrong, input_wrong);
+		remindThread = new Remind(jp_wrong, input);
 		remindThread.start();
 	}
 
@@ -286,18 +284,10 @@ public class Zhong_arrival extends RightAll implements ActionListener {
 					date, transOrderNum, departure, goodState);
 
 			// 给我反馈，有没有成功@MA
-			if (true) {
+			if (bill != null) {
 				this.notifyWatchers(State.ZHONG_START);
 			} else {
-				if (remindThread != null) {
-					remindThread.stop();
-					this.remove(jp_wrong);
-				}
-				jp_wrong = new JPanel();
-
-				this.add(jp_wrong);
-				remindThread = new Remind(jp_wrong, input_wrong);
-				remindThread.start();
+				showMessage("到达单未填写完整 ");
 			}
 		}
 
