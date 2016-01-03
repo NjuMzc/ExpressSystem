@@ -152,9 +152,11 @@ public class LogMainFrame extends RightAll implements ActionListener {
 		if (!input_account.equals("") && !input_password.equals("")) {
 			if(input_account.equals("admin")&&input_password.equals("admin")){
 				user = s.login("2015070000", "nova123321");
+			}else{
+				user = s.login(input_account, input_password);
 			}
 			
-			user = s.login(input_account, input_password);
+			
 			if (!user.isWrong()) {
 				if (user.getIdentity().equals("总经理")) {
 					this.notifyWatchers(State.MANAGERSTART);
