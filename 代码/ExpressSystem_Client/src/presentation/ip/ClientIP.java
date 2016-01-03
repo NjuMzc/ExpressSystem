@@ -70,24 +70,21 @@ public class ClientIP extends JFrame {
 
 		jtf[0].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER
-						|| e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					jtf[1].requestFocus();
 				}
 			}
 		});
 		jtf[1].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER
-						|| e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					jtf[2].requestFocus();
 				}
 			}
 		});
 		jtf[2].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER
-						|| e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					jtf[3].requestFocus();
 				}
 			}
@@ -122,25 +119,32 @@ public class ClientIP extends JFrame {
 
 					String ip = "";
 					for (int i = 0; i < 4; i++) {
-						if (i != 3)
-							ip += (jtf[i].getText() + ".");
-						else
-							ip += jtf[i].getText();
+//						if (i != 3)
+//							ip += (jtf[i].getText() + ".");
+//						else
+//							ip += jtf[i].getText();
+						String temp=jtf[i].getText();
+						int a=Integer.valueOf(temp);
+						if(i!=3){
+							ip+=""+a+".";
+						}else{
+							ip+=""+a;
+						}
+						
+						
 					}
 
 					System.out.println("开启ip");
 					System.out.println("IP:" + ip);
-
+					String port = jtf2.getText();
 					// 根据连接情况设置是否正确
 					ip_right = true;
 
-					if (ip_right) {
+					if (RMIHelper.init(ip, port)) {
 						closeFrame();
-						RMIHelper.init();
 
 						try {
-							org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper
-									.launchBeautyEyeLNF();
+							org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
 
 						} catch (Exception e1) {
 							// TODO exception
@@ -154,8 +158,7 @@ public class ClientIP extends JFrame {
 							public void run() {
 								// TODO Auto-generated method stub
 								MainFrame m = new MainFrame();
-								m.getRootPane().setWindowDecorationStyle(
-										JRootPane.NONE);
+								m.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 								// m.setUndecorated(true);
 								// 用来消除上面的属性栏
 
@@ -166,6 +169,10 @@ public class ClientIP extends JFrame {
 						remind = new RemindIP(jp_remind, "IP错误");
 						jp.add(jp_remind);
 						remind.start();
+						jtf2.setText("");
+						for (int i = 0; i < jtf.length; i++) {
+							jtf[i].setText("");
+						}
 					}
 
 				}
@@ -174,7 +181,7 @@ public class ClientIP extends JFrame {
 
 		jl2.setBounds(25, 200, 50, 25);
 		jtf2.setBounds(100, 200, 100, 25);
-		jtf2.setEditable(false);
+		jtf2.setEditable(true);
 
 		jp.add(jl);
 		for (int i = 0; i < 4; i++) {
@@ -199,7 +206,7 @@ public class ClientIP extends JFrame {
 		}
 
 		ClientIP client = new ClientIP();
-	 
+
 	}
 
 }
