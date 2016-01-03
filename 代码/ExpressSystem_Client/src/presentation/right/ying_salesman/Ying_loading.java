@@ -431,7 +431,8 @@ public class Ying_loading extends RightAll implements ActionListener {
 				jtf[6].setText("");
 			}
 		}
-
+    
+		
 		if (e.getSource() == over) {
 				this.notifyWatchers(State.YING_START);
 		}
