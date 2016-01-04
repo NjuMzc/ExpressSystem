@@ -53,6 +53,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 	JButton add;
 	DefaultTableCellRenderer dtc;
 	private List<Watcher> list;
+	JLabel yuan;
 
 	JPanel jp_wrong;
 	Remind remindThread;
@@ -101,6 +102,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 		time[2].setText("日");
 
 		dtc = new ColorRenderer();
+		yuan = new JLabel("元");
 
 		init();
 
@@ -116,6 +118,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 		}
 		this.add(js);
 		this.add(add);
+		this.add(yuan);
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -158,6 +161,9 @@ public class Ying_payment extends RightAll implements ActionListener {
 			time[i].setFont(new Font("宋体", Font.PLAIN, 14));
 			timeInput[i].setFont(new Font("宋体", Font.PLAIN, 14));
 		}
+		yuan.setBounds(frameWidth / 4 + frameWidth / 9, frameHeight / 14
+				+ frameHeight / 7 * 2 + frameHeight / 60 - frameHeight / 12,
+				frameHeight / 20, frameHeight / 20);
 		jtf[0].addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				if (!Character.isDigit(e.getKeyChar())
@@ -280,7 +286,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 		this.add(jp_wrong);
 		remindThread = new Remind(jp_wrong, message);
 		remindThread.start();
-		
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -314,7 +320,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 				// 错误信息处理
 				showMessage(result.getWrongMessage());
 			} else {
-				//showMessage("收款单填写成功");
+				// showMessage("收款单填写成功");
 				this.notifyWatchers(State.YING_PAYMENT);
 			}
 

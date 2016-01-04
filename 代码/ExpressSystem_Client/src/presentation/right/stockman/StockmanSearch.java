@@ -23,6 +23,7 @@ import businesslogic.storagebl.StorageServerImpl;
 import businesslogicservice.storageblservice.StorageManager;
 import businesslogicservice.storageblservice.StorageServer;
 import presentation.right.ColorRenderer;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -54,11 +55,14 @@ public class StockmanSearch extends RightAll implements ActionListener {
 	StorageServer storageServer;
 	double chukuMoney;
 	double rukuMoney;
+	
+	JPanel jp_wrong;
+	Remind remindThread;
 
 	public StockmanSearch(int frameWidth, int frameHeight) {
-		storageServer=new StorageServerImpl();
-		chukuMoney=0;
-		rukuMoney=0;
+		storageServer = new StorageServerImpl();
+		chukuMoney = 0;
+		rukuMoney = 0;
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -72,7 +76,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		for (int i = 0; i < 2; i++) {
 			jl[i] = new JLabel();
 		}
-		search = new JButton("");//查询
+		search = new JButton("");// 查询
 
 		time = new JLabel[3];
 		timeInput = new JComboBox[3];
@@ -119,21 +123,20 @@ public class StockmanSearch extends RightAll implements ActionListener {
 
 		jl[0].setText("起始时间");
 		jl[1].setText("中止时间 ");
-		jl[0].setFont(new Font("宋体",Font.BOLD,15));
-		jl[1].setFont(new Font("宋体",Font.BOLD,15));
+		jl[0].setFont(new Font("宋体", Font.BOLD, 15));
+		jl[1].setFont(new Font("宋体", Font.BOLD, 15));
 		jl[0].setBounds(frameWidth / 5, frameHeight / 10, frameWidth / 8,
 				frameHeight / 16);
-		jl[1].setBounds(frameWidth / 3 + frameWidth / 8,  frameHeight / 10,
+		jl[1].setBounds(frameWidth / 3 + frameWidth / 8, frameHeight / 10,
 				frameWidth / 10, frameHeight / 16);
-		search.setBounds(frameWidth / 3+frameWidth/100, frameHeight / 4, frameWidth / 10,
-				frameHeight / 19);
+		search.setBounds(frameWidth / 3 + frameWidth / 100, frameHeight / 4,
+				frameWidth / 10, frameHeight / 19);
 		search.addActionListener(this);
 		ImageIcon icon2 = new ImageIcon("pictures//查询.png");
 		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
 				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
 		icon2 = new ImageIcon(temp2);
 		search.setIcon(icon2);
-		
 
 		time[0].setText("年");
 		time[1].setText("月");
@@ -158,9 +161,21 @@ public class StockmanSearch extends RightAll implements ActionListener {
 					frameHeight / 20);
 		}
 	}
+	
+	private void showMessage(String message) {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
+
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, message);
+		remindThread.start();
+	}
 
 	private void addPanel() {
-		if(addpanel!=null){
+		if (addpanel != null) {
 			this.remove(addpanel);
 		}
 		addpanel = new JPanel();
@@ -178,9 +193,9 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		inStock = new JLabel("入库合计");
 		outStock = new JLabel("出库合计");
 		jtfIn = new JTextField();
-		jtfIn.setText(""+rukuMoney);
+		jtfIn.setText("" + rukuMoney);
 		jtfOut = new JTextField();
-		jtfOut.setText(""+chukuMoney);
+		jtfOut.setText("" + chukuMoney);
 
 		js.setBounds(0, 0, frameWidth / 4 * 3, frameHeight / 2);
 		inStock.setBounds(0, frameHeight / 2, frameWidth / 10, frameHeight / 20);
@@ -192,7 +207,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 				frameWidth / 10, frameHeight / 20);
 		jtfIn.setEditable(false);
 		jtfOut.setEditable(false);
-		
+
 		initTable();
 
 		addpanel.add(jtfIn);
@@ -233,42 +248,43 @@ public class StockmanSearch extends RightAll implements ActionListener {
 		String day1 = timeInputover[2].getSelectedItem().toString();
 		String date1 = year1 + "-" + month1 + "-" + day1;
 
-		ChaKanVO vo=storageServer.chaKan(date, date1);
+		ChaKanVO vo = storageServer.chaKan(date, date1);
 
-		if(vo.isWrong()){
-			//错误信息处理
+		if (vo.isWrong()) {
+			// 错误信息处理
 			System.out.println(vo.getWrongMessage());
-		}else{
-			Iterator<RecordVO> records=vo.getList();
+		} else {
+			Iterator<RecordVO> records = vo.getList();
 
 			while (records.hasNext()) {
 				System.out.println("assss");
 				Vector<String> vec2 = new Vector<>();
-				RecordVO a= records.next();
+				RecordVO a = records.next();
 				vec2.add(a.getGood().getID());
-				
-				if(a.getType().equals("IMPORT")){
+
+				if (a.getType().equals("IMPORT")) {
 					vec2.add("入库");
-					rukuMoney+=Double.valueOf(a.getMoney());
-				}else {
+					rukuMoney += Double.valueOf(a.getMoney());
+				} else {
 					vec2.add("出库");
-					chukuMoney+=Double.valueOf(a.getMoney());
-					System.out.println("出库总金额："+chukuMoney);
+					chukuMoney += Double.valueOf(a.getMoney());
+					System.out.println("出库总金额：" + chukuMoney);
 				}
 				vec2.add(a.getMoney());
 				vec2.add(a.getDate());
-				String location =a.getLocation();
-				location=location.substring(0,2)+"区"+location.substring(2, 4)+"排"+location.substring(4, 6)+"架"+location.substring(6,8)+"位";
+				String location = a.getLocation();
+				location = location.substring(0, 2) + "区"
+						+ location.substring(2, 4) + "排"
+						+ location.substring(4, 6) + "架"
+						+ location.substring(6, 8) + "位";
 				vec2.add(location);
 				tableModel.addRow(vec2);
-				
-			}
-			jtfIn.setText(""+rukuMoney);
-			jtfOut.setText(""+chukuMoney);
-		}
-		
 
-		
+			}
+			jtfIn.setText("" + rukuMoney);
+			jtfOut.setText("" + chukuMoney);
+		}
+
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -287,7 +303,13 @@ public class StockmanSearch extends RightAll implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == search) {
-			addPanel();
+			
+			//@li,日期输入是否正确
+			if (true) {
+				addPanel();
+			}else{
+				showMessage("");
+			}
 		}
 	}
 }

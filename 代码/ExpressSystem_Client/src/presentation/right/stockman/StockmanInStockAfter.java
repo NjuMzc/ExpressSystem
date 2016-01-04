@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -18,6 +19,9 @@ public class StockmanInStockAfter extends RightAll implements
 	JButton confirm;
 	JButton cancel;
 	private List<Watcher> list;
+	
+	JPanel jp_wrong;
+	Remind remindThread;
 
 	public StockmanInStockAfter(int frameWidth, int frameHeight) {
 
