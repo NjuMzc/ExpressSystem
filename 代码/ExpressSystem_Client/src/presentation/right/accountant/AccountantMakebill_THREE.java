@@ -1,5 +1,6 @@
 package presentation.right.accountant;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -111,6 +112,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
 		jp1 = new JPanel();
+		jp1.setBackground(new Color(174,205,207));
 		model1 = new DefaultTableModel();
 		table1 = new JTable(model1) {
 			public boolean isCellEditable(int row, int column) {
@@ -163,7 +165,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 		jp2 = new JPanel();
 		jp2.setBounds(frameWidth / 4, 0, frameWidth / 4, frameHeight);
 		jp2.setLayout(null);
-
+jp2.setBackground(new Color(174,205,207));
 		model2 = new DefaultTableModel();
 		table2 = new JTable(model2) {
 			public boolean isCellEditable(int row, int column) {
@@ -207,11 +209,11 @@ public class AccountantMakebill_THREE extends RightAll implements
 	private void initJp3() {
 		this.remove(jp1);
 		this.remove(jp2);
-
+		
 		jp3 = new JPanel();
 		jp3.setBounds(0, 0, frameWidth / 4, frameHeight);
 		jp3.setLayout(null);
-
+jp3.setBackground(new Color(174,205,207));
 		con_tableModel = new DefaultTableModel();
 		con_table = new JTable(con_tableModel) {
 			public boolean isCellEditable(int row, int column) {
@@ -263,7 +265,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 		jp4 = new JPanel();
 		jp4.setBounds(frameWidth / 4, 0, frameWidth / 2, frameHeight);
 		jp4.setLayout(null);
-
+jp4.setBackground(new Color(174,205,207));
 		car_tableModel = new DefaultTableModel();
 		car_table = new JTable(car_tableModel) {
 			public boolean isCellEditable(int row, int column) {
