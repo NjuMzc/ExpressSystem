@@ -125,6 +125,7 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		allover.setIcon(icon1);
+		allover.addActionListener(this);
 		
 	}
 
@@ -306,9 +307,6 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 				vec.add(addjtf[i].getText());
 			}
 
-			System.out.println(vec==null);
-			System.out.println(vec.get(0));
-			System.out.println(model==null);
 			model.addRow(vec);
 		}
 
@@ -327,6 +325,7 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 		
 		if (e.getSource() == allover) {
 		 
+		   System.out.println("All over");
 		   int row=table.getRowCount();
 		   
 		   for(int i=0;i<row;i++){

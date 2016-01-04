@@ -57,7 +57,7 @@ public class Inform_CarInformServerImpl implements Inform_CarInformServer {
 		
 		CarPO car=new CarPO(hall.getID()+flowStr, ChePai, UsingTime, hall);
 		dataServer.addCar(car);
-		hallServer.addCar(staffNow.getHall().getID(), car);	
+		hallServer.addCar(hall.getID(), car);	
 		
 		return car;
 	}
@@ -110,6 +110,14 @@ public class Inform_CarInformServerImpl implements Inform_CarInformServer {
 	    dataServer.deleteCar(car);
 
 		return true;
+	}
+
+	@Override
+	public Iterator<CarPO> getAllCar(String hallId) {
+		// TODO Auto-generated method stub 
+		hall=hallServer.getHall(hallId);
+		
+		return hall.getAllCar().iterator();
 	}
 
 }

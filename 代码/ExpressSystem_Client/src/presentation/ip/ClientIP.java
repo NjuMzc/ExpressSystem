@@ -1,13 +1,20 @@
 package presentation.ip;
 
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
@@ -16,30 +23,41 @@ import javax.swing.SwingUtilities;
 import presentation.MainFrame;
 import client.RMIHelper;
 
-public class ClientIP extends JFrame {
-
+public  class ClientIP extends JFrame {
+   
+	
 	JPanel jp;
 	JLabel jl;
 	JTextField jtf[];
 	JButton jb;
 	JLabel jl2;
 	JTextField jtf2;
-
+  JButton jbg;
 	RemindIP remind;
 	JPanel jp_remind;
 	boolean ip_right = true;
+	
+	JLayeredPane layeredPane;  
+	JLabel jlbg;
 
 	public ClientIP() {
 
+
+        
 		jp = new JPanel();
 		jl = new JLabel("IP地址：");
+		jl.setFont(new Font("宋体",Font.PLAIN,15));
 		jtf = new JTextField[4];
 		for (int i = 0; i < 4; i++) {
 			jtf[i] = new JTextField();
 		}
-		jb = new JButton("连接");
+		jb = new JButton("");//连接
 		jl2 = new JLabel("端口：");
+		jl2.setFont(new Font("宋体",Font.PLAIN,15));
 		jtf2 = new JTextField();
+		
+		//jbg=new JButton();
+		//layeredPane=new JLayeredPane();  
 
 		init();
 		this.add(jp);
@@ -49,13 +67,25 @@ public class ClientIP extends JFrame {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
+
 	}
 
+	
 	private void init() {
-		jp.setBounds(0, 0, 300, 500);
+	   jp.setBounds(0, 0, 300, 500);
 		jp.setLayout(null);
-
-		jl.setBounds(25, 100, 50, 25);
+		jp.setBackground(new Color(174,205,207));
+		
+        ImageIcon image=new ImageIcon("pictures\\ip.png");//随便找一张图就可以看到效果。        
+        //创建背景的那些东西  
+       // jp.setBounds(0,0,300,500);  
+//  
+//        jlbg=new JLabel(image);       
+//        jlbg.setBounds(0,0,300,500);  
+//        jp.add(jlbg);  
+//        layeredPane.add(jp,JLayeredPane.DEFAULT_LAYER);  
+         
+		jl.setBounds(25, 100, 100, 25);
 		for (int i = 0; i < 4; i++) {
 			jtf[i].setBounds(100 + 35 * i, 100, 33, 25);
 			jtf[i].addKeyListener(new KeyAdapter() {
@@ -110,7 +140,13 @@ public class ClientIP extends JFrame {
 				}
 			}
 		});
-		jb.setBounds(110, 300, 80, 30);
+		jb.setBounds(82, 300, 85, 35);
+		ImageIcon icon1 = new ImageIcon("pictures//连接.png");
+		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
+				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
+		icon1 = new ImageIcon(temp1);
+		jb.setIcon(icon1);
+		
 		jb.addActionListener(new ActionListener() {
 
 			@Override
@@ -198,15 +234,15 @@ public class ClientIP extends JFrame {
 
 	public static void main(String[] arg0) {
 
+		
 		try {
 			org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
 		} catch (Exception e1) {
 			// TODO exception
 		}
-		
-		//System.setProperty("sun.rmi.transport.tcp.responseTimeout", "5000");
-		ClientIP client = new ClientIP();
-
+			
+   ClientIP ip=new ClientIP();
+   
 	}
 
 }

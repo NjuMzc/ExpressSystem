@@ -17,19 +17,23 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.constantbl.CityServerImpl;
+import businesslogic.informationbl.Inform_CarInformServerImpl;
 import businesslogic.informationbl.Inform_HallInformServerImpl;
 import businesslogic.informationbl.Inform_StorageInformServerImpl;
 import businesslogic.informationbl.Inform_TranStationInformServerImpl;
+import businesslogic.systembl.SystemBlServerImpl;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_HallInformServer;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_StorageInformServer;
 import businesslogicservice.informationblservice.InstitutionInform.Inform_TranStationInformServer;
 import businesslogicservice.informationblservice.WorkerInform.Inform_CarInformServer;
 import businesslogicservice.informationblservice.WorkerInform.Inform_DriverInformServer;
+import businesslogicservice.systemblservice.systemServer;
 import po.CityPO;
 import po.SystemUserPO;
 import po.Institution.HallPO;
 import po.Institution.StoragePO;
 import po.Institution.TranStationPO;
+import po.Workers.CarPO;
 import po.Workers.HallStaffPO;
 import po.Workers.StorageKeeperPO;
 import po.Workers.TranStaffPO;
@@ -44,7 +48,6 @@ public class AccountantMakebill_THREE extends RightAll implements
 	Inform_TranStationInformServer stationServer;
 
 	Inform_CarInformServer carServer;
-	Inform_DriverInformServer driverServer;
 
 	int frameWidth;
 	int frameHeight;
@@ -97,6 +100,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 	String chooseOrg;
 
 	public AccountantMakebill_THREE(int frameWidth, int frameHeight) {
+		
 		hallServer = new Inform_HallInformServerImpl();
 		storageServer = new Inform_StorageInformServerImpl();
 		stationServer = new Inform_TranStationInformServerImpl();
@@ -376,7 +380,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int chooseRow = table2.getSelectedRow();
+				chooseRow = table2.getSelectedRow();
 				chooseOrg = table2.getValueAt(chooseRow, 1).toString();
 
 				initJp3();
@@ -391,8 +395,29 @@ public class AccountantMakebill_THREE extends RightAll implements
 		});
 		initTableModel2();
 	}
+	
+	private void initCarModell(){
+		System.out.println(chooseOrg);
+		carServer=new Inform_CarInformServerImpl(chooseOrg);
+	    Iterator<CarPO> list=carServer.getAllCar(chooseOrg);
+	    while(list.hasNext()){
+	    	CarPO car = list.next();
+
+			Vector<String> vec = new Vector<>();
+			vec.add(car.getId());
+			vec.add("未保存");
+			vec.add(car.getChePai());
+			vec.add("未保存");
+			vec.add(car.getUsingTime());
+			vec.add(car.getUsingTime());
+			vec.add("未保存");
+
+			car_tableModel.addRow(vec);
+	    }
+	}
 
 	private void initCarModel() {
+		
 		car_tableModel.addColumn("车辆代号");
 		car_tableModel.addColumn("发动机号");
 		car_tableModel.addColumn("车辆号");
@@ -441,6 +466,8 @@ public class AccountantMakebill_THREE extends RightAll implements
 				addPanel_Car();
 			}
 		});
+		
+		initCarModell();
 	}
 
 	private void initTableModel() {
@@ -474,7 +501,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 				con_tableModel.addRow(vec);
 			}
 		}else{
-			
+			System.out.println(chooseRow);
 		    HallPO hall=hallServer.getHall(chooseOrg);
 		    it=hall.getAllStaff().iterator();
 		    while(it.hasNext()){
@@ -548,6 +575,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 
 		// 机构
 		if (e.getSource() == orgAdd) {
+			
 			addPanel();
 		} else if (e.getSource() == orgDel) {
 			int row = table2.getSelectedRow();
@@ -622,9 +650,14 @@ public class AccountantMakebill_THREE extends RightAll implements
 					for (int i = 0; i < 7; i++) {
 						vec.add(jtf_car[i].getText());
 					}
+					
 					car_tableModel.addRow(vec);
+					carServer=new Inform_CarInformServerImpl(chooseOrg);
+					System.out.println(jtf_car==null);
+					System.out.println(jtf_car[4].getText());
+					carServer.addCar(jtf_car[2].getText(), jtf_car[4].getText());
 					removeAddPanel_Car();
-
+				
 				}
 			});
 
@@ -676,12 +709,45 @@ public class AccountantMakebill_THREE extends RightAll implements
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
+					
+					
 					String input = jtf_people.getText();
-					Vector<String> vec = new Vector<>();
-					vec.add(input);
-					vec.add("123");
-					con_tableModel.addRow(vec);
-					removeAddPanel_People();
+					if(chooseRow==0){
+						//增加中转中心业务员
+						stationServer.addStaff(chooseOrg, input);
+						systemServer server=new SystemBlServerImpl();
+						SystemUserPO ss=server.inquire(input); 
+						
+						Vector<String> vec = new Vector<>();
+						vec.add(ss.getUserName());
+						vec.add(ss.getID());
+						con_tableModel.addRow(vec);
+						removeAddPanel_People();
+					}else if(chooseRow==1){
+						//增加中转中心仓库
+						storageServer.addKeeper(chooseOrg, input);
+						systemServer server=new SystemBlServerImpl();
+						SystemUserPO ss=server.inquire(input); 
+						
+						Vector<String> vec = new Vector<>();
+						vec.add(ss.getUserName());
+						vec.add(ss.getID());
+						con_tableModel.addRow(vec);
+						removeAddPanel_People();
+					}else{
+						//增加营业厅
+						hallServer.addStaff(chooseOrg, input);
+						systemServer server=new SystemBlServerImpl();
+						SystemUserPO ss=server.inquire(input); 
+						
+						Vector<String> vec = new Vector<>();
+						vec.add(ss.getUserName());
+						vec.add(ss.getID());
+						con_tableModel.addRow(vec);
+						removeAddPanel_People();
+					}
+					
 
 				}
 			});
@@ -728,12 +794,14 @@ public class AccountantMakebill_THREE extends RightAll implements
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
 					String input = jtf.getText();
+					HallPO po=hallServer.addHall(chooseCity, input);
 					if (!input.equals("")) {
 
 						Vector<String> vec = new Vector<>();
 						vec.add(input);
-						vec.add("222");
+						vec.add(po.getID());
 						model2.addRow(vec);
 
 						removeAddPanel();

@@ -12,5 +12,7 @@ public interface Inform_CarInformServer {
 	
 	public Iterator<CarPO> getAllCar();
 	
+	public Iterator<CarPO> getAllCar(String hallId);
+	
 	public boolean removeCar(String carId);
 }

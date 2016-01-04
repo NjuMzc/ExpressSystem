@@ -596,12 +596,12 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 
 				Vector<String> vec = new Vector<>();
 				vec.add(car.getId());
-				vec.add("奥迪双钻3000型");
+				vec.add("未保存");
 				vec.add(car.getChePai());
-				vec.add("防水抓地米奇伦底盘");
+				vec.add("未保存");
 				vec.add(car.getUsingTime());
 				vec.add(car.getUsingTime());
-				vec.add("这是一辆很牛逼的车");
+				vec.add("未保存");
 
 				tableModel.addRow(vec);
 			}
