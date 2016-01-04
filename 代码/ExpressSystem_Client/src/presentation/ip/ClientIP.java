@@ -76,7 +76,7 @@ public  class ClientIP extends JFrame {
 		jp.setLayout(null);
 		jp.setBackground(new Color(174,205,207));
 		
-        ImageIcon image=new ImageIcon("pictures\\ip.png");//随便找一张图就可以看到效果。        
+     //   ImageIcon image=new ImageIcon("pictures\\ip.png");//随便找一张图就可以看到效果。        
         //创建背景的那些东西  
        // jp.setBounds(0,0,300,500);  
 //  

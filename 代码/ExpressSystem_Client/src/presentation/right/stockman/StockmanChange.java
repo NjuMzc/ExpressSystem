@@ -259,7 +259,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 		jp5.add(confirm);
 		for (int i = 0; i < 3; i++) {
 			jp5.add(jtf[i]);
-			jp5.add(location[i]);
+	  	jp5.add(location[i]);
 		}
 	}
 
