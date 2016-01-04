@@ -57,7 +57,7 @@ public class Inform_CarInformServerImpl implements Inform_CarInformServer {
 		
 		CarPO car=new CarPO(hall.getID()+flowStr, ChePai, UsingTime, hall);
 		dataServer.addCar(car);
-		hallServer.addCar(staffNow.getHall().getID(), car);	
+		hallServer.addCar(hall.getID(), car);	
 		
 		return car;
 	}

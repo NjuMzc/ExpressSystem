@@ -650,10 +650,14 @@ public class AccountantMakebill_THREE extends RightAll implements
 					for (int i = 0; i < 7; i++) {
 						vec.add(jtf_car[i].getText());
 					}
+					
 					car_tableModel.addRow(vec);
-					removeAddPanel_Car();
 					carServer=new Inform_CarInformServerImpl(chooseOrg);
+					System.out.println(jtf_car==null);
+					System.out.println(jtf_car[4].getText());
 					carServer.addCar(jtf_car[2].getText(), jtf_car[4].getText());
+					removeAddPanel_Car();
+				
 				}
 			});
 
