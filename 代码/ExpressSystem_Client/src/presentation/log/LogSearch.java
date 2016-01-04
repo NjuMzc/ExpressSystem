@@ -138,7 +138,20 @@ public class LogSearch extends RightAll implements ActionListener {
 		}
 
 		// 根据货物状态设置文字
-		state.setText(goodState);
+		if(goodState.equals("Delivering")){
+			state.setText("您的宝贝正在路上");
+		}else if(goodState.equals("ArriveSendHall")){
+			state.setText("到达寄件方营业厅");
+		}else if(goodState.equals("ArriveSendStorage")){
+			state.setText("到达寄件方中转中心仓库");
+		}else if(goodState.equals("Received")){
+			state.setText("已被签收");
+		}else if(goodState.equals("ArriveReceiveHall")){
+			state.setText("到达收件方营业厅");
+		}else if(goodState.equals("ArriveReceiveStorage")){
+			state.setText("到达收件方中转中心仓库");
+		}
+		
 
 		addPanel.setBounds(frameWidth / 3, frameHeight / 3, frameWidth / 2,
 				frameHeight / 2);
