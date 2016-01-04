@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import dataservice.constantdataservice.CityDistanceDataServer;
 import po.constants.CityDistancePO;
@@ -105,6 +106,13 @@ public class CityDistanceDataServerImpl extends UnicastRemoteObject implements C
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public ArrayList<CityDistancePO> getAll() throws RemoteException {
+		// TODO Auto-generated method stub
+	   
+		return cityDistances;
 	}
 	
 }

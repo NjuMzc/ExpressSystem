@@ -49,6 +49,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 	int frameWidth;
 	int frameHeight;
 	private List<Watcher> list;
+	int chooseRow;
 
 	DefaultTableCellRenderer dtc;
 
@@ -333,7 +334,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int chooseRow = table1.getSelectedRow();
+				chooseRow = table1.getSelectedRow();
 				chooseCity = model1.getValueAt(chooseRow, 0).toString();
 				initJp2();
 
@@ -376,13 +377,16 @@ public class AccountantMakebill_THREE extends RightAll implements
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				int chooseRow = table2.getSelectedRow();
-				chooseOrg = table2.getValueAt(chooseRow, 0).toString();
+				chooseOrg = table2.getValueAt(chooseRow, 1).toString();
 
 				initJp3();
 				
 				// 如果是营业厅，使用下面的方法
+				if(chooseRow>=2){
+					initJp4();
+				}
 				//use if...
-				initJp4();
+				
 			}
 		});
 		initTableModel2();
@@ -440,12 +444,53 @@ public class AccountantMakebill_THREE extends RightAll implements
 	}
 
 	private void initTableModel() {
-		Vector<String> vec = new Vector<>();
+		Iterator it;
+		if(chooseRow==0){
+			//中转中心
+			TranStationPO station=stationServer.getByLocation(chooseCity).next();
+			it=station.getAllStaff().iterator();
+			while(it.hasNext()){
+				Vector<String> vec = new Vector<>();
+				
+				TranStaffPO po=(TranStaffPO) it.next();
 
-		vec.add("陈信宏");
-		vec.add("t12131");
+				vec.add(po.getName());
+				vec.add(po.getId());
 
-		con_tableModel.addRow(vec);
+				con_tableModel.addRow(vec);
+			}
+		}else if(chooseRow==1){
+			//中转中心仓库
+			StoragePO storage=storageServer.getByLocation(chooseCity).next();
+			it=storage.getAllKeeper().iterator();
+			while(it.hasNext()){
+				Vector<String> vec = new Vector<>();
+				
+				StorageKeeperPO po=(StorageKeeperPO) it.next();
+
+				vec.add(po.getName());
+				vec.add(po.getID());
+
+				con_tableModel.addRow(vec);
+			}
+		}else{
+			
+		    HallPO hall=hallServer.getHall(chooseOrg);
+		    it=hall.getAllStaff().iterator();
+		    while(it.hasNext()){
+				Vector<String> vec = new Vector<>();
+				
+				HallStaffPO po=(HallStaffPO) it.next();
+
+				vec.add(po.getName());
+				vec.add(po.getId());
+
+				con_tableModel.addRow(vec);
+			}
+		}
+		
+		
+	
 
 	}
 

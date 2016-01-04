@@ -1,6 +1,7 @@
 package dataservice.constantdataservice;
 
 import java.rmi.Remote;
+import java.util.ArrayList;
 
 import po.constants.CityDistancePO;
 
@@ -11,4 +12,6 @@ public interface CityDistanceDataServer extends Remote{
 	public CityDistancePO get(String city1,String city2);
 	
 	public void update(String city1,String city2,String distance);
+	
+	public ArrayList<CityDistancePO> getAll();
 }

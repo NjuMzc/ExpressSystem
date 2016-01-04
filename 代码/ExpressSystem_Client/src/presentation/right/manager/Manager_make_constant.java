@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -19,12 +20,20 @@ import javax.swing.table.DefaultTableModel;
 
 import org.omg.CORBA.FREE_MEM;
 
+import businesslogic.constantbl.CityDistanceServerImpl;
+import businesslogic.constantbl.PriceListServerImpl;
+import businesslogicservice.constantblservice.CityDistanceServer;
+import businesslogicservice.constantblservice.PriceListServer;
+import po.constants.CityDistancePO;
 import presentation.right.ColorRenderer;
 import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
 public class Manager_make_constant extends RightAll implements ActionListener {
+	CityDistanceServer distanceServer;
+	PriceListServer priceServer;
+	
 	int frameWidth;
 	int frameHeight;
 
@@ -49,6 +58,8 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 	Remind remindThread;
 
 	public Manager_make_constant(int frameWidth, int frameHeight) {
+		distanceServer=new CityDistanceServerImpl();
+		priceServer=new PriceListServerImpl();
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -69,14 +80,14 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 		};
 		js = new JScrollPane(table);
   
-		feeremind = new JLabel("包装价格:");
+		feeremind = new JLabel("运输价格:");
 		feeremind.setFont(new Font("宋体", Font.BOLD, 20));
 		fee = new JLabel[3];
 		yuan = new JLabel[3];
 		jtf2 = new JTextField[3];
 		for (int i = 0; i < 3; i++) {
 			fee[i] = new JLabel();
-			yuan[i] = new JLabel("元");
+			yuan[i] = new JLabel("元/公里*吨");
 			jtf2[i] = new JTextField();
 			fee[i].setFont(new Font("宋体", Font.PLAIN, 16));
 			yuan[i].setFont(new Font("宋体", Font.PLAIN, 16));
@@ -125,9 +136,9 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 		js.setBounds(frameWidth / 8, frameHeight / 10, frameWidth / 2,
 				frameHeight / 2);
 
-		fee[0].setText("木箱：");
-		fee[1].setText("纸盒：");
-		fee[2].setText("包装袋：");
+		fee[0].setText("飞机：");
+		fee[1].setText("火车：");
+		fee[2].setText("汽车：");
 		for (int i = 0; i < 3; i++) {
 			fee[i].setBounds(frameWidth / 10 + frameWidth / 5 * i, frameHeight
 					/ 2 + frameHeight / 5, frameWidth / 9, frameHeight / 20);
@@ -196,14 +207,25 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 			}
 		});
 
+		
+		jtf2[0].setText(""+priceServer.getAirPrice());
+		jtf2[1].setText(""+priceServer.getTrainPrice());
+		jtf2[2].setText(""+priceServer.getCarPrice());
 	}
 
 	private void initModel() {
-		Vector<String> vec = new Vector<>();
-		vec.add("南京-北京");
-		vec.add("1000");
-		for (int i = 0; i < 20; i++)
+		
+		Iterator<CityDistancePO> it=distanceServer.getAll();
+		while(it.hasNext()){
+			CityDistancePO po=it.next();
+			
+			Vector<String> vec = new Vector<>();
+			vec.add(po.getCity1()+"-"+po.getCity2());
+			vec.add(""+po.getDistance());
+			
 			model.addRow(vec);
+		}
+		
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -283,6 +305,15 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 			this.add(jp_wrong);
 			remindThread = new Remind(jp_wrong, input_wrong);
 			remindThread.start();
+			
+			for(int i=0;i<table.getRowCount();i++){
+				String[] a=cities[i].split("-");
+				
+				distanceServer.changeDistance(a[0], a[1], distance[i]);
+				priceServer.setAirPrice(Double.valueOf(fee[0]));
+				priceServer.setTrainPrice(Double.valueOf(fee[1]));
+				priceServer.setCarPrice(Double.valueOf(fee[2]));
+			}
 			
 		}
 

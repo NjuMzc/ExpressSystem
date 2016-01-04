@@ -1,5 +1,8 @@
 package businesslogic.constantbl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import client.RMIHelper;
 import po.constants.CityDistancePO;
 import dataservice.constantdataservice.CityDistanceDataServer;
@@ -60,6 +63,12 @@ public class CityDistanceServerImpl implements CityDistanceServer{
 			dataServer.update(city1,city2,distance);
 			return true;
 		}
+	}
+
+	@Override
+	public Iterator<CityDistancePO> getAll() {
+		// TODO Auto-generated method stub
+		return dataServer.getAll().iterator();
 	}
 
 }
