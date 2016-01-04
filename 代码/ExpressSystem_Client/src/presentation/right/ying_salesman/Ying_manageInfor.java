@@ -289,7 +289,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				addlable[i] = new JLabel();
 				addjtf[i] = new JTextField();
 			}
-			addover = new JButton("");//√
+			addover = new JButton("√");
 			addlable[0].setText("姓名");
 			addlable[1].setText("编号");
 			addlable[2].setText("出生日期");
@@ -309,13 +309,6 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			}
 			addover.setBounds(frameWidth / 10 * 7, frameHeight / 20,
 					frameWidth / 20, frameHeight / 20);
-			
-			ImageIcon icon4 = new ImageIcon("pictures//勾.png");
-			Image temp4 = icon4.getImage().getScaledInstance(addover.getWidth(),
-				addover.getHeight(), icon4.getImage().SCALE_DEFAULT);
-			icon4 = new ImageIcon(temp4);
-			addover.setIcon(icon4);
-			
 			addover.addActionListener(this);
 
 			addpanel.add(addover);
@@ -335,7 +328,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				changelable[i] = new JLabel();
 				changejtf[i] = new JTextField();
 			}
-			changeover = new JButton("");//√
+			changeover = new JButton("√");
 			changelable[0].setText("姓名");
 			changelable[1].setText("编号");
 			changelable[2].setText("出生日期");
@@ -357,12 +350,6 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			}
 			changeover.setBounds(frameWidth / 10 * 7, frameHeight / 20,
 					frameWidth / 20, frameHeight / 20);
-			ImageIcon icon4 = new ImageIcon("pictures//勾.png");
-			Image temp4 = icon4.getImage().getScaledInstance(changeover.getWidth(),
-					changeover.getHeight(), icon4.getImage().SCALE_DEFAULT);
-			icon4 = new ImageIcon(temp4);
-			changeover.setIcon(icon4);
-			
 			changeover.addActionListener(this);
 
 			changepanel.add(changeover);
@@ -632,7 +619,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				addlable[i] = new JLabel();
 				addjtf[i] = new JTextField();
 			}
-			addover = new JButton("");//√
+			addover = new JButton("√");
 			addlable[0].setText("车辆代号");
 			addlable[1].setText("发动机号");
 			addlable[2].setText("车辆号");
@@ -652,12 +639,6 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			}
 			addover.setBounds(frameWidth / 10 * 7, frameHeight / 20,
 					frameWidth / 20, frameHeight / 20);
-			
-			ImageIcon icon4 = new ImageIcon("pictures//勾.png");
-			Image temp4 = icon4.getImage().getScaledInstance(addover.getWidth(),
-					addover.getHeight(), icon4.getImage().SCALE_DEFAULT);
-			icon4 = new ImageIcon(temp4);
-			addover.setIcon(icon4);
 			addover.addActionListener(this);
 
 			addpanel.add(addover);
@@ -677,7 +658,7 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 				changelable[i] = new JLabel();
 				changejtf[i] = new JTextField();
 			}
-			changeover = new JButton("");//√
+			changeover = new JButton("√");
 			changelable[0].setText("车辆代号");
 			changelable[1].setText("发动机号");
 			changelable[2].setText("车辆号");
@@ -699,12 +680,6 @@ public class Ying_manageInfor extends RightAll implements ActionListener {
 			}
 			changeover.setBounds(frameWidth / 10 * 7, frameHeight / 20,
 					frameWidth / 20, frameHeight / 20);
-			
-			ImageIcon icon4 = new ImageIcon("pictures//勾.png");
-			Image temp4 = icon4.getImage().getScaledInstance(changeover.getWidth(),
-					changeover.getHeight(), icon4.getImage().SCALE_DEFAULT);
-			icon4 = new ImageIcon(temp4);
-			changeover.setIcon(icon4);
 			changeover.addActionListener(this);
 
 			changepanel.add(changeover);

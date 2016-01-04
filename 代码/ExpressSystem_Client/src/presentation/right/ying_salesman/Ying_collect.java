@@ -84,7 +84,7 @@ public class Ying_collect extends RightAll implements ActionListener {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ImageIcon background = new ImageIcon("pictures\\收件2right.png");
+		ImageIcon background = new ImageIcon("pictures\\派件单right.png");
 		Image bg = background.getImage();
 		g.drawImage(bg, 0, 0, frameWidth / 4 * 3, frameHeight, null);
 	}

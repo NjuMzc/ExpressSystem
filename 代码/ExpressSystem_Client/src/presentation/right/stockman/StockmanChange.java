@@ -87,7 +87,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 
 	private void init() {
 
-		jp1.setBackground(new Color(174,205,207));//221, 232, 216
+		jp1.setBackground(new Color(221, 232, 216));
 		jp1.setLayout(null);
 		jp1.setBounds(0, 0, frameWidth / 4 * 3, frameHeight);
 		jb1[0].setText("航空区(1区)");
@@ -216,8 +216,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 
 	private void initJp5() {
 		jp5 = new JPanel();
-
-		jp5.setBackground(new Color(174,205,207));
+		jp5.setBackground(new Color(221, 232, 216));
 		jl5 = new JLabel("请输入调整到的机动区位置：");
 		location = new JLabel[3];
 		for (int i = 0; i < 3; i++) {
@@ -236,7 +235,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 				}
 			});
 		}
-		confirm = new JButton("");//确认
+		confirm = new JButton("确认");
 
 		jp5.setLayout(null);
 		jp5.setBounds(0, 0, frameWidth / 4 * 3, frameHeight);
@@ -253,12 +252,6 @@ public class StockmanChange extends RightAll implements ActionListener {
 		}
 		confirm.setBounds(frameWidth * 13 / 40, frameHeight / 5 * 4,
 				frameWidth / 10, frameHeight / 20);
-		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
-		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
-				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
-		icon2 = new ImageIcon(temp2);
-		confirm.setIcon(icon2);
-		
 		confirm.addActionListener(this);
 
 		jp5.add(jl5);
@@ -272,7 +265,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 	private void initJp4() {
 
 		jp4 = new JPanel();
-		jp4.setBackground(new Color(174,205,207));
+		jp4.setBackground(new Color(221, 232, 216));
 		jb4 = new JButton[30];
 		for (int i = 0; i < 30; i++) {
 			jb4[i] = new JButton();
@@ -306,7 +299,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 	private void initJp3() {
 
 		jp3 = new JPanel();
-		jp3.setBackground(new Color(174,205,207));
+		jp3.setBackground(new Color(221, 232, 216));
 		jb3 = new JButton[10];
 		for (int i = 0; i < 10; i++) {
 			jb3[i] = new JButton();
@@ -335,7 +328,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 	private void initJp2() {
 
 		jp2 = new JPanel();
-		jp2.setBackground(new Color(174,205,207));
+		jp2.setBackground(new Color(221, 232, 216));
 		jb2 = new JButton[8];
 		for (int i = 0; i < 8; i++) {
 			jb2[i] = new JButton();
