@@ -1,6 +1,7 @@
 package presentation.right.stockman;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.*;
@@ -11,6 +12,7 @@ import javax.swing.*;
 
 import businesslogic.storagebl.StorageServerImpl;
 import businesslogicservice.storageblservice.StorageServer;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.watcher.*;
 
@@ -43,6 +45,9 @@ public class StockmanChange extends RightAll implements ActionListener {
 	JButton confirm;
 
 	private StorageServer storage;
+
+	JPanel jp_wrong;
+	Remind remindThread;
 
 	public StockmanChange(int frameWidth, int frameHeight) {
 
@@ -95,7 +100,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 		}
 		jl1.setBounds(frameWidth / 16, frameHeight / 4, frameWidth / 8,
 				frameHeight / 8);
-		 
+
 	}
 
 	public void addWatcher(Watcher watcher) {
@@ -187,7 +192,26 @@ public class StockmanChange extends RightAll implements ActionListener {
 			String oldLoc = qu + pai + jia + wei;
 			String loc = "04" + change_pai + change_jia + change_wei;
 			storage.changeStorage(oldLoc, loc);
+
+			// @li,根据是否成功
+			if (true) {
+				this.notifyWatchers(State.STOCKMANSTART);
+			} else {
+				showMessage("");
+			}
 		}
+	}
+
+	private void showMessage(String message) {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
+
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, message);
+		remindThread.start();
 	}
 
 	private void initJp5() {
@@ -226,8 +250,8 @@ public class StockmanChange extends RightAll implements ActionListener {
 			jtf[i].setBounds(frameWidth / 12 + frameWidth / 5 * i,
 					frameHeight / 2, frameWidth / 12, frameHeight / 20);
 		}
-		confirm.setBounds(frameWidth / 4, frameHeight / 5 * 3, frameWidth / 10,
-				frameHeight / 20);
+		confirm.setBounds(frameWidth * 13 / 40, frameHeight / 5 * 4,
+				frameWidth / 10, frameHeight / 20);
 		confirm.addActionListener(this);
 
 		jp5.add(jl5);
@@ -282,6 +306,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 			jb3[i].setText("" + (i + 1));
 		}
 		jl3 = new JLabel("请选择调整的架号：");
+		jl3.setFont(new Font("宋体", Font.BOLD, 20));
 		jl3.setBounds(0, 0, frameWidth / 8, frameHeight / 8);
 		jp3.setBounds(0, 0, frameWidth / 4 * 3, frameHeight);
 		jp3.setLayout(null);

@@ -112,4 +112,12 @@ public class Inform_CarInformServerImpl implements Inform_CarInformServer {
 		return true;
 	}
 
+	@Override
+	public Iterator<CarPO> getAllCar(String hallId) {
+		// TODO Auto-generated method stub 
+		hall=hallServer.getHall(hallId);
+		
+		return hall.getAllCar().iterator();
+	}
+
 }

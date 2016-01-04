@@ -142,7 +142,7 @@ public class CourierSearch extends RightAll implements ActionListener {
 				showMessage("输入的快递单号不存在");
 			} else {
 				BillNow.setBill(bill);
-				// this.notifyWatchers(State.COURIERSEARCHAFTER);
+				 this.notifyWatchers(State.COURIERSEARCHAFTER);
 			}
 
 		}

@@ -306,9 +306,6 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 				vec.add(addjtf[i].getText());
 			}
 
-			System.out.println(vec==null);
-			System.out.println(vec.get(0));
-			System.out.println(model==null);
 			model.addRow(vec);
 		}
 
@@ -327,6 +324,7 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 		
 		if (e.getSource() == allover) {
 		 
+		   System.out.println("All over");
 		   int row=table.getRowCount();
 		   
 		   for(int i=0;i<row;i++){

@@ -61,8 +61,7 @@ public class Remind extends Thread {
 		}
 
 		while (loc_y <= frameHeight) {
-			System.out.println("loc_y=" + loc_y);
-
+		 
 			loc_y++;
 			remindJp.setBounds(loc_x, loc_y, frameWidth / 4 * 3,
 					frameHeight / 2);

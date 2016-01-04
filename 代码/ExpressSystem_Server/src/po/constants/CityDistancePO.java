@@ -29,6 +29,14 @@ public class CityDistancePO implements Serializable,Remote{
 		this.distance=Double.valueOf(distance);
 	}
 	
+	public String getCity1(){
+		return city1;
+	}
+	
+	public String getCity2(){
+		return city2;
+	}
+	
 	/**
 	 * 这个方法通过输入的城市判断是否是指的该对象
 	 * 城市前后不影响结果

@@ -9,6 +9,7 @@ import dataservice.informationdataservice.Inform_TranStationDataServer;
 import po.CityPO;
 import po.Institution.StoragePO;
 import po.Institution.TranStationPO;
+import businesslogicservice.constantblservice.CityDistanceServer;
 import businesslogicservice.constantblservice.CityServer;
 
 public class CityServerImpl implements CityServer {
@@ -16,12 +17,14 @@ public class CityServerImpl implements CityServer {
 	Inform_StorageDataServer storageDataServer;
 	Inform_TranStationDataServer tranServer;
     CityDataServer dataServer;
+    CityDistanceServer distanceServer;
 	
 	public CityServerImpl(){
 		//RMI
 		dataServer=RMIHelper.getCityData();
 		tranServer=RMIHelper.getTranStationData();
 		storageDataServer=RMIHelper.getStorageData();
+		distanceServer=new CityDistanceServerImpl();
 		
 		//初始化四个城市
 		if(dataServer.getById("025")==null){
@@ -39,6 +42,14 @@ public class CityServerImpl implements CityServer {
 			return null;
 		}
 		CityPO city=new CityPO(id, name);
+		
+		//添加城市距离
+        Iterator<CityPO> cityList=getAll();
+        while(cityList.hasNext()){
+        	CityPO c=cityList.next();
+        	distanceServer.addDistance(city.getName(), c.getName(), "0");
+        }
+        
 		dataServer.addCity(city);
 		
 		TranStationPO station=new TranStationPO(id,name+"中转中心");
@@ -46,6 +57,9 @@ public class CityServerImpl implements CityServer {
 		StoragePO storage=new StoragePO(id);
 		storage.setName(name+"中转中心仓库");
 		storageDataServer.add(storage);
+		
+		
+		
 		return city;
 		
 	}
