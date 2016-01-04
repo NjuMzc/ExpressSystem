@@ -16,7 +16,7 @@ public class StockmanStart extends RightAll {
 	int frameWidth;
 	int frameHeight;
 	JLabel jl;
-	boolean isLimited = true;
+	boolean isLimited = false;
 
 	public StockmanStart(int frameWidth, int frameHeight) {
 
@@ -26,7 +26,7 @@ public class StockmanStart extends RightAll {
 		this.setLayout(null);
 		this.setBounds(frameWidth / 4, 0, frameWidth * 3 / 4, frameHeight);
 
-		jl = new JLabel("start");
+		jl = new JLabel();
 
 		init();
 

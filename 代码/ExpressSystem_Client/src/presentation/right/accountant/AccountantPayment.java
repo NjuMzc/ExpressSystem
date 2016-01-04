@@ -15,10 +15,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import businesslogic.paymentServer.PayServerImpl;
 import businesslogicservice.paymentblservice.PayServer;
+import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.right.YearMonthDay;
 import presentation.watcher.*;
@@ -40,8 +42,11 @@ public class AccountantPayment extends RightAll implements ActionListener {
 	JComboBox<String>[] timeInput;
 	JTextField jtf[];
 	JLabel yuan;
-	
+
 	JComboBox<String> type;
+
+	JPanel jp_wrong;
+	Remind remindThread;
 
 	public AccountantPayment(int frameWidth, int frameHeight) {
 		blServer = new PayServerImpl();
@@ -58,9 +63,9 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		for (int i = 0; i < 6; i++) {
 			jl[i] = new JLabel();
 		}
-		confirm = new JButton("");//确认
+		confirm = new JButton("");// 确认
 		confirm.addActionListener(this);
-		cancel = new JButton("");//取消
+		cancel = new JButton("");// 取消
 		cancel.addActionListener(this);
 
 		time = new JLabel[3];
@@ -79,9 +84,9 @@ public class AccountantPayment extends RightAll implements ActionListener {
 			jtf[i] = new JTextField();
 			jtf[i].setFont(new Font("宋体", Font.PLAIN, 14));
 		}
-		
+
 		yuan = new JLabel("元");
-		type=new JComboBox<String>();
+		type = new JComboBox<String>();
 
 		init();
 
@@ -95,8 +100,8 @@ public class AccountantPayment extends RightAll implements ActionListener {
 			this.add(timeInput[i]);
 		}
 		for (int i = 0; i < 5; i++) {
-			if(i!=2)
-			this.add(jtf[i]);
+			if (i != 2)
+				this.add(jtf[i]);
 		}
 		this.add(yuan);
 		this.add(type);
@@ -123,19 +128,18 @@ public class AccountantPayment extends RightAll implements ActionListener {
 					* i, frameWidth / 8, frameHeight / 20);
 			jl[i].setFont(new Font("宋体", Font.BOLD, 16));
 		}
-		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10+frameHeight/30,
-				 frameWidth / 9,frameHeight / 16);
+		confirm.setBounds(frameWidth / 6, frameHeight * 8 / 10 + frameHeight
+				/ 30, frameWidth / 9, frameHeight / 16);
 
-		cancel.setBounds(frameWidth * 2 / 5+frameWidth/15, frameHeight * 8 / 10+frameHeight/30,
-				 frameWidth / 9,frameHeight / 16);
+		cancel.setBounds(frameWidth * 2 / 5 + frameWidth / 15, frameHeight * 8
+				/ 10 + frameHeight / 30, frameWidth / 9, frameHeight / 16);
 
-		
 		ImageIcon icon1 = new ImageIcon("pictures//取消t.png");
 		Image temp1 = icon1.getImage().getScaledInstance(icon1.getIconWidth(),
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		cancel.setIcon(icon1);
-		
+
 		ImageIcon icon2 = new ImageIcon("pictures//确认小.png");
 		Image temp2 = icon2.getImage().getScaledInstance(icon2.getIconWidth(),
 				icon2.getIconHeight(), icon2.getImage().SCALE_DEFAULT);
@@ -154,40 +158,34 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		}
 
 		for (int i = 0; i < 5; i++) {
-			if (i != 4){
+			if (i != 4) {
 				jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight
 						/ 8 * (i + 1), frameWidth / 10, frameHeight / 20);
-			     jtf[i].setFont(new Font("宋体",Font.PLAIN,14));
-			}
-			else{
+				jtf[i].setFont(new Font("宋体", Font.PLAIN, 14));
+			} else {
 				jtf[i].setBounds(frameWidth / 4, frameHeight / 15 + frameHeight
 						/ 8 * (i + 1), frameWidth / 5, frameHeight / 20);
-			jtf[i].setFont(new Font("宋体",Font.PLAIN,14));
+				jtf[i].setFont(new Font("宋体", Font.PLAIN, 14));
 			}
 		}
 		type.addItem("租金");
 		type.addItem("运费");
 		type.addItem("工资");
 		type.addItem("奖励");
-		type.setBounds(frameWidth / 4, frameHeight / 15 + frameHeight
-						/ 8 * 3, frameWidth / 10, frameHeight / 20);
-		type.setFont(new Font("宋体",Font.PLAIN,13));
-		jtf[1].addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if (!Character.isDigit(e.getKeyChar())) {
-					e.consume();
-				}
-			}
-		});
+		type.setBounds(frameWidth / 4, frameHeight / 15 + frameHeight / 8 * 3,
+				frameWidth / 10, frameHeight / 20);
+		type.setFont(new Font("宋体", Font.PLAIN, 13));
+
 		jtf[3].addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
-				if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar()!=KeyEvent.VK_PERIOD) {
+				if (!Character.isDigit(e.getKeyChar())
+						&& e.getKeyChar() != KeyEvent.VK_PERIOD) {
 					e.consume();
 				}
 			}
 		});
-		yuan.setBounds(frameWidth / 5 * 2-frameWidth/25, frameHeight / 15 + frameHeight / 2,
-				frameWidth / 10, frameHeight / 20);
+		yuan.setBounds(frameWidth / 5 * 2 - frameWidth / 25, frameHeight / 15
+				+ frameHeight / 2, frameWidth / 10, frameHeight / 20);
 		yuan.setFont(new Font("宋体", Font.BOLD, 16));
 
 		jtf[0].addKeyListener(new KeyAdapter() {
@@ -206,7 +204,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 				}
 			}
 		});
-	 
+
 		jtf[3].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER
@@ -229,7 +227,7 @@ public class AccountantPayment extends RightAll implements ActionListener {
 				}
 			}
 		});
-		 
+
 		jtf[1].addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -255,31 +253,16 @@ public class AccountantPayment extends RightAll implements ActionListener {
 		}
 	}
 
-	private void wrongShow() {
-		// 错误处理
-		final JLabel remindWrong = new JLabel();
-		remindWrong.setBounds(frameWidth * 4 / 8, frameHeight * 5 / 20,
-				frameWidth / 4, frameHeight / 20);
-		remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-		remindWrong.setForeground(Color.red);
-		this.add(remindWrong);
-		this.repaint();
+	private void showMessage(String message) {
+		if (remindThread != null) {
+			remindThread.stop();
+			this.remove(jp_wrong);
+		}
+		jp_wrong = new JPanel();
 
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// 以下根据错误类型设置文字
-				remindWrong.setText(result.getWrongMessage());
-				try {
-					Thread.sleep(2000);
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-				remindWrong.setText("");
-			}
-		});
-		t.start();
-		// 错误处理结束
+		this.add(jp_wrong);
+		remindThread = new Remind(jp_wrong, message);
+		remindThread.start();
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -311,9 +294,9 @@ public class AccountantPayment extends RightAll implements ActionListener {
 
 			if (result.isWrong()) {
 				// 錯誤處理
-				wrongShow();
+				showMessage(result.getWrongMessage());
 			} else {
-				this.notifyWatchers(State.ACCOUNTANTPAYMENT);
+				this.notifyWatchers(State.ACCOUNTANTSTART);
 			}
 
 		}

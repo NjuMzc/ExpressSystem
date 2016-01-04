@@ -255,7 +255,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 				chukuMoney += Double.valueOf(a.getMoney());
 				System.out.println("出库总金额：" + chukuMoney);
 			}
-			vec2.add(a.getMoney());
+			vec2.add(a.getMoney()+"元");
 			vec2.add(a.getDate());
 			String location = a.getLocation();
 			location = location.substring(0, 2) + "区"
@@ -265,8 +265,8 @@ public class StockmanSearch extends RightAll implements ActionListener {
 			tableModel.addRow(vec2);
 
 		}
-		jtfIn.setText("" + rukuMoney);
-		jtfOut.setText("" + chukuMoney);
+		jtfIn.setText("" + rukuMoney+"元");
+		jtfOut.setText("" + chukuMoney+"元");
 
 	}
 
@@ -303,7 +303,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 				addPanel();
 			} else {
 				System.out.println(vo.getWrongMessage());
-				showMessage("日期输入有误");
+				showMessage("    日期输入有误");
 			}
 		}
 	}

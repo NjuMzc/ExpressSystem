@@ -264,9 +264,9 @@ public class StockmanChange extends RightAll implements ActionListener {
 	}
 
 	private void initJp4() {
-		int area=Integer.valueOf(qu);
-		int row = Integer.valueOf(pai);
-		int shelf=Integer.valueOf(jia);
+		int area=Integer.valueOf(qu)-1;
+		int row = Integer.valueOf(pai)-1;
+		int shelf=Integer.valueOf(jia)-1;
 		StorageInfo[] st=  storage.getGoodsList(area, row, shelf);
 		jp4 = new JPanel();
 		jp4.setBackground(new Color(221, 232, 216));
@@ -274,8 +274,7 @@ public class StockmanChange extends RightAll implements ActionListener {
 		for (int i = 0; i < 30; i++) {
 			jb4[i] = new JButton();
 			jb4[i].setText("" + (i + 1));
-			if(st[i]==null){
-				
+			if(st[i]==null){			
 				jb4[i].setForeground(Color.green);
 			}else{
 				jb4[i].setForeground(Color.red);
@@ -316,7 +315,6 @@ public class StockmanChange extends RightAll implements ActionListener {
 			jb3[i].setText("" + (i + 1));
 		}
 		jl3 = new JLabel("请选择调整的架号：");
-		jl3.setFont(new Font("宋体", Font.BOLD, 20));
 		jl3.setBounds(0, 0, frameWidth / 8, frameHeight / 8);
 		jp3.setBounds(0, 0, frameWidth / 4 * 3, frameHeight);
 		jp3.setLayout(null);

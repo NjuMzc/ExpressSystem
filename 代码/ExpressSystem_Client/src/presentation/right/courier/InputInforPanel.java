@@ -209,6 +209,7 @@ public class InputInforPanel extends RightAll implements ActionListener {
 				isWrongShow = true;
 			} else {
 				isWrongShow = false;
+				this.notifyWatchers(State.COURIERSTART);
 			}
 
 			if (isWrongShow) {

@@ -347,7 +347,7 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 			String date = year + "-" + month + "-" + day;
 
 			String deliveryNum = jtf[0].getText();
-			String transNum = jtf[6].getText();
+			String transNum = jtf[5].getText();
 			String departure = jtf[1].getText();
 			String destination = jtf[2].getText();
 			String supervisor = jtf[3].getText();
@@ -360,6 +360,9 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 			message.addInform(departure);
 			message.addInform(destination);
 			message.addInform(supervisor);
+			
+			for(int i=0;i<message.length();i++)
+			System.out.println(message.getInform(i));
 
 			int row = tableModel.getRowCount();
 			ArrayList<String> orderList = new ArrayList<String>();
@@ -392,7 +395,7 @@ public class Zhong_transfer extends RightAll implements ActionListener {
 				this.add(over);
 				this.repaint();
 
-				jtf[5].setText(bill.getFee());
+				jtf[6].setText(bill.getFee()+"元");
 				for (int i = 0; i < 7; i++) {
 					jtf[i].setEditable(false);
 				}

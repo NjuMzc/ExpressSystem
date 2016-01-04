@@ -330,7 +330,7 @@ public class StockmanInStock extends RightAll implements ActionListener {
 			if (result.isWrong()) {
 				showMessage(result.getWrongMessage());
 			} else {
-				this.notifyWatchers(State.STOCKMANINSTOCK);
+				this.notifyWatchers(State.STOCKMANSTART);
 			}
 
 		}

@@ -257,7 +257,7 @@ public class Manager_Manage extends RightAll {
 			if (jtf == null) {
 				this.repaint();
 				this.jtf = new JTextField();
-				this.addLabel = new JLabel("请输入新城市编号及名称(空格隔开):");
+				this.addLabel = new JLabel("输入新城市编号及名称(空格隔开):");
 				addLabel.setFont(new Font("宋体",Font.PLAIN,13));
 				this.overButton = new JButton("");//完成
 				

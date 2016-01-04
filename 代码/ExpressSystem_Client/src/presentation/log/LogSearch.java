@@ -128,13 +128,9 @@ public class LogSearch extends RightAll implements ActionListener {
 			trace[i].setText(traceRecord.get(i));
 		}
 		for (int i = 0; i < num; i++) {
-			if (i < 5) {
 				trace[i].setBounds(frameWidth / 8, frameHeight / 10
-						+ frameWidth / 20 * i, frameWidth / 5, frameHeight / 20);
-			} else {
-				trace[i].setBounds(frameWidth * 13 / 40, frameHeight / 10
-						+ frameWidth / 20 * i, frameWidth / 5, frameHeight / 20);
-			}
+						+ frameWidth / 20 * i, frameWidth / 3, frameHeight / 20);
+			 
 		}
 
 		// 根据货物状态设置文字
@@ -157,10 +153,10 @@ public class LogSearch extends RightAll implements ActionListener {
 				frameHeight / 2);
 		addPanel.setLayout(null);
 		this.setOpaque(false);
-		stateGoods.setBounds(0, 0, frameWidth / 10, frameHeight / 20);
+		stateGoods.setBounds(0, 0, frameWidth / 5, frameHeight / 20);
 		traceGoods.setBounds(0, frameHeight / 10, frameWidth / 10,
 				frameHeight / 20);
-		state.setBounds(frameWidth / 8, 0, frameWidth / 10, frameHeight / 20);
+		state.setBounds(frameWidth / 8, 0, frameWidth / 5, frameHeight / 20);
 
 		addPanel.add(stateGoods);
 		addPanel.add(traceGoods);

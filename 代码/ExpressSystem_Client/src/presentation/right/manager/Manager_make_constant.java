@@ -90,7 +90,7 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 			yuan[i] = new JLabel("元/公里*吨");
 			jtf2[i] = new JTextField();
 			fee[i].setFont(new Font("宋体", Font.PLAIN, 16));
-			yuan[i].setFont(new Font("宋体", Font.PLAIN, 16));
+			yuan[i].setFont(new Font("宋体", Font.PLAIN, 12));
 			jtf2[i].setFont(new Font("宋体", Font.PLAIN, 16));
 		}
 		submit = new JButton("");// 提交
@@ -143,7 +143,7 @@ public class Manager_make_constant extends RightAll implements ActionListener {
 			fee[i].setBounds(frameWidth / 10 + frameWidth / 5 * i, frameHeight
 					/ 2 + frameHeight / 5, frameWidth / 9, frameHeight / 20);
 			yuan[i].setBounds(frameWidth / 10 + frameWidth / 8 + frameWidth / 5
-					* i, frameHeight / 2 + frameHeight / 5, frameWidth / 20,
+					* i, frameHeight / 2 + frameHeight / 5, frameWidth / 10,
 					frameHeight / 20);
 			jtf2[i].setBounds(frameWidth / 6 + frameWidth / 5 * i, frameHeight
 					/ 2 + frameHeight / 5, frameWidth / 20, frameHeight / 20);

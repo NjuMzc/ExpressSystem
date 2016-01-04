@@ -191,7 +191,7 @@ public class LogMainFrame extends RightAll implements ActionListener {
 						.setBounds(frameWidth * 3 / 8, frameHeight * 17 / 20,
 								frameWidth / 4, frameHeight / 20);
 				remindWrong.setFont(new Font("宋体", Font.BOLD, 20));
-				remindWrong.setForeground(Color.red);
+				remindWrong.setForeground(new Color( 250,227,113));
 				this.add(remindWrong);
 				this.repaint();
 

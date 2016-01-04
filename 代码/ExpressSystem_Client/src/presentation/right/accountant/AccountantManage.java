@@ -287,7 +287,7 @@ public class AccountantManage extends RightAll implements ActionListener {
 			BankVO bank = list.next();
 			Vector<String> vec = new Vector<>();
 			vec.add(bank.getName());
-			vec.add(bank.getMoney());
+			vec.add(bank.getMoney()+"元");
 
 			model.addRow(vec);
 		}

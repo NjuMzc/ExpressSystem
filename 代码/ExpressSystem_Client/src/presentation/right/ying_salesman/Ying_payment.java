@@ -321,7 +321,7 @@ public class Ying_payment extends RightAll implements ActionListener {
 				showMessage(result.getWrongMessage());
 			} else {
 				// showMessage("收款单填写成功");
-				this.notifyWatchers(State.YING_PAYMENT);
+				this.notifyWatchers(State.YING_START);
 			}
 
 		}

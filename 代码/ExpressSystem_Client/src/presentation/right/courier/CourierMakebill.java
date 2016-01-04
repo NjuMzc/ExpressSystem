@@ -582,7 +582,7 @@ public class CourierMakebill extends RightAll implements ActionListener {
 
 		if (!result.isWrong()) {
 			jtf[0].setText(result.getId());
-			jtf[1].setText(result.getFee());
+			jtf[1].setText(result.getFee()+"元");
 			jtf[2].setText(result.getDate());
 		} else {
 			// 错误信息处理
