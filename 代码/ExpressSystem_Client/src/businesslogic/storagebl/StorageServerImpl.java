@@ -51,8 +51,12 @@ public class StorageServerImpl implements StorageServer {
 	 */
 	public ImportVO Import(StorageSetterVO vo){
 		// TODO Auto-generated method stub
+		      
 				String goodID=vo.getOrderNum();
-				String[] location=vo.getLocation();
+				
+				String[] location=new String[4];
+				location=vo.getLocation();
+				
 				String date=vo.getDate();
 				
 				
@@ -70,10 +74,14 @@ public class StorageServerImpl implements StorageServer {
 					return returnMessage;
 				}
 				
+				System.out.println("location0是null？"+location[0]);
+				System.out.println("location1是null？"+location[1]);
+				System.out.println("location2是null？"+location[2]);
+				System.out.println("location3是null？"+location[3]);
 				
 				for(int i=0;i<4;i++){
-				    String temp=location[i];
-				    if(temp.equals("")){
+					
+				    if(location[i].equals("")){
 				    	returnMessage=new ImportVO("请输入货物位置信息!");
 						return returnMessage;
 				    }

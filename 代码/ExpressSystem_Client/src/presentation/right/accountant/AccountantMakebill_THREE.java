@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.constantbl.CityServerImpl;
+import businesslogic.informationbl.Inform_CarInformServerImpl;
 import businesslogic.informationbl.Inform_HallInformServerImpl;
 import businesslogic.informationbl.Inform_StorageInformServerImpl;
 import businesslogic.informationbl.Inform_TranStationInformServerImpl;
@@ -47,7 +48,6 @@ public class AccountantMakebill_THREE extends RightAll implements
 	Inform_TranStationInformServer stationServer;
 
 	Inform_CarInformServer carServer;
-	Inform_DriverInformServer driverServer;
 
 	int frameWidth;
 	int frameHeight;
@@ -100,6 +100,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 	String chooseOrg;
 
 	public AccountantMakebill_THREE(int frameWidth, int frameHeight) {
+		
 		hallServer = new Inform_HallInformServerImpl();
 		storageServer = new Inform_StorageInformServerImpl();
 		stationServer = new Inform_TranStationInformServerImpl();
@@ -397,6 +398,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 	
 	private void initCarModell(){
 		System.out.println(chooseOrg);
+		carServer=new Inform_CarInformServerImpl(chooseOrg);
 	    Iterator<CarPO> list=carServer.getAllCar(chooseOrg);
 	    while(list.hasNext()){
 	    	CarPO car = list.next();
@@ -650,7 +652,7 @@ public class AccountantMakebill_THREE extends RightAll implements
 					}
 					car_tableModel.addRow(vec);
 					removeAddPanel_Car();
-
+					carServer=new Inform_CarInformServerImpl(chooseOrg);
 					carServer.addCar(jtf_car[2].getText(), jtf_car[4].getText());
 				}
 			});
