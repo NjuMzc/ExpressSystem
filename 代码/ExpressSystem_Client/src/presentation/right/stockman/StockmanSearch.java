@@ -55,9 +55,11 @@ public class StockmanSearch extends RightAll implements ActionListener {
 	StorageServer storageServer;
 	double chukuMoney;
 	double rukuMoney;
-	
+
 	JPanel jp_wrong;
 	Remind remindThread;
+
+	ChaKanVO vo;
 
 	public StockmanSearch(int frameWidth, int frameHeight) {
 		storageServer = new StorageServerImpl();
@@ -161,7 +163,7 @@ public class StockmanSearch extends RightAll implements ActionListener {
 					frameHeight / 20);
 		}
 	}
-	
+
 	private void showMessage(String message) {
 		if (remindThread != null) {
 			remindThread.stop();
@@ -238,52 +240,33 @@ public class StockmanSearch extends RightAll implements ActionListener {
 
 	private void initTableModel() {
 
-		String year = timeInput[0].getSelectedItem().toString();
-		String month = timeInput[1].getSelectedItem().toString();
-		String day = timeInput[2].getSelectedItem().toString();
-		String date = year + "-" + month + "-" + day;
+		Iterator<RecordVO> records = vo.getList();
 
-		String year1 = timeInputover[0].getSelectedItem().toString();
-		String month1 = timeInputover[1].getSelectedItem().toString();
-		String day1 = timeInputover[2].getSelectedItem().toString();
-		String date1 = year1 + "-" + month1 + "-" + day1;
+		while (records.hasNext()) {
+			Vector<String> vec2 = new Vector<>();
+			RecordVO a = records.next();
+			vec2.add(a.getGood().getID());
 
-		ChaKanVO vo = storageServer.chaKan(date, date1);
-
-		if (vo.isWrong()) {
-			// 错误信息处理
-			System.out.println(vo.getWrongMessage());
-		} else {
-			Iterator<RecordVO> records = vo.getList();
-
-			while (records.hasNext()) {
-				System.out.println("assss");
-				Vector<String> vec2 = new Vector<>();
-				RecordVO a = records.next();
-				vec2.add(a.getGood().getID());
-
-				if (a.getType().equals("IMPORT")) {
-					vec2.add("入库");
-					rukuMoney += Double.valueOf(a.getMoney());
-				} else {
-					vec2.add("出库");
-					chukuMoney += Double.valueOf(a.getMoney());
-					System.out.println("出库总金额：" + chukuMoney);
-				}
-				vec2.add(a.getMoney());
-				vec2.add(a.getDate());
-				String location = a.getLocation();
-				location = location.substring(0, 2) + "区"
-						+ location.substring(2, 4) + "排"
-						+ location.substring(4, 6) + "架"
-						+ location.substring(6, 8) + "位";
-				vec2.add(location);
-				tableModel.addRow(vec2);
-
+			if (a.getType().equals("IMPORT")) {
+				vec2.add("入库");
+				rukuMoney += Double.valueOf(a.getMoney());
+			} else {
+				vec2.add("出库");
+				chukuMoney += Double.valueOf(a.getMoney());
+				System.out.println("出库总金额：" + chukuMoney);
 			}
-			jtfIn.setText("" + rukuMoney);
-			jtfOut.setText("" + chukuMoney);
+			vec2.add(a.getMoney());
+			vec2.add(a.getDate());
+			String location = a.getLocation();
+			location = location.substring(0, 2) + "区"
+					+ location.substring(2, 4) + "排" + location.substring(4, 6)
+					+ "架" + location.substring(6, 8) + "位";
+			vec2.add(location);
+			tableModel.addRow(vec2);
+
 		}
+		jtfIn.setText("" + rukuMoney);
+		jtfOut.setText("" + chukuMoney);
 
 	}
 
@@ -303,12 +286,24 @@ public class StockmanSearch extends RightAll implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == search) {
-			
-			//@li,日期输入是否正确
-			if (true) {
+
+			String year = timeInput[0].getSelectedItem().toString();
+			String month = timeInput[1].getSelectedItem().toString();
+			String day = timeInput[2].getSelectedItem().toString();
+			String date = year + "-" + month + "-" + day;
+
+			String year1 = timeInputover[0].getSelectedItem().toString();
+			String month1 = timeInputover[1].getSelectedItem().toString();
+			String day1 = timeInputover[2].getSelectedItem().toString();
+			String date1 = year1 + "-" + month1 + "-" + day1;
+
+			vo = storageServer.chaKan(date, date1);
+ 
+			if (!vo.isWrong()) {
 				addPanel();
-			}else{
-				showMessage("");
+			} else {
+				System.out.println(vo.getWrongMessage());
+				showMessage("日期输入有误");
 			}
 		}
 	}

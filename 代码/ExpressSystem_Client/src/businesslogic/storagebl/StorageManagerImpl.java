@@ -3,7 +3,6 @@ package businesslogic.storagebl;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 import businesslogic.systembl.SystemHelper;
 import businesslogicservice.storageblservice.StorageManager;
 import client.RMIHelper;
@@ -16,7 +15,6 @@ import po.Institution.storageAssist.Record;
 import po.Institution.storageAssist.StorageInfo;
 import po.Institution.storageAssist.StoreList;
 
-
 /**
  * 
  * @author nick
@@ -27,7 +25,6 @@ public class StorageManagerImpl implements StorageManager {
 	TransportDataServer goodServer;
 
 	Inform_KeeperDataServer keeperServer;
-
 
 	String storageID;
 
@@ -50,25 +47,29 @@ public class StorageManagerImpl implements StorageManager {
 		storageID = keeperServer.find(SystemHelper.getUserID()).getStorage()
 				.getID();// 一个可怕的级联调用
 
-	
 	}
 
 	@Override
-	public boolean ImportGood(String goodID, String location, String date) {
+	public String ImportGood(String goodID, String location, String date) {
 		StoragePO storage = storageServer.find(storageID);
 		GoodPO good = goodServer.find(goodID);
 		try {
-			if (storage.importGood(good, location, date)) {
+			String result = storage.importGood(good, location, date);
+			if (result.equals("入库成功")) {
 				storageServer.update(storage);
-				return true;
 			}
-			return false;
+			return result;
 		} catch (NullPointerException e) {
-			if (storage == null)
+			if (storage == null) {
 				System.out.println("该仓库不存在");
-			if (good == null)
+				return "该仓库不存在";
+			}
+			if (good == null) {
 				System.out.println("该货物不存在");
-			return false;
+				return "该货物不存在";
+
+			}
+			return "入库失败";
 		}
 
 	}

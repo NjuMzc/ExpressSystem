@@ -62,7 +62,7 @@ public class StoragePO implements Serializable, Remote {
 	}
 
 	// 货物入库时的操作
-	public boolean importGood(GoodPO good, String location, String date) {
+	public String importGood(GoodPO good, String location, String date) {
 		if (capacity.importGood(good, date, location)) {
 			int area = Integer.valueOf(location.substring(0, 1));
 			double rate = capacity.getRate(area);
@@ -70,11 +70,11 @@ public class StoragePO implements Serializable, Remote {
 				ioInfo.addRecord(good, IO_Type.IMPORT, date, location);
 				String idAndLocation = good.getID() + location;
 				ids.add(idAndLocation);
-				return true;
+				return "入库成功";
 			}
-			return false;
+			return "库存报警";
 		} else {
-			return false;
+			return "数组越界或已有货物";
 		}
 	}
 
@@ -113,10 +113,13 @@ public class StoragePO implements Serializable, Remote {
 
 	public boolean change(String oldLocation, String newLocation) {
 		StorageInfo info = capacity.getInfo(oldLocation);
+		if(info==null){
+			return false;
+		}
 		String date = info.getTime();
 		GoodPO good = info.getGood();
 		capacity.exportGood(oldLocation);
-		return importGood(good, newLocation, date);
+		return importGood(good, newLocation, date).equals("入库成功");
 	}
 
 	// 增删人员

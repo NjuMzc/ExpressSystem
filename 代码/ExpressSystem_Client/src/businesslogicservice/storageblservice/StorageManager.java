@@ -13,7 +13,7 @@ import vo.storagebl.PanDianVO;
 
 public interface StorageManager {
 	
-    public boolean ImportGood(String goodID,String location,String date);//入库，要同时修改货物与仓库的储存信息
+    public String ImportGood(String goodID,String location,String date);//入库，要同时修改货物与仓库的储存信息
     
     public boolean ExportGood(String ID,String date);//出库，同上
     

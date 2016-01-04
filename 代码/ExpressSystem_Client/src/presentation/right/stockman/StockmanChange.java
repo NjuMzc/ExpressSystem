@@ -12,6 +12,7 @@ import javax.swing.*;
 
 import businesslogic.storagebl.StorageServerImpl;
 import businesslogicservice.storageblservice.StorageServer;
+import po.Institution.storageAssist.StorageInfo;
 import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.watcher.*;
@@ -191,10 +192,10 @@ public class StockmanChange extends RightAll implements ActionListener {
 			}
 			String oldLoc = qu + pai + jia + wei;
 			String loc = "04" + change_pai + change_jia + change_wei;
-			storage.changeStorage(oldLoc, loc);
+		 
 
 			// @li,根据是否成功
-			if (true) {
+			if (storage.changeStorage(oldLoc, loc)) {
 				this.notifyWatchers(State.STOCKMANSTART);
 			} else {
 				showMessage("");
@@ -263,13 +264,22 @@ public class StockmanChange extends RightAll implements ActionListener {
 	}
 
 	private void initJp4() {
-
+		int area=Integer.valueOf(qu);
+		int row = Integer.valueOf(pai);
+		int shelf=Integer.valueOf(jia);
+		StorageInfo[] st=  storage.getGoodsList(area, row, shelf);
 		jp4 = new JPanel();
 		jp4.setBackground(new Color(221, 232, 216));
 		jb4 = new JButton[30];
 		for (int i = 0; i < 30; i++) {
 			jb4[i] = new JButton();
 			jb4[i].setText("" + (i + 1));
+			if(st[i]==null){
+				
+				jb4[i].setForeground(Color.green);
+			}else{
+				jb4[i].setForeground(Color.red);
+			}
 		}
 		jl4 = new JLabel("请选择调整的位号：");
 		jl4.setBounds(0, 0, frameWidth / 8, frameHeight / 20);
