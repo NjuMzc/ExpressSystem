@@ -3,8 +3,7 @@ package businesslogic.storagebl;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import businesslogic.billsbl.ExportBillServer.ExportBillServer;
-import businesslogic.billsbl.ImportBillServer.ImportBillServer;
+
 import businesslogic.systembl.SystemHelper;
 import businesslogicservice.storageblservice.StorageManager;
 import client.RMIHelper;
@@ -16,7 +15,7 @@ import po.Institution.StoragePO;
 import po.Institution.storageAssist.Record;
 import po.Institution.storageAssist.StorageInfo;
 import po.Institution.storageAssist.StoreList;
-import vo.storagebl.PanDianVO;
+
 
 /**
  * 
@@ -29,8 +28,6 @@ public class StorageManagerImpl implements StorageManager {
 
 	Inform_KeeperDataServer keeperServer;
 
-	ImportBillServer importBillServer;
-	ExportBillServer exportBillServer;
 
 	String storageID;
 
@@ -42,8 +39,6 @@ public class StorageManagerImpl implements StorageManager {
 		goodServer = RMIHelper.getTransportData();
 		keeperServer = RMIHelper.getKeeperData();
 
-		importBillServer = new ImportBillServer();
-		exportBillServer = new ExportBillServer();
 	}
 
 	public StorageManagerImpl() {
@@ -55,8 +50,7 @@ public class StorageManagerImpl implements StorageManager {
 		storageID = keeperServer.find(SystemHelper.getUserID()).getStorage()
 				.getID();// 一个可怕的级联调用
 
-		importBillServer = new ImportBillServer();
-		exportBillServer = new ExportBillServer();
+	
 	}
 
 	@Override

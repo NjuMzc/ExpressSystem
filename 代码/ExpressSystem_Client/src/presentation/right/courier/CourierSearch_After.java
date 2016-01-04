@@ -2,6 +2,7 @@ package presentation.right.courier;
 
 import javax.swing.*;
 
+import po.bills.OrderBill;
 import presentation.right.Remind;
 import presentation.right.RightAll;
 import presentation.watcher.*;
@@ -26,8 +27,11 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 	JButton confirm;
 	JTextField[] inputText;
 	private List<Watcher> list;
+	OrderBill bill;
  
 	public CourierSearch_After(int frameWidth, int frameHeight) {
+		bill=BillNow.getBill();
+		
 
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
@@ -151,10 +155,53 @@ public class CourierSearch_After extends RightAll implements   ActionListener {
 		inputText[19].setBounds(80, 40 * 11, 100, 20);
 		inputText[20].setBounds(80, 40 * 12, 100, 20);
 		for (int i = 0; i < 21; i++) {
-			inputText[i].setText(String.valueOf(i));
+			
 			inputText[i].setFont(new Font("宋体",Font.PLAIN,13));
 			inputText[i].setEditable(false);
 		}
+		
+		inputText[0].setText(bill.getSenderName());
+		inputText[1].setText(bill.getSenderUnit());
+		inputText[2].setText(bill.getReceiverName());
+		inputText[3].setText(bill.getReceiverUnit());
+		inputText[4].setText(bill.getGoodNum());
+		inputText[5].setText(bill.getGoodSize()+"立方厘米");
+		inputText[6].setText(bill.getBagFee()+"元");
+		inputText[7].setText(bill.getSenderLocation());
+		inputText[8].setText(bill.getSenderTelephone());
+		inputText[9].setText(bill.getReceiverLocation());
+		inputText[10].setText(bill.getReceiverTelephone());
+		inputText[11].setText(bill.getGoodWeight()+"千克");
+		inputText[12].setText(bill.getGoodName());
+		if(bill.getKind().equals("ecnomic")){
+			inputText[13].setText("经济快递");
+		}else if(bill.getKind().equals("standard")){
+			inputText[13].setText("标准快递");
+		}else if(bill.getKind().equals("express")){
+			inputText[13].setText("特快专递");
+		}else {
+			inputText[13].setText("种类出错");
+		}
+		
+		
+		
+		inputText[14].setText(bill.getSenderMobile());
+		inputText[15].setText(bill.getReceiverMobile());
+		inputText[16].setText("实际重量");
+		if(bill.getBagging().equals("paper")){
+			inputText[17].setText("纸箱");
+		}else if(bill.getBagging().equals("wood")){
+			inputText[17].setText("木箱");
+		}else if(bill.getBagging().equals("bag")){
+			inputText[17].setText("包装袋");
+		}else {
+			inputText[17].setText("其他");
+		}
+		
+		inputText[18].setText(bill.getID());
+		inputText[19].setText(bill.getCharge());
+		inputText[20].setText(bill.getTime());
+		
 		confirm.setBounds(frameWidth / 3* 1 , frameHeight*18/20 , frameWidth/9, frameHeight/19);
 		confirm.addActionListener(this);
 
