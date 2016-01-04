@@ -130,6 +130,7 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		allover.setIcon(icon1);
+		allover.addActionListener(this);
 	}
 
 	private void initTable() {
@@ -150,14 +151,12 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 		table.getColumnModel().getColumn(4).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(5).setCellRenderer(dtc);
 		table.getColumnModel().getColumn(6).setCellRenderer(dtc);
+		initTableModel();
 	}
 	
 	private void initTableModel(){
 		Iterator<StorageSetterVO> volist=blServer.getInform();
-		
-		if(model!=null){
-			model=null;
-		}
+
 		
 		while(volist.hasNext()){
 			StorageSetterVO vo=volist.next();
@@ -364,8 +363,12 @@ public class AccountantMakebill_ONE extends RightAll implements ActionListener {
 				String date=table.getValueAt(i, 2).toString();
 				String[] location=new String[4];
 				for(int j=0;j<4;j++){
-					location[i]=table.getValueAt(i, 3+i).toString();
+					
+					location[j]=table.getValueAt(i, 3+j).toString();
 				}
+				
+				StorageSetterVO vo=new StorageSetterVO(storageNum, orderNum, date, location);
+				blServer.addInform(vo);
 			}
 	
 			

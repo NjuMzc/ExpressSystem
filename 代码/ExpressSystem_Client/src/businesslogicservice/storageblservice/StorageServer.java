@@ -2,6 +2,7 @@ package businesslogicservice.storageblservice;
 
 import java.util.Iterator;
 
+import po.Institution.storageAssist.StorageInfo;
 import vo.storagebl.ChaKanVO;
 import vo.storagebl.ExportVO;
 import vo.storagebl.ImportVO;
@@ -18,6 +19,8 @@ public interface StorageServer {
 	public Iterator<PanDianVO> panDian();
 	
 	public void exportTable();
+	
+	public StorageInfo[] getGoodsList(int area,int row,int shelf);
 	
 	public boolean changeStorage(String oldLocation,String newLocation);
 }

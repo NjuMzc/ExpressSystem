@@ -12,7 +12,7 @@ public class StorageAlerter implements Serializable{
 	private double rate;
 
 	public StorageAlerter() {
-		rate = 0.9;
+		rate = 0.03;
 	}
 
 	public void setRate(double rate) {

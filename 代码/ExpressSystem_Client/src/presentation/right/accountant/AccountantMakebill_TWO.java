@@ -125,6 +125,7 @@ public class AccountantMakebill_TWO extends RightAll implements ActionListener {
 				icon1.getIconHeight(), icon1.getImage().SCALE_DEFAULT);
 		icon1 = new ImageIcon(temp1);
 		allover.setIcon(icon1);
+		allover.addActionListener(this);
 		
 	}
 

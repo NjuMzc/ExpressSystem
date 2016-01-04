@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import po.Institution.storageAssist.Record;
+import po.Institution.storageAssist.StorageInfo;
 import po.Institution.storageAssist.StoreList;
 import po.bills.OrderBill;
 import client.RMIHelper;
@@ -51,8 +52,12 @@ public class StorageServerImpl implements StorageServer {
 	 */
 	public ImportVO Import(StorageSetterVO vo){
 		// TODO Auto-generated method stub
+		      
 				String goodID=vo.getOrderNum();
-				String[] location=vo.getLocation();
+				
+				String[] location=new String[4];
+				location=vo.getLocation();
+				
 				String date=vo.getDate();
 				
 				
@@ -70,10 +75,14 @@ public class StorageServerImpl implements StorageServer {
 					return returnMessage;
 				}
 				
+				System.out.println("location0是null？"+location[0]);
+				System.out.println("location1是null？"+location[1]);
+				System.out.println("location2是null？"+location[2]);
+				System.out.println("location3是null？"+location[3]);
 				
 				for(int i=0;i<4;i++){
-				    String temp=location[i];
-				    if(temp.equals("")){
+					
+				    if(location[i].equals("")){
 				    	returnMessage=new ImportVO("请输入货物位置信息!");
 						return returnMessage;
 				    }
@@ -93,7 +102,7 @@ public class StorageServerImpl implements StorageServer {
 			    	location2+=location[i];
 			    }
 			    
-			    if(!storageManager.ImportGood(goodID, location2, date)){
+			    if(storageManager.ImportGood(goodID, location2, date)!="入库成功"){
 			    	returnMessage=new ImportVO("目标仓库位置现在已经存在商品");
 					return returnMessage;
 			    }
@@ -146,7 +155,7 @@ public class StorageServerImpl implements StorageServer {
 	    	location2+=location[i];
 	    }
 	    
-	    if(!storageManager.ImportGood(goodID, location2, date)){
+	    if(storageManager.ImportGood(goodID, location2, date)!="入库成功"){
 	    	returnMessage=new ImportVO("目标位置不存在或者已有商品!");
 			return returnMessage;
 	    }
@@ -248,6 +257,12 @@ public class StorageServerImpl implements StorageServer {
 		
 		
 		return storageManager.changeStorage(oldLocation, newLocation);
+	}
+
+	@Override
+	public StorageInfo[] getGoodsList(int area, int row, int shelf) {
+	
+		return storageManager.getGoodsList(area, row, shelf);
 	}
 
 }
