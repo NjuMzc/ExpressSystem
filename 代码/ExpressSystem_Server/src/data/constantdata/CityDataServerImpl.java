@@ -33,6 +33,7 @@ public class CityDataServerImpl extends UnicastRemoteObject implements CityDataS
 	@Override
 	public void addCity(CityPO city) throws RemoteException {
 		cities.add(city);
+		save();
 	}
 
 	@Override

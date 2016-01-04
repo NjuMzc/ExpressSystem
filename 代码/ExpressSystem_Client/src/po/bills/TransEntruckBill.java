@@ -102,6 +102,7 @@ public class TransEntruckBill implements Serializable, Remote {
 		approveBill.addInform("车辆编号：" + carNum);
 		approveBill.addInform("监运员姓名：" + supervisor);
 		approveBill.addInform("押运员姓名" + transportor);
+		approveBill.addInform("运费" + payment);
 		approveBill.addInform("全部装车订单号：");
 
 		Iterator<String> it = orderNumbers.iterator();

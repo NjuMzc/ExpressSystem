@@ -75,11 +75,6 @@ public class StorageServerImpl implements StorageServer {
 					return returnMessage;
 				}
 				
-				System.out.println("location0是null？"+location[0]);
-				System.out.println("location1是null？"+location[1]);
-				System.out.println("location2是null？"+location[2]);
-				System.out.println("location3是null？"+location[3]);
-				
 				for(int i=0;i<4;i++){
 					
 				    if(location[i].equals("")){
@@ -155,10 +150,13 @@ public class StorageServerImpl implements StorageServer {
 	    	location2+=location[i];
 	    }
 	    
-	    if(storageManager.ImportGood(goodID, location2, date)!="入库成功"){
-	    	returnMessage=new ImportVO("目标位置不存在或者已有商品!");
+	    String result=storageManager.ImportGood(goodID, location2, date);
+	    
+	    if(result.equals("库存报警")){
+	    	returnMessage=new ImportVO("库存报警!");
 			return returnMessage;
 	    }
+	    
 	    
 	    
 		importBillServer.makeBill(goodID, date, destination, location);
